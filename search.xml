@@ -1,0 +1,829 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>141. 环形链表</title>
+    <url>/2023/07/02/141-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>快慢指针</li>
+<li>链表的环</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">bool</span> <span class="title">hasCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">			ListNode *slow = head, *fast = head;</span><br><span class="line">			<span class="keyword">while</span> (fast != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				slow = slow-&gt;next;</span><br><span class="line">				fast = fast-&gt;next;</span><br><span class="line">				<span class="keyword">if</span> (fast != <span class="literal">nullptr</span>) fast = fast-&gt;next;</span><br><span class="line">				<span class="keyword">if</span> (fast != <span class="literal">nullptr</span> &amp;&amp; fast == slow) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>判断链表中是否存在环，需要用到快慢指针</p>
+<p>令<code>slow</code>为慢指针，每次移动一个单位；令<code>fast</code>为快指针，每次移动两个单位</p>
+<p>两个指针同时移动，若相遇且<code>fast</code>不为<code>nullptr</code>时，即存在环</p>
+<h2 id="为什么快慢指针可以解决">为什么快慢指针可以解决</h2>
+<p>如果不存在环，快指针肯定将慢指针远远抛在身后</p>
+<img src="/2023/07/02/141-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/1.png" class="" title="image-20230521215040181">
+<p>一旦存在环，快指针会比慢指针更早到达环内，并且在环内无限循环</p>
+<img src="/2023/07/02/141-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/2.png" class="" title="image-20230521215625891">
+<p>如果慢指针也进入环内，那么就变成追击问题了，或者俗称的<code>龟兔赛跑</code>数学题</p>
+<p>如图所示，快慢指针都是顺时针移动；若两指针距离<code>X</code>，环周长为<code>C</code>，那么快指针需要移动<code>C-X</code>个相对距离长度才能相遇</p>
+<img src="/2023/07/02/141-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/3.png" class="" title="image-20230521225650430">
+<p>追击问题中，有以下常识： <span class="math display">\[
+\text{相对速度}=\text{速度差}
+\]</span></p>
+<p><span class="math display">\[
+\text{相遇时间}=\frac{\text{相对距离长度}}{\text{相对速度}}
+\]</span></p>
+<p>所以，再经过<span class="math display">\[
+\frac{C-X}{2-1}
+\]</span>次移动后，快慢指针就可以相遇了</p>
+<h2 id="为什么快指针每次移动两个单位">为什么快指针每次移动两个单位</h2>
+<p>正如刚才提到的相遇时间计算公式，我们必须保证相对距离长度可以被相对速度整除才能相遇</p>
+<p>因为在具体的程序实现上，所谓的<code>相遇时间</code>其实就是循环次数，不可能为小数；若取两个单位，相对速度就是1，任何数都可以被1整除</p>
+<p>所以，快指针每次移动也可以取三个单位，四个单位，五个单位....但是不一定可以整除相对距离长度</p>
+<p>如果相遇时间是小数，说明两个指针会错过而永不相遇</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">快指针移动单位</th>
+<th style="text-align: center;">慢指针移动单位</th>
+<th style="text-align: center;">相对速度</th>
+<th style="text-align: center;">相对距离长度</th>
+<th style="text-align: center;">相遇时间</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">4/5</td>
+<td style="text-align: center;">4/5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4/5</td>
+<td style="text-align: center;">2/2.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">11/15</td>
+<td style="text-align: center;">3.67/5</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>147. 对链表进行插入排序</title>
+    <url>/2023/07/02/147-%E5%AF%B9%E9%93%BE%E8%A1%A8%E8%BF%9B%E8%A1%8C%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">insertionSortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head);</span><br><span class="line">			<span class="keyword">while</span> (head-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				<span class="keyword">if</span> (head-&gt;val &gt; head-&gt;next-&gt;val) &#123;</span><br><span class="line">					ListNode *cur = dummyHead, *node = head-&gt;next;</span><br><span class="line">					<span class="keyword">while</span> (cur-&gt;next != <span class="literal">nullptr</span> &amp;&amp; cur-&gt;next-&gt;val &lt; node-&gt;val ) cur = cur-&gt;next;</span><br><span class="line">					head-&gt;next = node-&gt;next;</span><br><span class="line">					node-&gt;next = cur-&gt;next;</span><br><span class="line">					cur-&gt;next = node;</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					head = head-&gt;next;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>插入排序的精髓就在于，令当前元素之前的子数组为有序，然后判断当前元素应插入子数组的何种位置即可</p>
+<p>令<code>head</code>为有序子数组末尾，<code>node</code>为<code>head</code>的下一个元素</p>
+<p>按照升序顺序，若<code>node</code>大于等于<code>head</code>，说明以<code>node</code>结尾的子数组有序；那么<code>head</code>应该向下移动</p>
+<img src="/2023/07/02/147-%E5%AF%B9%E9%93%BE%E8%A1%A8%E8%BF%9B%E8%A1%8C%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/1.png" class="" title="image-20230605204522898">
+<p>若<code>node</code>大于<code>head</code>，找到子数组中第一个大于<code>node</code>节点的前一个节点，然后移动到它的后面完成插入操作</p>
+<img src="/2023/07/02/147-%E5%AF%B9%E9%93%BE%E8%A1%A8%E8%BF%9B%E8%A1%8C%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/2.png" class="" title="image-20230605210213014">
+<img src="/2023/07/02/147-%E5%AF%B9%E9%93%BE%E8%A1%A8%E8%BF%9B%E8%A1%8C%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/3.png" class="" title="image-20230605205859704">
+<p>如此循环往复即可</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+        <tag>排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>142. 环形链表 II</title>
+    <url>/2023/07/02/142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-II/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>快慢指针/双指针</li>
+<li>链表的环</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">			ListNode *slow = head, *fast = head;</span><br><span class="line">			<span class="keyword">while</span> (fast != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				slow = slow-&gt;next;</span><br><span class="line">				fast = fast-&gt;next;</span><br><span class="line">				<span class="keyword">if</span> (fast != <span class="literal">nullptr</span>) fast = fast-&gt;next;</span><br><span class="line">				<span class="keyword">if</span> (fast != <span class="literal">nullptr</span> &amp;&amp; slow == fast) &#123;</span><br><span class="line">					ListNode *slow = head;</span><br><span class="line">					<span class="keyword">while</span> (slow != fast) &#123;</span><br><span class="line">						slow = slow-&gt;next;</span><br><span class="line">						fast = fast-&gt;next;</span><br><span class="line">					&#125;</span><br><span class="line">                    <span class="comment">//这里换成slow是一样的</span></span><br><span class="line">					<span class="keyword">return</span> fast;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>我曾在<code>141. 环形链表</code>的题解中阐述了如何用快慢指针判断链表是否存在环，本题是其升级版，要寻找环的入口</p>
+<p>我们已知链表头，能求得相遇点，现在要找到环入口，绘图如下</p>
+<img src="/2023/07/02/142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-II/1.png" class="" title="image-20230522160752871">
+<h2 id="通式">通式</h2>
+<p>根据<code>快指针移动速度是慢指针移动速度的两倍</code>这一性质，可以得到以下通式
+<span class="math display">\[
+\underset{\text{慢指针到达相遇点所需时间}}{\underbrace{\frac{L+m\times
+C+X}{1}}}=\underset{\text{快指针到达相遇点所需时间}}{\underbrace{\frac{L+n\times
+C+X}{2}}}
+\]</span> 解释如下</p>
+<blockquote>
+<p>L：链表头到环入口的距离</p>
+<p>X：环入口到相遇点的距离</p>
+<p>C：环的周长</p>
+<p>m，n：未知数，各指针绕环次数</p>
+</blockquote>
+<p>两个未知数是无法编程的，可以优化一下</p>
+<h2
+id="慢指针在环内第一圈就能与快指针重合">慢指针在环内第一圈就能与快指针重合</h2>
+<p>慢指针达到环入口时，假设快指针与慢指针的相对距离长度为<code>M</code></p>
+<img src="/2023/07/02/142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-II/2.png" class="" title="image-20230522162507163">
+<p>显然，<code>M</code>必小于周长<code>C</code></p>
+<p>根据<code>141. 环形链表</code>的题解中提到的相遇时间公式，能得到下面不等式；代表慢指针在进入环内的第一圈就与快指针相遇了
+<span class="math display">\[
+\underset{\text{相遇时间}}{\underbrace{\frac{M}{2-1}}}&lt;\underset{\text{慢指针绕环一次的时间}}{\underbrace{C=\frac{C}{1}}}
+\]</span> 所以，通式可以优化为 <span class="math display">\[
+\underset{\text{慢指针到达相遇点所需时间}}{\underbrace{\frac{L+X}{1}}}=\underset{\text{快指针到达相遇点所需时间}}{\underbrace{\frac{L+n\times
+C+X}{2}}}
+\]</span></p>
+<h2 id="实现">实现</h2>
+<p>通式变形，可以得到 <span class="math display">\[
+2\times \left( L+X \right) =L+n\times C+X
+\]</span></p>
+<p><span class="math display">\[
+L=n\times C-X
+\]</span></p>
+<p><span class="math display">\[
+L=\left( n-1 \right) \times C+\left( C-X \right)
+\]</span></p>
+<p>最终通式的含义可以这么理解</p>
+<blockquote>
+<p>某指针A从链表头出发</p>
+<p>某指针B同时从相遇点出发，先走过C-X个单位到达环入口，再绕环n-1次</p>
+<p>最终两个指针将在环入口相遇</p>
+</blockquote>
+<p>再结合题解的源码看，就一目了然了</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>148. 排序链表</title>
+    <url>/2023/07/03/148-%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">MergeList</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (l1 == <span class="literal">nullptr</span>) <span class="keyword">return</span> l2;</span><br><span class="line">			<span class="keyword">if</span> (l2 == <span class="literal">nullptr</span>) <span class="keyword">return</span> l1;</span><br><span class="line">			<span class="keyword">if</span> (l1-&gt;val &lt; l2-&gt;val) &#123;</span><br><span class="line">				l1-&gt;next = <span class="built_in">MergeList</span>(l1-&gt;next, l2);</span><br><span class="line">				<span class="keyword">return</span> l1;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				l2-&gt;next = <span class="built_in">MergeList</span>(l1, l2-&gt;next);</span><br><span class="line">				<span class="keyword">return</span> l2;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function">ListNode* <span class="title">MergeSort</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head), *cur = dummyHead;</span><br><span class="line">			<span class="type">int</span> len = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">while</span> (cur-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				cur = cur-&gt;next;</span><br><span class="line">				len++;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> subLen = <span class="number">1</span>; subLen &lt; len; subLen *= <span class="number">2</span>) &#123;</span><br><span class="line">				ListNode *curNew = dummyHead, *cur = dummyHead-&gt;next;</span><br><span class="line">				<span class="keyword">while</span> (cur != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">					ListNode *leftHead = cur;</span><br><span class="line">					<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; subLen &amp;&amp; cur-&gt;next != <span class="literal">nullptr</span>; cur = cur-&gt;next, i++);</span><br><span class="line">					ListNode *rightHead = cur-&gt;next;</span><br><span class="line">					cur-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">					cur = rightHead;</span><br><span class="line">					<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; subLen &amp;&amp; cur != <span class="literal">nullptr</span> &amp;&amp; cur-&gt;next != <span class="literal">nullptr</span>; cur = cur-&gt;next, i++);</span><br><span class="line">					<span class="keyword">if</span> (cur != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">						ListNode *nextLeftHead = cur-&gt;next;</span><br><span class="line">						cur-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">						cur = nextLeftHead;</span><br><span class="line">					&#125;</span><br><span class="line">					curNew-&gt;next = <span class="built_in">MergeList</span>(leftHead, rightHead);</span><br><span class="line">					<span class="keyword">while</span> (curNew-&gt;next != <span class="literal">nullptr</span>) curNew = curNew-&gt;next;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">MergeSort</span>(head);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>题目要求在<code>O(nlogn)</code>
+时间复杂度和常数级空间复杂度下对链表进行排序</p>
+<p>考虑时间复杂度，满足要求的有归并排序、堆排序与快速排序；后两者在链表实现上较难，所以选择归并排序</p>
+<p>首先写出递归版本的归并排序，思路很简单</p>
+<ol type="1">
+<li>在递归的去方向中：每次找到链表的中点，并利用递归分割成左子链表和右子链表</li>
+<li>在递归的回方向中：合并左右子链表；因为子链表均有序，可以参考<code>21. 合并两个有序链表</code>代码</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">MergeList</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (l1 == <span class="literal">nullptr</span>) <span class="keyword">return</span> l2;</span><br><span class="line">			<span class="keyword">if</span> (l2 == <span class="literal">nullptr</span>) <span class="keyword">return</span> l1;</span><br><span class="line">			<span class="keyword">if</span> (l1-&gt;val &lt; l2-&gt;val) &#123;</span><br><span class="line">				l1-&gt;next = <span class="built_in">MergeList</span>(l1-&gt;next, l2);</span><br><span class="line">				<span class="keyword">return</span> l1;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				l2-&gt;next = <span class="built_in">MergeList</span>(l1, l2-&gt;next);</span><br><span class="line">				<span class="keyword">return</span> l2;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function">ListNode* <span class="title">MergeSort</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			<span class="comment">//很重要，否则会导致MergeSort函数死循环</span></span><br><span class="line">			<span class="keyword">if</span> (head == <span class="literal">nullptr</span> || head-&gt;next == <span class="literal">nullptr</span>) <span class="keyword">return</span> head;</span><br><span class="line">			ListNode *slow = head, *fast = slow;</span><br><span class="line">			<span class="keyword">while</span> (fast-&gt;next != <span class="literal">nullptr</span> &amp;&amp; fast-&gt;next-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				slow = slow-&gt;next;</span><br><span class="line">				fast = fast-&gt;next-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			ListNode *newHead = slow-&gt;next;</span><br><span class="line">			slow-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">MergeList</span>(<span class="built_in">MergeSort</span>(head), <span class="built_in">MergeSort</span>(newHead));</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">MergeSort</span>(head);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>但递归是自顶向下的写法，显然空间复杂度是<code>O(logn)</code>并不满足题目需求；所以需要使用自底向上的写法</p>
+<p>递归的去方向不断地拆分链表，故而消耗了额外的栈空间；若用迭代来替代递归的<code>拆分</code>动作，就不会有额外的空间损耗</p>
+<p>自底向上的迭代思路如图所示，其中<code>有序子链表合并</code>操作的代码直接参考<code>21. 合并两个有序链表</code>即可</p>
+<img src="/2023/07/03/148-%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/1.png" class="" title="image-20230607174322312">
+<p>编程如下，为了可读性部分逻辑有重复，简化后就是题解代码的模样</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">MergeList</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (l1 == <span class="literal">nullptr</span>) <span class="keyword">return</span> l2;</span><br><span class="line">			<span class="keyword">if</span> (l2 == <span class="literal">nullptr</span>) <span class="keyword">return</span> l1;</span><br><span class="line">			<span class="keyword">if</span> (l1-&gt;val &lt; l2-&gt;val) &#123;</span><br><span class="line">				l1-&gt;next = <span class="built_in">MergeList</span>(l1-&gt;next, l2);</span><br><span class="line">				<span class="keyword">return</span> l1;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				l2-&gt;next = <span class="built_in">MergeList</span>(l1, l2-&gt;next);</span><br><span class="line">				<span class="keyword">return</span> l2;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function">ListNode* <span class="title">MergeSort</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head), *cur = dummyHead;</span><br><span class="line">			<span class="type">int</span> len = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">while</span> (cur-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				cur = cur-&gt;next;</span><br><span class="line">				len++;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="comment">//外循环是待合并的子链表长度，初始为1，每次乘2</span></span><br><span class="line">			<span class="comment">//子链表的长度*2肯定小于等于总长度</span></span><br><span class="line">			<span class="comment">//当然，子链长度等于总长度的时候就没必要自己合并自己，所以这里只有小于号没有等于号</span></span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> subLen = <span class="number">1</span>; subLen &lt; len; subLen *= <span class="number">2</span>) &#123;</span><br><span class="line">				<span class="comment">//每次都从头开始更新链表</span></span><br><span class="line">				ListNode *curNew = dummyHead, *cur = dummyHead-&gt;next;</span><br><span class="line">				<span class="comment">//按照归并的规律，两个子链表一组</span></span><br><span class="line">				<span class="keyword">while</span> (cur != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">					<span class="comment">//记录左子链表头</span></span><br><span class="line">					ListNode *leftHead = cur;</span><br><span class="line">					<span class="comment">//寻找左子链表尾</span></span><br><span class="line">					<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; subLen &amp;&amp; cur-&gt;next != <span class="literal">nullptr</span>; cur = cur-&gt;next, i++);</span><br><span class="line">					<span class="comment">//左子链表尾的下一个节点为空，说明没有右子链表，即到了整个大链表的尾部</span></span><br><span class="line">					<span class="comment">//那么合并完后直接开启新的大循环</span></span><br><span class="line">					<span class="keyword">if</span> (cur-&gt;next == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">						curNew-&gt;next = leftHead;</span><br><span class="line">						cur = <span class="literal">nullptr</span>;</span><br><span class="line">					&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">						<span class="comment">//若存在右子链表</span></span><br><span class="line">						<span class="comment">//记录右子链表头</span></span><br><span class="line">						ListNode *rightHead = cur-&gt;next;</span><br><span class="line">						<span class="comment">//左子链表尾部断开，使其成为单独的链表便于合并</span></span><br><span class="line">						cur-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">						<span class="comment">//寻找右子链表尾</span></span><br><span class="line">						cur = rightHead;</span><br><span class="line">						<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; subLen &amp;&amp; cur-&gt;next != <span class="literal">nullptr</span>; cur = cur-&gt;next, i++);</span><br><span class="line">						ListNode *nextLeftHead = cur-&gt;next;</span><br><span class="line">						<span class="comment">//右子链表尾部断开</span></span><br><span class="line">						cur-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">						cur = nextLeftHead;</span><br><span class="line">						<span class="comment">//塞入左右子链表合并后的新链表</span></span><br><span class="line">						curNew-&gt;next = <span class="built_in">MergeList</span>(leftHead, rightHead);</span><br><span class="line">						<span class="keyword">while</span> (curNew-&gt;next != <span class="literal">nullptr</span>) curNew = curNew-&gt;next;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">MergeSort</span>(head);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+        <tag>排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>143. 重排链表</title>
+    <url>/2023/07/02/143-%E9%87%8D%E6%8E%92%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>快慢指针</li>
+<li>链表的反转</li>
+<li>链表的合并</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">mergeList</span><span class="params">(ListNode* smallList, ListNode* largeList)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (largeList == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">			ListNode *largeNext = largeList-&gt;next;</span><br><span class="line">			largeList-&gt;next = smallList-&gt;next;</span><br><span class="line">			smallList-&gt;next = largeList;</span><br><span class="line">			<span class="built_in">mergeList</span>(largeList-&gt;next, largeNext);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head);</span><br><span class="line">			ListNode *tail = head;</span><br><span class="line">			<span class="keyword">while</span> (tail != <span class="literal">nullptr</span> &amp;&amp; tail-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				ListNode *node = tail-&gt;next;</span><br><span class="line">				tail-&gt;next = node-&gt;next;</span><br><span class="line">				node-&gt;next = dummyHead-&gt;next;</span><br><span class="line">				dummyHead-&gt;next = node;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function">ListNode* <span class="title">splitList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *slow = head, *fast = head;</span><br><span class="line">			<span class="keyword">while</span> (fast-&gt;next != <span class="literal">nullptr</span> &amp;&amp; fast-&gt;next-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				slow = slow-&gt;next;</span><br><span class="line">				fast = fast-&gt;next-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			ListNode *newHead = slow-&gt;next;</span><br><span class="line">			slow-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">			<span class="keyword">return</span> newHead;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">reorderList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			<span class="built_in">mergeList</span>(head, <span class="built_in">reverseList</span>(<span class="built_in">splitList</span>(head)));</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>本题主要考察链表的常用操作，共分为以下三个步骤：</p>
+<ol type="1">
+<li>找到链表的中点并拆分，使用快慢指针即可；左半部分为小链表，右半部分为大链表</li>
+<li>大链表反转，这里使用<code>206. 反转链表</code>当中的<code>改进版头插法</code></li>
+<li>反转后的大链表与小链表合并</li>
+</ol>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>160. 相交链表</title>
+    <url>/2023/07/02/160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的相交</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span>&#123;</span><br><span class="line">			ListNode *curA = headA, *curB = headB;</span><br><span class="line">			<span class="keyword">while</span> (curA != curB) &#123;</span><br><span class="line">				curA = curA == <span class="literal">nullptr</span> ? headB : curA-&gt;next;</span><br><span class="line">				curB = curB == <span class="literal">nullptr</span> ? headA : curB-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> curA;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>链表的相交问题需要用到双指针</p>
+<p>设链表A的节点为{a1, a2, c1, c2}，链表B的节点为{b1, b2, b3, c1,
+c2}；两个链表相交于节点c1，自节点c1起为相交公共部分</p>
+<img src="/2023/07/02/160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/1.png" class="" title="image-20230521170752995">
+<p>假设游标指针curA和curB同时出发，并最终相交于节点c1；观察路径轨迹，可以发现有以下恒等式：
+<span class="math display">\[
+\underset{curA\text{遍历链表}A}{\underbrace{a1+a2+c1+c2}}+\underset{curA\text{遍历}B\text{部分}}{\underbrace{b1+b2+b3}}+c1=\underset{curB\text{遍历链表}B}{\underbrace{b1+b2+b3+c1+c2}}+\underset{curB\text{遍历}A\text{部分}}{\underbrace{a1+a2}}+c1
+\]</span> 故而，若A、B两个链表存在交点，应做如下操作：</p>
+<ul>
+<li><p>curA遍历A链表，然后再从B链表头节点继续遍历</p></li>
+<li><p>curB遍历B链表，然后再从A链表头节点继续遍历</p></li>
+<li><p>curA和curB的遍历同步进行；最终会相遇在相交节点</p></li>
+</ul>
+<p>假如不相交呢？最终curA和curB两个指针值也是相等的，均为<code>nullptr</code></p>
+<p>因为curA先遍历了A链表再遍历了B链表，curB先遍历了B链表再遍历了A链表，两个指针又是同时遍历，自然最终结果一样</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>19. 删除链表的倒数第 N 个结点</title>
+    <url>/2023/07/02/19-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC-N-%E4%B8%AA%E7%BB%93%E7%82%B9/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>快慢指针/双指针</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head);</span><br><span class="line">			ListNode *slow = dummyHead;</span><br><span class="line">			ListNode *fast = dummyHead;</span><br><span class="line">			<span class="keyword">while</span>(n--)&#123;</span><br><span class="line">				fast = fast-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">while</span>(fast-&gt;next != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">				slow = slow-&gt;next;</span><br><span class="line">				fast = fast-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			slow-&gt;next = slow-&gt;next-&gt;next;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>题目要求<code>删除链表的倒数第 n 个结点</code>，这里需要使用快慢指针来完成这一操作</p>
+<p>首先新建一个<code>dummyHead</code>伪节点，链表操作必备；假设我们需要删除链表{1,
+2, 3, 4}的倒数第2个节点，即节点3</p>
+<p>画图比划一下，用<code>fast</code>指针指向最后一个节点，用<code>slow</code>指针指向倒数第n+1个节点（因为要删除倒数第n个节点）</p>
+<p>然后将它们平移到初始位置，是不是一目了然了~</p>
+<img src="/2023/07/02/19-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC-N-%E4%B8%AA%E7%BB%93%E7%82%B9/1.png" class="" title="image-20230520213521918">
+<p>步骤清晰如下：</p>
+<ol type="1">
+<li>快慢指针都从<code>dummyHead</code>起始</li>
+<li>快指针先走n步</li>
+<li>快慢指针一起走，直到快指针到达最后一个节点，此时慢指针的下一个节点就是待删除节点</li>
+</ol>
+<p>当然也可以不用快慢指针，使用老办法递归：</p>
+<ol type="1">
+<li><p>子问题与返回值：每次判断本节点是否应该被删除。若要被删除，则返回<code>next</code>值；若不需要被删除，返回自身</p>
+<p>实际上就是返回应该存在于链表的节点</p></li>
+<li><p>递归语句顺序：递归方向分为一去一回，去方向到达临界点后返回；这里选择回方向操作，因为要计算倒数</p></li>
+<li><p>临界点：节点为<code>nullptr</code>时返回，意味着<code>nullptr</code>节点存在于链表</p></li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="type">int</span> n;</span><br><span class="line">		<span class="function">ListNode* <span class="title">recursiveFunc</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (head == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">			head-&gt;next = <span class="built_in">recursiveFunc</span>(head-&gt;next);</span><br><span class="line">			<span class="keyword">if</span> (--n == <span class="number">0</span>) <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">			<span class="keyword">return</span> head;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="type">int</span> _n)</span> </span>&#123;</span><br><span class="line">			n = _n;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">recursiveFunc</span>(head);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2. 两数相加</title>
+    <url>/2023/07/02/2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的合并</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="type">int</span> carry = <span class="number">0</span>;</span><br><span class="line">		<span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">			ListNode *cur1 = l1, *cur2 = l2, *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>), *curNew = dummyHead;</span><br><span class="line">			<span class="keyword">while</span> (cur1 != <span class="literal">nullptr</span> || cur2 != <span class="literal">nullptr</span> || carry) &#123;</span><br><span class="line">				cur1 = cur1 != <span class="literal">nullptr</span> ? (carry += cur1-&gt;val, cur1-&gt;next) : <span class="literal">nullptr</span>;</span><br><span class="line">				cur2 = cur2 != <span class="literal">nullptr</span> ? (carry += cur2-&gt;val, cur2-&gt;next) : <span class="literal">nullptr</span>;</span><br><span class="line">				curNew-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(carry % <span class="number">10</span>);</span><br><span class="line">				carry /= <span class="number">10</span>;</span><br><span class="line">				curNew = curNew-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>题目要我们算两个数相加的结果，146+854=1000；但要求的存储方式是倒过来的，641+458=0001</p>
+<img src="/2023/07/02/2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/1.png" class="" title="image-20230524163056995">
+<p>思路很简单：</p>
+<ul>
+<li>每次计算<code>cur1+cur2+进位的和</code>，将<code>和求余10</code>的值赋给新建的链表节点，将<code>和除10</code>的值更新进位</li>
+<li>只要cur1、cur2、进位有一个不为空，就要重复上述操作新增链表节点</li>
+</ul>
+<p>若要将其改造成递归就稍有难度</p>
+<ol type="1">
+<li><p>子问题：计算步骤同上；还需要将每次新增的链表节点串起来</p></li>
+<li><p>递归语句顺序：递归方向分为一去一回，去方向到达临界点后返回</p>
+<p>在这里，先在去方向构造完新链表节点；在回方向更新当前节点的<code>next</code>值，从而将链表串起来</p></li>
+<li><p>返回值：因为只能在回方向将新链表串起，所以每次返回新节点让上一个节点更改它的<code>next</code>值</p></li>
+<li><p>临界点：cur1、cur2、进位都为空</p></li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="type">int</span> carry = <span class="number">0</span>;</span><br><span class="line">		<span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (l1 == <span class="literal">nullptr</span> &amp;&amp; l2 == <span class="literal">nullptr</span> &amp;&amp; !carry) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">			l1 = l1 != <span class="literal">nullptr</span> ? (carry += l1-&gt;val, l1-&gt;next) : <span class="literal">nullptr</span>;</span><br><span class="line">			l2 = l2 != <span class="literal">nullptr</span> ? (carry += l2-&gt;val, l2-&gt;next) : <span class="literal">nullptr</span>;</span><br><span class="line">			ListNode *head = <span class="keyword">new</span> <span class="built_in">ListNode</span>(carry % <span class="number">10</span>);</span><br><span class="line">			carry /= <span class="number">10</span>;</span><br><span class="line">			head-&gt;next = <span class="built_in">addTwoNumbers</span>(l1, l2);</span><br><span class="line">			<span class="keyword">return</span> head;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>如果是<code>99+9</code>，到达临界点的情况如图所示；8、0、1的新建节点并没有串起来，所以才需要回方向将它们连接起来</p>
+<img src="/2023/07/02/2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/2.png" class="" title="image-20230527135416750">
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>203. 移除链表元素</title>
+    <url>/2023/07/02/203-%E7%A7%BB%E9%99%A4%E9%93%BE%E8%A1%A8%E5%85%83%E7%B4%A0/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的删除</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">removeElements</span><span class="params">(ListNode* head, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head), *cur = dummyHead;</span><br><span class="line">			<span class="keyword">while</span>(cur-&gt;next != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">				<span class="keyword">if</span>(cur-&gt;next-&gt;val == val) cur-&gt;next = cur-&gt;next-&gt;next;</span><br><span class="line">				<span class="keyword">else</span> cur = cur-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>单向链表中，当前节点无法知晓前一个节点的信息；如果增删改当前节点，上一个节点的<code>next</code>就得不到更新</p>
+<p>所以每次操作的节点其实是当前节点的下一个</p>
+<p>要保证操作的通用性，不用去判断操作头结点时的一些特殊情况；引入了<code>dummyHead</code>一个伪结点，它的<code>next</code>指向真正的头节点</p>
+<p>（实际上，只要涉及到链表的操作，<code>dummyHead</code>几乎是必须的）</p>
+<p>以序列<code>&#123;7, 4, 3, 7&#125;</code>为例，需要删除值为7的节点；从伪结点开始迭代</p>
+<img src="/2023/07/02/203-%E7%A7%BB%E9%99%A4%E9%93%BE%E8%A1%A8%E5%85%83%E7%B4%A0/1.png" class="" title="image-20230514151344511">
+<p>每次判断下一个节点的值是否满足题意；若是，则将当前节点的<code>next</code>指向下下个节点（将满足题意的节点从链表踢出）</p>
+<img src="/2023/07/02/203-%E7%A7%BB%E9%99%A4%E9%93%BE%E8%A1%A8%E5%85%83%E7%B4%A0/2.png" class="" title="image-20230514151852476">
+<p>若否，则指针移至下个节点，开启新一轮判断</p>
+<img src="/2023/07/02/203-%E7%A7%BB%E9%99%A4%E9%93%BE%E8%A1%A8%E5%85%83%E7%B4%A0/3.png" class="" title="image-20230514152922907">
+<p>由于核心问题就是<strong>不同情况下修改节点的<code>next</code>值</strong>，可以将其改造为递归</p>
+<p>编写递归按照四部曲即可：</p>
+<ol type="1">
+<li><p>子问题：更新自己的<code>next</code>值，需要下一个节点的信息</p></li>
+<li><p>递归语句顺序：递归方向分为一去一回，去方向至临界点后返回；本题应在回方向操作，因为要返回值给当前节点的上一个节点</p>
+<p>（当然也可以去方向操作，但那样和迭代无异，且无法处理头节点）</p></li>
+<li><p>返回值：如果当前节点要被删除，则返回它的<code>next</code>值；否则返回自己（本质上是返回应该存在于链表内的节点）</p>
+<p>临界点返回<code>nullptr</code>值，代表<code>nullptr</code>一定存在于链表内</p></li>
+<li><p>临界点：当前节点为nullptr</p></li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">removeElements</span><span class="params">(ListNode* head, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(head == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">			head-&gt;next = <span class="built_in">removeElements</span>(head-&gt;next, val);</span><br><span class="line">			<span class="keyword">if</span>(head-&gt;val == val) <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">			<span class="keyword">return</span> head;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>206. 反转链表</title>
+    <url>/2023/07/02/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的反转</li>
+<li>掌握<strong>改进版头插法</strong></li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (head == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head);</span><br><span class="line">			<span class="keyword">while</span> (head-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				ListNode *tmp = head-&gt;next;</span><br><span class="line">				head-&gt;next = tmp-&gt;next;</span><br><span class="line">				tmp-&gt;next = dummyHead-&gt;next;</span><br><span class="line">				dummyHead-&gt;next = tmp;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<h2 id="朴素法更改方向">朴素法：更改方向</h2>
+<h3 id="迭代">迭代</h3>
+<p>反转一个链表，很容易想到更改方向即可，毕竟方向是由<code>next</code>值决定的</p>
+<p>比如要反转链表{1, 2, 3, 4}</p>
+<img src="/2023/07/02/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/1.png" class="" title="image-20230518123951929">
+<p>很自然地想到让每个节点指向前一个节点即可</p>
+<img src="/2023/07/02/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/2.png" class="" title="image-20230518125017994">
+<p>代码实现很简单。令一个指针<code>cur</code>指向当前节点，一个指针<code>prev</code>指向前一个节点；指针<code>prev</code>初始值为<code>nullptr</code>，代表新表尾</p>
+<img src="/2023/07/02/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/3.png" class="" title="image-20230518144335688">
+<p>每次都令<code>cur</code>节点的<code>next</code>值指向<code>prev</code>，然后两个指针一齐向后移</p>
+<img src="/2023/07/02/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/4.png" class="" title="image-20230518144521542">
+<p>当<code>cur</code>节点为空时，<code>prev</code>恰好指向最后一个节点，即新方向链表的表头</p>
+<img src="/2023/07/02/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/5.png" class="" title="image-20230518144742139">
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *cur = head;</span><br><span class="line">			ListNode *prev = <span class="literal">nullptr</span>;</span><br><span class="line">			<span class="keyword">while</span>(cur != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">				ListNode *tmp = cur-&gt;next;</span><br><span class="line">				cur-&gt;next = prev;</span><br><span class="line">				prev = cur;</span><br><span class="line">				cur = tmp;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> prev;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="递归">递归</h3>
+<p>当然可以将其修改为递归，按照以下四部曲来</p>
+<ol type="1">
+<li><p>子问题：当前节点需指向前一个节点</p></li>
+<li><p>递归语句顺序：递归方向分为一去一回，去方向至临界值返回；在这里两种方向都可以</p>
+<p>去方向类似迭代，同样不知道上个节点的信息，所以必须通过传参记录上个节点的地址</p>
+<p>回方向则可以令当前节点的下一个节点指向自己，达到改变方向的效果</p></li>
+<li><p>返回值：分为去方向和回方向两种</p>
+<p>由于去方向类似迭代，要获得新表头必须到达临界值，所以递归语句必须放在程序结构的最后一行再返回</p>
+<p>回方向的新表头到达临界值返回即可</p></li>
+<li><p>临界点：到达最后一个节点后开始回方向</p></li>
+</ol>
+<p>去方向的递归代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">recursiveFunc</span><span class="params">(ListNode *head, ListNode *prev)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (head == <span class="literal">nullptr</span>) <span class="keyword">return</span> prev;</span><br><span class="line">			ListNode *tmp = head-&gt;next;</span><br><span class="line">			head-&gt;next = prev;</span><br><span class="line">            <span class="comment">//到达临界值，即新表头再返回</span></span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">recursiveFunc</span>(tmp, head);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">            <span class="comment">//和迭代一样，head是当前节点，prev是当前节点的前一个节点</span></span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">recursiveFunc</span>(head, <span class="literal">nullptr</span>);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>回方向的递归代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (head == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">            <span class="comment">//到达了临界点，即新表头开始返回</span></span><br><span class="line">			<span class="keyword">if</span> (head-&gt;next == <span class="literal">nullptr</span>) <span class="keyword">return</span> head;</span><br><span class="line">			ListNode *newHead = <span class="built_in">reverseList</span>(head-&gt;next);</span><br><span class="line">            <span class="comment">//反转当前节点的下一个节点方向</span></span><br><span class="line">			head-&gt;next-&gt;next = head;</span><br><span class="line">            <span class="comment">//让当前节点指向nullptr；正常节点不会受影响，因为方向会在下一次修正</span></span><br><span class="line">            <span class="comment">//目的是为了让第一个节点，即新链表的尾节点闭合</span></span><br><span class="line">			head-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">            <span class="comment">//所有递归子程序的返回值都是一样的，即新表头</span></span><br><span class="line">			<span class="keyword">return</span> newHead;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="头插法">头插法</h2>
+<p>头插法是反转链表算法中最通用的处理方式，请务必掌握</p>
+<p>我们知道，操作链表基本都会新增<code>dummyHead</code>伪节点，以避免讨论头结点的特殊情况</p>
+<p>头插法则是参考了<code>dummyHead</code>的精髓，在待逆转链表的表头的前一个节点做文章</p>
+<p>以链表{1, 2, 3, 4,
+5}为例，若反转整个链表，则新建<code>dummyHead</code>伪节点于节点1前；若反转子链表{3,
+4}，则需要节点2做配合</p>
+<p>下面分别介绍市面上普通的头插法和我改进的头插法</p>
+<h3 id="普通头插法">普通头插法</h3>
+<p>普通头插法的局限性在于无法反转子链表；假设需要反转链表{1, 2, 3}</p>
+<p>首先新增一个<code>dummyHead</code>伪节点，指向<code>nullptr</code></p>
+<img src="/2023/07/02/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/6.png" class="" title="image-20230518164443126">
+<p>随后，每个节点都插入到<code>dummyHead</code>后面即可完成反转链表</p>
+<img src="/2023/07/02/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/7.png" class="" title="image-20230518165802774">
+<img src="/2023/07/02/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/8.png" class="" title="image-20230518170241065">
+<img src="/2023/07/02/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/9.png" class="" title="image-20230518170450819">
+<p>代码如下，比较简单</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>);</span><br><span class="line">			<span class="keyword">while</span> (head != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				ListNode *tmp = head-&gt;next;</span><br><span class="line">				head-&gt;next = dummyHead-&gt;next;</span><br><span class="line">				dummyHead-&gt;next = head;</span><br><span class="line">				head = tmp;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="改进版头插法">改进版头插法</h3>
+<p>我改进后的头插法可以反转任意子链表，适用性极强</p>
+<p>具体步骤如下：</p>
+<blockquote>
+<ol type="1">
+<li>选取待反转链表头节点的前一个节点作为<code>dummyHead</code>，如果没有则新增</li>
+<li>头节点是反转链表后的尾节点；故而每次将头节点的后一个节点插入至<code>dummyHead</code>后</li>
+</ol>
+</blockquote>
+<p>以反转{1, 2, 3, 4, 5}的子链表{2, 3, 4}为例：</p>
+<p>选取节点1作为<code>dummyHead</code>，节点2为子链表表头<code>head</code></p>
+<p>真正需要移动的则是节点<code>cur</code>，代表节点<code>head</code>的下一个节点</p>
+<img src="/2023/07/02/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/10.png" class="" title="image-20230519104358978">
+<p>每次将节点<code>cur</code>插入至<code>dummyHead</code>节点之后即可</p>
+<img src="/2023/07/02/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/11.png" class="" title="image-20230519110340843">
+<img src="/2023/07/02/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/12.png" class="" title="image-20230519114002089">
+<img src="/2023/07/02/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/13.png" class="" title="image-20230519112704137">
+<p>根据上述步骤描述，很容易就能写出代码了</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (head == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head);</span><br><span class="line">			<span class="keyword">while</span> (head-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				ListNode *tmp = head-&gt;next;</span><br><span class="line">				head-&gt;next = tmp-&gt;next;</span><br><span class="line">				tmp-&gt;next = dummyHead-&gt;next;</span><br><span class="line">				dummyHead-&gt;next = tmp;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>234. 回文链表</title>
+    <url>/2023/07/02/234-%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>快慢指针/双指针</li>
+<li>链表的反转</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="function"><span class="type">bool</span> <span class="title">judgeFunc</span><span class="params">(ListNode* head, ListNode* midNode)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">for</span> (ListNode *left = head, *right = midNode-&gt;next; right != <span class="literal">nullptr</span>; left = left-&gt;next, right = right-&gt;next) &#123;</span><br><span class="line">				<span class="keyword">if</span> (left-&gt;val != right-&gt;val) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* dummyHead)</span> </span>&#123;</span><br><span class="line">			ListNode *tail = dummyHead-&gt;next;</span><br><span class="line">			<span class="keyword">while</span> (tail-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				ListNode *node = tail-&gt;next;</span><br><span class="line">				tail-&gt;next = node-&gt;next;</span><br><span class="line">				node-&gt;next = dummyHead-&gt;next;</span><br><span class="line">				dummyHead-&gt;next = node;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function">ListNode* <span class="title">findMid</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *slow = head, *fast = head;</span><br><span class="line">			<span class="keyword">while</span> (fast-&gt;next != <span class="literal">nullptr</span> &amp;&amp; fast-&gt;next-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				slow = slow-&gt;next;</span><br><span class="line">				fast = fast-&gt;next-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> slow;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">bool</span> <span class="title">isPalindrome</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (head-&gt;next == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">			<span class="keyword">return</span> (<span class="built_in">judgeFunc</span>(head, <span class="built_in">reverseList</span>(<span class="built_in">findMid</span>(head))));</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>验证回文串，最直接的方法就是双指针，左指针从头向尾遍历，右指针从尾向头遍历，只要两个指针指向的值不一样就肯定不是回文串</p>
+<ol type="1">
+<li><p>子问题：两个指针反向遍历，比较两个指针指向的值</p></li>
+<li><p>递归语句顺序：递归方向分为一去一回，去方向到达临界点后返回；这里只能在回方向操作，因为右指针需要从尾向头遍历</p>
+<p>左指针怎么办呢？额外单独设置一个成员变量即可，待右指针开始从尾向头遍历时再做比较</p></li>
+<li><p>返回值：不需要返回值</p></li>
+<li><p>临界点：右指针为空</p></li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="type">bool</span> ans;</span><br><span class="line">		ListNode *left;</span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">recursiveFunc</span><span class="params">(ListNode *right)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (right == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">			<span class="built_in">recursiveFunc</span>(right-&gt;next);</span><br><span class="line">			<span class="keyword">if</span>(left-&gt;val != right-&gt;val) ans = <span class="literal">false</span>;</span><br><span class="line">			left = left-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">bool</span> <span class="title">isPalindrome</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			left = head;</span><br><span class="line">			ans = <span class="literal">true</span>;</span><br><span class="line">			<span class="built_in">recursiveFunc</span>(head);</span><br><span class="line">			<span class="keyword">return</span> ans;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>但题目要求只能以常数空间复杂度运行，故而不能使用递归；用迭代分为以下几个步骤</p>
+<ol type="1">
+<li>找到链表中心点，分为左、右两个子链表</li>
+<li>右子链表反转</li>
+<li>即可对左、右两个子链表进行同向比较了</li>
+</ol>
+<p>这里有一个可有可无的Trick</p>
+<blockquote>
+<p>如果是奇数个链表节点，比如<code>&#123;1, 2, 3, 4, 5&#125;</code>，找到的链表中心点是<code>3</code></p>
+<p>如果是偶数个链表节点，比如<code>&#123;1, 2, 3, 4&#125;</code>，则找到的链表中心点应为<code>2</code></p>
+<p>这样中心点就可以作为右子链表的<code>dummyHead</code>，便于反转</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>25. K 个一组翻转链表</title>
+    <url>/2023/07/02/25-K-%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的反转</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseKGroup</span><span class="params">(ListNode* head, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head), *subDummyHead = dummyHead;</span><br><span class="line">			<span class="keyword">while</span> (subDummyHead-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				ListNode *tmp = subDummyHead;</span><br><span class="line">				<span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">				<span class="keyword">for</span> (; i &lt; k &amp;&amp; tmp != <span class="literal">nullptr</span>; i++) tmp = tmp-&gt;next;</span><br><span class="line">				<span class="keyword">if</span> (tmp == <span class="literal">nullptr</span>) <span class="keyword">break</span>;</span><br><span class="line">				<span class="comment">//使用改进版头插法进行反转子链表</span></span><br><span class="line">				ListNode *tail = subDummyHead-&gt;next;</span><br><span class="line">				<span class="keyword">while</span> (--i) &#123;</span><br><span class="line">					ListNode *node = tail-&gt;next;</span><br><span class="line">					tail-&gt;next = node-&gt;next;</span><br><span class="line">					node-&gt;next = subDummyHead-&gt;next;</span><br><span class="line">					subDummyHead-&gt;next = node;</span><br><span class="line">				&#125;</span><br><span class="line">				subDummyHead = tail;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>凡是链表翻转类的题目，使用<code>改进版头插法</code>就对了，详见<code>206. 反转链表</code></p>
+<p>因为题目是要求每次翻转长度为K的子链表，除了要在子链表头前再找一个节点作为<code>dummyHead</code>外，每次还要先判断子链表长度是不是K</p>
+<p>每次翻转结束后，当前子链表的尾节点恰好就是下一组子链表的<code>dummyHead</code>，从而开启新一轮的翻转</p>
+<p>其余代码套<code>改进版头插法</code>的模板就好了</p>
+<p>这里改成递归也行，但是和迭代没太大区别</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">recursiveFunc</span><span class="params">(ListNode* subDummyHead, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">			ListNode *tmp = subDummyHead;</span><br><span class="line">			<span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (; i &lt; k &amp;&amp; tmp != <span class="literal">nullptr</span>; i++) tmp = tmp-&gt;next;</span><br><span class="line">			<span class="keyword">if</span> (tmp == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">			<span class="comment">//使用改进版头插法进行反转子链表</span></span><br><span class="line">			ListNode *tail = subDummyHead-&gt;next;</span><br><span class="line">			<span class="keyword">while</span> (--i) &#123;</span><br><span class="line">				ListNode *node = tail-&gt;next;</span><br><span class="line">				tail-&gt;next = node-&gt;next;</span><br><span class="line">				node-&gt;next = subDummyHead-&gt;next;</span><br><span class="line">				subDummyHead-&gt;next = node;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="built_in">recursiveFunc</span>(tail, k);</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseKGroup</span><span class="params">(ListNode* head, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head);</span><br><span class="line">			<span class="built_in">recursiveFunc</span>(dummyHead, k);</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>21. 合并两个有序链表</title>
+    <url>/2023/07/02/21-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的合并</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">mergeTwoLists</span><span class="params">(ListNode* list1, ListNode* list2)</span> </span>&#123;</span><br><span class="line">			ListNode *cur1 = list1, *cur2 = list2, *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>), *curNew = dummyHead;</span><br><span class="line">			<span class="keyword">while</span> (cur1 != <span class="literal">nullptr</span> &amp;&amp; cur2 != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				<span class="keyword">while</span> (cur1 != <span class="literal">nullptr</span> &amp;&amp; cur2 != <span class="literal">nullptr</span> &amp;&amp; cur1-&gt;val &lt;= cur2-&gt;val) &#123;</span><br><span class="line">					curNew-&gt;next = cur1;</span><br><span class="line">					curNew = curNew-&gt;next;</span><br><span class="line">					cur1 = cur1-&gt;next;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">while</span> (cur1 != <span class="literal">nullptr</span> &amp;&amp; cur2 != <span class="literal">nullptr</span> &amp;&amp; cur2-&gt;val &lt;= cur1-&gt;val) &#123;</span><br><span class="line">					curNew-&gt;next = cur2;</span><br><span class="line">					curNew = curNew-&gt;next;</span><br><span class="line">					cur2 = cur2-&gt;next;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			curNew-&gt;next = cur1 != <span class="literal">nullptr</span> ? cur1 : cur2;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>设<code>list1</code>链表的游标指针为<code>cur1</code>，<code>list2</code>链表的游标指针为<code>cur2</code></p>
+<p>两个链表已经是升序，所以两个指针同时从头开始比较，每次取最小值插入新链表</p>
+<p>如果某个链表提前结束，其余部分直接接入新链表即可；因为旧链表剩余部分的值肯定比新链表的值都要大</p>
+<p>重点讲一下递归的做法：</p>
+<ol type="1">
+<li>子问题：每次记录两个指针中的最小值，然后串起来变成新链表</li>
+<li>递归语句顺序：递归方向分为一去一回，去方向到达临界点后返回；在去方向判断符合条件的节点，在回方向将节点们串起来</li>
+<li>返回值：返回符合条件的节点，供以上一个节点修改它的<code>next</code>值</li>
+<li>临界点：两个指针均为<code>nullptr</code></li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">mergeTwoLists</span><span class="params">(ListNode* list1, ListNode* list2)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (list1 == <span class="literal">nullptr</span>) <span class="keyword">return</span> list2;</span><br><span class="line">			<span class="keyword">if</span> (list2 == <span class="literal">nullptr</span>) <span class="keyword">return</span> list1;</span><br><span class="line">			<span class="keyword">if</span> (list1-&gt;val &lt;= list2-&gt;val) &#123;</span><br><span class="line">				list1-&gt;next = <span class="built_in">mergeTwoLists</span>(list1-&gt;next, list2);</span><br><span class="line">				<span class="keyword">return</span> list1;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				list2-&gt;next = <span class="built_in">mergeTwoLists</span>(list1, list2-&gt;next);</span><br><span class="line">				<span class="keyword">return</span> list2;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>24. 两两交换链表中的节点</title>
+    <url>/2023/07/02/24-%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的反转</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">swapPairs</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head);</span><br><span class="line">			ListNode *subDummy = dummyHead;</span><br><span class="line">			<span class="keyword">while</span> (subDummy-&gt;next != <span class="literal">nullptr</span> &amp;&amp; subDummy-&gt;next-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				ListNode *nodeOne = subDummy-&gt;next;</span><br><span class="line">				ListNode *nodeTwo = subDummy-&gt;next-&gt;next;</span><br><span class="line">				nodeOne-&gt;next = nodeTwo-&gt;next;</span><br><span class="line">				nodeTwo-&gt;next = subDummy-&gt;next;</span><br><span class="line">				subDummy-&gt;next = nodeTwo;</span><br><span class="line">				subDummy = nodeOne;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>题目说<code>两两交换其中相邻的节点</code>，我完全可以理解为：</p>
+<blockquote>
+<p>执行若干次反转长度为2的子链表操作</p>
+</blockquote>
+<p>那么就可以使用改进版头插法完成这一操作</p>
+<p>设每个子链表的<code>dummyHead</code>名称为<code>subDummy</code>，子链表的第一个节点名称为<code>nodeOne</code>，第二个节点名称为<code>nodeTwo</code></p>
+<img src="/2023/07/02/24-%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9/1.png" class="" title="image-20230519161147419">
+<p>子链表{1,
+2}反转结束后，可以发现<code>nodeOne</code>所处的位置恰好就是下一个子链表{3,
+4}的<code>subDummy</code></p>
+<img src="/2023/07/02/24-%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9/2.png" class="" title="image-20230519161837109">
+<p>故而将<code>nodeOne</code>赋值给<code>subDummy</code>后开启下一轮反转</p>
+<img src="/2023/07/02/24-%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9/3.png" class="" title="image-20230519162601816">
+<p>子链表{3, 4}反转结束后，发现子链表{5}长度不等于2，结束循环</p>
+<img src="/2023/07/02/24-%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9/4.png" class="" title="image-20230519162952720">
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>328. 奇偶链表</title>
+    <url>/2023/07/02/328-%E5%A5%87%E5%81%B6%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的合并</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">oddEvenList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			<span class="type">int</span> cnt = <span class="number">1</span>;</span><br><span class="line">			ListNode *dummyHeadA = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>), *curA = dummyHeadA, *dummyHeadB = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>), *curB = dummyHeadB;</span><br><span class="line">			<span class="keyword">while</span> (head != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				<span class="keyword">if</span> (cnt++ % <span class="number">2</span>) &#123;</span><br><span class="line">					curA-&gt;next = head;</span><br><span class="line">					curA = curA-&gt;next;</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					curB-&gt;next = head;</span><br><span class="line">					curB = curB-&gt;next;</span><br><span class="line">				&#125;</span><br><span class="line">				head = head-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			curA-&gt;next = dummyHeadB-&gt;next;</span><br><span class="line">			curB-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">			<span class="keyword">return</span> dummyHeadA-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>新建两个伪节点，各用来构成奇链表与偶链表</p>
+<p>遍历链表时，奇数节点插入至奇链表，偶数节点插入至偶链表；最终将偶链表接在奇链表末尾即可</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>445. 两数相加 II</title>
+    <url>/2023/07/02/445-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0-II/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的合并</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">			stack&lt;<span class="type">int</span>&gt; list1, list2;</span><br><span class="line">			<span class="keyword">while</span> (l1 != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				list1.<span class="built_in">push</span>(l1-&gt;val);</span><br><span class="line">				l1 = l1-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">while</span> (l2 != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				list2.<span class="built_in">push</span>(l2-&gt;val);</span><br><span class="line">				l2 = l2-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="type">int</span> carry = <span class="number">0</span>;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>);</span><br><span class="line">			<span class="keyword">while</span> (!list1.<span class="built_in">empty</span>() || !list2.<span class="built_in">empty</span>() || carry) &#123;</span><br><span class="line">				carry += !list1.<span class="built_in">empty</span>() ? list1.<span class="built_in">top</span>() : <span class="number">0</span>;</span><br><span class="line">				carry += !list2.<span class="built_in">empty</span>() ? list2.<span class="built_in">top</span>() : <span class="number">0</span>;</span><br><span class="line">				<span class="keyword">if</span> (!list1.<span class="built_in">empty</span>()) list1.<span class="built_in">pop</span>();</span><br><span class="line">				<span class="keyword">if</span> (!list2.<span class="built_in">empty</span>()) list2.<span class="built_in">pop</span>();</span><br><span class="line">				ListNode *node = <span class="keyword">new</span> <span class="built_in">ListNode</span>(carry % <span class="number">10</span>, dummyHead-&gt;next);</span><br><span class="line">				dummyHead-&gt;next = node;</span><br><span class="line">				carry /= <span class="number">10</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>按照算术逻辑，运算应该从低位到高位，同时用一个变量<code>carry</code>记录进位</p>
+<p>那么新节点的值就等于<strong>(对应位之和+上一次运算的<code>carry</code>)取余10</strong>，进位<code>carry</code>的值就等于<strong>(对应位之和+上一次运算的<code>carry</code>)除以10</strong></p>
+<p>故而正常思维，两个链表先反转并作运算，新的节点以头插的方式连接，这样就保证了逆序</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function">ListNode* <span class="title">reverseFunc</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//头插法反转链表</span></span><br><span class="line">		ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head), *tail = head;</span><br><span class="line">		<span class="keyword">while</span> (tail-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">			ListNode *node = tail-&gt;next;</span><br><span class="line">			tail-&gt;next = node-&gt;next;</span><br><span class="line">			node-&gt;next = dummyHead-&gt;next;</span><br><span class="line">			dummyHead-&gt;next = node;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">		ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>);</span><br><span class="line">		l1 = <span class="built_in">reverseFunc</span>(l1);</span><br><span class="line">		l2 = <span class="built_in">reverseFunc</span>(l2);</span><br><span class="line">		<span class="type">int</span> carry = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span> (l1 != <span class="literal">nullptr</span> || l2 != <span class="literal">nullptr</span> || carry) &#123;</span><br><span class="line">			carry += l1 != <span class="literal">nullptr</span> ? l1-&gt;val : <span class="number">0</span>;</span><br><span class="line">			carry += l2 != <span class="literal">nullptr</span> ? l2-&gt;val : <span class="number">0</span>;</span><br><span class="line">            <span class="comment">//头插法新建链表即逆序</span></span><br><span class="line">			ListNode *node = <span class="keyword">new</span> <span class="built_in">ListNode</span>(carry % <span class="number">10</span>, dummyHead-&gt;next);</span><br><span class="line">			dummyHead-&gt;next = node;</span><br><span class="line">			carry /= <span class="number">10</span>;</span><br><span class="line">			l1 = l1 != <span class="literal">nullptr</span> ? l1-&gt;next : <span class="literal">nullptr</span>;</span><br><span class="line">			l2 = l2 != <span class="literal">nullptr</span> ? l2-&gt;next : <span class="literal">nullptr</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>但是题目竟然要求不反转链表？那就只能用栈了，代码如题解所示</p>
+<p>两个链表的值先入栈，保证低位对低位；每次对应位出栈做运算，新的节点同样以头插的方式连接保证逆序</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>707. 设计链表</title>
+    <url>/2023/07/02/707-%E8%AE%BE%E8%AE%A1%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的常用操作设计</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyLinkedList</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="type">int</span> size;</span><br><span class="line">		ListNode *dummyHead;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="built_in">MyLinkedList</span>() : <span class="built_in">size</span>(<span class="number">0</span>), <span class="built_in">dummyHead</span>(<span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>)) &#123;&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">get</span><span class="params">(<span class="type">int</span> index)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt; size - <span class="number">1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">			ListNode *cur = dummyHead-&gt;next;</span><br><span class="line">			<span class="keyword">while</span> (index--)	cur = cur-&gt;next;</span><br><span class="line">			<span class="keyword">return</span> cur-&gt;val;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">addAtHead</span><span class="params">(<span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">			dummyHead-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(val, dummyHead-&gt;next);</span><br><span class="line">			size++;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">addAtTail</span><span class="params">(<span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">			ListNode *cur = dummyHead;</span><br><span class="line">			<span class="keyword">while</span> (cur-&gt;next != <span class="literal">nullptr</span>) cur = cur-&gt;next;</span><br><span class="line">			cur-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(val, <span class="literal">nullptr</span>);</span><br><span class="line">			size++;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">addAtIndex</span><span class="params">(<span class="type">int</span> index, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (index &gt; size) <span class="keyword">return</span>;</span><br><span class="line">			ListNode *cur = dummyHead;</span><br><span class="line">			<span class="keyword">while</span> (index--) cur = cur-&gt;next;</span><br><span class="line">			cur-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(val, cur-&gt;next);</span><br><span class="line">			size++;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">deleteAtIndex</span><span class="params">(<span class="type">int</span> index)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt; size - <span class="number">1</span>) <span class="keyword">return</span>;</span><br><span class="line">			ListNode *cur = dummyHead;</span><br><span class="line">			<span class="keyword">while</span> (index--) cur = cur-&gt;next;</span><br><span class="line">			ListNode *tmp = cur-&gt;next;</span><br><span class="line">			cur-&gt;next = cur-&gt;next-&gt;next;</span><br><span class="line">			<span class="keyword">delete</span> tmp;</span><br><span class="line">			size--;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>题目较为简单，具体实现见代码即可；主要讲几个细节：</p>
+<ol type="1">
+<li><p>链表类的题基本都需要新增一个<code>dummyHead</code>伪节点，指向真正的头节点；以避免考虑操作头节点时的特殊情况</p></li>
+<li><p>单链表类的题涉及迭代操作某一节点时，都应定位到该节点的前一节点；因为若不修改前一节点的<code>next</code>信息，新链表串不起来</p>
+<p>（使用递归或双向链表就可以自由发挥了）</p>
+<p>比如需要删除节点3，我们需要定位到节点2</p>
+<img src="/2023/07/02/707-%E8%AE%BE%E8%AE%A1%E9%93%BE%E8%A1%A8/1.png" class="" title="image-20230517174741286">
+<p>待处理完节点3后，需要将节点2与节点4连接起来，链表才是完整的</p></li>
+</ol>
+<img src="/2023/07/02/707-%E8%AE%BE%E8%AE%A1%E9%93%BE%E8%A1%A8/2.png" class="" title="image-20230517174545353">
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>61. 旋转链表</title>
+    <url>/2023/07/02/61-%E6%97%8B%E8%BD%AC%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的裁剪</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">rotateRight</span><span class="params">(ListNode* head, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head), *slow = dummyHead, *fast = dummyHead, *tmp = head;</span><br><span class="line">			<span class="type">int</span> len = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">while</span> (tmp != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				tmp = tmp-&gt;next;</span><br><span class="line">				len++;</span><br><span class="line">			&#125;</span><br><span class="line">            <span class="comment">//链表不为空且k求余后不为空，再做操作</span></span><br><span class="line">			<span class="keyword">if</span> (len &amp;&amp; (k %= len)) &#123;</span><br><span class="line">				<span class="keyword">while</span> (k--)	fast = fast-&gt;next;</span><br><span class="line">				<span class="keyword">while</span> (fast-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">					slow = slow-&gt;next;</span><br><span class="line">					fast = fast-&gt;next;</span><br><span class="line">				&#125;</span><br><span class="line">				ListNode *subHead = slow-&gt;next;</span><br><span class="line">				slow-&gt;next = fast-&gt;next;</span><br><span class="line">				fast-&gt;next = dummyHead-&gt;next;</span><br><span class="line">				dummyHead-&gt;next = subHead;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>根据题意，假设链表{1, 2, 3, 4, 5}右移3个单位，很容易想到</p>
+<img src="/2023/07/02/61-%E6%97%8B%E8%BD%AC%E9%93%BE%E8%A1%A8/1.png" class="" title="image-20230529132817573">
+<p>故而先求整个链表的长度，然后让K对它取余，就能得到需要移动的子链表长度</p>
+<blockquote>
+<p>假设整个链表长度为5，子链表长度也为5，那么子链表就是整体链表，就不需要移动</p>
+</blockquote>
+<p>然后使用快慢指针找到子链表的dummyHead、头节点和尾节点后，更改位置即可</p>
+<img src="/2023/07/02/61-%E6%97%8B%E8%BD%AC%E9%93%BE%E8%A1%A8/2.png" class="" title="image-20230529135248910">
+<p>当然，你也可以把链表连接成环，同样使用快慢指针找到子链表的dummyHead与头节点并断开形成新链表，时间复杂度是一样的，你可以尝试一下~</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>82. 删除排序链表中的重复元素 II</title>
+    <url>/2023/07/02/82-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0-II/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>双指针</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">deleteDuplicates</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (head == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">			ListNode *dummyNode = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>), *curNew = dummyNode;</span><br><span class="line">			ListNode *left = head, *right = head-&gt;next;</span><br><span class="line">			<span class="keyword">while</span> (left != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				right = left-&gt;next;</span><br><span class="line">				<span class="keyword">while</span> (right != <span class="literal">nullptr</span> &amp;&amp; left-&gt;val == right-&gt;val)	right = right-&gt;next;</span><br><span class="line">				<span class="keyword">if</span> (left-&gt;next == right) &#123;</span><br><span class="line">					curNew-&gt;next = left;</span><br><span class="line">					left = left-&gt;next;</span><br><span class="line">					curNew = curNew-&gt;next;</span><br><span class="line">				&#125; <span class="keyword">else</span> left = right;</span><br><span class="line">			&#125;</span><br><span class="line">			curNew-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">			<span class="keyword">return</span> dummyNode-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>本题是<code>83. 删除排序链表中的重复元素</code>的升级版，思路一样，也是使用双指针；左指针指向需要留下的元素，右指针作为游标指针</p>
+<p>分为两种情况</p>
+<ol type="1">
+<li>左指针指向的值和右指针指向的值不同，说明左指针需要被留下，插入新链表</li>
+<li>左指针指向的值和右指针指向的值相同，说明左右指针指向的值都需要被删除；待右指针指向第一个不同值的节点时，将左指针更新为该节点，开启新一轮判定</li>
+</ol>
+<p>本题实际上每次比较的是两个相邻节点，所以左右指针其实可以用一个游标指针来代替，即<code>head</code>和<code>head-&gt;next</code></p>
+<p>改写后代码如下，逻辑与效果是一样的</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">deleteDuplicates</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head), *curNew = dummyHead;</span><br><span class="line">			<span class="keyword">while</span> (head != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				<span class="keyword">if</span> (head-&gt;next == <span class="literal">nullptr</span> || head-&gt;val != head-&gt;next-&gt;val) &#123;</span><br><span class="line">					curNew-&gt;next = head;</span><br><span class="line">					curNew = curNew-&gt;next;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">while</span> (head != <span class="literal">nullptr</span> &amp;&amp; head-&gt;next != <span class="literal">nullptr</span> &amp;&amp; head-&gt;val == head-&gt;next-&gt;val) &#123;</span><br><span class="line">					head = head-&gt;next;</span><br><span class="line">				&#125;</span><br><span class="line">				head = head-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			curNew-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>83. 删除排序链表中的重复元素</title>
+    <url>/2023/07/02/83-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>双指针</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">deleteDuplicates</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *left = head, *right = head;</span><br><span class="line">			<span class="keyword">while</span> (right != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				<span class="keyword">while</span> (right != <span class="literal">nullptr</span> &amp;&amp; left-&gt;val == right-&gt;val)	right = right-&gt;next;</span><br><span class="line">				left-&gt;next = right;</span><br><span class="line">				left = left-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> head;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>根据题意，链表已排序，那么重复的元素就一定是连续的；所以我们使用双指针来处理</p>
+<p>左指针指向需要留下的元素，右指针作为游标指针</p>
+<p>只要右指针的值等于左指针，就一直向右，遇到不同值停下，再将左右指针指向的节点连接起来即可</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>86. 分隔链表</title>
+    <url>/2023/07/02/86-%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的裁剪</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">partition</span><span class="params">(ListNode* head, <span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">			ListNode *dummySmall = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>), *curSmall = dummySmall;</span><br><span class="line">			ListNode *dummyLarge = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>), *curLarge = dummyLarge;</span><br><span class="line">			<span class="keyword">while</span> (head != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				<span class="keyword">if</span> (head-&gt;val &lt; x) &#123;</span><br><span class="line">					curSmall-&gt;next = head;</span><br><span class="line">					curSmall = curSmall-&gt;next;</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					curLarge-&gt;next = head;</span><br><span class="line">					curLarge = curLarge-&gt;next;</span><br><span class="line">				&#125;</span><br><span class="line">				head = head-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			curSmall-&gt;next = dummyLarge-&gt;next;</span><br><span class="line">			curLarge-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">			<span class="keyword">return</span> dummySmall-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>一个小链表按序存储值小于x的节点，一个大链表按序存储剩余节点，再将大链表接在小链表尾部即可</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>876. 链表的中间结点</title>
+    <url>/2023/07/02/876-%E9%93%BE%E8%A1%A8%E7%9A%84%E4%B8%AD%E9%97%B4%E7%BB%93%E7%82%B9/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>快慢指针/双指针</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">middleNode</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *slow = head, *fast = head;</span><br><span class="line">			<span class="keyword">while</span> (fast-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				slow = slow-&gt;next;</span><br><span class="line">				fast = fast-&gt;next;</span><br><span class="line">				<span class="keyword">if</span> (fast-&gt;next != <span class="literal">nullptr</span>) fast = fast-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> slow;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>同样使用快慢指针，但和以往不同，需要再往下走一格</p>
+<p>可以和之前的代码作对比</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">findMid</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode *slow = head, *fast = head;</span><br><span class="line">        <span class="keyword">while</span> (fast-&gt;next != <span class="literal">nullptr</span> &amp;&amp; fast-&gt;next-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>92. 反转链表 II</title>
+    <url>/2023/07/02/92-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8-II/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的反转</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseBetween</span><span class="params">(ListNode* head, <span class="type">int</span> left, <span class="type">int</span> right)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head), *subDummy = dummyHead;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; left - <span class="number">1</span>; i++) subDummy = subDummy-&gt;next;</span><br><span class="line">            <span class="comment">//使用改进版头插法进行子链表反转</span></span><br><span class="line">			ListNode *tail = subDummy-&gt;next;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; right - left; i++) &#123;</span><br><span class="line">				ListNode *node = tail-&gt;next;</span><br><span class="line">				tail-&gt;next = node-&gt;next;</span><br><span class="line">				node-&gt;next = subDummy-&gt;next;</span><br><span class="line">				subDummy-&gt;next = node;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>找到子链表的头节点，并将其前一个节点作为伪节点，即<code>subDummy</code>；再使用<code>206. 反转链表</code>提到的<code>改进版头插法</code>即可</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+</search>
