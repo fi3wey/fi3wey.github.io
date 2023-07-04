@@ -1,6 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>1178. 猜字谜</title>
+    <url>/2023/07/04/1178-%E7%8C%9C%E5%AD%97%E8%B0%9C/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>状态压缩</li>
+<li>求二进制数表示的集合的全部子集</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		vector&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line">		unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; wordMap;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">findNumOfValidWords</span><span class="params">(vector&lt;string&gt;&amp; words, vector&lt;string&gt;&amp; puzzles)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">for</span> (string &amp;word : words) &#123;</span><br><span class="line">				<span class="type">int</span> hsh = <span class="number">0</span>;</span><br><span class="line">				<span class="keyword">for</span> (<span class="type">char</span> &amp;chr : word) &#123;</span><br><span class="line">					hsh |= <span class="number">1</span> &lt;&lt; (chr - <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">				&#125;</span><br><span class="line">				wordMap[hsh]++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">for</span> (string &amp;puzzle : puzzles) &#123;</span><br><span class="line">				<span class="type">int</span> hsh = <span class="number">0</span>, cnt = <span class="number">0</span>;</span><br><span class="line">				<span class="keyword">for</span> (<span class="type">char</span> &amp;chr : puzzle) &#123;</span><br><span class="line">					hsh |= <span class="number">1</span> &lt;&lt; (chr - <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">for</span> (<span class="type">int</span> subSet = hsh;; subSet = (subSet - <span class="number">1</span>) &amp; hsh) &#123;</span><br><span class="line">					<span class="keyword">if</span> (!subSet) <span class="keyword">break</span>;</span><br><span class="line">					<span class="keyword">if</span> (wordMap.<span class="built_in">count</span>(subSet) &amp;&amp; (subSet &amp; (<span class="number">1</span> &lt;&lt; (puzzle[<span class="number">0</span>] - <span class="string">&#x27;a&#x27;</span>)))) &#123;</span><br><span class="line">						cnt += wordMap[subSet];</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				ans.<span class="built_in">push_back</span>(cnt);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> ans;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( m\cdot w+n\cdot
+\left( p+2^{bitCount\left( p \right)} \right) \right)\)</span></p>
+<p>其中<span
+class="math inline">\(m\)</span>为<code>words</code>数组长度，<span
+class="math inline">\(w\)</span>为<code>word</code>的长度且最大为50；<span
+class="math inline">\(n\)</span>为<code>puzzles</code>数组长度，<span
+class="math inline">\(p\)</span>为<code>puzzle</code>的长度且限定为7</p>
+<p><span class="math inline">\(bitCount\left( p
+\right)\)</span>代表十进制整数<span
+class="math inline">\(p\)</span>的二进制表达中的<code>1个数</code>；<span
+class="math inline">\(2^{bitCount\left( p
+\right)}\)</span>这一时间复杂度，是求<span
+class="math inline">\(p\)</span>二进制表达集合的所有子集</p>
+<p>由于<span
+class="math inline">\(p\)</span>在这里限定为7，可视为常数；故而时间复杂度也可表达为<span
+class="math inline">\(O\left( m\cdot w+n\cdot 2^{bitCount\left( p
+\right)} \right)\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( m
+\right)\)</span>，新增了哈希表</p>
+<h1 id="思路">思路</h1>
+<p>按照传统思路，比较两个字符串的组成至少需要线性时间复杂度；若两个数组内的字符串两两比较，则时间复杂度高达3次方</p>
+<p>由于题目说所有字符串只包含小写字母，且需求是对比两个字符串的组成，字符串内部的重复字符并不影响最终结果</p>
+<p>所以使用一个32位的<code>int</code>类型变量的低26位，来表达字符串内的字符组成；该<code>int</code>变量也可视作该字符串的<strong>哈希值</strong></p>
+<blockquote>
+<p>比如字符串为abd，那么用二进制表达为1011</p>
+</blockquote>
+<p>具体步骤设计如下：</p>
+<ul>
+<li><p>遍历<code>words</code>数组，计算内部所有<code>word</code>字符串的哈希值</p>
+<p>并新建一个哈希表<code>wordMap</code>记录相同哈希值的字符串个数</p></li>
+<li><p>遍历<code>puzzles</code>数组，计算内部所有<code>puzzle</code>字符串的哈希值的子集</p>
+<p>如果<code>wordMap</code>存在对应子集的记录，且子集包含<code>puzzle</code>的第一个字母</p>
+<p>说明该子集代表的<code>word</code>可以作为当前<code>puzzle</code>的谜底</p></li>
+</ul>
+<p>按照上述步骤即可轻松解题，但需牢记求<strong>二进制数表示的集合的全部子集</strong>模板，来源于<a
+href="https://oi-wiki.org/math/binary-set/#%E5%AD%90%E9%9B%86%E9%81%8D%E5%8E%86">网址</a>：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 降序遍历 m 的子集</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> s = m;; s = (s - <span class="number">1</span>) &amp; m) &#123;</span><br><span class="line">    <span class="comment">// s 是 m 的一个子集</span></span><br><span class="line">    <span class="keyword">if</span> (s == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>位运算</tag>
+        <tag>状态压缩</tag>
+        <tag>哈希函数</tag>
+        <tag>哈希表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>1252. 奇数值单元格的数目</title>
+    <url>/2023/07/04/1252-%E5%A5%87%E6%95%B0%E5%80%BC%E5%8D%95%E5%85%83%E6%A0%BC%E7%9A%84%E6%95%B0%E7%9B%AE/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>状态压缩</li>
+<li>集合运算</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<p>同下</p>
+<h1 id="思路">思路</h1>
+<p>已知二维数组<code>M</code>有<code>m</code>行，<code>n</code>列；<code>indices</code>数组有<code>l</code>个元素，且每个元素都是长度为2的一维数组</p>
+<p>比如某元素值为<code>[0,1]</code>，代表<strong>二维数组中行序号为0的单元格</strong>先加一、<strong>列序号为1的单元格</strong>再加一</p>
+<p>正常的暴力方式如下：</p>
+<ol type="1">
+<li><p>开辟<code>m * n</code>大小的二维数组空间</p></li>
+<li><p>遍历<code>indices</code>数组每个元素的同时，每次分别按行、按列地对二维数组进行批量修改</p>
+<p>时间复杂度高达<span class="math inline">\(O\left( l\cdot \left( m+n
+\right) \right)\)</span></p></li>
+<li><p>遍历二维数组的所有单元格，判断有多少个奇数</p>
+<p>时间复杂度<span class="math inline">\(O\left( m\cdot n
+\right)\)</span></p></li>
+</ol>
+<p>组合拳下来，时间复杂度高达<span class="math inline">\(O\left( l\cdot
+\left( m+n \right) +\left( m\cdot n \right)
+\right)\)</span>，空间复杂度高达<span class="math inline">\(O\left(
+m\cdot n \right)\)</span></p>
+<h2 id="空间优化">空间优化</h2>
+<p>由于每次都是对某行或某列的所有单元格进行批量加1，可以做如下优化：</p>
+<ul>
+<li><p>设置一个长度为<code>m</code>的<code>rows</code>数组，下标映射为二维数组<code>M</code>的行序号，值映射为二维数组对应行的增量</p></li>
+<li><p>设置一个长度为<code>n</code>的<code>cols</code>数组，下标映射为二维数组<code>M</code>的列序号，值映射为二维数组对应列的增量</p></li>
+</ul>
+<p>那么有： <span class="math display">\[
+M\left[ i \right] \left[ j \right] =rows\left[ i \right] +cols\left[ j
+\right]
+\]</span></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">oddCells</span><span class="params">(<span class="type">int</span> m, <span class="type">int</span> n, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; indices)</span> </span>&#123;</span><br><span class="line">			<span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">rows</span><span class="params">(m, <span class="number">0</span>)</span>, <span class="title">cols</span><span class="params">(n, <span class="number">0</span>)</span></span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">auto</span> &amp;indice : indices) &#123;</span><br><span class="line">				rows[indice[<span class="number">0</span>]]++;</span><br><span class="line">				cols[indice[<span class="number">1</span>]]++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">				<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">					<span class="keyword">if</span> ((rows[i] + cols[j]) &amp; <span class="number">1</span>) ans++;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> ans;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( l+m\cdot n
+\right)\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( m+n
+\right)\)</span></p>
+<h2 id="计数优化-集合运算">计数优化 &amp; 集合运算</h2>
+<p>根据数学性质，<code>奇数 = 奇数 + 偶数</code></p>
+<ul>
+<li><p>假设有<code>rows = &#123;1,1&#125;</code>，<code>cols = &#123;0,2,0&#125;</code></p>
+<p>从两个集合中各取任意一个元素，都可求和为奇数；可行的组合数为<code>2 * 3 = 6</code></p>
+<p>意味着整个二维数组都是奇数，共有6个奇数</p></li>
+<li><p>假设有<code>rows = &#123;1,1,0&#125;</code>，<code>cols = &#123;1,0,1&#125;</code></p>
+<p><code>rows</code>取<code>&#123;1,1&#125;</code>时，<code>cols</code>取<code>&#123;0&#125;</code>才可为奇数，此时可行的组合数为<code>2 * 1 = 2</code></p>
+<p><code>rows</code>取<code>&#123;0&#125;</code>时，<code>cols</code>取<code>&#123;1,1&#125;</code>才可为奇数，此时可行的组合数为<code>1 * 2 = 2</code></p>
+<p>意味着整个二维数组中，共有<code>2 + 2 = 4</code>个奇数</p></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">oddCells</span><span class="params">(<span class="type">int</span> m, <span class="type">int</span> n, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; indices)</span> </span>&#123;</span><br><span class="line">			<span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">rows</span><span class="params">(m, <span class="number">0</span>)</span>, <span class="title">cols</span><span class="params">(n, <span class="number">0</span>)</span></span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">auto</span> &amp;indice : indices) &#123;</span><br><span class="line">				rows[indice[<span class="number">0</span>]]++;</span><br><span class="line">				cols[indice[<span class="number">1</span>]]++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="type">int</span> rowOdd = <span class="number">0</span>, colOdd = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">				rowOdd += rows[i] &amp; <span class="number">1</span> ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">				colOdd += cols[i] &amp; <span class="number">1</span> ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> rowOdd * (n - colOdd) + (m - rowOdd) * colOdd;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( l+m+n
+\right)\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( m+n
+\right)\)</span></p>
+<h2 id="位运算-状态压缩-集合运算">位运算 &amp; 状态压缩 &amp;
+集合运算</h2>
+<p>题目限定了<code>m</code>与<code>n</code>均不超过50，使用两个<code>long</code>类型的变量来替代<code>rows</code>与<code>cols</code>数组</p>
+<p>用比特位1代表增量为奇数，用比特位0代表增量为偶数</p>
+<p>各统计两个变量的<code>1个数</code>，即各自拥有的奇数个数，再做上述的集合运算即可</p>
+<p><code>bitCount</code>实现请参见<code>191. 位1的个数</code>，不再赘述</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">bitCount</span><span class="params">(<span class="type">long</span> n)</span> </span>&#123;</span><br><span class="line">			<span class="comment">//--------分治法--------</span></span><br><span class="line">			n = (n &amp; <span class="number">0x5555555555555555</span>) + ((n &gt;&gt; <span class="number">1</span>) &amp; <span class="number">0x5555555555555555</span>);</span><br><span class="line">			n = (n &amp; <span class="number">0x3333333333333333</span>) + ((n &gt;&gt; <span class="number">2</span>) &amp; <span class="number">0x3333333333333333</span>);</span><br><span class="line">			n = (n &amp; <span class="number">0x0f0f0f0f0f0f0f0f</span>) + ((n &gt;&gt; <span class="number">4</span>) &amp; <span class="number">0x0f0f0f0f0f0f0f0f</span>);</span><br><span class="line">			n = (n &amp; <span class="number">0x00ff00ff00ff00ff</span>) + ((n &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0x00ff00ff00ff00ff</span>);</span><br><span class="line">			n = (n &amp; <span class="number">0x0000ffff0000ffff</span>) + ((n &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0x0000ffff0000ffff</span>);</span><br><span class="line">			n = (n &amp; <span class="number">0x00000000ffffffff</span>) + ((n &gt;&gt; <span class="number">32</span>) &amp; <span class="number">0x00000000ffffffff</span>);</span><br><span class="line">			<span class="keyword">return</span> n;</span><br><span class="line">			<span class="comment">//--------分治法--------</span></span><br><span class="line">			<span class="comment">//--------Brian Kernighan法--------</span></span><br><span class="line"><span class="comment">//			int cnt = 0;</span></span><br><span class="line"><span class="comment">//			while (n) &#123;</span></span><br><span class="line"><span class="comment">//				n &amp;= n - 1;</span></span><br><span class="line"><span class="comment">//				cnt++;</span></span><br><span class="line"><span class="comment">//			&#125;</span></span><br><span class="line"><span class="comment">//			return cnt;</span></span><br><span class="line">			<span class="comment">//--------Brian Kernighan法--------</span></span><br><span class="line">			<span class="comment">//--------lowBit--------</span></span><br><span class="line"><span class="comment">//			int cnt = 0;</span></span><br><span class="line"><span class="comment">//			while (n) &#123;</span></span><br><span class="line"><span class="comment">//				n -= (n &amp; -n);</span></span><br><span class="line"><span class="comment">//				cnt++;</span></span><br><span class="line"><span class="comment">//			&#125;</span></span><br><span class="line"><span class="comment">//			return cnt;</span></span><br><span class="line">			<span class="comment">//--------lowBit--------</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">oddCells</span><span class="params">(<span class="type">int</span> m, <span class="type">int</span> n, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; indices)</span> </span>&#123;</span><br><span class="line">			<span class="type">long</span> rows = <span class="number">0</span>, cols = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">auto</span> &amp;indice : indices) &#123;</span><br><span class="line">				rows ^= <span class="number">1L</span> &lt;&lt; indice[<span class="number">0</span>];</span><br><span class="line">				cols ^= <span class="number">1L</span> &lt;&lt; indice[<span class="number">1</span>];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="type">int</span> rowOdd = <span class="built_in">bitCount</span>(rows), colOdd = <span class="built_in">bitCount</span>(cols);</span><br><span class="line">			<span class="keyword">return</span> rowOdd * (n - colOdd) + (m - rowOdd) * colOdd;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( l+\log C
+\right)\)</span>，这里<span
+class="math inline">\(C\)</span>等于<code>long</code>的位数64</p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>位运算</tag>
+        <tag>状态压缩</tag>
+        <tag>集合运算</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>138. 复制带随机指针的链表</title>
+    <url>/2023/07/03/138-%E5%A4%8D%E5%88%B6%E5%B8%A6%E9%9A%8F%E6%9C%BA%E6%8C%87%E9%92%88%E7%9A%84%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>哈希表与链表的综合</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		unordered_map&lt;Node*, Node*&gt; m;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">Node* <span class="title">copyRandomList</span><span class="params">(Node* head)</span> </span>&#123;</span><br><span class="line">			Node *cur = head, *dummyHead = <span class="keyword">new</span> <span class="built_in">Node</span>(<span class="number">-1</span>), *curNew = dummyHead;</span><br><span class="line">			<span class="keyword">while</span> (cur != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				Node *node = <span class="keyword">new</span> <span class="built_in">Node</span>(cur-&gt;val);</span><br><span class="line">				curNew-&gt;next = node;</span><br><span class="line">				curNew = curNew-&gt;next;</span><br><span class="line">				m[cur] = node;</span><br><span class="line">				cur = cur-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			curNew-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">			cur = head;</span><br><span class="line">			<span class="keyword">while</span> (cur != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				m[cur]-&gt;random = m[cur-&gt;random];</span><br><span class="line">				cur = cur-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>本题难点就在于，如何保证新链表的<code>random</code>结构与旧链表的<code>random</code>结构完全一样</p>
+<p>假设已知旧链表节点A指向节点B，新链表中对应的节点分别为C与D，如何记录C与D的关系？</p>
+<img src="/2023/07/03/138-%E5%A4%8D%E5%88%B6%E5%B8%A6%E9%9A%8F%E6%9C%BA%E6%8C%87%E9%92%88%E7%9A%84%E9%93%BE%E8%A1%A8/1.png" class="" title="image-20230602200206991">
+<p>显然需要使用哈希表来记录新旧节点之间的映射，新节点才可以根据映射来获悉旧节点的指向关系</p>
+<img src="/2023/07/03/138-%E5%A4%8D%E5%88%B6%E5%B8%A6%E9%9A%8F%E6%9C%BA%E6%8C%87%E9%92%88%E7%9A%84%E9%93%BE%E8%A1%A8/2.png" class="" title="image-20230602200953233">
+<p>当然，算法也可以修改为递归</p>
+<ol type="1">
+<li><p>子问题：创造新节点，连接起来，修改<code>random</code>三个操作</p></li>
+<li><p>递归语句顺序：递归方向分为一去一回，去方向到达临界点时返回</p>
+<p>创造新节点可以在去方向完成</p>
+<p>节点连接，修改<code>random</code>必须在回方向完成；因为前者操作需要更新上一个节点的<code>next</code>，后者操作须等待哈希表记录映射关系后</p></li>
+<li><p>临界点：当前节点为空</p></li>
+<li><p>返回值：当前新节点地址，用以更新上一个节点的<code>next</code></p></li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		unordered_map&lt;Node*, Node*&gt; m;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">Node* <span class="title">copyRandomList</span><span class="params">(Node* head)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (head == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">			Node *node = <span class="keyword">new</span> <span class="built_in">Node</span>(head-&gt;val);</span><br><span class="line">			m[head] = node;</span><br><span class="line">			node-&gt;next = <span class="built_in">copyRandomList</span>(head-&gt;next);</span><br><span class="line">			node-&gt;random = m[head-&gt;random];</span><br><span class="line">			<span class="keyword">return</span> node;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>哈希表</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>136. 只出现一次的数字</title>
+    <url>/2023/07/04/136-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>异或技巧</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">singleNumber</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">			<span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">				ans ^= nums[i];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> ans;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( n
+\right)\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+<h1 id="思路">思路</h1>
+<p>异或有以下性质，摘选自<a
+href="https://baike.baidu.com/item/%E5%BC%82%E6%88%96/10993677">百度百科</a>：</p>
+<ul>
+<li><p><strong>归零律</strong></p>
+<img src="/2023/07/04/136-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/1.png" class="" title="image-20230621143031540"></li>
+<li><p><strong>恒等律</strong></p>
+<img src="/2023/07/04/136-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/2.png" class="" title="image-20230621143110296"></li>
+<li><p><strong>交换律</strong></p>
+<img src="/2023/07/04/136-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/3.png" class="" title="image-20230621143154698"></li>
+<li><p><strong>结合律</strong></p>
+<img src="/2023/07/04/136-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/4.png" class="" title="image-20230621143305054"></li>
+</ul>
+<p>值相同的数作异或运算为空，那么数组内所有元素的异或运算结果即可得到数组中只出现一次的数字</p>
+<p>比如<code>nums</code>为<code>&#123;1,1,2,2,3&#125;</code>，二进制表达为<code>&#123;001,001,010,010,011&#125;</code></p>
+<p>那么<code>001 ^ 001 ^ 010 ^ 010 ^ 011 = 011</code>，即为十进制数字3</p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>位运算</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>142. 环形链表 II</title>
+    <url>/2023/07/02/142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-II/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>快慢指针/双指针</li>
+<li>链表的环</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">			ListNode *slow = head, *fast = head;</span><br><span class="line">			<span class="keyword">while</span> (fast != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				slow = slow-&gt;next;</span><br><span class="line">				fast = fast-&gt;next;</span><br><span class="line">				<span class="keyword">if</span> (fast != <span class="literal">nullptr</span>) fast = fast-&gt;next;</span><br><span class="line">				<span class="keyword">if</span> (fast != <span class="literal">nullptr</span> &amp;&amp; slow == fast) &#123;</span><br><span class="line">					ListNode *slow = head;</span><br><span class="line">					<span class="keyword">while</span> (slow != fast) &#123;</span><br><span class="line">						slow = slow-&gt;next;</span><br><span class="line">						fast = fast-&gt;next;</span><br><span class="line">					&#125;</span><br><span class="line">                    <span class="comment">//这里换成slow是一样的</span></span><br><span class="line">					<span class="keyword">return</span> fast;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>我曾在<code>141. 环形链表</code>的题解中阐述了如何用快慢指针判断链表是否存在环，本题是其升级版，要寻找环的入口</p>
+<p>我们已知链表头，能求得相遇点，现在要找到环入口，绘图如下</p>
+<img src="/2023/07/02/142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-II/1.png" class="" title="image-20230522160752871">
+<h2 id="通式">通式</h2>
+<p>根据<code>快指针移动速度是慢指针移动速度的两倍</code>这一性质，可以得到以下通式
+<span class="math display">\[
+\underset{\text{慢指针到达相遇点所需时间}}{\underbrace{\frac{L+m\times
+C+X}{1}}}=\underset{\text{快指针到达相遇点所需时间}}{\underbrace{\frac{L+n\times
+C+X}{2}}}
+\]</span> 解释如下</p>
+<blockquote>
+<p>L：链表头到环入口的距离</p>
+<p>X：环入口到相遇点的距离</p>
+<p>C：环的周长</p>
+<p>m，n：未知数，各指针绕环次数</p>
+</blockquote>
+<p>两个未知数是无法编程的，可以优化一下</p>
+<h2
+id="慢指针在环内第一圈就能与快指针重合">慢指针在环内第一圈就能与快指针重合</h2>
+<p>慢指针达到环入口时，假设快指针与慢指针的相对距离长度为<code>M</code></p>
+<img src="/2023/07/02/142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-II/2.png" class="" title="image-20230522162507163">
+<p>显然，<code>M</code>必小于周长<code>C</code></p>
+<p>根据<code>141. 环形链表</code>的题解中提到的相遇时间公式，能得到下面不等式；代表慢指针在进入环内的第一圈就与快指针相遇了
+<span class="math display">\[
+\underset{\text{相遇时间}}{\underbrace{\frac{M}{2-1}}}&lt;\underset{\text{慢指针绕环一次的时间}}{\underbrace{C=\frac{C}{1}}}
+\]</span> 所以，通式可以优化为 <span class="math display">\[
+\underset{\text{慢指针到达相遇点所需时间}}{\underbrace{\frac{L+X}{1}}}=\underset{\text{快指针到达相遇点所需时间}}{\underbrace{\frac{L+n\times
+C+X}{2}}}
+\]</span></p>
+<h2 id="实现">实现</h2>
+<p>通式变形，可以得到 <span class="math display">\[
+2\times \left( L+X \right) =L+n\times C+X
+\]</span></p>
+<p><span class="math display">\[
+L=n\times C-X
+\]</span></p>
+<p><span class="math display">\[
+L=\left( n-1 \right) \times C+\left( C-X \right)
+\]</span></p>
+<p>最终通式的含义可以这么理解</p>
+<blockquote>
+<p>某指针A从链表头出发</p>
+<p>某指针B同时从相遇点出发，先走过C-X个单位到达环入口，再绕环n-1次</p>
+<p>最终两个指针将在环入口相遇</p>
+</blockquote>
+<p>再结合题解的源码看，就一目了然了</p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>143. 重排链表</title>
+    <url>/2023/07/02/143-%E9%87%8D%E6%8E%92%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>快慢指针</li>
+<li>链表的反转</li>
+<li>链表的合并</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">mergeList</span><span class="params">(ListNode* smallList, ListNode* largeList)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (largeList == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">			ListNode *largeNext = largeList-&gt;next;</span><br><span class="line">			largeList-&gt;next = smallList-&gt;next;</span><br><span class="line">			smallList-&gt;next = largeList;</span><br><span class="line">			<span class="built_in">mergeList</span>(largeList-&gt;next, largeNext);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head);</span><br><span class="line">			ListNode *tail = head;</span><br><span class="line">			<span class="keyword">while</span> (tail != <span class="literal">nullptr</span> &amp;&amp; tail-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				ListNode *node = tail-&gt;next;</span><br><span class="line">				tail-&gt;next = node-&gt;next;</span><br><span class="line">				node-&gt;next = dummyHead-&gt;next;</span><br><span class="line">				dummyHead-&gt;next = node;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function">ListNode* <span class="title">splitList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *slow = head, *fast = head;</span><br><span class="line">			<span class="keyword">while</span> (fast-&gt;next != <span class="literal">nullptr</span> &amp;&amp; fast-&gt;next-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				slow = slow-&gt;next;</span><br><span class="line">				fast = fast-&gt;next-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			ListNode *newHead = slow-&gt;next;</span><br><span class="line">			slow-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">			<span class="keyword">return</span> newHead;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">reorderList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			<span class="built_in">mergeList</span>(head, <span class="built_in">reverseList</span>(<span class="built_in">splitList</span>(head)));</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>本题主要考察链表的常用操作，共分为以下三个步骤：</p>
+<ol type="1">
+<li>找到链表的中点并拆分，使用快慢指针即可；左半部分为小链表，右半部分为大链表</li>
+<li>大链表反转，这里使用<code>206. 反转链表</code>当中的<code>改进版头插法</code></li>
+<li>反转后的大链表与小链表合并</li>
+</ol>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>141. 环形链表</title>
     <url>/2023/07/02/141-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/</url>
     <content><![CDATA[<h1 id="考点">考点</h1>
@@ -73,7 +381,7 @@
 </table>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
@@ -81,133 +389,77 @@
       </tags>
   </entry>
   <entry>
-    <title>143. 重排链表</title>
-    <url>/2023/07/02/143-%E9%87%8D%E6%8E%92%E9%93%BE%E8%A1%A8/</url>
+    <title>137. 只出现一次的数字 II</title>
+    <url>/2023/07/04/137-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97-II/</url>
     <content><![CDATA[<h1 id="考点">考点</h1>
 <ul>
-<li>快慢指针</li>
-<li>链表的反转</li>
-<li>链表的合并</li>
+<li>状态压缩</li>
+<li>集合运算</li>
 </ul>
 <span id="more"></span>
 <h1 id="题解">题解</h1>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">mergeList</span><span class="params">(ListNode* smallList, ListNode* largeList)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (largeList == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">			ListNode *largeNext = largeList-&gt;next;</span><br><span class="line">			largeList-&gt;next = smallList-&gt;next;</span><br><span class="line">			smallList-&gt;next = largeList;</span><br><span class="line">			<span class="built_in">mergeList</span>(largeList-&gt;next, largeNext);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head);</span><br><span class="line">			ListNode *tail = head;</span><br><span class="line">			<span class="keyword">while</span> (tail != <span class="literal">nullptr</span> &amp;&amp; tail-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				ListNode *node = tail-&gt;next;</span><br><span class="line">				tail-&gt;next = node-&gt;next;</span><br><span class="line">				node-&gt;next = dummyHead-&gt;next;</span><br><span class="line">				dummyHead-&gt;next = node;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function">ListNode* <span class="title">splitList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *slow = head, *fast = head;</span><br><span class="line">			<span class="keyword">while</span> (fast-&gt;next != <span class="literal">nullptr</span> &amp;&amp; fast-&gt;next-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				slow = slow-&gt;next;</span><br><span class="line">				fast = fast-&gt;next-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			ListNode *newHead = slow-&gt;next;</span><br><span class="line">			slow-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">			<span class="keyword">return</span> newHead;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">reorderList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			<span class="built_in">mergeList</span>(head, <span class="built_in">reverseList</span>(<span class="built_in">splitList</span>(head)));</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">singleNumber</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">			<span class="type">int</span> cntArr[<span class="number">32</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">auto</span> &amp;num : nums) &#123;</span><br><span class="line">				<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i++) &#123;</span><br><span class="line">					<span class="keyword">if</span> (num &amp; (<span class="number">1U</span> &lt;&lt; i)) cntArr[i]++;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">31</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">				ans = (ans &lt;&lt; <span class="number">1</span>) | (cntArr[i] % <span class="number">3</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> ans;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( n
+\right)\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
 <h1 id="思路">思路</h1>
-<p>本题主要考察链表的常用操作，共分为以下三个步骤：</p>
-<ol type="1">
-<li>找到链表的中点并拆分，使用快慢指针即可；左半部分为小链表，右半部分为大链表</li>
-<li>大链表反转，这里使用<code>206. 反转链表</code>当中的<code>改进版头插法</code></li>
-<li>反转后的大链表与小链表合并</li>
-</ol>
+<p>根据题意<strong>除某个元素仅出现一次外，其余每个元素都恰出现三次</strong>，<code>int</code>类型的整数也都是32位</p>
+<p>假设当前为第<span class="math inline">\(i\)</span>位，<span
+class="math inline">\(Sum_i\)</span>代表所有元素的第<span
+class="math inline">\(i\)</span>位之和，<span
+class="math inline">\(r\)</span>代表只出现了一次的元素在第<span
+class="math inline">\(i\)</span>位的值，必满足以下等式 <span
+class="math display">\[
+Sum_i=3k+r
+\]</span>
+所以设置一个长度为32的<code>cntArr</code>数组，依次记录所有元素各在某位上的和</p>
+<p>然后再遍历<code>cntArr</code>数组，对各个元素求余3后重新拼凑，即可得到只出现了一次的元素</p>
+<p>比如有<code>nums</code>数组<code>&#123;2,2,2,14&#125;</code>，映射为二进制就是<code>&#123;0010,0010,0010,1110&#125;</code></p>
+<p><code>cntArr</code>数组的值则应为<code>&#123;1,1,4,0&#125;</code>，求余3后为<code>&#123;1,1,1,0&#125;</code>，就等于只出现了一次的元素<code>14</code>的二进制表达</p>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
-        <tag>链表</tag>
-        <tag>双指针</tag>
+        <tag>位运算</tag>
+        <tag>状态压缩</tag>
+        <tag>集合运算</tag>
       </tags>
   </entry>
   <entry>
-    <title>138. 复制带随机指针的链表</title>
-    <url>/2023/07/03/138-%E5%A4%8D%E5%88%B6%E5%B8%A6%E9%9A%8F%E6%9C%BA%E6%8C%87%E9%92%88%E7%9A%84%E9%93%BE%E8%A1%A8/</url>
+    <title>146. LRU 缓存</title>
+    <url>/2023/07/03/146-LRU-%E7%BC%93%E5%AD%98/</url>
     <content><![CDATA[<h1 id="考点">考点</h1>
 <ul>
 <li>哈希表与链表的综合</li>
 </ul>
 <span id="more"></span>
 <h1 id="题解">题解</h1>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		unordered_map&lt;Node*, Node*&gt; m;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">Node* <span class="title">copyRandomList</span><span class="params">(Node* head)</span> </span>&#123;</span><br><span class="line">			Node *cur = head, *dummyHead = <span class="keyword">new</span> <span class="built_in">Node</span>(<span class="number">-1</span>), *curNew = dummyHead;</span><br><span class="line">			<span class="keyword">while</span> (cur != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				Node *node = <span class="keyword">new</span> <span class="built_in">Node</span>(cur-&gt;val);</span><br><span class="line">				curNew-&gt;next = node;</span><br><span class="line">				curNew = curNew-&gt;next;</span><br><span class="line">				m[cur] = node;</span><br><span class="line">				cur = cur-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			curNew-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">			cur = head;</span><br><span class="line">			<span class="keyword">while</span> (cur != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				m[cur]-&gt;random = m[cur-&gt;random];</span><br><span class="line">				cur = cur-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LRUCache</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="keyword">struct</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">			<span class="type">int</span> key;</span><br><span class="line">			<span class="type">int</span> value;</span><br><span class="line">			<span class="built_in">Node</span>(<span class="type">int</span> _key, <span class="type">int</span> _value) : <span class="built_in">key</span>(_key), <span class="built_in">value</span>(_value) &#123;&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">		<span class="type">int</span> capacity;</span><br><span class="line">		list&lt;Node&gt; l;</span><br><span class="line">		unordered_map&lt;<span class="type">int</span>, list&lt;Node&gt;::iterator&gt; m;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="built_in">LRUCache</span>(<span class="type">int</span> _capacity) : <span class="built_in">capacity</span>(_capacity) &#123;&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">get</span><span class="params">(<span class="type">int</span> key)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">auto</span> it = m.<span class="built_in">find</span>(key);</span><br><span class="line">			<span class="keyword">if</span> (it == m.<span class="built_in">end</span>())	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">			<span class="type">int</span> value = it-&gt;second-&gt;value;</span><br><span class="line">            <span class="comment">//先从链表中删除</span></span><br><span class="line">			l.<span class="built_in">erase</span>(it-&gt;second);</span><br><span class="line">            <span class="comment">//再添加到头部</span></span><br><span class="line">			l.<span class="built_in">emplace_front</span>(key, value);</span><br><span class="line">            <span class="comment">//更新哈希表</span></span><br><span class="line">			m[key] = l.<span class="built_in">begin</span>();</span><br><span class="line">			<span class="keyword">return</span> value;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">auto</span> it = m.<span class="built_in">find</span>(key);</span><br><span class="line">			<span class="keyword">if</span> (it == m.<span class="built_in">end</span>()) &#123;</span><br><span class="line">                <span class="comment">//容量为0就不能插入新元素</span></span><br><span class="line">				<span class="keyword">if</span> (capacity == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">				<span class="keyword">if</span> (m.<span class="built_in">size</span>() == (<span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>)capacity) &#123;</span><br><span class="line">					m.<span class="built_in">erase</span>(l.<span class="built_in">back</span>().key);</span><br><span class="line">					l.<span class="built_in">pop_back</span>();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				l.<span class="built_in">erase</span>(it-&gt;second);</span><br><span class="line">			&#125;</span><br><span class="line">			l.<span class="built_in">emplace_front</span>(key, value);</span><br><span class="line">			m[key] = l.<span class="built_in">begin</span>();</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h1 id="思路">思路</h1>
-<p>本题难点就在于，如何保证新链表的<code>random</code>结构与旧链表的<code>random</code>结构完全一样</p>
-<p>假设已知旧链表节点A指向节点B，新链表中对应的节点分别为C与D，如何记录C与D的关系？</p>
-<img src="/2023/07/03/138-%E5%A4%8D%E5%88%B6%E5%B8%A6%E9%9A%8F%E6%9C%BA%E6%8C%87%E9%92%88%E7%9A%84%E9%93%BE%E8%A1%A8/1.png" class="" title="image-20230602200206991">
-<p>显然需要使用哈希表来记录新旧节点之间的映射，新节点才可以根据映射来获悉旧节点的指向关系</p>
-<img src="/2023/07/03/138-%E5%A4%8D%E5%88%B6%E5%B8%A6%E9%9A%8F%E6%9C%BA%E6%8C%87%E9%92%88%E7%9A%84%E9%93%BE%E8%A1%A8/2.png" class="" title="image-20230602200953233">
-<p>当然，算法也可以修改为递归</p>
+<p>LRU又称为最近最少使用页面置换算法(Least Recently
+Used)，淘汰最早访问的页面</p>
+<p>题目要求查找与增删节点时均要达到常量时间复杂度，很容易想到哈希表+链表的组合</p>
+<blockquote>
+<p>无序哈希表在平均情况下的查找为常量时间复杂度，而有序哈希表的查找为对数时间复杂度，因为底层是红黑树</p>
+</blockquote>
+<p>所以有以下思路：</p>
 <ol type="1">
-<li><p>子问题：创造新节点，连接起来，修改<code>random</code>三个操作</p></li>
-<li><p>递归语句顺序：递归方向分为一去一回，去方向到达临界点时返回</p>
-<p>创造新节点可以在去方向完成</p>
-<p>节点连接，修改<code>random</code>必须在回方向完成；因为前者操作需要更新上一个节点的<code>next</code>，后者操作须等待哈希表记录映射关系后</p></li>
-<li><p>临界点：当前节点为空</p></li>
-<li><p>返回值：当前新节点地址，用以更新上一个节点的<code>next</code></p></li>
+<li><p>每次访问/更新节点时，先将其从链表中删除，再将其插入到链表头部以代表最近访问</p>
+<p>这样一来链表末尾节点自然是最早访问的了</p></li>
+<li><p>因为只涉及到删除链表中节点、删除链表尾部节点和插入链表头部节点，使用双向链表较为方便；这里使用<code>list</code>这一STL库来完成</p></li>
+<li><p>使用哈希表来记录键与节点的映射关系，这样就能直接操控链表节点而不用去遍历寻找</p></li>
 </ol>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		unordered_map&lt;Node*, Node*&gt; m;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">Node* <span class="title">copyRandomList</span><span class="params">(Node* head)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (head == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">			Node *node = <span class="keyword">new</span> <span class="built_in">Node</span>(head-&gt;val);</span><br><span class="line">			m[head] = node;</span><br><span class="line">			node-&gt;next = <span class="built_in">copyRandomList</span>(head-&gt;next);</span><br><span class="line">			node-&gt;random = m[head-&gt;random];</span><br><span class="line">			<span class="keyword">return</span> node;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>数据结构设计如图所示</p>
+<img src="/2023/07/03/146-LRU-%E7%BC%93%E5%AD%98/1.png" class="" title="image-20230605162942234">
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
-        <tag>链表</tag>
         <tag>哈希表</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>142. 环形链表 II</title>
-    <url>/2023/07/02/142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-II/</url>
-    <content><![CDATA[<h1 id="考点">考点</h1>
-<ul>
-<li>快慢指针/双指针</li>
-<li>链表的环</li>
-</ul>
-<span id="more"></span>
-<h1 id="题解">题解</h1>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">			ListNode *slow = head, *fast = head;</span><br><span class="line">			<span class="keyword">while</span> (fast != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				slow = slow-&gt;next;</span><br><span class="line">				fast = fast-&gt;next;</span><br><span class="line">				<span class="keyword">if</span> (fast != <span class="literal">nullptr</span>) fast = fast-&gt;next;</span><br><span class="line">				<span class="keyword">if</span> (fast != <span class="literal">nullptr</span> &amp;&amp; slow == fast) &#123;</span><br><span class="line">					ListNode *slow = head;</span><br><span class="line">					<span class="keyword">while</span> (slow != fast) &#123;</span><br><span class="line">						slow = slow-&gt;next;</span><br><span class="line">						fast = fast-&gt;next;</span><br><span class="line">					&#125;</span><br><span class="line">                    <span class="comment">//这里换成slow是一样的</span></span><br><span class="line">					<span class="keyword">return</span> fast;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h1 id="思路">思路</h1>
-<p>我曾在<code>141. 环形链表</code>的题解中阐述了如何用快慢指针判断链表是否存在环，本题是其升级版，要寻找环的入口</p>
-<p>我们已知链表头，能求得相遇点，现在要找到环入口，绘图如下</p>
-<img src="/2023/07/02/142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-II/1.png" class="" title="image-20230522160752871">
-<h2 id="通式">通式</h2>
-<p>根据<code>快指针移动速度是慢指针移动速度的两倍</code>这一性质，可以得到以下通式
-<span class="math display">\[
-\underset{\text{慢指针到达相遇点所需时间}}{\underbrace{\frac{L+m\times
-C+X}{1}}}=\underset{\text{快指针到达相遇点所需时间}}{\underbrace{\frac{L+n\times
-C+X}{2}}}
-\]</span> 解释如下</p>
-<blockquote>
-<p>L：链表头到环入口的距离</p>
-<p>X：环入口到相遇点的距离</p>
-<p>C：环的周长</p>
-<p>m，n：未知数，各指针绕环次数</p>
-</blockquote>
-<p>两个未知数是无法编程的，可以优化一下</p>
-<h2
-id="慢指针在环内第一圈就能与快指针重合">慢指针在环内第一圈就能与快指针重合</h2>
-<p>慢指针达到环入口时，假设快指针与慢指针的相对距离长度为<code>M</code></p>
-<img src="/2023/07/02/142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-II/2.png" class="" title="image-20230522162507163">
-<p>显然，<code>M</code>必小于周长<code>C</code></p>
-<p>根据<code>141. 环形链表</code>的题解中提到的相遇时间公式，能得到下面不等式；代表慢指针在进入环内的第一圈就与快指针相遇了
-<span class="math display">\[
-\underset{\text{相遇时间}}{\underbrace{\frac{M}{2-1}}}&lt;\underset{\text{慢指针绕环一次的时间}}{\underbrace{C=\frac{C}{1}}}
-\]</span> 所以，通式可以优化为 <span class="math display">\[
-\underset{\text{慢指针到达相遇点所需时间}}{\underbrace{\frac{L+X}{1}}}=\underset{\text{快指针到达相遇点所需时间}}{\underbrace{\frac{L+n\times
-C+X}{2}}}
-\]</span></p>
-<h2 id="实现">实现</h2>
-<p>通式变形，可以得到 <span class="math display">\[
-2\times \left( L+X \right) =L+n\times C+X
-\]</span></p>
-<p><span class="math display">\[
-L=n\times C-X
-\]</span></p>
-<p><span class="math display">\[
-L=\left( n-1 \right) \times C+\left( C-X \right)
-\]</span></p>
-<p>最终通式的含义可以这么理解</p>
-<blockquote>
-<p>某指针A从链表头出发</p>
-<p>某指针B同时从相遇点出发，先走过C-X个单位到达环入口，再绕环n-1次</p>
-<p>最终两个指针将在环入口相遇</p>
-</blockquote>
-<p>再结合题解的源码看，就一目了然了</p>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
         <tag>链表</tag>
-        <tag>双指针</tag>
       </tags>
   </entry>
   <entry>
@@ -231,7 +483,7 @@ L=\left( n-1 \right) \times C+\left( C-X \right)
 <p>如此循环往复即可</p>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
@@ -266,7 +518,7 @@ L=\left( n-1 \right) \times C+\left( C-X \right)
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">MergeList</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (l1 == <span class="literal">nullptr</span>) <span class="keyword">return</span> l2;</span><br><span class="line">			<span class="keyword">if</span> (l2 == <span class="literal">nullptr</span>) <span class="keyword">return</span> l1;</span><br><span class="line">			<span class="keyword">if</span> (l1-&gt;val &lt; l2-&gt;val) &#123;</span><br><span class="line">				l1-&gt;next = <span class="built_in">MergeList</span>(l1-&gt;next, l2);</span><br><span class="line">				<span class="keyword">return</span> l1;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				l2-&gt;next = <span class="built_in">MergeList</span>(l1, l2-&gt;next);</span><br><span class="line">				<span class="keyword">return</span> l2;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function">ListNode* <span class="title">MergeSort</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head), *cur = dummyHead;</span><br><span class="line">			<span class="type">int</span> len = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">while</span> (cur-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				cur = cur-&gt;next;</span><br><span class="line">				len++;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="comment">//外循环是待合并的子链表长度，初始为1，每次乘2</span></span><br><span class="line">			<span class="comment">//子链表的长度*2肯定小于等于总长度</span></span><br><span class="line">			<span class="comment">//当然，子链长度等于总长度的时候就没必要自己合并自己，所以这里只有小于号没有等于号</span></span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> subLen = <span class="number">1</span>; subLen &lt; len; subLen *= <span class="number">2</span>) &#123;</span><br><span class="line">				<span class="comment">//每次都从头开始更新链表</span></span><br><span class="line">				ListNode *curNew = dummyHead, *cur = dummyHead-&gt;next;</span><br><span class="line">				<span class="comment">//按照归并的规律，两个子链表一组</span></span><br><span class="line">				<span class="keyword">while</span> (cur != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">					<span class="comment">//记录左子链表头</span></span><br><span class="line">					ListNode *leftHead = cur;</span><br><span class="line">					<span class="comment">//寻找左子链表尾</span></span><br><span class="line">					<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; subLen &amp;&amp; cur-&gt;next != <span class="literal">nullptr</span>; cur = cur-&gt;next, i++);</span><br><span class="line">					<span class="comment">//左子链表尾的下一个节点为空，说明没有右子链表，即到了整个大链表的尾部</span></span><br><span class="line">					<span class="comment">//那么合并完后直接开启新的大循环</span></span><br><span class="line">					<span class="keyword">if</span> (cur-&gt;next == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">						curNew-&gt;next = leftHead;</span><br><span class="line">						cur = <span class="literal">nullptr</span>;</span><br><span class="line">					&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">						<span class="comment">//若存在右子链表</span></span><br><span class="line">						<span class="comment">//记录右子链表头</span></span><br><span class="line">						ListNode *rightHead = cur-&gt;next;</span><br><span class="line">						<span class="comment">//左子链表尾部断开，使其成为单独的链表便于合并</span></span><br><span class="line">						cur-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">						<span class="comment">//寻找右子链表尾</span></span><br><span class="line">						cur = rightHead;</span><br><span class="line">						<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; subLen &amp;&amp; cur-&gt;next != <span class="literal">nullptr</span>; cur = cur-&gt;next, i++);</span><br><span class="line">						ListNode *nextLeftHead = cur-&gt;next;</span><br><span class="line">						<span class="comment">//右子链表尾部断开</span></span><br><span class="line">						cur-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">						cur = nextLeftHead;</span><br><span class="line">						<span class="comment">//塞入左右子链表合并后的新链表</span></span><br><span class="line">						curNew-&gt;next = <span class="built_in">MergeList</span>(leftHead, rightHead);</span><br><span class="line">						<span class="keyword">while</span> (curNew-&gt;next != <span class="literal">nullptr</span>) curNew = curNew-&gt;next;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">MergeSort</span>(head);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
@@ -301,7 +553,7 @@ c2}；两个链表相交于节点c1，自节点c1起为相交公共部分</p>
 <p>因为curA先遍历了A链表再遍历了B链表，curB先遍历了B链表再遍历了A链表，两个指针又是同时遍历，自然最终结果一样</p>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
@@ -309,38 +561,65 @@ c2}；两个链表相交于节点c1，自节点c1起为相交公共部分</p>
       </tags>
   </entry>
   <entry>
-    <title>146. LRU 缓存</title>
-    <url>/2023/07/03/146-LRU-%E7%BC%93%E5%AD%98/</url>
+    <title>1711. 大餐计数</title>
+    <url>/2023/07/04/1711-%E5%A4%A7%E9%A4%90%E8%AE%A1%E6%95%B0/</url>
     <content><![CDATA[<h1 id="考点">考点</h1>
 <ul>
-<li>哈希表与链表的综合</li>
+<li>状态压缩</li>
+<li>集合运算</li>
 </ul>
 <span id="more"></span>
 <h1 id="题解">题解</h1>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LRUCache</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="keyword">struct</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">			<span class="type">int</span> key;</span><br><span class="line">			<span class="type">int</span> value;</span><br><span class="line">			<span class="built_in">Node</span>(<span class="type">int</span> _key, <span class="type">int</span> _value) : <span class="built_in">key</span>(_key), <span class="built_in">value</span>(_value) &#123;&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">		<span class="type">int</span> capacity;</span><br><span class="line">		list&lt;Node&gt; l;</span><br><span class="line">		unordered_map&lt;<span class="type">int</span>, list&lt;Node&gt;::iterator&gt; m;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="built_in">LRUCache</span>(<span class="type">int</span> _capacity) : <span class="built_in">capacity</span>(_capacity) &#123;&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">get</span><span class="params">(<span class="type">int</span> key)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">auto</span> it = m.<span class="built_in">find</span>(key);</span><br><span class="line">			<span class="keyword">if</span> (it == m.<span class="built_in">end</span>())	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">			<span class="type">int</span> value = it-&gt;second-&gt;value;</span><br><span class="line">            <span class="comment">//先从链表中删除</span></span><br><span class="line">			l.<span class="built_in">erase</span>(it-&gt;second);</span><br><span class="line">            <span class="comment">//再添加到头部</span></span><br><span class="line">			l.<span class="built_in">emplace_front</span>(key, value);</span><br><span class="line">            <span class="comment">//更新哈希表</span></span><br><span class="line">			m[key] = l.<span class="built_in">begin</span>();</span><br><span class="line">			<span class="keyword">return</span> value;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">auto</span> it = m.<span class="built_in">find</span>(key);</span><br><span class="line">			<span class="keyword">if</span> (it == m.<span class="built_in">end</span>()) &#123;</span><br><span class="line">                <span class="comment">//容量为0就不能插入新元素</span></span><br><span class="line">				<span class="keyword">if</span> (capacity == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">				<span class="keyword">if</span> (m.<span class="built_in">size</span>() == (<span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>)capacity) &#123;</span><br><span class="line">					m.<span class="built_in">erase</span>(l.<span class="built_in">back</span>().key);</span><br><span class="line">					l.<span class="built_in">pop_back</span>();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				l.<span class="built_in">erase</span>(it-&gt;second);</span><br><span class="line">			&#125;</span><br><span class="line">			l.<span class="built_in">emplace_front</span>(key, value);</span><br><span class="line">			m[key] = l.<span class="built_in">begin</span>();</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">countPairs</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; deliciousnesses)</span> </span>&#123;</span><br><span class="line">			unordered_map&lt;<span class="type">int</span>, <span class="type">long</span>&gt; m;</span><br><span class="line">			<span class="type">long</span> ans = <span class="number">0</span>, mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">auto</span> &amp;deliciousness : deliciousnesses) m[deliciousness]++;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">auto</span> &amp;[a, v] : m) &#123;</span><br><span class="line">				<span class="keyword">for</span> (<span class="type">int</span> sum = <span class="number">1</span>; sum &lt; ( <span class="number">1</span> &lt;&lt; <span class="number">22</span>); sum = sum &lt;&lt; <span class="number">1</span>) &#123;</span><br><span class="line">					<span class="type">int</span> b = sum - a;</span><br><span class="line">					<span class="keyword">if</span> (m.<span class="built_in">count</span>(b)) &#123;</span><br><span class="line">						ans += a == b ? v * (v - <span class="number">1</span>) : v * m[b];</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> (<span class="type">int</span>)((ans &gt;&gt; <span class="number">1</span>) % mod);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( n\cdot \log C
+\right)\)</span>，其中<span class="math inline">\(C\)</span>为<span
+class="math inline">\(2^{21}\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( n
+\right)\)</span></p>
 <h1 id="思路">思路</h1>
-<p>LRU又称为最近最少使用页面置换算法(Least Recently
-Used)，淘汰最早访问的页面</p>
-<p>题目要求查找与增删节点时均要达到常量时间复杂度，很容易想到哈希表+链表的组合</p>
+<p>若按传统暴力方法，最高的时间复杂度高达10<sup>10</sup>，是绝对不可取的</p>
+<p>创建哈希表<code>m</code>记录美味程度相同的下标个数，将所有的下标分类成数个集合；运用集合运算可在常数时间内完成<code>下标两两比较</code>操作</p>
+<p>假设当前<code>m</code>的值为<code>&#123;1 : 3, 3 : 3, 7 : 1&#125;</code>，意味着美味程度等于1、3、7的下标个数分别为3、3、1</p>
+<p>接下来寻找<code>m</code>中满足<strong>两个键的和等于2的幂</strong>这一条件的情况个数，常规情况下双重暴力循环，时间复杂度高达平方，也不可取</p>
+<p>由于美味程度不超过2<sup>20</sup>，那么两个键的和也不会超过2<sup>21</sup></p>
+<p>令<code>sum</code>变量为2的幂，从1开始，即2<sup>0</sup>，每次翻倍，直到2<sup>21</sup>终止；循环过程中，用<code>sum</code>减去当前的键，判断<code>m</code>是否存在差值的记录</p>
+<p>若存在差值，这里有两种情况：</p>
+<ul>
+<li><p><strong>差值等于当前键</strong>，那么根据集合运算规则，该条件下的答案为：
+<span class="math display">\[
+\frac{\left( \text{键}-1+1 \right) \cdot \left( \text{键}-1
+\right)}{2}=\frac{\text{键}\cdot \left( \text{键}-1 \right)}{2}
+\]</span>
+假设当前<code>sum</code>为<code>2</code>，当前键为上述<code>m</code>中的<code>1</code>，有3个下标不同但美味程度均为1的元素</p>
+<p>令这三个下标分别为<code>&#123;0,1,2&#125;</code>，显然该集合两两元素生成不重复的子集只有<code>&#123;0,1&#125;</code>、<code>&#123;0,2&#125;</code>和<code>&#123;1,2&#125;</code>三个</p>
+<p>则答案满足等差数列求和公式： <span class="math display">\[
+\frac{\left( \text{首项}+\text{末项} \right) \cdot \text{项数}}{2}
+\]</span></p></li>
+<li><p><strong>差值等于另一个键</strong>，那么根据集合运算规则，该条件下的答案为：
+<span class="math display">\[
+\text{当前键映射的值}\cdot \text{差值键映射的值}
+\]</span>
+假设当前<code>sum</code>为<code>4</code>，当前键为上述<code>m</code>中的<code>1</code>，三个下标分别为<code>&#123;0,1,2&#125;</code>；差值键为上述<code>m</code>中的<code>3</code>，三个下标分别为<code>&#123;3,4,5&#125;</code></p>
+<p>那么<code>&#123;0,1,2&#125;</code>与<code>&#123;3,4,5&#125;</code>两集合中的元素，两两生成不重复的子集的个数为<code>3 * 3 = 9</code>，分别为：</p>
+<p><code>&#123;0,3&#125;</code>、<code>&#123;0,4&#125;</code>、<code>&#123;0,5&#125;</code>、<code>&#123;1,3&#125;</code>、<code>&#123;1,4&#125;</code>、<code>&#123;1,5&#125;</code>、<code>&#123;2,3&#125;</code>、<code>&#123;2,4&#125;</code>和<code>&#123;2,5&#125;</code></p></li>
+</ul>
+<p>这里有一个小细节，上述的第二种情况<code>差值等于另一个键</code>在实际过程中会被计算两次</p>
 <blockquote>
-<p>无序哈希表在平均情况下的查找为常量时间复杂度，而有序哈希表的查找为对数时间复杂度，因为底层是红黑树</p>
+<p><code>sum</code>为<code>4</code>时，当前键为<code>1</code>，差值键可为<code>3</code>；同样的<code>sum</code>，当前键为<code>3</code>时，差值键也可为<code>1</code></p>
 </blockquote>
-<p>所以有以下思路：</p>
-<ol type="1">
-<li><p>每次访问/更新节点时，先将其从链表中删除，再将其插入到链表头部以代表最近访问</p>
-<p>这样一来链表末尾节点自然是最早访问的了</p></li>
-<li><p>因为只涉及到删除链表中节点、删除链表尾部节点和插入链表头部节点，使用双向链表较为方便；这里使用<code>list</code>这一STL库来完成</p></li>
-<li><p>使用哈希表来记录键与节点的映射关系，这样就能直接操控链表节点而不用去遍历寻找</p></li>
-</ol>
-<p>数据结构设计如图所示</p>
-<img src="/2023/07/03/146-LRU-%E7%BC%93%E5%AD%98/1.png" class="" title="image-20230605162942234">
+<p>故而在下方代码中，<code>(v * (v - 1))/2</code>乘了2：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">ans += a == b ? v * (v - <span class="number">1</span>) : v * m[b];</span><br></pre></td></tr></table></figure>
+<p>这样可以留到结尾一起除2处理：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> (<span class="type">int</span>)((ans &gt;&gt; <span class="number">1</span>) % mod);</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
-        <tag>链表</tag>
+        <tag>位运算</tag>
+        <tag>状态压缩</tag>
         <tag>哈希表</tag>
+        <tag>集合运算</tag>
       </tags>
   </entry>
   <entry>
@@ -376,7 +655,7 @@ Used)，淘汰最早访问的页面</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="type">int</span> n;</span><br><span class="line">		<span class="function">ListNode* <span class="title">recursiveFunc</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (head == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">			head-&gt;next = <span class="built_in">recursiveFunc</span>(head-&gt;next);</span><br><span class="line">			<span class="keyword">if</span> (--n == <span class="number">0</span>) <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">			<span class="keyword">return</span> head;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="type">int</span> _n)</span> </span>&#123;</span><br><span class="line">			n = _n;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">recursiveFunc</span>(head);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
@@ -384,40 +663,150 @@ Used)，淘汰最早访问的页面</p>
       </tags>
   </entry>
   <entry>
-    <title>2. 两数相加</title>
-    <url>/2023/07/02/2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</url>
+    <title>190. 颠倒二进制位</title>
+    <url>/2023/07/04/190-%E9%A2%A0%E5%80%92%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/</url>
     <content><![CDATA[<h1 id="考点">考点</h1>
 <ul>
-<li>链表的合并</li>
+<li>位运算与分治法的综合</li>
+<li>掩码技巧</li>
+<li>移位技巧</li>
 </ul>
 <span id="more"></span>
 <h1 id="题解">题解</h1>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="type">int</span> carry = <span class="number">0</span>;</span><br><span class="line">		<span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">			ListNode *cur1 = l1, *cur2 = l2, *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>), *curNew = dummyHead;</span><br><span class="line">			<span class="keyword">while</span> (cur1 != <span class="literal">nullptr</span> || cur2 != <span class="literal">nullptr</span> || carry) &#123;</span><br><span class="line">				cur1 = cur1 != <span class="literal">nullptr</span> ? (carry += cur1-&gt;val, cur1-&gt;next) : <span class="literal">nullptr</span>;</span><br><span class="line">				cur2 = cur2 != <span class="literal">nullptr</span> ? (carry += cur2-&gt;val, cur2-&gt;next) : <span class="literal">nullptr</span>;</span><br><span class="line">				curNew-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(carry % <span class="number">10</span>);</span><br><span class="line">				carry /= <span class="number">10</span>;</span><br><span class="line">				curNew = curNew-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>同下</p>
 <h1 id="思路">思路</h1>
-<p>题目要我们算两个数相加的结果，146+854=1000；但要求的存储方式是倒过来的，641+458=0001</p>
-<img src="/2023/07/02/2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/1.png" class="" title="image-20230524163056995">
-<p>思路很简单：</p>
-<ul>
-<li>每次计算<code>cur1+cur2+进位的和</code>，将<code>和求余10</code>的值赋给新建的链表节点，将<code>和除10</code>的值更新进位</li>
-<li>只要cur1、cur2、进位有一个不为空，就要重复上述操作新增链表节点</li>
-</ul>
-<p>若要将其改造成递归就稍有难度</p>
-<ol type="1">
-<li><p>子问题：计算步骤同上；还需要将每次新增的链表节点串起来</p></li>
-<li><p>递归语句顺序：递归方向分为一去一回，去方向到达临界点后返回</p>
-<p>在这里，先在去方向构造完新链表节点；在回方向更新当前节点的<code>next</code>值，从而将链表串起来</p></li>
-<li><p>返回值：因为只能在回方向将新链表串起，所以每次返回新节点让上一个节点更改它的<code>next</code>值</p></li>
-<li><p>临界点：cur1、cur2、进位都为空</p></li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="type">int</span> carry = <span class="number">0</span>;</span><br><span class="line">		<span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (l1 == <span class="literal">nullptr</span> &amp;&amp; l2 == <span class="literal">nullptr</span> &amp;&amp; !carry) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">			l1 = l1 != <span class="literal">nullptr</span> ? (carry += l1-&gt;val, l1-&gt;next) : <span class="literal">nullptr</span>;</span><br><span class="line">			l2 = l2 != <span class="literal">nullptr</span> ? (carry += l2-&gt;val, l2-&gt;next) : <span class="literal">nullptr</span>;</span><br><span class="line">			ListNode *head = <span class="keyword">new</span> <span class="built_in">ListNode</span>(carry % <span class="number">10</span>);</span><br><span class="line">			carry /= <span class="number">10</span>;</span><br><span class="line">			head-&gt;next = <span class="built_in">addTwoNumbers</span>(l1, l2);</span><br><span class="line">			<span class="keyword">return</span> head;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>如果是<code>99+9</code>，到达临界点的情况如图所示；8、0、1的新建节点并没有串起来，所以才需要回方向将它们连接起来</p>
-<img src="/2023/07/02/2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/2.png" class="" title="image-20230527135416750">
+<h2 id="逐位移动">逐位移动</h2>
+<p>通过循环，每次新变量向左移位后接收<code>n</code>的低位，自然<code>n</code>的低位变成新变量的高位了</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">uint32_t</span> <span class="title">reverseBits</span><span class="params">(<span class="type">uint32_t</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="type">uint32_t</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; n = n &gt;&gt; <span class="number">1</span>, i++)&#123;</span><br><span class="line">            ans &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">            ans |= n &amp; <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( k
+\right)\)</span>，这里<span
+class="math inline">\(k\)</span>等于位数32</p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+<h2 id="分治">分治</h2>
+<p>参考<code>191. 位1的个数</code>中的分治法</p>
+<p>将二进制整串均分成左右两子串，每个子串同样递归地执行翻转操作，最后将左右子串交换位置完成翻转</p>
+<img src="/2023/07/04/190-%E9%A2%A0%E5%80%92%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/1.png" class="" title="image-20230617143518000">
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">uint32_t</span> <span class="title">reverseBits</span><span class="params">(<span class="type">uint32_t</span> n)</span> </span>&#123;</span><br><span class="line">			n = ((n &amp; <span class="number">0xAAAAAAAA</span>) &gt;&gt; <span class="number">1</span>) | ((n &amp; <span class="number">0x55555555</span>) &lt;&lt; <span class="number">1</span>);</span><br><span class="line">			n = ((n &amp; <span class="number">0xCCCCCCCC</span>) &gt;&gt; <span class="number">2</span>) | ((n &amp; <span class="number">0x33333333</span>) &lt;&lt; <span class="number">2</span>);</span><br><span class="line">			n = ((n &amp; <span class="number">0xf0f0f0f0</span>) &gt;&gt; <span class="number">4</span>) | ((n &amp; <span class="number">0x0f0f0f0f</span>) &lt;&lt; <span class="number">4</span>);</span><br><span class="line">			n = ((n &amp; <span class="number">0xff00ff00</span>) &gt;&gt; <span class="number">8</span>) | ((n &amp; <span class="number">0x00ff00ff</span>) &lt;&lt; <span class="number">8</span>);</span><br><span class="line">			n = ((n &amp; <span class="number">0xffff0000</span>) &gt;&gt; <span class="number">16</span>) | ((n &amp; <span class="number">0x0000ffff</span>) &lt;&lt; <span class="number">16</span>);</span><br><span class="line">			<span class="keyword">return</span> n;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( \log C
+\right)\)</span>，这里<span
+class="math inline">\(C\)</span>等于位数32</p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
-        <tag>链表</tag>
+        <tag>位运算</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>191. 位1的个数</title>
+    <url>/2023/07/04/191-%E4%BD%8D1%E7%9A%84%E4%B8%AA%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li><p><code>n &amp; (n - 1)</code>技巧，即Brian Kernighan算法</p></li>
+<li><p><code>n &amp; -n</code>技巧</p></li>
+<li><p>掩码技巧</p></li>
+<li><p>移位技巧</p></li>
+<li><p>位运算与分治法的综合</p></li>
+<li><p><code>bitCount</code>的实现</p></li>
+<li><p><code>lowBit</code>的实现</p></li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<p>同下</p>
+<h1 id="思路">思路</h1>
+<p>有若干方法可以实现<code>bitCount</code>，下面依次列举，便于快速熟悉位运算的各种技巧</p>
+<h2 id="掩码计数">掩码计数</h2>
+<p>最容易想到的办法，就是使用类似计算机网络中的<code>掩码</code>，与原数逐位比较；这里的<code>掩码</code>也必须为无符号32位类型，否则会溢出</p>
+<blockquote>
+<p>对于int来说，</p>
+<p>正数极值用二进制表达是0111_1111_1111_1111_1111_1111_1111_1111</p>
+<p>负数极值用二进制表达是1000_0000_0000_0000_0000_0000_0000_0000</p>
+<p>负数以补码的形式存在，-1用二进制表达是1111_1111_1111_1111_1111_1111_1111_1111</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">hammingWeight</span><span class="params">(<span class="type">uint32_t</span> n)</span> </span>&#123;</span><br><span class="line">			<span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">			<span class="type">uint32_t</span> mask = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">31</span>; mask = mask &lt;&lt; <span class="number">1</span>, i++) &#123;</span><br><span class="line">				<span class="keyword">if</span> (n &amp; mask) cnt++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> cnt;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( k
+\right)\)</span>，其中<span
+class="math inline">\(k\)</span>为<code>uint32_t</code>的位数，在这里是32位</p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+<h2 id="右移计数">右移计数</h2>
+<p>每次判断最低位是否为1，然后将原数右移一位；因为题目说明了原数是无符号32位，所以右移不会新增1的个数</p>
+<blockquote>
+<p>若是负数，右移时高位会补1</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">hammingWeight</span><span class="params">(<span class="type">uint32_t</span> n)</span> </span>&#123;</span><br><span class="line">			<span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">while</span> (n) &#123;</span><br><span class="line">				cnt += n &amp; <span class="number">1</span>;</span><br><span class="line">				n = n &gt;&gt; <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> cnt;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( k
+\right)\)</span>，其中<span
+class="math inline">\(k\)</span>为<code>uint32_t</code>的位数，在这里是32位</p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+<h2 id="brian-kernighan算法">Brian Kernighan算法</h2>
+<p>对于任何一个数<code>n</code>，<code>n &amp; (n - 1)</code>能够将最低位的1变为0</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">hammingWeight</span><span class="params">(<span class="type">uint32_t</span> n)</span> </span>&#123;</span><br><span class="line">			<span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">while</span> (n) &#123;</span><br><span class="line">				n &amp;= n - <span class="number">1</span>;</span><br><span class="line">				cnt++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> cnt;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( \log n
+\right)\)</span>，循环次数等于<span
+class="math inline">\(n\)</span>的二进制位中1的个数</p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+<h2 id="lowbit">lowBit</h2>
+<p>对于任何一个数<code>n</code>，<code>n &amp; -n</code>能够获取最低位的1的位置；假设二进制表达为<code>0110</code>，则lowBit返回<code>0010</code></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">hammingWeight</span><span class="params">(<span class="type">uint32_t</span> n)</span> </span>&#123;</span><br><span class="line">			<span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">while</span> (n) &#123;</span><br><span class="line">				n -= n &amp; -n;</span><br><span class="line">				cnt++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> cnt;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( \log n
+\right)\)</span>，循环次数等于<span
+class="math inline">\(n\)</span>的二进制位中1的个数</p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+<h2 id="分治">分治</h2>
+<p>参考JDK中<code>Integer.bitCount</code>的函数原型</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">hammingWeight</span><span class="params">(<span class="type">uint32_t</span> n)</span> </span>&#123;</span><br><span class="line">			n = (n &amp; <span class="number">0x55555555</span>) + ((n &gt;&gt; <span class="number">1</span>) &amp; <span class="number">0x55555555</span>);</span><br><span class="line">			n = (n &amp; <span class="number">0x33333333</span>) + ((n &gt;&gt; <span class="number">2</span>) &amp; <span class="number">0x33333333</span>);</span><br><span class="line">			n = (n &amp; <span class="number">0x0f0f0f0f</span>) + ((n &gt;&gt; <span class="number">4</span>) &amp; <span class="number">0x0f0f0f0f</span>);</span><br><span class="line">			n = (n &amp; <span class="number">0x00ff00ff</span>) + ((n &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0x00ff00ff</span>);</span><br><span class="line">			n = (n &amp; <span class="number">0x0000ffff</span>) + ((n &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0x0000ffff</span>);</span><br><span class="line">			<span class="keyword">return</span> n;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>原理类似归并排序的迭代版，每次按照单位长度进行归并：</p>
+<ol type="1">
+<li>单位长度为1时，<code>1个数</code>取决于其本身是否为1</li>
+<li>单位长度为2，取<strong>相邻高低位</strong>，它们各自的<code>1个数</code>相加，达到<code>一一归并为二</code>的效果</li>
+<li>单位长度为4，取<strong>相邻且单位长度为2</strong>的两部分，它们各自的<code>1个数</code>相加，达到<code>二二归并为四</code>的效果</li>
+<li>单位长度为8，取<strong>相邻且单位长度为4</strong>的两部分，它们各自的<code>1个数</code>相加，达到<code>四四归并为八</code>的效果</li>
+<li>循环同上</li>
+</ol>
+<p>假设需要统计二进制序列<code>1011101110</code>中1的总数，分治过程如下</p>
+<img src="/2023/07/04/191-%E4%BD%8D1%E7%9A%84%E4%B8%AA%E6%95%B0/1.png" class="" title="image-20230616181756580">
+<p>假设有二进制<code>1110</code>，求1的个数<span
+class="math inline">\(N\)</span>；设二进制位编号从左到右分别为a、b、c、d，那么有
+<span class="math display">\[
+N=N_a+N_b+N_c+N_d=N_{a,b}+N_{c,d}
+\]</span> 初始单位长度为1，按上面的分治过程，需要一一组合为二</p>
+<p>在第一步中，设计掩码<code>0101</code>，令<code>0101 &amp; 1110 = 0100</code>取出<span
+class="math inline">\(N_b\)</span>和<span
+class="math inline">\(N_d\)</span></p>
+<p>再<code>1110 &gt;&gt; 1 = 0111</code>，<code>0101 &amp; 0111 = 0101</code>取出<span
+class="math inline">\(N_a\)</span>和<span
+class="math inline">\(N_c\)</span></p>
+<p><code>0100 + 0101 = 1001</code>就能得到<span
+class="math inline">\(N_{a,b}\)</span>与<span
+class="math inline">\(N_{c,d}\)</span></p>
+<p>第二步中可以设计<code>0011</code>这一掩码，<code>1001 &amp; 0011 = 0001</code>取出<span
+class="math inline">\(N_{c,d}\)</span></p>
+<p><code>1001 &gt;&gt; 2 = 0010</code>，<code>0010 &amp; 0011 = 0010</code>取出<span
+class="math inline">\(N_{a,b}\)</span></p>
+<p><code>0001 + 0010 = 0011 = 十进制的3</code>，即为 <span
+class="math display">\[
+N=N_{a,b}+N_{c,d}
+\]</span> 那么这些掩码的功效你应该能明白了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">0x55555555  ‭0b01010101010101010101010101010101‬</span><br><span class="line">0x33333333  ‭0b00110011001100110011001100110011‬</span><br><span class="line">0x0f0f0f0f  ‭0b00001111000011110000111100001111‬</span><br><span class="line">0x00ff00ff  0b00000000111111110000000011111111</span><br><span class="line">0x0000ffff  ‭0b00000000000000001111111111111111‬</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( \log C
+\right)\)</span>，其中<span
+class="math inline">\(C\)</span>为<code>uint32_t</code>的位数，在这里是32位；大部分情况下，是所有方法中最快的一个</p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>位运算</tag>
       </tags>
   </entry>
   <entry>
@@ -454,7 +843,44 @@ Used)，淘汰最早访问的页面</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">removeElements</span><span class="params">(ListNode* head, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(head == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">			head-&gt;next = <span class="built_in">removeElements</span>(head-&gt;next, val);</span><br><span class="line">			<span class="keyword">if</span>(head-&gt;val == val) <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">			<span class="keyword">return</span> head;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2. 两数相加</title>
+    <url>/2023/07/02/2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的合并</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="type">int</span> carry = <span class="number">0</span>;</span><br><span class="line">		<span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">			ListNode *cur1 = l1, *cur2 = l2, *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>), *curNew = dummyHead;</span><br><span class="line">			<span class="keyword">while</span> (cur1 != <span class="literal">nullptr</span> || cur2 != <span class="literal">nullptr</span> || carry) &#123;</span><br><span class="line">				cur1 = cur1 != <span class="literal">nullptr</span> ? (carry += cur1-&gt;val, cur1-&gt;next) : <span class="literal">nullptr</span>;</span><br><span class="line">				cur2 = cur2 != <span class="literal">nullptr</span> ? (carry += cur2-&gt;val, cur2-&gt;next) : <span class="literal">nullptr</span>;</span><br><span class="line">				curNew-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(carry % <span class="number">10</span>);</span><br><span class="line">				carry /= <span class="number">10</span>;</span><br><span class="line">				curNew = curNew-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>题目要我们算两个数相加的结果，146+854=1000；但要求的存储方式是倒过来的，641+458=0001</p>
+<img src="/2023/07/02/2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/1.png" class="" title="image-20230524163056995">
+<p>思路很简单：</p>
+<ul>
+<li>每次计算<code>cur1+cur2+进位的和</code>，将<code>和求余10</code>的值赋给新建的链表节点，将<code>和除10</code>的值更新进位</li>
+<li>只要cur1、cur2、进位有一个不为空，就要重复上述操作新增链表节点</li>
+</ul>
+<p>若要将其改造成递归就稍有难度</p>
+<ol type="1">
+<li><p>子问题：计算步骤同上；还需要将每次新增的链表节点串起来</p></li>
+<li><p>递归语句顺序：递归方向分为一去一回，去方向到达临界点后返回</p>
+<p>在这里，先在去方向构造完新链表节点；在回方向更新当前节点的<code>next</code>值，从而将链表串起来</p></li>
+<li><p>返回值：因为只能在回方向将新链表串起，所以每次返回新节点让上一个节点更改它的<code>next</code>值</p></li>
+<li><p>临界点：cur1、cur2、进位都为空</p></li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="type">int</span> carry = <span class="number">0</span>;</span><br><span class="line">		<span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (l1 == <span class="literal">nullptr</span> &amp;&amp; l2 == <span class="literal">nullptr</span> &amp;&amp; !carry) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">			l1 = l1 != <span class="literal">nullptr</span> ? (carry += l1-&gt;val, l1-&gt;next) : <span class="literal">nullptr</span>;</span><br><span class="line">			l2 = l2 != <span class="literal">nullptr</span> ? (carry += l2-&gt;val, l2-&gt;next) : <span class="literal">nullptr</span>;</span><br><span class="line">			ListNode *head = <span class="keyword">new</span> <span class="built_in">ListNode</span>(carry % <span class="number">10</span>);</span><br><span class="line">			carry /= <span class="number">10</span>;</span><br><span class="line">			head-&gt;next = <span class="built_in">addTwoNumbers</span>(l1, l2);</span><br><span class="line">			<span class="keyword">return</span> head;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>如果是<code>99+9</code>，到达临界点的情况如图所示；8、0、1的新建节点并没有串起来，所以才需要回方向将它们连接起来</p>
+<img src="/2023/07/02/2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/2.png" class="" title="image-20230527135416750">
+]]></content>
+      <categories>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
@@ -541,7 +967,62 @@ Used)，淘汰最早访问的页面</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (head == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head);</span><br><span class="line">			<span class="keyword">while</span> (head-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				ListNode *tmp = head-&gt;next;</span><br><span class="line">				head-&gt;next = tmp-&gt;next;</span><br><span class="line">				tmp-&gt;next = dummyHead-&gt;next;</span><br><span class="line">				dummyHead-&gt;next = tmp;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>231. 2 的幂</title>
+    <url>/2023/07/04/231-2-%E7%9A%84%E5%B9%82/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li><code>n &amp; (n - 1)</code>技巧</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">bool</span> <span class="title">isPowerOfTwo</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> n &gt; <span class="number">0</span> &amp;&amp; (n &amp; (n - <span class="number">1</span>)) == <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+<h1 id="思路">思路</h1>
+<p>若满足2的幂次，二进制位有且只有一个1</p>
+<p>所以使用<code>n &amp; (n - 1)</code>技巧去掉最后一个1，判断是否为空即可</p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>位运算</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>21. 合并两个有序链表</title>
+    <url>/2023/07/02/21-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的合并</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">mergeTwoLists</span><span class="params">(ListNode* list1, ListNode* list2)</span> </span>&#123;</span><br><span class="line">			ListNode *cur1 = list1, *cur2 = list2, *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>), *curNew = dummyHead;</span><br><span class="line">			<span class="keyword">while</span> (cur1 != <span class="literal">nullptr</span> &amp;&amp; cur2 != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				<span class="keyword">while</span> (cur1 != <span class="literal">nullptr</span> &amp;&amp; cur2 != <span class="literal">nullptr</span> &amp;&amp; cur1-&gt;val &lt;= cur2-&gt;val) &#123;</span><br><span class="line">					curNew-&gt;next = cur1;</span><br><span class="line">					curNew = curNew-&gt;next;</span><br><span class="line">					cur1 = cur1-&gt;next;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">while</span> (cur1 != <span class="literal">nullptr</span> &amp;&amp; cur2 != <span class="literal">nullptr</span> &amp;&amp; cur2-&gt;val &lt;= cur1-&gt;val) &#123;</span><br><span class="line">					curNew-&gt;next = cur2;</span><br><span class="line">					curNew = curNew-&gt;next;</span><br><span class="line">					cur2 = cur2-&gt;next;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			curNew-&gt;next = cur1 != <span class="literal">nullptr</span> ? cur1 : cur2;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>设<code>list1</code>链表的游标指针为<code>cur1</code>，<code>list2</code>链表的游标指针为<code>cur2</code></p>
+<p>两个链表已经是升序，所以两个指针同时从头开始比较，每次取最小值插入新链表</p>
+<p>如果某个链表提前结束，其余部分直接接入新链表即可；因为旧链表剩余部分的值肯定比新链表的值都要大</p>
+<p>重点讲一下递归的做法：</p>
+<ol type="1">
+<li>子问题：每次记录两个指针中的最小值，然后串起来变成新链表</li>
+<li>递归语句顺序：递归方向分为一去一回，去方向到达临界点后返回；在去方向判断符合条件的节点，在回方向将节点们串起来</li>
+<li>返回值：返回符合条件的节点，供以上一个节点修改它的<code>next</code>值</li>
+<li>临界点：两个指针均为<code>nullptr</code></li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">mergeTwoLists</span><span class="params">(ListNode* list1, ListNode* list2)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (list1 == <span class="literal">nullptr</span>) <span class="keyword">return</span> list2;</span><br><span class="line">			<span class="keyword">if</span> (list2 == <span class="literal">nullptr</span>) <span class="keyword">return</span> list1;</span><br><span class="line">			<span class="keyword">if</span> (list1-&gt;val &lt;= list2-&gt;val) &#123;</span><br><span class="line">				list1-&gt;next = <span class="built_in">mergeTwoLists</span>(list1-&gt;next, list2);</span><br><span class="line">				<span class="keyword">return</span> list1;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				list2-&gt;next = <span class="built_in">mergeTwoLists</span>(list1, list2-&gt;next);</span><br><span class="line">				<span class="keyword">return</span> list2;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
@@ -582,41 +1063,11 @@ Used)，淘汰最早访问的页面</p>
 </blockquote>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
         <tag>双指针</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>21. 合并两个有序链表</title>
-    <url>/2023/07/02/21-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/</url>
-    <content><![CDATA[<h1 id="考点">考点</h1>
-<ul>
-<li>链表的合并</li>
-</ul>
-<span id="more"></span>
-<h1 id="题解">题解</h1>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">mergeTwoLists</span><span class="params">(ListNode* list1, ListNode* list2)</span> </span>&#123;</span><br><span class="line">			ListNode *cur1 = list1, *cur2 = list2, *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>), *curNew = dummyHead;</span><br><span class="line">			<span class="keyword">while</span> (cur1 != <span class="literal">nullptr</span> &amp;&amp; cur2 != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				<span class="keyword">while</span> (cur1 != <span class="literal">nullptr</span> &amp;&amp; cur2 != <span class="literal">nullptr</span> &amp;&amp; cur1-&gt;val &lt;= cur2-&gt;val) &#123;</span><br><span class="line">					curNew-&gt;next = cur1;</span><br><span class="line">					curNew = curNew-&gt;next;</span><br><span class="line">					cur1 = cur1-&gt;next;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">while</span> (cur1 != <span class="literal">nullptr</span> &amp;&amp; cur2 != <span class="literal">nullptr</span> &amp;&amp; cur2-&gt;val &lt;= cur1-&gt;val) &#123;</span><br><span class="line">					curNew-&gt;next = cur2;</span><br><span class="line">					curNew = curNew-&gt;next;</span><br><span class="line">					cur2 = cur2-&gt;next;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			curNew-&gt;next = cur1 != <span class="literal">nullptr</span> ? cur1 : cur2;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h1 id="思路">思路</h1>
-<p>设<code>list1</code>链表的游标指针为<code>cur1</code>，<code>list2</code>链表的游标指针为<code>cur2</code></p>
-<p>两个链表已经是升序，所以两个指针同时从头开始比较，每次取最小值插入新链表</p>
-<p>如果某个链表提前结束，其余部分直接接入新链表即可；因为旧链表剩余部分的值肯定比新链表的值都要大</p>
-<p>重点讲一下递归的做法：</p>
-<ol type="1">
-<li>子问题：每次记录两个指针中的最小值，然后串起来变成新链表</li>
-<li>递归语句顺序：递归方向分为一去一回，去方向到达临界点后返回；在去方向判断符合条件的节点，在回方向将节点们串起来</li>
-<li>返回值：返回符合条件的节点，供以上一个节点修改它的<code>next</code>值</li>
-<li>临界点：两个指针均为<code>nullptr</code></li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">mergeTwoLists</span><span class="params">(ListNode* list1, ListNode* list2)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (list1 == <span class="literal">nullptr</span>) <span class="keyword">return</span> list2;</span><br><span class="line">			<span class="keyword">if</span> (list2 == <span class="literal">nullptr</span>) <span class="keyword">return</span> list1;</span><br><span class="line">			<span class="keyword">if</span> (list1-&gt;val &lt;= list2-&gt;val) &#123;</span><br><span class="line">				list1-&gt;next = <span class="built_in">mergeTwoLists</span>(list1-&gt;next, list2);</span><br><span class="line">				<span class="keyword">return</span> list1;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				list2-&gt;next = <span class="built_in">mergeTwoLists</span>(list1, list2-&gt;next);</span><br><span class="line">				<span class="keyword">return</span> list2;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>链表</tag>
       </tags>
   </entry>
   <entry>
@@ -634,7 +1085,7 @@ Used)，淘汰最早访问的页面</p>
 <p>要求中提到<code>并且保证给定的节点</code>node<code>不是链表中的最后一个节点</code>，那么直接用下一个节点覆盖自己就行</p>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
@@ -668,10 +1119,215 @@ Used)，淘汰最早访问的页面</p>
 <img src="/2023/07/02/24-%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9/4.png" class="" title="image-20230519162952720">
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>25. K 个一组翻转链表</title>
+    <url>/2023/07/02/25-K-%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>链表的反转</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseKGroup</span><span class="params">(ListNode* head, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head), *subDummyHead = dummyHead;</span><br><span class="line">			<span class="keyword">while</span> (subDummyHead-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				ListNode *tmp = subDummyHead;</span><br><span class="line">				<span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">				<span class="keyword">for</span> (; i &lt; k &amp;&amp; tmp != <span class="literal">nullptr</span>; i++) tmp = tmp-&gt;next;</span><br><span class="line">				<span class="keyword">if</span> (tmp == <span class="literal">nullptr</span>) <span class="keyword">break</span>;</span><br><span class="line">				<span class="comment">//使用改进版头插法进行反转子链表</span></span><br><span class="line">				ListNode *tail = subDummyHead-&gt;next;</span><br><span class="line">				<span class="keyword">while</span> (--i) &#123;</span><br><span class="line">					ListNode *node = tail-&gt;next;</span><br><span class="line">					tail-&gt;next = node-&gt;next;</span><br><span class="line">					node-&gt;next = subDummyHead-&gt;next;</span><br><span class="line">					subDummyHead-&gt;next = node;</span><br><span class="line">				&#125;</span><br><span class="line">				subDummyHead = tail;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>凡是链表翻转类的题目，使用<code>改进版头插法</code>就对了，详见<code>206. 反转链表</code></p>
+<p>因为题目是要求每次翻转长度为K的子链表，除了要在子链表头前再找一个节点作为<code>dummyHead</code>外，每次还要先判断子链表长度是不是K</p>
+<p>每次翻转结束后，当前子链表的尾节点恰好就是下一组子链表的<code>dummyHead</code>，从而开启新一轮的翻转</p>
+<p>其余代码套<code>改进版头插法</code>的模板就好了</p>
+<p>这里改成递归也行，但是和迭代没太大区别</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">recursiveFunc</span><span class="params">(ListNode* subDummyHead, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">			ListNode *tmp = subDummyHead;</span><br><span class="line">			<span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (; i &lt; k &amp;&amp; tmp != <span class="literal">nullptr</span>; i++) tmp = tmp-&gt;next;</span><br><span class="line">			<span class="keyword">if</span> (tmp == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">			<span class="comment">//使用改进版头插法进行反转子链表</span></span><br><span class="line">			ListNode *tail = subDummyHead-&gt;next;</span><br><span class="line">			<span class="keyword">while</span> (--i) &#123;</span><br><span class="line">				ListNode *node = tail-&gt;next;</span><br><span class="line">				tail-&gt;next = node-&gt;next;</span><br><span class="line">				node-&gt;next = subDummyHead-&gt;next;</span><br><span class="line">				subDummyHead-&gt;next = node;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="built_in">recursiveFunc</span>(tail, k);</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseKGroup</span><span class="params">(ListNode* head, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head);</span><br><span class="line">			<span class="built_in">recursiveFunc</span>(dummyHead, k);</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>260. 只出现一次的数字 III</title>
+    <url>/2023/07/04/260-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97-III/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>状态压缩</li>
+<li>集合运算</li>
+<li>异或技巧</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">singleNumber</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">            <span class="comment">//这里使用long，避免计算lsb即最低有效位时溢出</span></span><br><span class="line">			<span class="type">long</span> xorSum = <span class="number">0</span>, lsb = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">auto</span> &amp;num : nums) xorSum ^= num;</span><br><span class="line">			<span class="comment">//按最低有效位所在的比特位进行比较与分割</span></span><br><span class="line">			<span class="type">int</span> ans_1 = <span class="number">0</span>;</span><br><span class="line">			lsb = (xorSum &amp; (-xorSum));</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">auto</span> &amp;num : nums) &#123;</span><br><span class="line">				<span class="keyword">if</span> (num &amp; lsb) ans_1 ^= num;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> vector&lt;<span class="type">int</span>&gt; &#123;ans_1, (<span class="type">int</span>)(xorSum ^ ans_1)&#125;;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( n
+\right)\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+<h1 id="思路">思路</h1>
+<p>类似<code>136. 只出现一次的数字</code>，同样对数组的所有元素进行异或运算，得到<code>xorSum</code>；实际上就是最终两个答案的异或值，且必不为0</p>
+<p>取<code>xorSum</code>任意一个值为1的比特位，记为<code>i</code>；其代表两个答案在<code>i</code>上不同，一个必为1一个必为0</p>
+<p>根据在<code>i</code>上的值为0或1，将所有元素进行分组，两个答案必不在一个组；随后对每个组分别求异或和，即可得到两个答案</p>
+<p>比如<code>nums</code>等于<code>&#123;1,1,2,2,3,5&#125;</code>，二进制表达为<code>&#123;001,001,010,010,011,101&#125;</code>
+，<code>xorSum</code>为<code>110</code></p>
+<p>这里取<code>i</code>为<code>010</code>，即<code>xorSum</code>的最低有效位</p>
+<p>与<code>i</code>作与运算为0的，子集合为<code>&#123;001,001,101&#125;</code>；与<code>i</code>作与运算为1的，子集合为<code>&#123;010,010,011&#125;</code></p>
+<p>任意取一个子集合作异或运算求和，即可得到其中一个答案；将这个答案与<code>xorSum</code>作异或运算，即可得到另一个答案</p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>位运算</tag>
+        <tag>状态压缩</tag>
+        <tag>集合运算</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>268. 丢失的数字</title>
+    <url>/2023/07/04/268-%E4%B8%A2%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>异或技巧</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">missingNumber</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">			<span class="type">int</span> xorSum = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= (<span class="type">int</span>)nums.<span class="built_in">size</span>(); i++) xorSum ^= i;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">auto</span> &amp;num : nums) xorSum ^= num;</span><br><span class="line">			<span class="keyword">return</span> xorSum;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( n
+\right)\)</span>，其中<span
+class="math inline">\(n\)</span>为数组长度</p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+<h1 id="思路">思路</h1>
+<p>假设给定范围为<span
+class="math inline">\(a_{0...3}\)</span>，<code>nums</code>的值为<span
+class="math inline">\(\left\{ a_0,a_1,a_3
+\right\}\)</span>，则需要找到<span
+class="math inline">\(a_2\)</span></p>
+<p>根据异或的性质<code>a ^ a = 0</code>与<code>a ^ 0 = a</code>，必有以下恒等式成立：
+<span class="math display">\[
+\left( a_0\oplus a_1\oplus a_2\oplus a_3 \right) \oplus \left( a_0\oplus
+a_1\oplus a_3 \right) =a_2
+\]</span>
+故而先求出<code>0 ~ nums.size()</code>的异或和，再与<code>nums</code>的元素逐个异或即可得出缺失的元素</p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>位运算</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>318. 最大单词长度乘积</title>
+    <url>/2023/07/04/318-%E6%9C%80%E5%A4%A7%E5%8D%95%E8%AF%8D%E9%95%BF%E5%BA%A6%E4%B9%98%E7%A7%AF/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>状态压缩</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; m;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">maxProduct</span><span class="params">(vector&lt;string&gt;&amp; words)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">for</span> (string &amp;word : words) &#123;</span><br><span class="line">				<span class="type">int</span> hsh = <span class="number">0</span>;</span><br><span class="line">				<span class="keyword">for</span> (<span class="type">char</span> &amp;chr : word) &#123;</span><br><span class="line">					hsh |= <span class="number">1</span> &lt;&lt; (chr - <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">				&#125;</span><br><span class="line">				m[hsh] = <span class="built_in">max</span>(m[hsh], (<span class="type">int</span>)word.<span class="built_in">length</span>());</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">auto</span> it_1 = m.<span class="built_in">begin</span>(); it_1 != m.<span class="built_in">end</span>(); it_1++) &#123;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">auto</span> it_2 = <span class="built_in">next</span>(it_1); it_2 != m.<span class="built_in">end</span>(); it_2++) &#123;</span><br><span class="line">					<span class="keyword">if</span> ((it_1-&gt;first &amp; it_2-&gt;first) == <span class="number">0</span>) &#123;</span><br><span class="line">						ans = <span class="built_in">max</span>(ans, it_1-&gt;second * it_2-&gt;second);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> ans;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( \max \left(
+\sum\nolimits_{0\leqslant i\leqslant n-1}^{}{words\left[ i
+\right]}.length,n^2 \right) \right)\)</span>，<span
+class="math inline">\(n\)</span>为<span
+class="math inline">\(words\)</span>数组长度</p>
+<p>其中构造哈希表的时间复杂度为<span class="math inline">\(O\left(
+\sum\nolimits_{0\leqslant i\leqslant n-1}^{}{words\left[ i
+\right]}.length \right)\)</span>，计算最大乘积的时间复杂度为<span
+class="math inline">\(O\left( n^2 \right)\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( n
+\right)\)</span></p>
+<h1 id="思路">思路</h1>
+<p>按照传统的办法，比较两个字符串的组成需要新建哈希表并遍历，耗时<span
+class="math inline">\(O\left( n \right)\)</span></p>
+<p>若按照题意，所有字符串两两比较，时间复杂度高达<span
+class="math inline">\(O\left( n^3 \right)\)</span>，是绝对不可取的</p>
+<p>题目限制了字符串只含有小写字母，可以使用一个<code>int</code>的低26位来记录字符串中的字母组成</p>
+<p>该<code>int</code>可以作为哈希表的键，值则是对应字符串的长度；字母的组成肯定有雷同，所以只记录组成相同里长度最大的</p>
+<p>最后再双重遍历哈希表，寻找长度乘积最大的即可</p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>位运算</tag>
+        <tag>状态压缩</tag>
+        <tag>哈希函数</tag>
+        <tag>哈希表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>338. 比特位计数</title>
+    <url>/2023/07/04/338-%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>比特位变化规律，按最高位变化、最低位变化与Brian
+Kernighan算法三种角度分析</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<p>同下</p>
+<h1 id="思路">思路</h1>
+<p>假设<code>i</code>代表当前十进制数字，<code>dp[i]</code>代表十进制数字<code>i</code>的<code>1个数</code></p>
+<h2 id="最高有效位">最高有效位</h2>
+<p>设<code>i</code>的最高有效位保存至变量<code>highBit</code>；显然<code>110</code>是由<code>100 + 010</code>组成，<code>101</code>是由<code>100 + 001</code>组成，满足：</p>
+<blockquote>
+<p>i的1个数 = 1[代表highBit] + (i - highBit)的1个数</p>
+</blockquote>
+<p>将其转化为动态规划转移方程： <span class="math display">\[
+dp\left[ i \right] =1+dp\left[ i-highBit \right]
+\]</span>
+遇到<code>001</code>、<code>010</code>这类2的幂次，代表有新的进位；此时更新<code>highBit</code>变量，避免后续数字重复计算<code>highBit</code></p>
+<p>如果范围不大，也可以先将范围内所有的<code>highBit</code>通过打表存入数组，在许多场景都有该应用</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">countBits</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">			<span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(n + <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">			<span class="type">int</span> highBit = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">				<span class="keyword">if</span> (!(i &amp; (i - <span class="number">1</span>))) highBit = i;</span><br><span class="line">				dp[i] = dp[i - highBit] + <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dp;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( n
+\right)\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( n
+\right)\)</span>，新增了<code>dp</code>数组存储结果</p>
+<h2 id="最低有效位">最低有效位</h2>
+<p>根据奇偶性分析</p>
+<ul>
+<li><p>若<code>i</code>是偶数，<code>1个数</code>肯定与<code>i/2</code>一致，因为<code>i</code>是由<code>i/2</code>的比特位向左移一位而成</p>
+<p>比如<code>100</code>是<code>010</code>向左移了一位，<code>1个数</code>保持不变</p></li>
+<li><p>若<code>i</code>是奇数，必满足<code>i的1个数 = i/2的1个数 + 1</code></p>
+<p>比如<code>111</code>是<code>011</code>向左移一位后再加上<code>001</code></p></li>
+</ul>
+<p>将其转化为动态规划转移方程： <span class="math display">\[
+dp\left[ i \right] =\begin{cases}
+    dp\left[ i/2 \right] \text{，}i\text{为偶数}\\
+    dp\left[ i/2 \right] +1\text{，}i\text{为奇数}\\
+\end{cases}
+\]</span></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">countBits</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">			<span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(n + <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">				dp[i] = i &amp; <span class="number">1</span> ? dp[i / <span class="number">2</span>] + <span class="number">1</span> : dp[i / <span class="number">2</span>];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dp;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( n
+\right)\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( n
+\right)\)</span>，新增了<code>dp</code>数组存储结果</p>
+<h2 id="brian-kernighan算法">Brian Kernighan算法</h2>
+<p>根据<code>i &amp; (i - 1)</code>可以去掉<code>i</code>的最低有效1这一性质，满足：</p>
+<blockquote>
+<p>i的1个数 = 1[代表Brian Kernighan操作去掉的1] + (i &amp; (i -
+1))的1个数</p>
+</blockquote>
+<p>将其转化为动态规划转移方程： <span class="math display">\[
+dp\left[ i \right] =1+dp\left[ i\,\,\&amp; \left( i-1 \right) \right]
+\]</span></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">countBits</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">			<span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">dp</span><span class="params">(n + <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">				dp[i] = dp[i &amp; (i - <span class="number">1</span>)] + <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dp;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( n
+\right)\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( n
+\right)\)</span>，新增了<code>dp</code>数组存储结果</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>位运算</tag>
+        <tag>动态规划</tag>
       </tags>
   </entry>
   <entry>
@@ -689,10 +1345,68 @@ Used)，淘汰最早访问的页面</p>
 <p>遍历链表时，奇数节点插入至奇链表，偶数节点插入至偶链表；最终将偶链表接在奇链表末尾即可</p>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>371. 两整数之和</title>
+    <url>/2023/07/04/371-%E4%B8%A4%E6%95%B4%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>异或技巧</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">getSum</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> carry, <span class="type">int</span> sum)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">while</span> (carry) &#123;</span><br><span class="line">				<span class="type">int</span> tmp = sum;</span><br><span class="line">				sum = carry ^ tmp;</span><br><span class="line">				carry = (carry &amp; tmp) &lt;&lt; <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> sum;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：存在异议，但个人认为不会超过32次</p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+<h1 id="思路">思路</h1>
+<p>记住这个位运算小技巧就好了，假设有<code>a</code>和<code>b</code>两个整数，不限正负</p>
+<ul>
+<li><span class="math inline">\(a\oplus
+b\)</span>可得到<code>a</code>与<code>b</code>的无进位加法结果</li>
+<li><span class="math inline">\(\left( a\&amp;b \right)
+&lt;&lt;1\)</span>可得到<code>a</code>与<code>b</code>的加法进位</li>
+</ul>
+<p>由于进位可能会溢出，比如<code>-1 + 1</code>这组数据；所以需用无符号类型保存进位</p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>位运算</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>405. 数字转换为十六进制数</title>
+    <url>/2023/07/04/405-%E6%95%B0%E5%AD%97%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>掩码技巧</li>
+<li>移位技巧</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		string ans;</span><br><span class="line">		<span class="type">char</span> chr[<span class="number">16</span>] = &#123;<span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;2&#x27;</span>, <span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;4&#x27;</span>, <span class="string">&#x27;5&#x27;</span>, <span class="string">&#x27;6&#x27;</span>, <span class="string">&#x27;7&#x27;</span>, <span class="string">&#x27;8&#x27;</span></span><br><span class="line">		                , <span class="string">&#x27;9&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;f&#x27;</span></span><br><span class="line">		               &#125;;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">string <span class="title">toHex</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> num)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span> (!num) <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>;</span><br><span class="line">			<span class="keyword">while</span> (num) &#123;</span><br><span class="line">				ans = chr[num &amp; <span class="number">0b1111</span>] + ans;</span><br><span class="line">				num &gt;&gt;= <span class="number">4</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> ans;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( k
+\right)\)</span>，在这里<span
+class="math inline">\(k\)</span>等于<code>32 / 4 = 8</code>，即32位整数的十六进制位数</p>
+<p>空间复杂度：<span class="math inline">\(O\left( k
+\right)\)</span>，同上</p>
+<h1 id="思路">思路</h1>
+<p>首先将整数从<code>int</code>转换为<code>unsigned int</code>，因为C++当中没有无符号运算符；倘若整数为<code>int</code>类型的负数，右移时会在高位补1</p>
+<p>同时题目要求不包含前导零，所以每次循环之前需要判断整数是否为空</p>
+<p>整数和掩码<code>1111</code>作与运算取出低四位，并将其倒序保存至字符串后，整数右移四位开启下一轮循环</p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>位运算</tag>
       </tags>
   </entry>
   <entry>
@@ -757,11 +1471,11 @@ href="https://cplusplus.com/reference/list/list/begin/">begin</a>，满足这一
 </ol>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
-        <tag>链表</tag>
         <tag>哈希表</tag>
+        <tag>链表</tag>
       </tags>
   </entry>
   <entry>
@@ -783,7 +1497,7 @@ href="https://cplusplus.com/reference/list/list/begin/">begin</a>，满足这一
 <p>两个链表的值先入栈，保证低位对低位；每次对应位出栈做运算，新的节点同样以头插的方式连接保证逆序</p>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
@@ -825,36 +1539,149 @@ B}，A与B频率均为1，<code>minFreq</code>也为初始状态1</p>
 <img src="/2023/07/03/460-LFU-%E7%BC%93%E5%AD%98/1.png" class="" title="image-20230605175056397">
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
-        <tag>链表</tag>
         <tag>哈希表</tag>
+        <tag>链表</tag>
       </tags>
   </entry>
   <entry>
-    <title>25. K 个一组翻转链表</title>
-    <url>/2023/07/02/25-K-%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8/</url>
+    <title>342. 4的幂</title>
+    <url>/2023/07/04/342-4%E7%9A%84%E5%B9%82/</url>
     <content><![CDATA[<h1 id="考点">考点</h1>
 <ul>
-<li>链表的反转</li>
+<li><code>n &amp; (n - 1)</code>技巧</li>
+<li>掩码技巧</li>
 </ul>
 <span id="more"></span>
 <h1 id="题解">题解</h1>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseKGroup</span><span class="params">(ListNode* head, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head), *subDummyHead = dummyHead;</span><br><span class="line">			<span class="keyword">while</span> (subDummyHead-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				ListNode *tmp = subDummyHead;</span><br><span class="line">				<span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">				<span class="keyword">for</span> (; i &lt; k &amp;&amp; tmp != <span class="literal">nullptr</span>; i++) tmp = tmp-&gt;next;</span><br><span class="line">				<span class="keyword">if</span> (tmp == <span class="literal">nullptr</span>) <span class="keyword">break</span>;</span><br><span class="line">				<span class="comment">//使用改进版头插法进行反转子链表</span></span><br><span class="line">				ListNode *tail = subDummyHead-&gt;next;</span><br><span class="line">				<span class="keyword">while</span> (--i) &#123;</span><br><span class="line">					ListNode *node = tail-&gt;next;</span><br><span class="line">					tail-&gt;next = node-&gt;next;</span><br><span class="line">					node-&gt;next = subDummyHead-&gt;next;</span><br><span class="line">					subDummyHead-&gt;next = node;</span><br><span class="line">				&#125;</span><br><span class="line">				subDummyHead = tail;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">bool</span> <span class="title">isPowerOfFour</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> n &gt; <span class="number">0</span> &amp;&amp; !(n &amp; (n - <span class="number">1</span>)) &amp;&amp; (n &amp; <span class="number">0x55555555</span>);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
 <h1 id="思路">思路</h1>
-<p>凡是链表翻转类的题目，使用<code>改进版头插法</code>就对了，详见<code>206. 反转链表</code></p>
-<p>因为题目是要求每次翻转长度为K的子链表，除了要在子链表头前再找一个节点作为<code>dummyHead</code>外，每次还要先判断子链表长度是不是K</p>
-<p>每次翻转结束后，当前子链表的尾节点恰好就是下一组子链表的<code>dummyHead</code>，从而开启新一轮的翻转</p>
-<p>其余代码套<code>改进版头插法</code>的模板就好了</p>
-<p>这里改成递归也行，但是和迭代没太大区别</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">recursiveFunc</span><span class="params">(ListNode* subDummyHead, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">			ListNode *tmp = subDummyHead;</span><br><span class="line">			<span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (; i &lt; k &amp;&amp; tmp != <span class="literal">nullptr</span>; i++) tmp = tmp-&gt;next;</span><br><span class="line">			<span class="keyword">if</span> (tmp == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">			<span class="comment">//使用改进版头插法进行反转子链表</span></span><br><span class="line">			ListNode *tail = subDummyHead-&gt;next;</span><br><span class="line">			<span class="keyword">while</span> (--i) &#123;</span><br><span class="line">				ListNode *node = tail-&gt;next;</span><br><span class="line">				tail-&gt;next = node-&gt;next;</span><br><span class="line">				node-&gt;next = subDummyHead-&gt;next;</span><br><span class="line">				subDummyHead-&gt;next = node;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="built_in">recursiveFunc</span>(tail, k);</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">reverseKGroup</span><span class="params">(ListNode* head, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head);</span><br><span class="line">			<span class="built_in">recursiveFunc</span>(dummyHead, k);</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>4的幂，实际上就是2的幂次的平方；故而肯定大于零且只存在一个1比特位，满足这两个条件后继续找规律：</p>
+<p>4的零次幂为<code>0001</code></p>
+<p>4的一次幂为<code>0100</code></p>
+<p>4的二次幂为<code>0001 0000</code></p>
+<p>4的三次幂为<code>0100 0000</code></p>
+<p>组合在一起就是<code>0101 0101</code>，十六进制表达即为<code>55</code></p>
+<p>故而制作掩码<code>0x55555555</code>与原数做与运算，不为0即为4的幂次</p>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
-        <tag>链表</tag>
+        <tag>位运算</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>461. 汉明距离</title>
+    <url>/2023/07/04/461-%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>异或技巧</li>
+<li><code>bitCount</code>的实现</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">bitCount</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">			n = (n &amp; <span class="number">0x55555555</span>) + ((n &gt;&gt; <span class="number">1</span>) &amp; <span class="number">0x55555555</span>);</span><br><span class="line">			n = (n &amp; <span class="number">0x33333333</span>) + ((n &gt;&gt; <span class="number">2</span>) &amp; <span class="number">0x33333333</span>);</span><br><span class="line">			n = (n &amp; <span class="number">0x0f0f0f0f</span>) + ((n &gt;&gt; <span class="number">4</span>) &amp; <span class="number">0x0f0f0f0f</span>);</span><br><span class="line">			n = (n &amp; <span class="number">0x00ff00ff</span>) + ((n &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0x00ff00ff</span>);</span><br><span class="line">			n = (n &amp; <span class="number">0x0000ffff</span>) + ((n &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0x0000ffff</span>);</span><br><span class="line">			<span class="keyword">return</span> n;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">hammingDistance</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">bitCount</span>(x ^ y);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( \log k
+\right)\)</span>，其中<span
+class="math inline">\(k\)</span>为<code>int</code>的位数，在这里是32位</p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+<h1 id="思路">思路</h1>
+<p>两个数的不同位直接通过异或运算即可获得</p>
+<p>计算整数<code>1个数</code>的<code>bitCount</code>实现请参见<code>191. 位1的个数</code>，这里使用耗时最短的分治法计算</p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>位运算</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>476. 数字的补数</title>
+    <url>/2023/07/04/476-%E6%95%B0%E5%AD%97%E7%9A%84%E8%A1%A5%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>异或技巧</li>
+<li>掩码技巧</li>
+<li>移位技巧</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">findComplement</span><span class="params">(<span class="type">int</span> num)</span> </span>&#123;</span><br><span class="line">			<span class="type">int</span> mask = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = num; i; i = i &gt;&gt; <span class="number">1</span>) &#123;</span><br><span class="line">				mask = (mask &lt;&lt; <span class="number">1</span>) | <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> num ^ mask;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( \log num
+\right)\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+<h1 id="思路">思路</h1>
+<p>某一个比特位要反转，直接令其<strong>异或1</strong>即可</p>
+<p>假设整数去掉前导零后的真实长度为<code>n</code>，我们做一个长度也为<code>n</code>的全1掩码，然后让掩码与整数异或运算即可</p>
+<blockquote>
+<p>0000 0101 ^ 0000 0111 = 0000 0010</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>位运算</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>477. 汉明距离总和</title>
+    <url>/2023/07/04/477-%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB%E6%80%BB%E5%92%8C/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>状态压缩</li>
+<li>集合运算</li>
+<li>异或技巧</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">totalHammingDistance</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">			<span class="type">int</span> ans = <span class="number">0</span>, size = nums.<span class="built_in">size</span>();</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">31</span>; i++) &#123;</span><br><span class="line">				<span class="type">int</span> oneCnt = <span class="number">0</span>, mask = <span class="number">1</span> &lt;&lt; i;</span><br><span class="line">				<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; size; j++) &#123;</span><br><span class="line">					<span class="keyword">if</span> (nums[j] &amp; mask) oneCnt++;</span><br><span class="line">				&#125;</span><br><span class="line">				ans += oneCnt * (size - oneCnt);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> ans;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( C\cdot n
+\right)\)</span>，在这里<span
+class="math inline">\(C\)</span>常数等于31</p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+<h1 id="思路">思路</h1>
+<p>本题是<code>461. 汉明距离</code>的升级版，如果按照普通思路，数组内的元素两两异或再计算<code>1个数</code>，时间复杂度高达<span
+class="math inline">\(O\left( n^2 \right)\)</span></p>
+<p>题目规定所有整数都是<code>int</code>类型的32位正数；若能求出所有元素对应的<strong>每一比特位集合的汉明距离</strong>，<strong>将它们累加求和</strong>即可得到答案</p>
+<p>如下图所示，我们分别求出</p>
+<ul>
+<li>nums[0]、nums[1]、nums[2]三个元素的第一比特位集合，即{0,0,0}的汉明距离，在这里是0</li>
+<li>nums[0]、nums[1]、nums[2]三个元素的第二比特位集合，即{0,1,1}的汉明距离，在这里是2</li>
+<li>nums[0]、nums[1]、nums[2]三个元素的第三比特位集合，即{1,1,0}的汉明距离，在这里是2</li>
+<li>nums[0]、nums[1]、nums[2]三个元素的第四比特位集合，即{0,1,0}的汉明距离，在这里是2</li>
+<li>最后将它们累加求和，0 + 2 + 2 + 2 = 6，得到最终答案</li>
+</ul>
+<img src="/2023/07/04/477-%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB%E6%80%BB%E5%92%8C/1.png" class="" title="image-20230620125833189">
+<p>如何求某一比特位集合的汉明距离呢？这里需要用到<strong>状态压缩</strong>这一思想</p>
+<p>假设有比特位集合{0,1,1,1,0,0}</p>
+<p>将其分成{0,0,0}和{1,1,1}两个子集合，对应元素命名为<span
+class="math inline">\(\left\{ a_0,a_1,a_2 \right\}\)</span>、<span
+class="math inline">\(\left\{ b_0,b_1,b_2
+\right\}\)</span>，有如下算式：</p>
+<img src="/2023/07/04/477-%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB%E6%80%BB%E5%92%8C/2.png" class="" title="image-20230620135842555">
+<p>因为同一子集合内的值都相同，相互异或值恒为0，算式简化为：</p>
+<img src="/2023/07/04/477-%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB%E6%80%BB%E5%92%8C/3.png" class="" title="image-20230620135946679">
+<p>故而只需求出比特位集合中1与0的个数，并令其相乘，即可得到比特位集合的汉明距离</p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>位运算</tag>
+        <tag>状态压缩</tag>
+        <tag>集合运算</tag>
       </tags>
   </entry>
   <entry>
@@ -879,10 +1706,46 @@ B}，A与B频率均为1，<code>minFreq</code>也为初始状态1</p>
 <p>当然，你也可以把链表连接成环，同样使用快慢指针找到子链表的dummyHead与头节点并断开形成新链表，时间复杂度是一样的，你可以尝试一下~</p>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>693. 交替位二进制数</title>
+    <url>/2023/07/04/693-%E4%BA%A4%E6%9B%BF%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>移位技巧</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<p>同下</p>
+<h1 id="思路">思路</h1>
+<h2 id="循环判断">循环判断</h2>
+<p>传统办法，依次判断当前位是否与上一位相同即可</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">bool</span> <span class="title">hasAlternatingBits</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">			<span class="type">int</span> prev = <span class="number">2</span>;</span><br><span class="line">			<span class="keyword">while</span> (n) &#123;</span><br><span class="line">				<span class="type">int</span> tmp = n &amp; <span class="number">1</span>;</span><br><span class="line">				<span class="keyword">if</span> (tmp == prev) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">				prev = tmp;</span><br><span class="line">				n = n &gt;&gt; <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( \log n
+\right)\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+<h2 id="找规律">找规律</h2>
+<p>若整数是交替位二进制类型，去掉多余的前导零后，实际组成类似<code>0101</code>或者<code>1010</code></p>
+<p>它们向右移一位后与原数异或，可以得到<strong>全1的数</strong>；比如<code>0101 &gt;&gt; 1 = 0010，0010 ^ 0101 = 0111</code></p>
+<p>全1的数再加1则会进位，故而作为判断依据</p>
+<p>这里的<code>tmp</code>最大值可达<code>0x7fffffff</code>，为避免再加1后导致溢出，需要将<code>tmp</code>设置为无符号数</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">bool</span> <span class="title">hasAlternatingBits</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">			<span class="type">unsigned</span> <span class="type">int</span> tmp = n ^ (n &gt;&gt; <span class="number">1</span>);</span><br><span class="line">			<span class="keyword">return</span> (tmp &amp; (tmp + <span class="number">1</span>)) == <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( 1
+\right)\)</span></p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>位运算</tag>
       </tags>
   </entry>
   <entry>
@@ -921,12 +1784,12 @@ href="https://segmentfault.com/a/1190000012926722">Java的HashMap源码</a>，�
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyHashSet</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="type">const</span> <span class="type">static</span> <span class="type">int</span> len = <span class="number">32</span>;</span><br><span class="line">		<span class="type">int</span> bitMap[<span class="number">31251</span>];</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="built_in">MyHashSet</span>(): bitMap&#123;<span class="number">0</span>&#125; &#123;&#125;</span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> key)</span> </span>&#123;</span><br><span class="line">			bitMap[key / len] |= <span class="number">1</span> &lt;&lt; (key &amp; (len - <span class="number">1</span>));</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="type">void</span> <span class="title">remove</span><span class="params">(<span class="type">int</span> key)</span> </span>&#123;</span><br><span class="line">			bitMap[key / len] &amp;= ~(<span class="number">1</span> &lt;&lt; (key &amp; (len - <span class="number">1</span>)));</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="type">bool</span> <span class="title">contains</span><span class="params">(<span class="type">int</span> key)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> (bitMap[key / len] &amp; (<span class="number">1</span> &lt;&lt; (key &amp; (len - <span class="number">1</span>)))) != <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
-        <tag>链表</tag>
-        <tag>哈希表</tag>
         <tag>哈希函数</tag>
+        <tag>哈希表</tag>
+        <tag>链表</tag>
       </tags>
   </entry>
   <entry>
@@ -943,12 +1806,12 @@ href="https://segmentfault.com/a/1190000012926722">Java的HashMap源码</a>，�
 <p>和<code>705. 设计哈希集合</code>类似，修改一下双向链表的节点结构即可</p>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
-        <tag>链表</tag>
-        <tag>哈希表</tag>
         <tag>哈希函数</tag>
+        <tag>哈希表</tag>
+        <tag>链表</tag>
       </tags>
   </entry>
   <entry>
@@ -974,10 +1837,122 @@ href="https://segmentfault.com/a/1190000012926722">Java的HashMap源码</a>，�
 <img src="/2023/07/02/707-%E8%AE%BE%E8%AE%A1%E9%93%BE%E8%A1%A8/2.png" class="" title="image-20230517174545353">
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>762. 二进制表示中质数个计算置位</title>
+    <url>/2023/07/04/762-%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%A1%A8%E7%A4%BA%E4%B8%AD%E8%B4%A8%E6%95%B0%E4%B8%AA%E8%AE%A1%E7%AE%97%E7%BD%AE%E4%BD%8D/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li><code>bitCount</code>的实现</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		unordered_set&lt;<span class="type">int</span>&gt; primeArr = &#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">23</span>, <span class="number">29</span>, <span class="number">31</span>&#125;;</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">bitCount</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">			n = (n &amp; <span class="number">0x55555555</span>) + ((n &gt;&gt; <span class="number">1</span>) &amp; <span class="number">0x55555555</span>);</span><br><span class="line">			n = (n &amp; <span class="number">0x33333333</span>) + ((n &gt;&gt; <span class="number">2</span>) &amp; <span class="number">0x33333333</span>);</span><br><span class="line">			n = (n &amp; <span class="number">0x0f0f0f0f</span>) + ((n &gt;&gt; <span class="number">4</span>) &amp; <span class="number">0x0f0f0f0f</span>);</span><br><span class="line">			n = (n &amp; <span class="number">0x00ff00ff</span>) + ((n &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0x00ff00ff</span>);</span><br><span class="line">			n = (n &amp; <span class="number">0x0000ffff</span>) + ((n &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0x0000ffff</span>);</span><br><span class="line">			<span class="keyword">return</span> n;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="type">int</span> <span class="title">countPrimeSetBits</span><span class="params">(<span class="type">int</span> left, <span class="type">int</span> right)</span> </span>&#123;</span><br><span class="line">			<span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = left; i &lt;= right; i++) &#123;</span><br><span class="line">				<span class="keyword">if</span> (primeArr.<span class="built_in">count</span>(<span class="built_in">bitCount</span>(i))) ans++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> ans;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( \left( right-left
+\right) \cdot \log right \right)\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( C
+\right)\)</span>，<span
+class="math inline">\(C\)</span>等于质数打表数组的长度</p>
+<h1 id="思路">思路</h1>
+<p>若使用常规判断质数代码，时间复杂度就高达<span
+class="math inline">\(O\left( \sqrt{right} \right)\)</span></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">primeJudge</span><span class="params">(<span class="type">int</span> num)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (num &lt; <span class="number">2</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i * i &lt;= num; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (num % i == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个<code>int</code>类型的整数，其比特位数肯定不超过32；所以直接用哈希表，将32以内的质数打表保存即可，这样时间复杂度可降为常数</p>
+<p>这里判断整数的<code>1个数</code>使用的是<code>191. 位1的个数</code>提到的分治法，不再赘述</p>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>位运算</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>78. 子集</title>
+    <url>/2023/07/04/78-%E5%AD%90%E9%9B%86/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>状态压缩</li>
+<li>集合运算</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">subsets</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">			vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; ans;</span><br><span class="line">			<span class="type">int</span> size = nums.<span class="built_in">size</span>();</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; (<span class="number">1</span> &lt;&lt; size); i++) &#123;</span><br><span class="line">				vector&lt;<span class="type">int</span>&gt; tmp;</span><br><span class="line">				<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; size; j++) &#123;</span><br><span class="line">                    <span class="comment">//可以发现，二进制比特位的分布规律都是对称的</span></span><br><span class="line">                    <span class="comment">//假设有数组&#123;1,2,3&#125;，此时i = 1, j = 0</span></span><br><span class="line">                    <span class="comment">//理应代表子集&#123;3&#125;，但也可以用子集&#123;1&#125;替换</span></span><br><span class="line">					<span class="keyword">if</span> (i &amp; (<span class="number">1</span> &lt;&lt; j)) tmp.<span class="built_in">push_back</span>(nums[j]);</span><br><span class="line">				&#125;</span><br><span class="line">				ans.<span class="built_in">push_back</span>(tmp);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> ans;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<span class="math inline">\(O\left( 2^n\cdot n
+\right)\)</span></p>
+<p>空间复杂度：<span class="math inline">\(O\left( n
+\right)\)</span></p>
+<h1 id="思路">思路</h1>
+<p>题目已经表明，数组中的元素<strong>互不相同</strong>，故而不会产生重复的子集</p>
+<p>数组中的每个元素都有取与不取两种状态，使用比特位1代表取状态、比特位0代表不取状态</p>
+<p>若<code>nums</code>数组长度为<code>n</code>，按照数学的组合规律则共有2<sup>n</sup>个子集，可以用<span
+class="math inline">\(\left[ 0,2^n-1
+\right]\)</span>范围内的十进制整数来表达</p>
+<p>假设有数组<code>&#123;1,2,3&#125;</code>，子集表达如下：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">十进制表达</th>
+<th style="text-align: center;">二进制表达</th>
+<th style="text-align: center;">子集</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">000</td>
+<td style="text-align: center;">{}</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">001</td>
+<td style="text-align: center;">{3}</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">010</td>
+<td style="text-align: center;">{2}</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">011</td>
+<td style="text-align: center;">{2,3}</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;">{1}</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">101</td>
+<td style="text-align: center;">{1,3}</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">110</td>
+<td style="text-align: center;">{1,2}</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">111</td>
+<td style="text-align: center;">{1,2,3}</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>位运算</tag>
+        <tag>状态压缩</tag>
+        <tag>集合运算</tag>
       </tags>
   </entry>
   <entry>
@@ -1002,7 +1977,7 @@ href="https://segmentfault.com/a/1190000012926722">Java的HashMap源码</a>，�
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">ListNode* <span class="title">deleteDuplicates</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">			ListNode *dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">-1</span>, head), *curNew = dummyHead;</span><br><span class="line">			<span class="keyword">while</span> (head != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">				<span class="keyword">if</span> (head-&gt;next == <span class="literal">nullptr</span> || head-&gt;val != head-&gt;next-&gt;val) &#123;</span><br><span class="line">					curNew-&gt;next = head;</span><br><span class="line">					curNew = curNew-&gt;next;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">while</span> (head != <span class="literal">nullptr</span> &amp;&amp; head-&gt;next != <span class="literal">nullptr</span> &amp;&amp; head-&gt;val == head-&gt;next-&gt;val) &#123;</span><br><span class="line">					head = head-&gt;next;</span><br><span class="line">				&#125;</span><br><span class="line">				head = head-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">			curNew-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">			<span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
@@ -1025,7 +2000,7 @@ href="https://segmentfault.com/a/1190000012926722">Java的HashMap源码</a>，�
 <p>只要右指针的值等于左指针，就一直向右，遇到不同值停下，再将左右指针指向的节点连接起来即可</p>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
@@ -1046,7 +2021,7 @@ href="https://segmentfault.com/a/1190000012926722">Java的HashMap源码</a>，�
 <p>一个小链表按序存储值小于x的节点，一个大链表按序存储剩余节点，再将大链表接在小链表尾部即可</p>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
@@ -1068,7 +2043,7 @@ href="https://segmentfault.com/a/1190000012926722">Java的HashMap源码</a>，�
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">findMid</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode *slow = head, *fast = head;</span><br><span class="line">        <span class="keyword">while</span> (fast-&gt;next != <span class="literal">nullptr</span> &amp;&amp; fast-&gt;next-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>
@@ -1089,7 +2064,7 @@ href="https://segmentfault.com/a/1190000012926722">Java的HashMap源码</a>，�
 <p>找到子链表的头节点，并将其前一个节点作为伪节点，即<code>subDummy</code>；再使用<code>206. 反转链表</code>提到的<code>改进版头插法</code>即可</p>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>力扣</category>
       </categories>
       <tags>
         <tag>链表</tag>

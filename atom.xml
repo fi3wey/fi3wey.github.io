@@ -6,7 +6,7 @@
   <link href="https://fi3wey.github.io/atom.xml" rel="self"/>
   
   <link href="https://fi3wey.github.io/"/>
-  <updated>2023-07-03T14:31:31.668Z</updated>
+  <updated>2023-07-04T08:36:38.849Z</updated>
   <id>https://fi3wey.github.io/</id>
   
   <author>
@@ -17,335 +17,465 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>706. 设计哈希映射</title>
-    <link href="https://fi3wey.github.io/2023/07/03/706-%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E6%98%A0%E5%B0%84/"/>
-    <id>https://fi3wey.github.io/2023/07/03/706-%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E6%98%A0%E5%B0%84/</id>
-    <published>2023-07-03T14:30:35.000Z</published>
-    <updated>2023-07-03T14:31:31.668Z</updated>
+    <title>318. 最大单词长度乘积</title>
+    <link href="https://fi3wey.github.io/2023/07/04/318-%E6%9C%80%E5%A4%A7%E5%8D%95%E8%AF%8D%E9%95%BF%E5%BA%A6%E4%B9%98%E7%A7%AF/"/>
+    <id>https://fi3wey.github.io/2023/07/04/318-%E6%9C%80%E5%A4%A7%E5%8D%95%E8%AF%8D%E9%95%BF%E5%BA%A6%E4%B9%98%E7%A7%AF/</id>
+    <published>2023-07-04T07:42:36.000Z</published>
+    <updated>2023-07-04T08:36:38.849Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;哈希表与链表的综合&lt;/li&gt;
+&lt;li&gt;状态压缩&lt;/li&gt;
 &lt;/ul&gt;</summary>
     
     
     
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
     
     
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
-    <category term="哈希表" scheme="https://fi3wey.github.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    <category term="状态压缩" scheme="https://fi3wey.github.io/tags/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/"/>
     
     <category term="哈希函数" scheme="https://fi3wey.github.io/tags/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/"/>
     
+    <category term="哈希表" scheme="https://fi3wey.github.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    
   </entry>
   
   <entry>
-    <title>705. 设计哈希集合</title>
-    <link href="https://fi3wey.github.io/2023/07/03/705-%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E9%9B%86%E5%90%88/"/>
-    <id>https://fi3wey.github.io/2023/07/03/705-%E8%AE%BE%E8%AE%A1%E5%93%88%E5%B8%8C%E9%9B%86%E5%90%88/</id>
-    <published>2023-07-03T14:24:54.000Z</published>
-    <updated>2023-07-03T14:27:54.369Z</updated>
+    <title>1711. 大餐计数</title>
+    <link href="https://fi3wey.github.io/2023/07/04/1711-%E5%A4%A7%E9%A4%90%E8%AE%A1%E6%95%B0/"/>
+    <id>https://fi3wey.github.io/2023/07/04/1711-%E5%A4%A7%E9%A4%90%E8%AE%A1%E6%95%B0/</id>
+    <published>2023-07-04T07:37:46.000Z</published>
+    <updated>2023-07-04T07:42:03.294Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;哈希表与链表的综合&lt;/li&gt;
+&lt;li&gt;状态压缩&lt;/li&gt;
+&lt;li&gt;集合运算&lt;/li&gt;
 &lt;/ul&gt;</summary>
     
     
     
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
     
     
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    
+    <category term="状态压缩" scheme="https://fi3wey.github.io/tags/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/"/>
     
     <category term="哈希表" scheme="https://fi3wey.github.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    
+    <category term="集合运算" scheme="https://fi3wey.github.io/tags/%E9%9B%86%E5%90%88%E8%BF%90%E7%AE%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>260. 只出现一次的数字 III</title>
+    <link href="https://fi3wey.github.io/2023/07/04/260-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97-III/"/>
+    <id>https://fi3wey.github.io/2023/07/04/260-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97-III/</id>
+    <published>2023-07-04T07:36:13.000Z</published>
+    <updated>2023-07-04T08:35:53.258Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;状态压缩&lt;/li&gt;
+&lt;li&gt;集合运算&lt;/li&gt;
+&lt;li&gt;异或技巧&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
+    
+    
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    
+    <category term="状态压缩" scheme="https://fi3wey.github.io/tags/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/"/>
+    
+    <category term="集合运算" scheme="https://fi3wey.github.io/tags/%E9%9B%86%E5%90%88%E8%BF%90%E7%AE%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>137. 只出现一次的数字 II</title>
+    <link href="https://fi3wey.github.io/2023/07/04/137-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97-II/"/>
+    <id>https://fi3wey.github.io/2023/07/04/137-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97-II/</id>
+    <published>2023-07-04T07:33:46.000Z</published>
+    <updated>2023-07-04T08:35:27.700Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;状态压缩&lt;/li&gt;
+&lt;li&gt;集合运算&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
+    
+    
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    
+    <category term="状态压缩" scheme="https://fi3wey.github.io/tags/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/"/>
+    
+    <category term="集合运算" scheme="https://fi3wey.github.io/tags/%E9%9B%86%E5%90%88%E8%BF%90%E7%AE%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>78. 子集</title>
+    <link href="https://fi3wey.github.io/2023/07/04/78-%E5%AD%90%E9%9B%86/"/>
+    <id>https://fi3wey.github.io/2023/07/04/78-%E5%AD%90%E9%9B%86/</id>
+    <published>2023-07-04T07:32:04.000Z</published>
+    <updated>2023-07-04T08:35:04.327Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;状态压缩&lt;/li&gt;
+&lt;li&gt;集合运算&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
+    
+    
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    
+    <category term="状态压缩" scheme="https://fi3wey.github.io/tags/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/"/>
+    
+    <category term="集合运算" scheme="https://fi3wey.github.io/tags/%E9%9B%86%E5%90%88%E8%BF%90%E7%AE%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>1252. 奇数值单元格的数目</title>
+    <link href="https://fi3wey.github.io/2023/07/04/1252-%E5%A5%87%E6%95%B0%E5%80%BC%E5%8D%95%E5%85%83%E6%A0%BC%E7%9A%84%E6%95%B0%E7%9B%AE/"/>
+    <id>https://fi3wey.github.io/2023/07/04/1252-%E5%A5%87%E6%95%B0%E5%80%BC%E5%8D%95%E5%85%83%E6%A0%BC%E7%9A%84%E6%95%B0%E7%9B%AE/</id>
+    <published>2023-07-04T07:27:41.000Z</published>
+    <updated>2023-07-04T08:34:24.741Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;状态压缩&lt;/li&gt;
+&lt;li&gt;集合运算&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
+    
+    
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    
+    <category term="状态压缩" scheme="https://fi3wey.github.io/tags/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/"/>
+    
+    <category term="集合运算" scheme="https://fi3wey.github.io/tags/%E9%9B%86%E5%90%88%E8%BF%90%E7%AE%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>477. 汉明距离总和</title>
+    <link href="https://fi3wey.github.io/2023/07/04/477-%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB%E6%80%BB%E5%92%8C/"/>
+    <id>https://fi3wey.github.io/2023/07/04/477-%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB%E6%80%BB%E5%92%8C/</id>
+    <published>2023-07-04T07:22:18.000Z</published>
+    <updated>2023-07-04T07:27:10.175Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;状态压缩&lt;/li&gt;
+&lt;li&gt;集合运算&lt;/li&gt;
+&lt;li&gt;异或技巧&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
+    
+    
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    
+    <category term="状态压缩" scheme="https://fi3wey.github.io/tags/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/"/>
+    
+    <category term="集合运算" scheme="https://fi3wey.github.io/tags/%E9%9B%86%E5%90%88%E8%BF%90%E7%AE%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>1178. 猜字谜</title>
+    <link href="https://fi3wey.github.io/2023/07/04/1178-%E7%8C%9C%E5%AD%97%E8%B0%9C/"/>
+    <id>https://fi3wey.github.io/2023/07/04/1178-%E7%8C%9C%E5%AD%97%E8%B0%9C/</id>
+    <published>2023-07-04T07:13:40.000Z</published>
+    <updated>2023-07-04T07:21:43.593Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;状态压缩&lt;/li&gt;
+&lt;li&gt;求二进制数表示的集合的全部子集&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
+    
+    
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    
+    <category term="状态压缩" scheme="https://fi3wey.github.io/tags/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/"/>
     
     <category term="哈希函数" scheme="https://fi3wey.github.io/tags/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/"/>
     
-  </entry>
-  
-  <entry>
-    <title>432. 全 O(1) 的数据结构</title>
-    <link href="https://fi3wey.github.io/2023/07/03/432-%E5%85%A8-O-1-%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    <id>https://fi3wey.github.io/2023/07/03/432-%E5%85%A8-O-1-%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</id>
-    <published>2023-07-03T14:21:56.000Z</published>
-    <updated>2023-07-03T14:23:58.009Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;哈希表与链表的综合&lt;/li&gt;
-&lt;li&gt;掌握迭代器、&lt;code&gt;pair&lt;/code&gt;、&lt;code&gt;unordered_set&lt;/code&gt;与&lt;code&gt;unordered_map&lt;/code&gt;的本质&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
     <category term="哈希表" scheme="https://fi3wey.github.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
   </entry>
   
   <entry>
-    <title>460. LFU 缓存</title>
-    <link href="https://fi3wey.github.io/2023/07/03/460-LFU-%E7%BC%93%E5%AD%98/"/>
-    <id>https://fi3wey.github.io/2023/07/03/460-LFU-%E7%BC%93%E5%AD%98/</id>
-    <published>2023-07-03T14:17:42.000Z</published>
-    <updated>2023-07-03T14:20:58.702Z</updated>
+    <title>371. 两整数之和</title>
+    <link href="https://fi3wey.github.io/2023/07/04/371-%E4%B8%A4%E6%95%B4%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
+    <id>https://fi3wey.github.io/2023/07/04/371-%E4%B8%A4%E6%95%B4%E6%95%B0%E4%B9%8B%E5%92%8C/</id>
+    <published>2023-07-04T07:10:20.000Z</published>
+    <updated>2023-07-04T07:13:10.022Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;哈希表与链表的综合&lt;/li&gt;
+&lt;li&gt;异或技巧&lt;/li&gt;
 &lt;/ul&gt;</summary>
     
     
     
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
     
     
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-    <category term="哈希表" scheme="https://fi3wey.github.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
   <entry>
-    <title>146. LRU 缓存</title>
-    <link href="https://fi3wey.github.io/2023/07/03/146-LRU-%E7%BC%93%E5%AD%98/"/>
-    <id>https://fi3wey.github.io/2023/07/03/146-LRU-%E7%BC%93%E5%AD%98/</id>
-    <published>2023-07-03T14:13:52.000Z</published>
-    <updated>2023-07-03T14:16:35.363Z</updated>
+    <title>762. 二进制表示中质数个计算置位</title>
+    <link href="https://fi3wey.github.io/2023/07/04/762-%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%A1%A8%E7%A4%BA%E4%B8%AD%E8%B4%A8%E6%95%B0%E4%B8%AA%E8%AE%A1%E7%AE%97%E7%BD%AE%E4%BD%8D/"/>
+    <id>https://fi3wey.github.io/2023/07/04/762-%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%A1%A8%E7%A4%BA%E4%B8%AD%E8%B4%A8%E6%95%B0%E4%B8%AA%E8%AE%A1%E7%AE%97%E7%BD%AE%E4%BD%8D/</id>
+    <published>2023-07-04T07:08:14.000Z</published>
+    <updated>2023-07-04T07:09:51.509Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;哈希表与链表的综合&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bitCount&lt;/code&gt;的实现&lt;/li&gt;
 &lt;/ul&gt;</summary>
     
     
     
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
     
     
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-    <category term="哈希表" scheme="https://fi3wey.github.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
   <entry>
-    <title>138. 复制带随机指针的链表</title>
-    <link href="https://fi3wey.github.io/2023/07/03/138-%E5%A4%8D%E5%88%B6%E5%B8%A6%E9%9A%8F%E6%9C%BA%E6%8C%87%E9%92%88%E7%9A%84%E9%93%BE%E8%A1%A8/"/>
-    <id>https://fi3wey.github.io/2023/07/03/138-%E5%A4%8D%E5%88%B6%E5%B8%A6%E9%9A%8F%E6%9C%BA%E6%8C%87%E9%92%88%E7%9A%84%E9%93%BE%E8%A1%A8/</id>
-    <published>2023-07-03T14:09:28.000Z</published>
-    <updated>2023-07-03T14:12:40.942Z</updated>
+    <title>693. 交替位二进制数</title>
+    <link href="https://fi3wey.github.io/2023/07/04/693-%E4%BA%A4%E6%9B%BF%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%95%B0/"/>
+    <id>https://fi3wey.github.io/2023/07/04/693-%E4%BA%A4%E6%9B%BF%E4%BD%8D%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%95%B0/</id>
+    <published>2023-07-04T07:06:06.000Z</published>
+    <updated>2023-07-04T07:07:41.572Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;哈希表与链表的综合&lt;/li&gt;
+&lt;li&gt;移位技巧&lt;/li&gt;
 &lt;/ul&gt;</summary>
     
     
     
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
     
     
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-    <category term="哈希表" scheme="https://fi3wey.github.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
   <entry>
-    <title>237. 删除链表中的节点</title>
-    <link href="https://fi3wey.github.io/2023/07/03/237-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9/"/>
-    <id>https://fi3wey.github.io/2023/07/03/237-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9/</id>
-    <published>2023-07-03T14:06:45.000Z</published>
-    <updated>2023-07-03T14:07:53.379Z</updated>
+    <title>476. 数字的补数</title>
+    <link href="https://fi3wey.github.io/2023/07/04/476-%E6%95%B0%E5%AD%97%E7%9A%84%E8%A1%A5%E6%95%B0/"/>
+    <id>https://fi3wey.github.io/2023/07/04/476-%E6%95%B0%E5%AD%97%E7%9A%84%E8%A1%A5%E6%95%B0/</id>
+    <published>2023-07-04T07:04:40.000Z</published>
+    <updated>2023-07-04T07:05:42.208Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;智力题&lt;/li&gt;
+&lt;li&gt;异或技巧&lt;/li&gt;
+&lt;li&gt;掩码技巧&lt;/li&gt;
+&lt;li&gt;移位技巧&lt;/li&gt;
 &lt;/ul&gt;</summary>
     
     
     
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
     
     
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
   <entry>
-    <title>148. 排序链表</title>
-    <link href="https://fi3wey.github.io/2023/07/03/148-%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/"/>
-    <id>https://fi3wey.github.io/2023/07/03/148-%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/</id>
-    <published>2023-07-02T16:01:03.000Z</published>
-    <updated>2023-07-02T16:09:51.094Z</updated>
+    <title>461. 汉明距离</title>
+    <link href="https://fi3wey.github.io/2023/07/04/461-%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/"/>
+    <id>https://fi3wey.github.io/2023/07/04/461-%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/</id>
+    <published>2023-07-04T06:57:51.000Z</published>
+    <updated>2023-07-04T07:04:11.409Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;链表的排序&lt;/li&gt;
+&lt;li&gt;异或技巧&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bitCount&lt;/code&gt;的实现&lt;/li&gt;
 &lt;/ul&gt;</summary>
     
     
     
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
     
     
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-    <category term="排序" scheme="https://fi3wey.github.io/tags/%E6%8E%92%E5%BA%8F/"/>
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
   <entry>
-    <title>147. 对链表进行插入排序</title>
-    <link href="https://fi3wey.github.io/2023/07/02/147-%E5%AF%B9%E9%93%BE%E8%A1%A8%E8%BF%9B%E8%A1%8C%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/"/>
-    <id>https://fi3wey.github.io/2023/07/02/147-%E5%AF%B9%E9%93%BE%E8%A1%A8%E8%BF%9B%E8%A1%8C%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/</id>
-    <published>2023-07-02T15:56:27.000Z</published>
-    <updated>2023-07-02T16:00:27.048Z</updated>
+    <title>405. 数字转换为十六进制数</title>
+    <link href="https://fi3wey.github.io/2023/07/04/405-%E6%95%B0%E5%AD%97%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0/"/>
+    <id>https://fi3wey.github.io/2023/07/04/405-%E6%95%B0%E5%AD%97%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0/</id>
+    <published>2023-07-04T06:56:11.000Z</published>
+    <updated>2023-07-04T06:57:16.517Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;链表的排序&lt;/li&gt;
+&lt;li&gt;掩码技巧&lt;/li&gt;
+&lt;li&gt;移位技巧&lt;/li&gt;
 &lt;/ul&gt;</summary>
     
     
     
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
     
     
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-    <category term="排序" scheme="https://fi3wey.github.io/tags/%E6%8E%92%E5%BA%8F/"/>
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
   <entry>
-    <title>143. 重排链表</title>
-    <link href="https://fi3wey.github.io/2023/07/02/143-%E9%87%8D%E6%8E%92%E9%93%BE%E8%A1%A8/"/>
-    <id>https://fi3wey.github.io/2023/07/02/143-%E9%87%8D%E6%8E%92%E9%93%BE%E8%A1%A8/</id>
-    <published>2023-07-02T15:53:25.000Z</published>
-    <updated>2023-07-02T15:54:34.082Z</updated>
+    <title>342. 4的幂</title>
+    <link href="https://fi3wey.github.io/2023/07/04/342-4%E7%9A%84%E5%B9%82/"/>
+    <id>https://fi3wey.github.io/2023/07/04/342-4%E7%9A%84%E5%B9%82/</id>
+    <published>2023-07-04T06:54:16.000Z</published>
+    <updated>2023-07-04T06:55:46.162Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;快慢指针&lt;/li&gt;
-&lt;li&gt;链表的反转&lt;/li&gt;
-&lt;li&gt;链表的合并&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;n &amp;amp; (n - 1)&lt;/code&gt;技巧&lt;/li&gt;
+&lt;li&gt;掩码技巧&lt;/li&gt;
 &lt;/ul&gt;</summary>
     
     
     
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
     
     
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-    <category term="双指针" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
   <entry>
-    <title>142. 环形链表 II</title>
-    <link href="https://fi3wey.github.io/2023/07/02/142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-II/"/>
-    <id>https://fi3wey.github.io/2023/07/02/142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-II/</id>
-    <published>2023-07-02T15:45:22.000Z</published>
-    <updated>2023-07-02T15:48:40.390Z</updated>
+    <title>268. 丢失的数字</title>
+    <link href="https://fi3wey.github.io/2023/07/04/268-%E4%B8%A2%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/"/>
+    <id>https://fi3wey.github.io/2023/07/04/268-%E4%B8%A2%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/</id>
+    <published>2023-07-04T06:51:56.000Z</published>
+    <updated>2023-07-04T06:53:40.145Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;快慢指针/双指针&lt;/li&gt;
-&lt;li&gt;链表的环&lt;/li&gt;
+&lt;li&gt;异或技巧&lt;/li&gt;
 &lt;/ul&gt;</summary>
     
     
     
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
     
     
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-    <category term="双指针" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
   <entry>
-    <title>141. 环形链表</title>
-    <link href="https://fi3wey.github.io/2023/07/02/141-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/"/>
-    <id>https://fi3wey.github.io/2023/07/02/141-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/</id>
-    <published>2023-07-02T15:37:17.000Z</published>
-    <updated>2023-07-02T15:41:35.289Z</updated>
+    <title>136. 只出现一次的数字</title>
+    <link href="https://fi3wey.github.io/2023/07/04/136-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/"/>
+    <id>https://fi3wey.github.io/2023/07/04/136-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/</id>
+    <published>2023-07-04T06:48:06.000Z</published>
+    <updated>2023-07-04T06:51:27.564Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;快慢指针&lt;/li&gt;
-&lt;li&gt;链表的环&lt;/li&gt;
+&lt;li&gt;异或技巧&lt;/li&gt;
 &lt;/ul&gt;</summary>
     
     
     
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
     
     
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-    <category term="双指针" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
   <entry>
-    <title>160. 相交链表</title>
-    <link href="https://fi3wey.github.io/2023/07/02/160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/"/>
-    <id>https://fi3wey.github.io/2023/07/02/160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/</id>
-    <published>2023-07-02T15:33:22.000Z</published>
-    <updated>2023-07-02T15:36:07.589Z</updated>
+    <title>231. 2 的幂</title>
+    <link href="https://fi3wey.github.io/2023/07/04/231-2-%E7%9A%84%E5%B9%82/"/>
+    <id>https://fi3wey.github.io/2023/07/04/231-2-%E7%9A%84%E5%B9%82/</id>
+    <published>2023-07-04T06:46:29.000Z</published>
+    <updated>2023-07-04T06:47:27.619Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;链表的相交&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;n &amp;amp; (n - 1)&lt;/code&gt;技巧&lt;/li&gt;
 &lt;/ul&gt;</summary>
     
     
     
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
     
     
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-    <category term="双指针" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
   <entry>
-    <title>876. 链表的中间结点</title>
-    <link href="https://fi3wey.github.io/2023/07/02/876-%E9%93%BE%E8%A1%A8%E7%9A%84%E4%B8%AD%E9%97%B4%E7%BB%93%E7%82%B9/"/>
-    <id>https://fi3wey.github.io/2023/07/02/876-%E9%93%BE%E8%A1%A8%E7%9A%84%E4%B8%AD%E9%97%B4%E7%BB%93%E7%82%B9/</id>
-    <published>2023-07-02T15:31:21.000Z</published>
-    <updated>2023-07-02T15:32:21.777Z</updated>
+    <title>338. 比特位计数</title>
+    <link href="https://fi3wey.github.io/2023/07/04/338-%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0/"/>
+    <id>https://fi3wey.github.io/2023/07/04/338-%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0/</id>
+    <published>2023-07-04T06:40:17.000Z</published>
+    <updated>2023-07-04T06:44:50.871Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;快慢指针/双指针&lt;/li&gt;
+&lt;li&gt;比特位变化规律，按最高位变化、最低位变化与Brian
+Kernighan算法三种角度分析&lt;/li&gt;
 &lt;/ul&gt;</summary>
     
     
@@ -353,150 +483,33 @@
     <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
-    <category term="双指针" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
+    <category term="动态规划" scheme="https://fi3wey.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
   </entry>
   
   <entry>
-    <title>19. 删除链表的倒数第 N 个结点</title>
-    <link href="https://fi3wey.github.io/2023/07/02/19-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC-N-%E4%B8%AA%E7%BB%93%E7%82%B9/"/>
-    <id>https://fi3wey.github.io/2023/07/02/19-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC-N-%E4%B8%AA%E7%BB%93%E7%82%B9/</id>
-    <published>2023-07-02T15:26:52.000Z</published>
-    <updated>2023-07-02T15:30:14.711Z</updated>
+    <title>190. 颠倒二进制位</title>
+    <link href="https://fi3wey.github.io/2023/07/04/190-%E9%A2%A0%E5%80%92%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/"/>
+    <id>https://fi3wey.github.io/2023/07/04/190-%E9%A2%A0%E5%80%92%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D/</id>
+    <published>2023-07-04T06:37:03.000Z</published>
+    <updated>2023-07-04T06:39:35.466Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;快慢指针/双指针&lt;/li&gt;
+&lt;li&gt;位运算与分治法的综合&lt;/li&gt;
+&lt;li&gt;掩码技巧&lt;/li&gt;
+&lt;li&gt;移位技巧&lt;/li&gt;
 &lt;/ul&gt;</summary>
     
     
     
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="力扣" scheme="https://fi3wey.github.io/categories/%E5%8A%9B%E6%89%A3/"/>
     
     
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-    <category term="双指针" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>234. 回文链表</title>
-    <link href="https://fi3wey.github.io/2023/07/02/234-%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/"/>
-    <id>https://fi3wey.github.io/2023/07/02/234-%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/</id>
-    <published>2023-07-02T15:23:59.000Z</published>
-    <updated>2023-07-02T15:25:36.049Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;快慢指针/双指针&lt;/li&gt;
-&lt;li&gt;链表的反转&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-    <category term="双指针" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>82. 删除排序链表中的重复元素 II</title>
-    <link href="https://fi3wey.github.io/2023/07/02/82-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0-II/"/>
-    <id>https://fi3wey.github.io/2023/07/02/82-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0-II/</id>
-    <published>2023-07-02T15:15:56.000Z</published>
-    <updated>2023-07-02T15:22:28.252Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;双指针&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-    <category term="双指针" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>83. 删除排序链表中的重复元素</title>
-    <link href="https://fi3wey.github.io/2023/07/02/83-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0/"/>
-    <id>https://fi3wey.github.io/2023/07/02/83-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0/</id>
-    <published>2023-07-02T15:12:13.000Z</published>
-    <updated>2023-07-02T15:14:50.235Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;双指针&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-    <category term="双指针" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>86. 分隔链表</title>
-    <link href="https://fi3wey.github.io/2023/07/02/86-%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8/"/>
-    <id>https://fi3wey.github.io/2023/07/02/86-%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8/</id>
-    <published>2023-07-02T15:10:33.000Z</published>
-    <updated>2023-07-02T15:11:42.937Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;链表的裁剪&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>61. 旋转链表</title>
-    <link href="https://fi3wey.github.io/2023/07/02/61-%E6%97%8B%E8%BD%AC%E9%93%BE%E8%A1%A8/"/>
-    <id>https://fi3wey.github.io/2023/07/02/61-%E6%97%8B%E8%BD%AC%E9%93%BE%E8%A1%A8/</id>
-    <published>2023-07-02T15:05:32.000Z</published>
-    <updated>2023-07-02T15:08:55.180Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;链表的裁剪&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="https://fi3wey.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="链表" scheme="https://fi3wey.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    <category term="位运算" scheme="https://fi3wey.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
