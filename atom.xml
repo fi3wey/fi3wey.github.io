@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>峰狂算法</title>
+  <icon>https://fi3wey.github.io/icon.png</icon>
+  
+  <link href="https://fi3wey.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://fi3wey.github.io/"/>
+  <updated>2023-10-03T17:05:27.896Z</updated>
+  <id>https://fi3wey.github.io/</id>
+  
+  <author>
+    <name>峰</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>P1786. 帮贡排序</title>
+    <link href="https://fi3wey.github.io/2023/10/04/P1786-%E5%B8%AE%E8%B4%A1%E6%8E%92%E5%BA%8F/"/>
+    <id>https://fi3wey.github.io/2023/10/04/P1786-%E5%B8%AE%E8%B4%A1%E6%8E%92%E5%BA%8F/</id>
+    <published>2023-10-03T17:03:56.000Z</published>
+    <updated>2023-10-03T17:05:27.896Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;哈希函数&lt;/li&gt;
+&lt;li&gt;模拟&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="哈希函数" scheme="https://fi3wey.github.io/tags/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/"/>
+    
+    <category term="模拟" scheme="https://fi3wey.github.io/tags/%E6%A8%A1%E6%8B%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P1065. 作业调度方案</title>
+    <link href="https://fi3wey.github.io/2023/10/03/P1065-%E4%BD%9C%E4%B8%9A%E8%B0%83%E5%BA%A6%E6%96%B9%E6%A1%88/"/>
+    <id>https://fi3wey.github.io/2023/10/03/P1065-%E4%BD%9C%E4%B8%9A%E8%B0%83%E5%BA%A6%E6%96%B9%E6%A1%88/</id>
+    <published>2023-10-03T14:53:20.000Z</published>
+    <updated>2023-10-03T15:01:18.743Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;模拟&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="模拟" scheme="https://fi3wey.github.io/tags/%E6%A8%A1%E6%8B%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P1098. 字符串的展开</title>
+    <link href="https://fi3wey.github.io/2023/10/03/P1098-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%B1%95%E5%BC%80/"/>
+    <id>https://fi3wey.github.io/2023/10/03/P1098-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%B1%95%E5%BC%80/</id>
+    <published>2023-10-03T08:19:36.000Z</published>
+    <updated>2023-10-03T08:25:14.288Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;模拟&lt;/li&gt;
+&lt;li&gt;字符串&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="模拟" scheme="https://fi3wey.github.io/tags/%E6%A8%A1%E6%8B%9F/"/>
+    
+    <category term="字符串" scheme="https://fi3wey.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P1067. 多项式输出</title>
+    <link href="https://fi3wey.github.io/2023/10/03/P1067-%E5%A4%9A%E9%A1%B9%E5%BC%8F%E8%BE%93%E5%87%BA/"/>
+    <id>https://fi3wey.github.io/2023/10/03/P1067-%E5%A4%9A%E9%A1%B9%E5%BC%8F%E8%BE%93%E5%87%BA/</id>
+    <published>2023-10-02T16:53:16.000Z</published>
+    <updated>2023-10-02T16:54:05.143Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;模拟&lt;/li&gt;
+&lt;li&gt;字符串&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="模拟" scheme="https://fi3wey.github.io/tags/%E6%A8%A1%E6%8B%9F/"/>
+    
+    <category term="字符串" scheme="https://fi3wey.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P1518. 两只塔姆沃斯牛</title>
+    <link href="https://fi3wey.github.io/2023/10/02/P1518-%E4%B8%A4%E5%8F%AA%E5%A1%94%E5%A7%86%E6%B2%83%E6%96%AF%E7%89%9B/"/>
+    <id>https://fi3wey.github.io/2023/10/02/P1518-%E4%B8%A4%E5%8F%AA%E5%A1%94%E5%A7%86%E6%B2%83%E6%96%AF%E7%89%9B/</id>
+    <published>2023-10-02T14:53:48.000Z</published>
+    <updated>2023-10-02T14:54:23.297Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;模拟&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="模拟" scheme="https://fi3wey.github.io/tags/%E6%A8%A1%E6%8B%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P1328. 生活大爆炸版石头剪刀布</title>
+    <link href="https://fi3wey.github.io/2023/10/02/P1328-%E7%94%9F%E6%B4%BB%E5%A4%A7%E7%88%86%E7%82%B8%E7%89%88%E7%9F%B3%E5%A4%B4%E5%89%AA%E5%88%80%E5%B8%83/"/>
+    <id>https://fi3wey.github.io/2023/10/02/P1328-%E7%94%9F%E6%B4%BB%E5%A4%A7%E7%88%86%E7%82%B8%E7%89%88%E7%9F%B3%E5%A4%B4%E5%89%AA%E5%88%80%E5%B8%83/</id>
+    <published>2023-10-02T12:29:25.000Z</published>
+    <updated>2023-10-02T12:30:09.008Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;模拟&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="模拟" scheme="https://fi3wey.github.io/tags/%E6%A8%A1%E6%8B%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P4924. 魔法少女小Scarlet</title>
+    <link href="https://fi3wey.github.io/2023/10/02/P4924-%E9%AD%94%E6%B3%95%E5%B0%91%E5%A5%B3%E5%B0%8FScarlet/"/>
+    <id>https://fi3wey.github.io/2023/10/02/P4924-%E9%AD%94%E6%B3%95%E5%B0%91%E5%A5%B3%E5%B0%8FScarlet/</id>
+    <published>2023-10-02T10:43:03.000Z</published>
+    <updated>2023-10-02T10:51:17.107Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;模拟&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="模拟" scheme="https://fi3wey.github.io/tags/%E6%A8%A1%E6%8B%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>高精度_解题技巧</title>
+    <link href="https://fi3wey.github.io/2023/10/02/%E9%AB%98%E7%B2%BE%E5%BA%A6-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/"/>
+    <id>https://fi3wey.github.io/2023/10/02/%E9%AB%98%E7%B2%BE%E5%BA%A6-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/</id>
+    <published>2023-10-02T06:59:51.000Z</published>
+    <updated>2023-10-02T07:00:54.520Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;高精度的题目，一般都会涉及到多种高精度计算：高精乘高精，高精乘低精，高精除高精等等复杂运算&lt;/p&gt;
+&lt;p&gt;所以一般先按照高精度的模板，把&lt;code&gt;BigInt&lt;/code&gt;类写好；然后根据不同需求重载运算符，这样才不易出错&lt;/p&gt;
+</summary>
+        
+      
+    
+    
+    
+    <category term="解题技巧" scheme="https://fi3wey.github.io/categories/%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="高精度" scheme="https://fi3wey.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P1226. 模板题_快速幂</title>
+    <link href="https://fi3wey.github.io/2023/10/02/P1226-%E6%A8%A1%E6%9D%BF%E9%A2%98-%E5%BF%AB%E9%80%9F%E5%B9%82/"/>
+    <id>https://fi3wey.github.io/2023/10/02/P1226-%E6%A8%A1%E6%9D%BF%E9%A2%98-%E5%BF%AB%E9%80%9F%E5%B9%82/</id>
+    <published>2023-10-02T06:18:41.000Z</published>
+    <updated>2023-10-02T06:20:48.722Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;快速幂&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="模板题" scheme="https://fi3wey.github.io/tags/%E6%A8%A1%E6%9D%BF%E9%A2%98/"/>
+    
+    <category term="快速幂" scheme="https://fi3wey.github.io/tags/%E5%BF%AB%E9%80%9F%E5%B9%82/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P1045. 麦森数</title>
+    <link href="https://fi3wey.github.io/2023/10/02/P1045-%E9%BA%A6%E6%A3%AE%E6%95%B0/"/>
+    <id>https://fi3wey.github.io/2023/10/02/P1045-%E9%BA%A6%E6%A3%AE%E6%95%B0/</id>
+    <published>2023-10-01T18:06:43.000Z</published>
+    <updated>2023-10-01T18:08:21.790Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;快速幂&lt;/li&gt;
+&lt;li&gt;高精度&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="高精度" scheme="https://fi3wey.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/"/>
+    
+    <category term="快速幂" scheme="https://fi3wey.github.io/tags/%E5%BF%AB%E9%80%9F%E5%B9%82/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P1249. 最大乘积</title>
+    <link href="https://fi3wey.github.io/2023/10/01/P1249-%E6%9C%80%E5%A4%A7%E4%B9%98%E7%A7%AF/"/>
+    <id>https://fi3wey.github.io/2023/10/01/P1249-%E6%9C%80%E5%A4%A7%E4%B9%98%E7%A7%AF/</id>
+    <published>2023-10-01T15:06:59.000Z</published>
+    <updated>2023-10-01T15:18:19.679Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;高精度&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="高精度" scheme="https://fi3wey.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P1591. 阶乘数码</title>
+    <link href="https://fi3wey.github.io/2023/10/01/P1591-%E9%98%B6%E4%B9%98%E6%95%B0%E7%A0%81/"/>
+    <id>https://fi3wey.github.io/2023/10/01/P1591-%E9%98%B6%E4%B9%98%E6%95%B0%E7%A0%81/</id>
+    <published>2023-10-01T13:04:39.000Z</published>
+    <updated>2023-10-01T13:06:03.479Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;高精度&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="高精度" scheme="https://fi3wey.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P1009. 模板题_阶乘之和</title>
+    <link href="https://fi3wey.github.io/2023/10/01/P1009-%E9%98%B6%E4%B9%98%E4%B9%8B%E5%92%8C/"/>
+    <id>https://fi3wey.github.io/2023/10/01/P1009-%E9%98%B6%E4%B9%98%E4%B9%8B%E5%92%8C/</id>
+    <published>2023-10-01T12:55:30.000Z</published>
+    <updated>2023-10-01T15:16:27.228Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;高精度&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="模板题" scheme="https://fi3wey.github.io/tags/%E6%A8%A1%E6%9D%BF%E9%A2%98/"/>
+    
+    <category term="高精度" scheme="https://fi3wey.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P1480. 模板题_A/B Problem</title>
+    <link href="https://fi3wey.github.io/2023/10/01/P1480-%E6%A8%A1%E6%9D%BF%E9%A2%98-A%E9%99%A4B-Problem/"/>
+    <id>https://fi3wey.github.io/2023/10/01/P1480-%E6%A8%A1%E6%9D%BF%E9%A2%98-A%E9%99%A4B-Problem/</id>
+    <published>2023-09-30T16:48:32.000Z</published>
+    <updated>2023-09-30T16:53:19.296Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;高精度&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="模板题" scheme="https://fi3wey.github.io/tags/%E6%A8%A1%E6%9D%BF%E9%A2%98/"/>
+    
+    <category term="高精度" scheme="https://fi3wey.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P2142. 模板题_高精度减法</title>
+    <link href="https://fi3wey.github.io/2023/09/30/P2142-%E6%A8%A1%E6%9D%BF%E9%A2%98-%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%87%8F%E6%B3%95/"/>
+    <id>https://fi3wey.github.io/2023/09/30/P2142-%E6%A8%A1%E6%9D%BF%E9%A2%98-%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%87%8F%E6%B3%95/</id>
+    <published>2023-09-30T15:18:15.000Z</published>
+    <updated>2023-09-30T16:48:50.942Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;高精度&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="模板题" scheme="https://fi3wey.github.io/tags/%E6%A8%A1%E6%9D%BF%E9%A2%98/"/>
+    
+    <category term="高精度" scheme="https://fi3wey.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P1303. 模板题_A*B Problem</title>
+    <link href="https://fi3wey.github.io/2023/09/30/P1303-%E6%A8%A1%E6%9D%BF%E9%A2%98-AB-Problem/"/>
+    <id>https://fi3wey.github.io/2023/09/30/P1303-%E6%A8%A1%E6%9D%BF%E9%A2%98-AB-Problem/</id>
+    <published>2023-09-30T10:29:58.000Z</published>
+    <updated>2023-09-30T10:50:11.289Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;高精度&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="模板题" scheme="https://fi3wey.github.io/tags/%E6%A8%A1%E6%9D%BF%E9%A2%98/"/>
+    
+    <category term="高精度" scheme="https://fi3wey.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P1601. 模板题_A+B Problem</title>
+    <link href="https://fi3wey.github.io/2023/09/30/P1601-%E6%A8%A1%E6%9D%BF%E9%A2%98-A-B-Problem/"/>
+    <id>https://fi3wey.github.io/2023/09/30/P1601-%E6%A8%A1%E6%9D%BF%E9%A2%98-A-B-Problem/</id>
+    <published>2023-09-30T09:49:48.000Z</published>
+    <updated>2023-09-30T10:03:26.836Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;高精度&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="模板题" scheme="https://fi3wey.github.io/tags/%E6%A8%A1%E6%9D%BF%E9%A2%98/"/>
+    
+    <category term="高精度" scheme="https://fi3wey.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P1563. 玩具谜题</title>
+    <link href="https://fi3wey.github.io/2023/09/27/P1563-%E7%8E%A9%E5%85%B7%E8%B0%9C%E9%A2%98/"/>
+    <id>https://fi3wey.github.io/2023/09/27/P1563-%E7%8E%A9%E5%85%B7%E8%B0%9C%E9%A2%98/</id>
+    <published>2023-09-27T13:45:20.000Z</published>
+    <updated>2023-09-27T13:46:05.176Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;模拟&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="模拟" scheme="https://fi3wey.github.io/tags/%E6%A8%A1%E6%8B%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P2670. 扫雷游戏</title>
+    <link href="https://fi3wey.github.io/2023/09/27/P2670-%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F/"/>
+    <id>https://fi3wey.github.io/2023/09/27/P2670-%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F/</id>
+    <published>2023-09-27T12:38:46.000Z</published>
+    <updated>2023-09-27T12:39:39.222Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;模拟&lt;/li&gt;
+&lt;li&gt;搜索&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="模拟" scheme="https://fi3wey.github.io/tags/%E6%A8%A1%E6%8B%9F/"/>
+    
+    <category term="搜索" scheme="https://fi3wey.github.io/tags/%E6%90%9C%E7%B4%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>P1042. 乒乓球</title>
+    <link href="https://fi3wey.github.io/2023/09/27/P1042-%E4%B9%92%E4%B9%93%E7%90%83/"/>
+    <id>https://fi3wey.github.io/2023/09/27/P1042-%E4%B9%92%E4%B9%93%E7%90%83/</id>
+    <published>2023-09-27T12:13:34.000Z</published>
+    <updated>2023-09-27T12:15:27.613Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;模拟&lt;/li&gt;
+&lt;li&gt;字符串&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="模拟" scheme="https://fi3wey.github.io/tags/%E6%A8%A1%E6%8B%9F/"/>
+    
+    <category term="字符串" scheme="https://fi3wey.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+  </entry>
+  
+</feed>
