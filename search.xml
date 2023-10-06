@@ -2650,4 +2650,293 @@ class="math display">\[
         <tag>字符串</tag>
       </tags>
   </entry>
+  <entry>
+    <title>P1012. 模板题_拼数</title>
+    <url>/2023/10/06/P1012-%E6%A8%A1%E6%9D%BF%E9%A2%98-%E6%8B%BC%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">25</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    string arr[LEN];</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        cin &gt;&gt; arr[i];</span><br><span class="line">    <span class="built_in">sort</span>(arr, arr + n, [](string a, string b) -&gt; <span class="type">bool</span></span><br><span class="line">         &#123; <span class="keyword">return</span> a + b &gt; b + a; &#125;);</span><br><span class="line">    string ans;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        cout &lt;&lt; arr[i];</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>一道非常经典的排序模板题</p>
+<p>要让字符串a与字符串b拼接的字符串最大，很容易想到贪心规则——只要让a的每一位都比b大就可以了</p>
+<p>但事实并不如此；比如<code>391</code>与<code>39</code>拼接，若单纯只以每一位的大小比较，结果是<code>39139</code>，但实际应该为<code>39391</code></p>
+<p>在这里，思路要转变过来！排序问题不仅仅是“比大小”，更是“比优先级”</p>
+<p>相邻两个元素a与b，谁的位置更应该靠前呢？如果a在前b在后组合的字符串，大于b在前a在后组合的字符串，a应该更靠前；反之亦然</p>
+<p>所以最终的排序规则应该是</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> a + b &gt; b + a;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排序</tag>
+        <tag>模板题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1093. 奖学金</title>
+    <url>/2023/10/05/P1093-%E5%A5%96%E5%AD%A6%E9%87%91/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1001</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Stu</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> cn_, mt_, en_, sum_, idx_;</span><br><span class="line">&#125; arr[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(Stu a, Stu b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (a.sum_ != b.sum_)</span><br><span class="line">        <span class="keyword">return</span> a.sum_ &gt; b.sum_;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (a.cn_ != b.cn_)</span><br><span class="line">        <span class="keyword">return</span> a.cn_ &gt; b.cn_;</span><br><span class="line">    <span class="keyword">return</span> a.idx_ &lt; b.idx_;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; arr[i].cn_ &gt;&gt; arr[i].mt_ &gt;&gt; arr[i].en_;</span><br><span class="line">        arr[i].sum_ = arr[i].cn_ + arr[i].mt_ + arr[i].en_;</span><br><span class="line">        arr[i].idx_ = i + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">sort</span>(arr, arr + n, cmp);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i, cout &lt;&lt; endl)</span><br><span class="line">        cout &lt;&lt; arr[i].idx_ &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; arr[i].sum_;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>没有别的坑点，用<code>sort</code>函数按照题意排序就行</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1068. 分数线划定</title>
+    <url>/2023/10/06/P1068-%E5%88%86%E6%95%B0%E7%BA%BF%E5%88%92%E5%AE%9A/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">5001</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> id_, score_;</span><br><span class="line">&#125; arr[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, m;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; arr[i].id_ &gt;&gt; arr[i].score_;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">sort</span>(arr, arr + n, [](Node a, Node b) -&gt; <span class="type">bool</span></span><br><span class="line">         &#123;</span><br><span class="line">             <span class="keyword">if</span> (a.score_ != b.score_)</span><br><span class="line">                 <span class="keyword">return</span> a.score_ &gt; b.score_;</span><br><span class="line">             <span class="keyword">return</span> a.id_ &lt; b.id_;</span><br><span class="line">         &#125;);</span><br><span class="line">    <span class="type">int</span> average = arr[(<span class="type">int</span>)(m * <span class="number">1.5</span>) - <span class="number">1</span>].score_, idx = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (arr[idx].score_ &gt;= average &amp;&amp; idx &lt; n)</span><br><span class="line">        ++idx;</span><br><span class="line">    cout &lt;&lt; average &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; idx &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; idx; ++i, cout &lt;&lt; endl)</span><br><span class="line">        cout &lt;&lt; arr[i].id_ &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; arr[i].score_;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>没有别的坑，按要求排序即可</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1059. 明明的随机数</title>
+    <url>/2023/10/05/P1059-%E6%98%8E%E6%98%8E%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1001</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> arr[LEN], ans[LEN], idx;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, in;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">while</span> (n--)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; in;</span><br><span class="line">        ++arr[in];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; LEN; ++i)</span><br><span class="line">        <span class="keyword">if</span> (arr[i])</span><br><span class="line">            ans[idx++] = i;</span><br><span class="line">    cout &lt;&lt; idx &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; idx; ++i)</span><br><span class="line">        cout &lt;&lt; ans[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>数字最大也才到1000，直接使用计数排序就行</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1104. 生日</title>
+    <url>/2023/10/06/P1104-%E7%94%9F%E6%97%A5/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">250</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Student</span></span><br><span class="line">&#123;</span><br><span class="line">    string s_;</span><br><span class="line">    <span class="type">int</span> idx_, y_, m_, d_;</span><br><span class="line">&#125; stu[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(Student a, Student b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (a.y_ != b.y_)</span><br><span class="line">        <span class="keyword">return</span> a.y_ &lt; b.y_;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (a.m_ != b.m_)</span><br><span class="line">        <span class="keyword">return</span> a.m_ &lt; b.m_;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (a.d_ != b.d_)</span><br><span class="line">        <span class="keyword">return</span> a.d_ &lt; b.d_;</span><br><span class="line">    <span class="keyword">return</span> a.idx_ &gt; b.idx_;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; stu[i].s_ &gt;&gt; stu[i].y_ &gt;&gt; stu[i].m_ &gt;&gt; stu[i].d_;</span><br><span class="line">        stu[i].idx_ = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">sort</span>(stu, stu + n, cmp);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        cout &lt;&lt; stu[i].s_ &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>没有坑点，按照要求编写sort函数即可</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1152 欢乐的跳</title>
+    <url>/2023/10/05/P1152-%E6%AC%A2%E4%B9%90%E7%9A%84%E8%B7%B3/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1001</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, arr[LEN], ans[LEN];</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        cin &gt;&gt; arr[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        arr[i] = <span class="built_in">abs</span>(arr[i + <span class="number">1</span>] - arr[i]);</span><br><span class="line">    <span class="built_in">sort</span>(arr, arr + n - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>, diff = <span class="number">1</span>; i &lt; n - <span class="number">1</span>; ++i, ++diff)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[i] != diff)</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;Not jolly&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Jolly&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>n个元素共有n-1个相邻元素差，而题目刚好问你元素差是否都在<code>[1, n-1]</code>范围内</p>
+<p>所以先求出差分数组，共n-1个元素；然后对差分数组进行排序，最后以下标从低到高的顺序逐位判断即可</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1116. 车厢重组</title>
+    <url>/2023/10/05/P1116-%E8%BD%A6%E5%8E%A2%E9%87%8D%E7%BB%84/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">10001</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">bubble_sort</span><span class="params">(<span class="type">int</span> arr[], <span class="type">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; len - <span class="number">1</span> - i; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[j] &gt; arr[j + <span class="number">1</span>])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">swap</span>(arr[j], arr[j + <span class="number">1</span>]);</span><br><span class="line">                ++cnt;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cnt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, arr[LEN];</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        cin &gt;&gt; arr[i];</span><br><span class="line">    cout &lt;&lt; <span class="built_in">bubble_sort</span>(arr, n);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>根据<strong>两两交换</strong>的题面，很明显就是冒泡排序，要你求内部元素一共交换了多少次</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1177. 模板题_排序</title>
+    <url>/2023/10/04/P1177-%E6%A8%A1%E6%9D%BF%E9%A2%98-%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">quick_sort</span><span class="params">(<span class="type">int</span> arr[], <span class="type">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (len &lt;= <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, k = len;</span><br><span class="line">    <span class="type">int</span> pivot = arr[<span class="built_in">rand</span>() % len];</span><br><span class="line">    <span class="keyword">while</span> (i &lt; k)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[i] &lt; pivot)</span><br><span class="line">            <span class="built_in">swap</span>(arr[i++], arr[j++]);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (arr[i] &gt; pivot)</span><br><span class="line">            <span class="built_in">swap</span>(arr[i], arr[--k]);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            ++i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">quick_sort</span>(arr, j);</span><br><span class="line">    <span class="built_in">quick_sort</span>(arr + k, len - k);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, arr[LEN];</span><br><span class="line">    <span class="built_in">memset</span>(arr, <span class="number">0</span>, <span class="built_in">sizeof</span>(arr));</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        cin &gt;&gt; arr[i];</span><br><span class="line">    <span class="built_in">quick_sort</span>(arr, n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        cout &lt;&lt; arr[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>由于是模板题，所以来系统地整理一下快速排序的相关问题；所有的模板均来源于<a
+href="https://oi-wiki.org/basic/sort-intro/">OIWiki</a></p>
+<h2 id="普通快排">普通快排</h2>
+<p>普通快排的迭代版模板如下，来源于上述的OIWiki</p>
+<p>其中对区间的分治操作需要熟练掌握，未来会经常用到</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Range</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> start, end;</span><br><span class="line">    <span class="built_in">Range</span>(<span class="type">int</span> s = <span class="number">0</span>, <span class="type">int</span> e = <span class="number">0</span>) &#123; start = s, end = e; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">quick_sort</span><span class="params">(T arr[], <span class="type">const</span> <span class="type">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (len &lt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    Range r[len];</span><br><span class="line">    <span class="type">int</span> p = <span class="number">0</span>;</span><br><span class="line">    r[p++] = <span class="built_in">Range</span>(<span class="number">0</span>, len - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">while</span> (p)</span><br><span class="line">    &#123;</span><br><span class="line">        Range range = r[--p];</span><br><span class="line">        <span class="keyword">if</span> (range.start &gt;= range.end)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        T mid = arr[range.end];</span><br><span class="line">        <span class="type">int</span> left = range.start, right = range.end - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt; right)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (arr[left] &lt; mid &amp;&amp; left &lt; right)</span><br><span class="line">                left++;</span><br><span class="line">            <span class="keyword">while</span> (arr[right] &gt;= mid &amp;&amp; left &lt; right)</span><br><span class="line">                right--;</span><br><span class="line">            std::<span class="built_in">swap</span>(arr[left], arr[right]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (arr[left] &gt;= arr[range.end])</span><br><span class="line">            std::<span class="built_in">swap</span>(arr[left], arr[range.end]);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            left++;</span><br><span class="line">        r[p++] = <span class="built_in">Range</span>(range.start, left - <span class="number">1</span>);</span><br><span class="line">        r[p++] = <span class="built_in">Range</span>(left + <span class="number">1</span>, range.end);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>当然也可以将其改造为递归，就变成广为流传的样子</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> N, arr[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">quick_sort</span><span class="params">(<span class="type">int</span> bg, <span class="type">int</span> ed)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (bg &gt;= ed)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="type">int</span> l = bg, r = ed - <span class="number">1</span>, pivot = arr[ed];</span><br><span class="line">    <span class="keyword">while</span> (l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> (arr[l] &lt; pivot &amp;&amp; l &lt; r)</span><br><span class="line">            ++l;</span><br><span class="line">        <span class="keyword">while</span> (arr[r] &gt;= pivot &amp;&amp; l &lt; r)</span><br><span class="line">            --r;</span><br><span class="line">        <span class="built_in">swap</span>(arr[l], arr[r]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (arr[l] &gt;= arr[ed])</span><br><span class="line">        <span class="built_in">swap</span>(arr[l], arr[ed]);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        ++l;</span><br><span class="line">    <span class="built_in">quick_sort</span>(bg, l - <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">quick_sort</span>(l + <span class="number">1</span>, ed);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">        cin &gt;&gt; arr[i];</span><br><span class="line">    <span class="built_in">quick_sort</span>(<span class="number">0</span>, N - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">        cout &lt;&lt; arr[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="三路快速排序">三路快速排序</h2>
+<p>普通快排效率并不高，上面的代码本题就会超时，就需要用到三路快排；模板同样来自OIWiki</p>
+<p>顺带提一嘴，rand函数的用法可以简单记为<code>a + rand() % b</code>；即从a开始（包括a）共b个连续整数的生成范围</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 模板的 T 参数表示元素的类型，此类型需要定义小于（&lt;）运算</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="comment">// arr 为需要被排序的数组，len 为数组长度</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">quick_sort</span><span class="params">(T arr[], <span class="type">const</span> <span class="type">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (len &lt;= <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// 随机选择基准（pivot）</span></span><br><span class="line">    <span class="type">const</span> T pivot = arr[<span class="built_in">rand</span>() % len];</span><br><span class="line">    <span class="comment">// i：当前操作的元素下标</span></span><br><span class="line">    <span class="comment">// arr[0, j)：存储小于 pivot 的元素</span></span><br><span class="line">    <span class="comment">// arr[k, len)：存储大于 pivot 的元素</span></span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, k = len;</span><br><span class="line">    <span class="comment">// 完成一趟三路快排，将序列分为：</span></span><br><span class="line">    <span class="comment">// 小于 pivot 的元素 | 等于 pivot 的元素 | 大于 pivot 的元素</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt; k)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[i] &lt; pivot)</span><br><span class="line">            <span class="built_in">swap</span>(arr[i++], arr[j++]);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (pivot &lt; arr[i])</span><br><span class="line">            <span class="built_in">swap</span>(arr[i], arr[--k]);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 递归完成对于两个子序列的快速排序</span></span><br><span class="line">    <span class="built_in">quick_sort</span>(arr, j);</span><br><span class="line">    <span class="built_in">quick_sort</span>(arr + k, len - k);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排序</tag>
+        <tag>模板题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1781. 宇宙总统</title>
+    <url>/2023/10/05/P1781-%E5%AE%87%E5%AE%99%E6%80%BB%E7%BB%9F/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">21</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> idx_;</span><br><span class="line">    string votes_;</span><br><span class="line">&#125; arr[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(Node a, Node b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (a.votes_.<span class="built_in">length</span>() != b.votes_.<span class="built_in">length</span>())</span><br><span class="line">        <span class="keyword">return</span> a.votes_.<span class="built_in">length</span>() &gt; b.votes_.<span class="built_in">length</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; a.votes_.<span class="built_in">length</span>(); ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (a.votes_[i] &gt; b.votes_[i])</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (a.votes_[i] &lt; b.votes_[i])</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; arr[i].votes_;</span><br><span class="line">        arr[i].idx_ = i + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">sort</span>(arr, arr + n, cmp);</span><br><span class="line">    cout &lt;&lt; arr[<span class="number">0</span>].idx_ &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; arr[<span class="number">0</span>].votes_;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>本题实际上是比较以字符串形式存储的数字大小；先比较长度，更长的肯定更大，若长度相同再逐位比较</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1271. 选举学生会</title>
+    <url>/2023/10/04/P1271-%E9%80%89%E4%B8%BE%E5%AD%A6%E7%94%9F%E4%BC%9A/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>计数排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> N, M, arr[<span class="number">1000</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">counting_sort</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">1000</span>; ++i)</span><br><span class="line">        <span class="keyword">while</span> (arr[i]--)</span><br><span class="line">            cout &lt;&lt; i &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    cin &gt;&gt; N &gt;&gt; M;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= M; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; num;</span><br><span class="line">        ++arr[num];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">counting_sort</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>本质上是根据每种数字出现的个数来输出，故而使用计数排序即可</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排序</tag>
+        <tag>计数排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1923. 模板题_求第 k 小的数</title>
+    <url>/2023/10/05/P1923-%E6%A8%A1%E6%9D%BF%E9%A2%98-%E6%B1%82%E7%AC%AC-k-%E5%B0%8F%E7%9A%84%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">5e6</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> K, arr[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">k_th</span><span class="params">(<span class="type">int</span> arr[], <span class="type">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (len &lt;= <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> arr[<span class="number">0</span>];</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, k = len, pivot = arr[<span class="built_in">rand</span>() % len];</span><br><span class="line">    <span class="keyword">while</span> (i &lt; k)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[i] &lt; pivot)</span><br><span class="line">            <span class="built_in">swap</span>(arr[i++], arr[j++]);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (arr[i] &gt; pivot)</span><br><span class="line">            <span class="built_in">swap</span>(arr[i], arr[--k]);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            ++i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (K &lt; j)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">k_th</span>(arr, j);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (K &gt;= k)</span><br><span class="line">    &#123;</span><br><span class="line">        K -= k;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">k_th</span>(arr + k, len - k);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> pivot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//这行必须加，加快cin的读取速度</span></span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; K;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        cin &gt;&gt; arr[i];</span><br><span class="line">    cout &lt;&lt; <span class="built_in">k_th</span>(arr, n);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>不同题目对<strong>第K大</strong>和<strong>第K小</strong>都有不同的定义；就本题而言，是求升序数列中的第K个元素，K从0开始</p>
+<p>可以联想到三路快排算法：每次都以<code>pivot</code>为标准，左半部分均小于<code>pivot</code>，中间部分等于<code>pivot</code>，右半部分大于<code>pivot</code></p>
+<p>所以只需要判断K处在哪一个部分：</p>
+<ul>
+<li>K在左半部分，向左半部分递归</li>
+<li>K在中间部分，直接返回结果，因为中间部分的值都是相同的</li>
+<li>K在右半部分，K先减去左半部分加中间部分的长度，以转换为右半部分子数组的下标，再向右半部分递归</li>
+</ul>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排序</tag>
+        <tag>模板题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P2676. Bookshelf B</title>
+    <url>/2023/10/05/P2676-Bookshelf-B/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">20050</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> arr[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    <span class="type">int</span> n, b, cnt = <span class="number">0</span>, sum = <span class="number">0</span>;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; b;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        cin &gt;&gt; arr[i];</span><br><span class="line">    <span class="built_in">sort</span>(arr, arr + n, [](<span class="type">int</span> a, <span class="type">int</span> b) -&gt; <span class="type">bool</span></span><br><span class="line">         &#123; <span class="keyword">return</span> a &gt; b; &#125;);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n &amp;&amp; sum &lt; b; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += arr[i];</span><br><span class="line">        ++cnt;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; cnt;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>没有别的坑点，排序结束后累加即可</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P5143. 攀爬者</title>
+    <url>/2023/10/06/P5143-%E6%94%80%E7%88%AC%E8%80%85/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">5e4</span> + <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> x_, y_, z_;</span><br><span class="line">&#125; arr[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        cin &gt;&gt; arr[i].x_ &gt;&gt; arr[i].y_ &gt;&gt; arr[i].z_;</span><br><span class="line">    <span class="type">double</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">sort</span>(arr, arr + n, [](Node a, Node b) -&gt; <span class="type">bool</span></span><br><span class="line">         &#123; <span class="keyword">return</span> a.z_ &lt; b.z_; &#125;);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += <span class="built_in">sqrt</span>(<span class="built_in">pow</span>(arr[i].x_ - arr[i + <span class="number">1</span>].x_, <span class="number">2</span>) +</span><br><span class="line">                    <span class="built_in">pow</span>(arr[i].y_ - arr[i + <span class="number">1</span>].y_, <span class="number">2</span>) +</span><br><span class="line">                    <span class="built_in">pow</span>(arr[i].z_ - arr[i + <span class="number">1</span>].z_, <span class="number">2</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; fixed &lt;&lt; <span class="built_in">setprecision</span>(<span class="number">3</span>) &lt;&lt; sum;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>没有坑点，根据高度z排序后，按序统计相邻节点的欧几里得距离即可</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排序</tag>
+      </tags>
+  </entry>
 </search>
