@@ -2939,4 +2939,356 @@ href="https://oi-wiki.org/basic/sort-intro/">OIWiki</a></p>
         <tag>排序</tag>
       </tags>
   </entry>
+  <entry>
+    <title>P1036. 模板题_选数</title>
+    <url>/2023/10/07/P1036-%E6%A8%A1%E6%9D%BF%E9%A2%98-%E9%80%89%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> arr[<span class="number">20</span>], ans, K, N;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">isprime</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= <span class="built_in">sqrt</span>(x); ++i)</span><br><span class="line">        <span class="keyword">if</span> (x % i == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> cnt, <span class="type">int</span> idx, <span class="type">int</span> sum)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (cnt &gt; K)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">isprime</span>(sum))</span><br><span class="line">            ++ans;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = idx; i &lt; N; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">dfs</span>(cnt + <span class="number">1</span>, i + <span class="number">1</span>, sum + arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N &gt;&gt; K;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">        cin &gt;&gt; arr[i];</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    cout &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>一道DFS的模板题</p>
+<p>为取数不重复，规定每次取数时的初始下标至少大于上一次的取数下标，就可以保证“永不回头”</p>
+<p>由于每次只能取K个数，所以需要设立一个变量cnt来计数；如果当前cnt大于K，说明已经取够K个了，就进行质数判断然后返回</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>模板题</tag>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1088. 火星人</title>
+    <url>/2023/10/07/P1088-%E7%81%AB%E6%98%9F%E4%BA%BA/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e4</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> arr[LEN], N, M;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">        cout &lt;&lt; arr[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N &gt;&gt; M;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">        cin &gt;&gt; arr[i];</span><br><span class="line">    <span class="keyword">while</span> (M-- &amp;&amp; <span class="built_in">next_permutation</span>(arr, arr + N))</span><br><span class="line">        ;</span><br><span class="line">    <span class="built_in">print</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>题意其实就是给了一个序列，将这个序列全排列若干次后再输出</p>
+<p>不会真有人尝试10000的阶乘吧！不会吧不会吧不会吧不会吧不会吧！！</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1149. 火柴棒等式</title>
+    <url>/2023/10/08/P1149-%E7%81%AB%E6%9F%B4%E6%A3%92%E7%AD%89%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> table[<span class="number">10</span>] = &#123;<span class="number">6</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">6</span>&#125;, arr[<span class="number">2</span>], N, ans;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">cnt</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">        res += table[x % <span class="number">10</span>];</span><br><span class="line">        x /= <span class="number">10</span>;</span><br><span class="line">    &#125; <span class="keyword">while</span> (x);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> idx, <span class="type">int</span> sum)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (sum &gt; N - <span class="number">4</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (idx &gt; <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">cnt</span>(arr[<span class="number">0</span>]) + <span class="built_in">cnt</span>(arr[<span class="number">1</span>]) + <span class="built_in">cnt</span>(arr[<span class="number">0</span>] + arr[<span class="number">1</span>]) == N - <span class="number">4</span>)</span><br><span class="line">            ++ans;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">1111</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        arr[idx] = i;</span><br><span class="line">        <span class="built_in">dfs</span>(idx + <span class="number">1</span>, sum + <span class="built_in">cnt</span>(i));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    cout &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>题意实际上是问，两个数字及其和的组成火柴总数要等于N-4</p>
+<p>除去加号与等号的四根火柴后，还剩20根；那么每个数字极限也只能到1111</p>
+<p>当然上亿次的暴力搜索还是太大了，如果遍历过程中火柴数已经大于N-4就可以直接剪枝</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1706. 全排列问题</title>
+    <url>/2023/10/07/P1706-%E5%85%A8%E6%8E%92%E5%88%97%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> arr[<span class="number">10</span>], vis[<span class="number">10</span>], N;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">        cout &lt;&lt; <span class="built_in">setfill</span>(<span class="string">&#x27; &#x27;</span>) &lt;&lt; <span class="built_in">setw</span>(<span class="number">5</span>) &lt;&lt; arr[i];</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> idx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (idx == N)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">print</span>();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (vis[i])</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        arr[idx] = i;</span><br><span class="line">        vis[i] = <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">dfs</span>(idx + <span class="number">1</span>);</span><br><span class="line">        vis[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>用vis数组记录元素是否用过；每次元素的可能性都从1遍历到N（因为不同序列的元素组成可以相同）</p>
+<p>只要没有被访问就纳入答案数组内，并在vis记录已用；当本次可能性的递归结束后，vis记录恢复为未用，避免影响其他情况</p>
+<p>当然，全排列也可以直接调用STL函数<code>next_permutation</code></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> arr[<span class="number">10</span>], vis[<span class="number">10</span>], N;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">        cout &lt;&lt; <span class="built_in">setfill</span>(<span class="string">&#x27; &#x27;</span>) &lt;&lt; <span class="built_in">setw</span>(<span class="number">5</span>) &lt;&lt; arr[i];</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">        arr[i - <span class="number">1</span>] = i;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">print</span>();</span><br><span class="line">    &#125; <span class="keyword">while</span> (<span class="built_in">next_permutation</span>(arr, arr + N));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1618. 模板题_三连击（升级版）</title>
+    <url>/2023/10/07/P1618-%E6%A8%A1%E6%9D%BF%E9%A2%98-%E4%B8%89%E8%BF%9E%E5%87%BB%EF%BC%88%E5%8D%87%E7%BA%A7%E7%89%88%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>枚举</li>
+<li>排列组合</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> arr[<span class="number">9</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">num</span><span class="params">(<span class="type">int</span> idx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; ++i)</span><br><span class="line">        sum = sum * <span class="number">10</span> + arr[idx + i];</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a, b, c, flag = <span class="literal">false</span>;</span><br><span class="line">    cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> num_1 = <span class="built_in">num</span>(<span class="number">0</span>), num_2 = <span class="built_in">num</span>(<span class="number">3</span>), num_3 = <span class="built_in">num</span>(<span class="number">6</span>);</span><br><span class="line">        <span class="keyword">if</span> (num_1 * b == num_2 * a &amp;&amp; num_1 * c == num_3 * a &amp;&amp; num_2 * c == num_3 * b)</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; num_1 &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; num_2 &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; num_3 &lt;&lt; endl;</span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">while</span> (<span class="built_in">next_permutation</span>(arr, arr + <span class="number">9</span>));</span><br><span class="line">    <span class="keyword">if</span> (!flag)</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;No!!!&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>根据题意，三个数的数字均不可能重复</p>
+<p>实际上就可以视作为数字1-9的全排列，每次按序取前三位，中三位和后三位组成的数进行比较</p>
+<p>STL中有函数<code>next_permutation</code>专门实现这一操作</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排列组合</tag>
+        <tag>模板题</tag>
+        <tag>枚举</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1217. Prime Palindromes</title>
+    <url>/2023/10/08/P1217-Prime-Palindromes/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>枚举</li>
+<li>质数</li>
+<li>回文数</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">isPalindrome</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">11</span>], idx = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">        arr[idx++] = x % <span class="number">10</span>;</span><br><span class="line">        x /= <span class="number">10</span>;</span><br><span class="line">    &#125; <span class="keyword">while</span> (x);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>, j = idx - <span class="number">1</span>; i &lt; j; ++i, --j)</span><br><span class="line">        <span class="keyword">if</span> (arr[i] != arr[j])</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">isPrime</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= <span class="built_in">sqrt</span>(x); ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (x % i == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a, b;</span><br><span class="line">    cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">    <span class="keyword">if</span> (b &gt; <span class="number">9999999</span>)</span><br><span class="line">        b = <span class="number">9999999</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = (a % <span class="number">2</span> ? a : a + <span class="number">1</span>); i &lt;= b; i += <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">isPalindrome</span>(i) &amp;&amp; <span class="built_in">isPrime</span>(i))</span><br><span class="line">            cout &lt;&lt; i &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>本题更多地是考验数论的能力.....</p>
+<ul>
+<li><p>如果一个数是11的倍数，那么奇数位置的和等于偶数位置的和；也就是说，11的倍数其实都是长度为偶数的回文数</p>
+<p>所以可以提前剪枝，大于9999999的数都可以不用判断，因为就算是回文数也绝对不可能是质数</p></li>
+<li><p>如果一个数是偶数，自然也不可能是质数，也可以借助这个特性再次剪枝</p></li>
+<li><p>还有一个优化点，回文数的个数肯定是远小于质数的个数；所以判断回文数的操作应该放在判断质数之前，大幅减少时间开销</p></li>
+</ul>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>枚举</tag>
+        <tag>质数</tag>
+        <tag>回文数</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P2036. PERKET</title>
+    <url>/2023/10/08/P2036-PERKET/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> sour_, bitter_;</span><br><span class="line">&#125; arr[<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> ans = INT_MAX, N;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> idx, <span class="type">int</span> sum_sour, <span class="type">int</span> sum_bitter)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (sum_sour != <span class="number">1</span> &amp;&amp; sum_bitter != <span class="number">0</span>)</span><br><span class="line">        ans = <span class="built_in">min</span>(ans, <span class="built_in">abs</span>(sum_sour - sum_bitter));</span><br><span class="line">    <span class="keyword">if</span> (idx == N)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">dfs</span>(idx + <span class="number">1</span>, sum_sour, sum_bitter);</span><br><span class="line">    <span class="built_in">dfs</span>(idx + <span class="number">1</span>, sum_sour * arr[idx].sour_, sum_bitter + arr[idx].bitter_);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">        cin &gt;&gt; arr[i].sour_ &gt;&gt; arr[i].bitter_;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    cout &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>每种配料都有选与不选两种情况，且最多只有10个配料，即2<sup>10</sup>的复杂度，可以直接暴力DFS</p>
+<p>题目说<strong>至少选一种配料</strong>，且<strong>酸度和苦度不同时为1和0</strong></p>
+<p>也就是说，只有初始状态，和所有配料都没选这两种特殊情况才有可能出现酸度为1且苦度为0</p>
+<p>所以直接屏蔽<strong>酸度为1且苦度为0</strong>时的情况即可</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (sum_sour != <span class="number">1</span> &amp;&amp; sum_bitter != <span class="number">0</span>)</span><br><span class="line">        ans = <span class="built_in">min</span>(ans, <span class="built_in">abs</span>(sum_sour - sum_bitter));</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1157. 组合的输出</title>
+    <url>/2023/10/07/P1157-%E7%BB%84%E5%90%88%E7%9A%84%E8%BE%93%E5%87%BA/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> arr[<span class="number">20</span>], N, R;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; R; ++i)</span><br><span class="line">        cout &lt;&lt; <span class="built_in">setfill</span>(<span class="string">&#x27; &#x27;</span>) &lt;&lt; <span class="built_in">setw</span>(<span class="number">3</span>) &lt;&lt; arr[i];</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> cnt, <span class="type">int</span> idx, <span class="type">int</span> num)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (cnt &gt; R)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">print</span>();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = num; i &lt;= N; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        arr[idx] = i;</span><br><span class="line">        <span class="built_in">dfs</span>(cnt + <span class="number">1</span>, idx + <span class="number">1</span>, i + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N &gt;&gt; R;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>根据升序且不重复的要求，每次取数都应比上一次取的数要大</p>
+<p>又因为限定了只取R个数，所以需要额外设定一个cnt变量来计数；当cnt大于R时，说明已取够，应当输出</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P2241 统计方形</title>
+    <url>/2023/10/07/P2241-%E7%BB%9F%E8%AE%A1%E6%96%B9%E5%BD%A2/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>枚举</li>
+<li>排列组合</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll n, m;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    ll sum = ((n + <span class="number">1</span>) * n * (m + <span class="number">1</span>) * m) / <span class="number">4</span>;</span><br><span class="line">    ll square = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="built_in">min</span>(n, m); ++i)</span><br><span class="line">        square += (n - i + <span class="number">1</span>) * (m - i + <span class="number">1</span>);</span><br><span class="line">    cout &lt;&lt; square &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; sum - square;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>长方形的个数不好求，秉持着“正难则反”的原则，可以先求出一共有多少个矩形，再用矩形的数量减去正方形的数量即可</p>
+<p>题意是说<code>n*m个格子的棋盘</code>，那么就有<code>(n + 1) * (m + 1)</code>个点</p>
+<p>而矩形实际上就是行方向取两个点之间的长度作为宽，列方向取两个点之间的长度作为长；根据排列组合原理，有如下等式：
+<span class="math display">\[
+C_{n+1}^{2}\times C_{m+1}^{2}=\frac{\left( n+1 \right) !}{2!\times
+\left( n-1 \right) !}\times \frac{\left( m+1 \right) !}{2!\times \left(
+m-1 \right) !}=\frac{\left( n+1 \right) \times n\times \left( m+1
+\right) \times m}{4}=\text{矩阵个数}
+\]</span>
+正方形的个数也很容易计算，边长为1的正方形个数+边长为2的正方形个数+...+边长为<code>min(n, m)</code>的正方形个数，也有如下等式
+<span class="math display">\[
+\left( n-1+1 \right) \times \left( m-1+1 \right) +\left( n-2+1 \right)
+\times \left( m-2+1 \right) +...+\left( n-\min \left( n,m \right) +1
+\right) \times \left( m-\min \left( n,m \right) +1 \right)
+\]</span></p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排列组合</tag>
+        <tag>枚举</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P3654. First Step</title>
+    <url>/2023/10/08/P3654-First-Step/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>枚举</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">char</span> arr[<span class="number">101</span>][<span class="number">101</span>];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> R, C, K, ans = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> walk[<span class="number">2</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">cnt</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> idx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (x &lt;= R &amp;&amp; y &lt;= C &amp;&amp; arr[x][y] == <span class="string">&#x27;.&#x27;</span> &amp;&amp; res &lt; K)</span><br><span class="line">    &#123;</span><br><span class="line">        x += walk[idx][<span class="number">0</span>], y += walk[idx][<span class="number">1</span>];</span><br><span class="line">        ++res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (res == K)</span><br><span class="line">        ++ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; R &gt;&gt; C &gt;&gt; K;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= R; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= C; ++j)</span><br><span class="line">            cin &gt;&gt; arr[i][j];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= R; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= C; ++j)</span><br><span class="line">            <span class="built_in">cnt</span>(i, j, <span class="number">0</span>), <span class="built_in">cnt</span>(i, j, <span class="number">1</span>);</span><br><span class="line">    <span class="comment">// K等于1的时候会重复</span></span><br><span class="line">    cout &lt;&lt; (K == <span class="number">1</span> ? ans &gt;&gt; <span class="number">1</span> : ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>枚举所有点，每次判断从当前位置向右走或向下走是否满足连续K个空位即可（向右走和向下走可以保证情况不重复）</p>
+<p>坑点在于，当K等于1时结果要除2，因为此时向右和向下走情况是重复的</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>枚举</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P3799. 妖梦拼木棒</title>
+    <url>/2023/10/08/P3799-%E5%A6%96%E6%A2%A6%E6%8B%BC%E6%9C%A8%E6%A3%92/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>枚举</li>
+<li>排列组合</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> arr[<span class="number">5050</span>];</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//求组合数，限定取2或1</span></span><br><span class="line"><span class="function">ll <span class="title">calc</span><span class="params">(ll a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (b == <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> ((a % mod) * ((a - <span class="number">1</span>) % mod) / <span class="number">2</span>) % mod;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> a % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, in;</span><br><span class="line">    ll ans = <span class="number">0</span>;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">while</span> (n--)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; in;</span><br><span class="line">        ++arr[in];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">5000</span>; i &gt;= <span class="number">1</span>; i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[i] &lt; <span class="number">2</span>)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        ll a = <span class="built_in">calc</span>(arr[i], <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= i / <span class="number">2</span>; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (!arr[j] || !arr[i - j])</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="comment">//两个短边相等的时候</span></span><br><span class="line">            <span class="keyword">if</span> (j == i - j &amp;&amp; arr[j] &gt;= <span class="number">2</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                ll b = <span class="built_in">calc</span>(arr[j], <span class="number">2</span>);</span><br><span class="line">                ans = (ans + (a * b) % mod) % mod;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (j != i - j)</span><br><span class="line">            &#123;</span><br><span class="line">                ll b = <span class="built_in">calc</span>(arr[j], <span class="number">1</span>), c = <span class="built_in">calc</span>(arr[i - j], <span class="number">1</span>);</span><br><span class="line">                ans = (ans + (a * b * c) % mod) % mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>用一个数组arr记录各类长度的个数；如果双重循环枚举短边的话，是绝对会超时的</p>
+<p>由于其中一条短边一定小于等于长边的一半；那么外循环就枚举长边，内循环枚举小于等于长边一半的短边，复杂度就降到了<span
+class="math inline">\(n^2/2\)</span></p>
+<blockquote>
+<p>假设长边为a，一个短边为b，另一个短边为c，有以下等式成立： <span
+class="math display">\[
+\frac{a}{2}=\frac{\left( b+c \right)}{2}
+\]</span>
+映射到数轴上看，显然有一个短边必小于等于长边一半，而另一个短边必大于等于长边一半</p>
+</blockquote>
+<p>找到了符合条件的三种边后，使用排列乘法原理即可：</p>
+<ul>
+<li><p>如果短边b等于短边c，相当于从长度等于b的火柴中取2根，再从长度等于a长边的火柴中取2根，即：
+<span class="math display">\[
+C_{a}^{2}\times C_{b}^{2}
+\]</span></p></li>
+<li><p>如果短边b不等于短边c，分别从长度b、长度c两堆各取1根，从长度a取2根
+<span class="math display">\[
+C_{a}^{2}\times C_{b}^{1}\times C_{c}^{1}
+\]</span></p></li>
+</ul>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排列组合</tag>
+        <tag>枚举</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P2089. 烤鸡</title>
+    <url>/2023/10/07/P2089-%E7%83%A4%E9%B8%A1/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> arr[<span class="number">10</span>], ans[<span class="number">55000</span>][<span class="number">10</span>], cnt = <span class="number">-1</span>, N;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; cnt + <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= cnt; ++i, cout &lt;&lt; endl)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">10</span>; ++j)</span><br><span class="line">            cout &lt;&lt; ans[i][j] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> idx, <span class="type">int</span> sum)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (idx &gt; <span class="number">10</span> || sum &gt; N)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (idx == <span class="number">10</span> &amp;&amp; sum == N)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">copy</span>(arr, arr + <span class="number">10</span>, ans[++cnt]);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        arr[idx] = i;</span><br><span class="line">        <span class="built_in">dfs</span>(idx + <span class="number">1</span>, sum + i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    <span class="keyword">if</span> (N &gt; <span class="number">30</span>)</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;0&quot;</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">dfs</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (cnt == <span class="number">-1</span>)</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;0&quot;</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">print</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>一道基础的DFS题目</p>
+<p>每类配料都有3种选择，一共10类，按道理一共有3<sup>10</sup>种选法，绝对会超时；好在题目只是要求所有类别的配料质量之和</p>
+<p>那么只要输入N大于<code>3 * 10 = 30</code>就是无效的；同时DFS的过程中，和大于N也可以直接退出。两种剪枝操作大大降低了时间复杂度</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P2392. kkksc03考前临时抱佛脚</title>
+    <url>/2023/10/08/P2392-kkksc03%E8%80%83%E5%89%8D%E4%B8%B4%E6%97%B6%E6%8A%B1%E4%BD%9B%E8%84%9A/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> arr[<span class="number">4</span>][<span class="number">20</span>], ans[<span class="number">4</span>], res;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read</span><span class="params">(<span class="type">int</span> arr[], <span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        cin &gt;&gt; arr[i];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> arr[], <span class="type">int</span> idx, <span class="type">int</span> lbrain, <span class="type">int</span> rbrain, <span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (idx == n)</span><br><span class="line">    &#123;</span><br><span class="line">        res = <span class="built_in">min</span>(res, <span class="built_in">max</span>(lbrain, rbrain));</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">dfs</span>(arr, idx + <span class="number">1</span>, lbrain + arr[idx], rbrain, n);</span><br><span class="line">    <span class="built_in">dfs</span>(arr, idx + <span class="number">1</span>, lbrain, rbrain + arr[idx], n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)</span><br><span class="line">        cin &gt;&gt; ans[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)</span><br><span class="line">        <span class="built_in">read</span>(arr[i], ans[i]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)</span><br><span class="line">        res = INT_MAX, <span class="built_in">dfs</span>(arr[i], <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, ans[i]), ans[i] = res;</span><br><span class="line">    res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)</span><br><span class="line">        res += ans[i];</span><br><span class="line">    cout &lt;&lt; res;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>每次都有两种情况，给左脑还是给右脑，每科最多20次，也就是4<sup>10</sup>的时间复杂度，暴力DFS是可以过的</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P3392. 涂国旗</title>
+    <url>/2023/10/08/P3392-%E6%B6%82%E5%9B%BD%E6%97%97/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>枚举</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">char</span> arr[<span class="number">51</span>][<span class="number">51</span>];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> N, M;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">cost</span><span class="params">(<span class="type">int</span> bg, <span class="type">int</span> ed, <span class="type">char</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = bg; i &lt;= ed; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= M; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[i][j] != c)</span><br><span class="line">                ++res;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N &gt;&gt; M;</span><br><span class="line">    <span class="type">int</span> ans = INT_MAX;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= M; ++j)</span><br><span class="line">            cin &gt;&gt; arr[i][j];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N - <span class="number">2</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> sum_w = <span class="built_in">cost</span>(<span class="number">1</span>, i, <span class="string">&#x27;W&#x27;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = N - <span class="number">2</span>; j &gt;= <span class="number">1</span>; --j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> sum_r = <span class="built_in">cost</span>(N - j + <span class="number">1</span>, N, <span class="string">&#x27;R&#x27;</span>);</span><br><span class="line">            <span class="type">int</span> sum_b = <span class="built_in">cost</span>(i + <span class="number">1</span>, N - j, <span class="string">&#x27;B&#x27;</span>);</span><br><span class="line">            ans = <span class="built_in">min</span>(ans, sum_w + sum_r + sum_b);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>假设一共有N行</p>
+<p>白色的行最少有1行，最多有N-2行；红色的行最少也有1行，最多也有N-2行；白色与红色确认行数后，蓝色的行数也可以确认</p>
+<p>所以直接令白色行数与红色行数执行双重循环的枚举，对比不同情况下的开销即可</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>枚举</tag>
+      </tags>
+  </entry>
 </search>
