@@ -1327,7 +1327,7 @@ dp\left[ i \right] =1+dp\left[ i\,\,\&amp; \left( i-1 \right) \right]
       </categories>
       <tags>
         <tag>位运算</tag>
-        <tag>动态规划</tag>
+        <tag>线性动态规划</tag>
       </tags>
   </entry>
   <entry>
@@ -2147,7 +2147,6 @@ idx-len+n \right)
     <content><![CDATA[<h1 id="考点">考点</h1>
 <ul>
 <li>模拟</li>
-<li>搜索</li>
 </ul>
 <span id="more"></span>
 <h1 id="题解">题解</h1>
@@ -2160,7 +2159,6 @@ idx-len+n \right)
       </categories>
       <tags>
         <tag>模拟</tag>
-        <tag>搜索</tag>
       </tags>
   </entry>
   <entry>
@@ -2552,6 +2550,8 @@ class="math display">\[
     <content><![CDATA[<h1 id="考点">考点</h1>
 <ul>
 <li>模拟</li>
+<li>哈希函数</li>
+<li>哈希表</li>
 </ul>
 <span id="more"></span>
 <h1 id="题解">题解</h1>
@@ -2573,6 +2573,8 @@ class="math display">\[
         <category>洛谷</category>
       </categories>
       <tags>
+        <tag>哈希函数</tag>
+        <tag>哈希表</tag>
         <tag>模拟</tag>
       </tags>
   </entry>
@@ -4546,6 +4548,408 @@ href="https://www.luogu.com.cn/problem/P1678">P1678</a>来熟悉</p>
       </categories>
       <tags>
         <tag>二分</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1032. 字串变换</title>
+    <url>/2023/10/22/P1032-%E5%AD%97%E4%B8%B2%E5%8F%98%E6%8D%A2/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>BFS</li>
+<li>字符串</li>
+<li>哈希表</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> cnt;</span><br><span class="line">string a, b;</span><br><span class="line">pair&lt;string, string&gt; p[<span class="number">6</span>];</span><br><span class="line">unordered_map&lt;string, <span class="type">bool</span>&gt; mp;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//记录变换次数</span></span><br><span class="line">    <span class="type">int</span> step_;</span><br><span class="line">    string str_;</span><br><span class="line">    <span class="built_in">Node</span>(<span class="type">int</span> step, string str) : <span class="built_in">step_</span>(step), <span class="built_in">str_</span>(str) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">queue&lt;Node&gt; q;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bfs</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    q.<span class="built_in">emplace</span>(<span class="number">0</span>, a);</span><br><span class="line">    mp[a] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        Node u = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="type">int</span> ustep = u.step_;</span><br><span class="line">        string ustr = u.str_;</span><br><span class="line">        <span class="keyword">if</span> (ustr == b &amp;&amp; ustep &lt;= <span class="number">10</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; ustep;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (ustep == <span class="number">10</span>)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; cnt; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> idx = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> ((idx = ustr.<span class="built_in">find</span>(p[i].first, idx)) != <span class="number">-1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                string t = ustr;</span><br><span class="line">                t.<span class="built_in">replace</span>(idx, p[i].first.<span class="built_in">length</span>(), p[i].second);</span><br><span class="line">                ++idx;</span><br><span class="line">                <span class="keyword">if</span> (!mp[t])</span><br><span class="line">                &#123;</span><br><span class="line">                    q.<span class="built_in">emplace</span>(ustep + <span class="number">1</span>, t);</span><br><span class="line">                    mp[t] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;NO ANSWER!&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">    <span class="keyword">while</span> (cin &gt;&gt; p[cnt].first &gt;&gt; p[cnt].second)</span><br><span class="line">        ++cnt;</span><br><span class="line">    <span class="built_in">bfs</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>根据题眼<strong>输出最少的变换步数</strong>，该用BFS</p>
+<p>有两个注意点，其余直接看代码就行：</p>
+<ul>
+<li><p>每次的新状态是<strong>只换一处匹配点</strong>，而不是全换</p>
+<p>比如有规则<code>abc -&gt; xu</code>，字符串<code>abcabc</code>，那么<code>xuabc</code>就是新状态，<code>abcxu</code>是另一个新状态</p></li>
+<li><p>用哈希表记录每种字符串是否出现过，避免死循环</p></li>
+</ul>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>哈希表</tag>
+        <tag>字符串</tag>
+        <tag>BFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1101. 单词方阵</title>
+    <url>/2023/10/22/P1101-%E5%8D%95%E8%AF%8D%E6%96%B9%E9%98%B5/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">120</span>;</span><br><span class="line">string str = <span class="string">&quot;yizhong&quot;</span>;</span><br><span class="line"><span class="type">int</span> N, walk[<span class="number">8</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">-1</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">-1</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;&#125;;</span><br><span class="line"><span class="type">char</span> arr[LEN][LEN], ans[LEN][LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">valid</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (x &gt;= <span class="number">1</span> &amp;&amp; x &lt;= N &amp;&amp; y &gt;= <span class="number">1</span> &amp;&amp; y &lt;= N);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//虚假的dfs，直接逐点枚举八个方向即可</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> ux, <span class="type">int</span> uy)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> diff_x = walk[i][<span class="number">0</span>], diff_y = walk[i][<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> x = ux, y = uy, j = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (j &lt; <span class="number">7</span> &amp;&amp; <span class="built_in">valid</span>(x += diff_x, y += diff_y) &amp;&amp; str[j] == arr[x][y])</span><br><span class="line">            ++j;</span><br><span class="line">        <span class="keyword">if</span> (j &lt; <span class="number">7</span>)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">0</span>, x = ux, y = uy; j &lt; <span class="number">7</span>; ++j, x += diff_x, y += diff_y)</span><br><span class="line">            ans[x][y] = arr[x][y];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= N; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            cin &gt;&gt; arr[i][j];</span><br><span class="line">            ans[i][j] = <span class="string">&#x27;*&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= N; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[i][j] == <span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">                <span class="built_in">dfs</span>(i, j);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i, cout &lt;&lt; endl)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= N; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; ans[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>虚假的DFS.....每次找到<code>y</code>字母，就向8个方向遍历即可.....</p>
+<p>如果找到了<code>yizhong</code>字符串，就复制到对应位置的答案数组保存</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1019. 单词接龙</title>
+    <url>/2023/10/22/P1019-%E5%8D%95%E8%AF%8D%E6%8E%A5%E9%BE%99/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+<li>字符串</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">20</span>;</span><br><span class="line"><span class="type">int</span> N, ans, vis[LEN], table[LEN][LEN];</span><br><span class="line">string arr[LEN];</span><br><span class="line"></span><br><span class="line"><span class="comment">//a在前b在后，相同部分的长度</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">f</span><span class="params">(string a, string b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> idx = a.<span class="built_in">find_last_of</span>(b[<span class="number">0</span>]), len = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (idx == <span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span> (idx &lt; a.<span class="built_in">length</span>() &amp;&amp; len &lt; b.<span class="built_in">length</span>() &amp;&amp; a[idx] == b[len])</span><br><span class="line">        ++idx, ++len;</span><br><span class="line">    <span class="keyword">if</span> (idx == a.<span class="built_in">length</span>() &amp;&amp; len &lt; a.<span class="built_in">length</span>() &amp;&amp; len &lt; b.<span class="built_in">length</span>())</span><br><span class="line">        <span class="keyword">return</span> len;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//i在前j在后</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; N; ++j)</span><br><span class="line">            table[i][j] = <span class="built_in">f</span>(arr[i], arr[j]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> pre, <span class="type">int</span> sum)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//更新ans不能放在循环的if里</span></span><br><span class="line">    <span class="comment">//万一其他字母都不符合if呢？岂不是漏了开头第一个...</span></span><br><span class="line">    ans = <span class="built_in">max</span>(ans, sum);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (vis[i] &lt; <span class="number">2</span> &amp;&amp; table[pre][i] != <span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> nxt_sum = sum + arr[i].<span class="built_in">length</span>() - table[pre][i];</span><br><span class="line">            ++vis[i];</span><br><span class="line">            <span class="built_in">dfs</span>(i, nxt_sum);</span><br><span class="line">            --vis[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">        cin &gt;&gt; arr[i];</span><br><span class="line">    <span class="built_in">init</span>();</span><br><span class="line">    <span class="type">char</span> chr;</span><br><span class="line">    cin &gt;&gt; chr;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[i][<span class="number">0</span>] == chr)</span><br><span class="line">        &#123;</span><br><span class="line">            ++vis[i];</span><br><span class="line">            <span class="built_in">dfs</span>(i, arr[i].<span class="built_in">length</span>());</span><br><span class="line">            --vis[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>一开始还以为是状压DP，但是<code>1 &lt;&lt; (20 * 2)</code>的数量级让我望而却步...看起来只能用dfs搜索</p>
+<p>有两个字符串<code>a</code>和<code>b</code>，<code>b</code>要接在<code>a</code>后面，求重叠部分的逻辑：</p>
+<ol type="1">
+<li><p>有<code>b</code>的开头字符<code>chr</code>，在<code>a</code>中找<code>chr</code>最后一次出现的位置并记录在变量<code>idx</code>；若没有出现，返回-1</p></li>
+<li><p>设变量<code>idx</code>为<code>a</code>的重叠部分下标，变量<code>len = 0</code>为<code>b</code>的重叠部分下标，两个下标的字母相等就同时往后移</p></li>
+<li><p>若<code>idx</code>最终等于<code>a.length()</code>，说明重叠部分存在</p>
+<p>但是！若重叠部分的长度<code>len</code>等于<code>a.length()</code>或者<code>b.length()</code>，说明某字符串被包含在另一个字符串中，返回-1</p></li>
+</ol>
+<p>各字符串前后拼接的结果会被重复使用，所以提前打表在二维数组<code>table[i][j]</code>中，代表字符串<code>j</code>接在字符串<code>i</code>后面</p>
+<p>其余部分套dfs模板即可~</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>字符串</tag>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1162. 填涂颜色</title>
+    <url>/2023/10/23/P1162-%E5%A1%AB%E6%B6%82%E9%A2%9C%E8%89%B2/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">35</span>;</span><br><span class="line"><span class="type">int</span> N;</span><br><span class="line"><span class="comment">//四向不是八向，不然会插进圈内</span></span><br><span class="line"><span class="type">int</span> arr[LEN][LEN], vis[LEN][LEN], walk[<span class="number">4</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">-1</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//秉持正难则反的原则，直接改变圈内的不方便</span></span><br><span class="line"><span class="comment">//那就改变圈外，输出的时候判断一下就好</span></span><br><span class="line"><span class="comment">//外面应该多一圈，不然无法围绕1进行搜索</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x &lt; <span class="number">0</span> || x &gt; N || y &lt; <span class="number">0</span> || y &gt; N || arr[x][y] == <span class="number">-1</span> || arr[x][y] == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    arr[x][y] = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)</span><br><span class="line">        <span class="built_in">dfs</span>(x + walk[i][<span class="number">0</span>], y + walk[i][<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= N; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            cin &gt;&gt; arr[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//外面多一圈</span></span><br><span class="line">    ++N;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N - <span class="number">1</span>; ++i, cout &lt;&lt; endl)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= N - <span class="number">1</span>; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[i][j] == <span class="number">-1</span>)</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;0 &quot;</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (!arr[i][j])</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;2 &quot;</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;1 &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>秉持正难则反的原则，直接改变圈内的不方便；那就改变圈外，输出的时候判断一下就好</p>
+<p>用dfs把1外围的所有0都改成-1，这样输出的时候：</p>
+<ul>
+<li>等于-1的位置输出0</li>
+<li>等于1的位置输出1</li>
+<li>等于0的位置输出2</li>
+</ul>
+<p>要注意，外面应该多一圈，不然无法围绕1进行搜索</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1219. 八皇后 Checker Challenge</title>
+    <url>/2023/10/19/P1219-%E5%85%AB%E7%9A%87%E5%90%8E-Checker-Challenge/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">15</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> ans, N, cols[LEN], l_dia[<span class="number">2</span> * LEN], r_dia[<span class="number">2</span> * LEN], record[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> row)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (row &gt; N)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (++ans &lt;= <span class="number">3</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">                cout &lt;&lt; record[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">            cout &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> col = <span class="number">1</span>; col &lt;= N; ++col)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (cols[col] || l_dia[row - col + <span class="number">13</span>] || r_dia[row + col])</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        cols[col] = l_dia[row - col + <span class="number">13</span>] = r_dia[row + col] = <span class="number">1</span>;</span><br><span class="line">        record[row] = col;</span><br><span class="line">        <span class="built_in">dfs</span>(row + <span class="number">1</span>);</span><br><span class="line">        cols[col] = l_dia[row - col + <span class="number">13</span>] = r_dia[row + col] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">1</span>);</span><br><span class="line">    cout &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>要保证同一行、同一列、左对角线和右对角线只有一个棋子，各用一个一维数组记录对应位置是否有棋子即可</p>
+<p>我选择的是按行递归，所以行记录数组就免了（下一轮递归的行号肯定大于当前行号，不会重复）</p>
+<p>难点在于左对角线和右对角线的规律，以<code>N = 6</code>为例子：</p>
+<ul>
+<li><p>主左对角线（即<code>&#123;1, 1&#125;</code>,<code>&#123;2, 2&#125;</code>,<code>&#123;3, 3&#125;</code>所在的对角线)的左侧，左对角线的元素行号
+- 列号大于0</p>
+<p>主左对角线上的元素，行号 - 列号等于0</p>
+<p>主左对角线右侧，左对角线的元素行号 -
+列号小于0；数组没有负数下标，＋13转正就行</p></li>
+<li><p>任意一条右对角线上的元素，它们之间行号 +
+列号的和都是相等的</p></li>
+</ul>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1443. 马的遍历</title>
+    <url>/2023/10/19/P1443-%E9%A9%AC%E7%9A%84%E9%81%8D%E5%8E%86/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>BFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> x_, y_;</span><br><span class="line">    <span class="built_in">Node</span>(<span class="type">int</span> x = <span class="number">0</span>, <span class="type">int</span> y = <span class="number">0</span>) : <span class="built_in">x_</span>(x), <span class="built_in">y_</span>(y) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">queue&lt;Node&gt; q;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> N, M, ans[<span class="number">450</span>][<span class="number">450</span>], walk[<span class="number">8</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">2</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">-2</span>, <span class="number">1</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">-2</span>&#125;, &#123;<span class="number">-2</span>, <span class="number">-1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">-2</span>&#125;, &#123;<span class="number">2</span>, <span class="number">-1</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bfs</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        Node u = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="type">int</span> ux = u.x_, uy = u.y_;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> x = ux + walk[i][<span class="number">0</span>], y = uy + walk[i][<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (x &lt; <span class="number">1</span> || x &gt; N || y &lt; <span class="number">1</span> || y &gt; M || ans[x][y] != <span class="number">-1</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            ans[x][y] = ans[ux][uy] + <span class="number">1</span>;</span><br><span class="line">            q.<span class="built_in">emplace</span>(x, y);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x, y;</span><br><span class="line">    cin &gt;&gt; N &gt;&gt; M &gt;&gt; x &gt;&gt; y;</span><br><span class="line">    <span class="built_in">memset</span>(ans, <span class="number">-1</span>, <span class="built_in">sizeof</span>(ans));</span><br><span class="line">    q.<span class="built_in">emplace</span>(x, y);</span><br><span class="line">    ans[x][y] = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">bfs</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i, <span class="built_in">puts</span>(<span class="string">&quot;&quot;</span>))</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= M; ++j)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%-5d&quot;</span>, ans[i][j]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>BFS的模板题，有三个注意点：</p>
+<ul>
+<li>答案数组初始值不能为0，因为起点本身的答案就是0</li>
+<li>BFS要设置标志数组不走回头路！在这里答案数组也可以作为标志数组使用，因为访问过的点其答案肯定不为初始值</li>
+<li>输出的格式是左对齐并占5个字宽</li>
+</ul>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>模板题</tag>
+        <tag>BFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1433. 吃奶酪</title>
+    <url>/2023/10/21/P1433-%E5%90%83%E5%A5%B6%E9%85%AA/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>状态压缩动态规划</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<p>见思路</p>
+<h1 id="思路">思路</h1>
+<p>一开始以为是贪心，但很容易举个反例：如果有多个距离一样的奶酪，该走哪个确保整体最优呢？</p>
+<p>很明显也不是单纯的DFS或BFS：</p>
+<ul>
+<li>最大有15个奶酪，也就是说纯粹用DFS高达15的阶乘...再怎么剪枝也会炸</li>
+<li>也不是BFS，BFS是找步骤最低的解...这里要找解里面总距离最小的</li>
+</ul>
+<p>那只有DP一种可能了</p>
+<hr />
+<p>微观上看，每个合法的序列都可以拆分成子序列+结尾元素，比如序列<code>&#123;1, 2, 3, 4, 5&#125; = &#123;1, 2, 3, 4&#125; + &#123;5&#125;</code></p>
+<p>最多只有15个元素，而<code>int</code>有32位，所以可以将子序列映射为整数，以状态压缩来达成DP</p>
+<blockquote>
+<p>内存限制是10<sup>6</sup>数量级，故而状态压缩不能超过2<sup>20</sup>这一极限</p>
+</blockquote>
+<p>这样并不能保存元素的前后顺序，所以每次只保存，相同组成的序列中总距离最小的</p>
+<h2 id="递推">递推</h2>
+<p>根据上述思路，很容易写出状态转移方程： <span class="math display">\[
+\min \left( dp\left[ i \right] \left[ j \right] ,dp\left[ i\oplus
+(1&lt;&lt;(j-1)) \right] \left[ k \right] +dis\left( j,k \right) \right)
+\rightarrow dp\left[ i \right] \left[ j \right]
+\]</span>
+<code>i</code>代表当前序列，以<code>j</code>结尾；而当前序列是由某个不包含<code>j</code>，以<code>k</code>结尾的子序列在末尾添加<code>j</code>组成的</p>
+<blockquote>
+<p>你可能会好奇为什么是<code>1 &lt;&lt; (j - 1)</code>而不是<code>1 &lt;&lt; j</code>，这样不是占了最低位属于起点的位置吗？</p>
+<p>因为起点必须包含在序列且只能出现在开头，边界值初始化时可以一次性处理</p>
+<p>如果把最低位空着，会导致部分状态转移遇到跳过起点的情况导致报错</p>
+<p><strong>我调了10多个小时带来的教训</strong></p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">16</span>;</span><br><span class="line"><span class="type">int</span> N;</span><br><span class="line"><span class="type">double</span> ans = INT_MAX, table[LEN][LEN], dp[<span class="number">1</span> &lt;&lt; LEN][LEN];</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">double</span> x_, y_;</span><br><span class="line">    <span class="built_in">Node</span>(<span class="type">double</span> x = <span class="number">0</span>, <span class="type">double</span> y = <span class="number">0</span>) : <span class="built_in">x_</span>(x), <span class="built_in">y_</span>(y) &#123;&#125;</span><br><span class="line">&#125; arr[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">dis</span><span class="params">(Node &amp;a, Node &amp;b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">double</span> x1 = a.x_, y1 = a.y_, x2 = b.x_, y2 = b.y_;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sqrt</span>(<span class="built_in">pow</span>(x2 - x1, <span class="number">2</span>) + <span class="built_in">pow</span>(y2 - y1, <span class="number">2</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//提前打表，两点之间的距离</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= N - <span class="number">1</span>; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = i + <span class="number">1</span>; j &lt;= N; ++j)</span><br><span class="line">            table[i][j] = table[j][i] = <span class="built_in">dis</span>(arr[i], arr[j]);</span><br><span class="line">    <span class="comment">//初始化最大值</span></span><br><span class="line">    <span class="built_in">memset</span>(dp, <span class="number">127</span>, <span class="built_in">sizeof</span>(dp));</span><br><span class="line">    <span class="comment">//由于不能自己跳自己</span></span><br><span class="line">    <span class="comment">//所以令序列只有自己的情况下，等同于从起点跳到当前点</span></span><br><span class="line">    dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">        dp[<span class="number">1</span> &lt;&lt; (i - <span class="number">1</span>)][i] = table[<span class="number">0</span>][i];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">        cin &gt;&gt; arr[i].x_ &gt;&gt; arr[i].y_;</span><br><span class="line">    <span class="built_in">init</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; (<span class="number">1</span> &lt;&lt; N); ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= N; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//序列里如果不包含结尾元素，那肯定是伪序列呐</span></span><br><span class="line">            <span class="keyword">if</span> (i &amp; (<span class="number">1</span> &lt;&lt; (j - <span class="number">1</span>)) == <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">1</span>; k &lt;= N; ++k)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//不能自己跳自己</span></span><br><span class="line">                <span class="keyword">if</span> (k == j)</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                dp[i][j] = <span class="built_in">min</span>(dp[i][j], dp[i ^ (<span class="number">1</span> &lt;&lt; (j - <span class="number">1</span>))][k] + table[j][k]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        ans = <span class="built_in">min</span>(ans, dp[(<span class="number">1</span> &lt;&lt; N) - <span class="number">1</span>][i]);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; fixed &lt;&lt; <span class="built_in">setprecision</span>(<span class="number">2</span>) &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="记忆化搜索">记忆化搜索</h2>
+<p>如果用递归实现，就方便很多了....因为能直接记录上个序列及其结尾元素</p>
+<p>每次判断应该添加什么元素到上次序列的末尾：</p>
+<ul>
+<li><p>如果之前有记录本次前后搭配</p>
+<p>若之前的搭配值更小，保留原有的</p>
+<p>若之前的搭配值更大，用当前搭配更新</p></li>
+<li><p>若无记录，记录本次搭配</p></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">16</span>;</span><br><span class="line"><span class="type">int</span> N, vis[LEN];</span><br><span class="line"><span class="type">double</span> ans = INT_MAX, table[LEN][LEN], mem[<span class="number">1</span> &lt;&lt; LEN][LEN];</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">double</span> x_, y_;</span><br><span class="line">    <span class="built_in">Node</span>(<span class="type">double</span> x = <span class="number">0</span>, <span class="type">double</span> y = <span class="number">0</span>) : <span class="built_in">x_</span>(x), <span class="built_in">y_</span>(y) &#123;&#125;</span><br><span class="line">&#125; arr[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">dis</span><span class="params">(Node &amp;a, Node &amp;b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">double</span> x1 = a.x_, y1 = a.y_, x2 = b.x_, y2 = b.y_;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sqrt</span>(<span class="built_in">pow</span>(x2 - x1, <span class="number">2</span>) + <span class="built_in">pow</span>(y2 - y1, <span class="number">2</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//提前打表，两点之间的距离</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= N - <span class="number">1</span>; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = i + <span class="number">1</span>; j &lt;= N; ++j)</span><br><span class="line">            table[i][j] = table[j][i] = <span class="built_in">dis</span>(arr[i], arr[j]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//pre：上次序列的最后一位，因为状态压缩导致顺序混乱，所以要单独记录</span></span><br><span class="line"><span class="comment">//qe：上次序列</span></span><br><span class="line"><span class="comment">//sum：上次总距离</span></span><br><span class="line"><span class="comment">//cnt：计数</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> pre, <span class="type">int</span> qe, <span class="type">double</span> sum, <span class="type">int</span> cnt)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//如果过程中总和已经大于答案，剪枝</span></span><br><span class="line">    <span class="keyword">if</span> (sum &gt;= ans)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">//统计答案</span></span><br><span class="line">    <span class="keyword">if</span> (cnt &gt; N)</span><br><span class="line">    &#123;</span><br><span class="line">        ans = <span class="built_in">min</span>(ans, sum);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//0点必须为序列第一个，所以从1开始遍历</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (vis[i])</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="type">double</span> nxt_sum = sum + table[pre][i];</span><br><span class="line">        <span class="comment">//之前该情况出现过，且之前的值更小</span></span><br><span class="line">        <span class="comment">//那当然本次要剪枝了，因为我们只保留最小值</span></span><br><span class="line">        <span class="keyword">if</span> (mem[qe][i] &amp;&amp; mem[qe][i] &lt;= nxt_sum)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        vis[i] = <span class="number">1</span>;</span><br><span class="line">        mem[qe][i] = nxt_sum;</span><br><span class="line">        <span class="built_in">dfs</span>(i, qe | (<span class="number">1</span> &lt;&lt; (i - <span class="number">1</span>)), nxt_sum, cnt + <span class="number">1</span>);</span><br><span class="line">        vis[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">        cin &gt;&gt; arr[i].x_ &gt;&gt; arr[i].y_;</span><br><span class="line">    <span class="built_in">init</span>();</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">    cout &lt;&lt; fixed &lt;&lt; <span class="built_in">setprecision</span>(<span class="number">2</span>) &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>状态压缩动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1596. Lake Counting S</title>
+    <url>/2023/10/22/P1596-Lake-Counting-S/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">150</span>;</span><br><span class="line"><span class="type">int</span> N, M;</span><br><span class="line"><span class="type">int</span> vis[LEN][LEN], walk[<span class="number">8</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">-1</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">-1</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;&#125;;</span><br><span class="line"><span class="type">char</span> arr[LEN][LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x &lt; <span class="number">1</span> || x &gt; N || y &lt; <span class="number">1</span> || y &gt; M)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (vis[x][y] || arr[x][y] == <span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    vis[x][y] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; ++i)</span><br><span class="line">        <span class="built_in">dfs</span>(x + walk[i][<span class="number">0</span>], y + walk[i][<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    cin &gt;&gt; N &gt;&gt; M;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= M; ++j)</span><br><span class="line">            cin &gt;&gt; arr[i][j];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= M; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[i][j] == <span class="string">&#x27;W&#x27;</span> &amp;&amp; !vis[i][j])</span><br><span class="line">            &#123;</span><br><span class="line">                ++ans;</span><br><span class="line">                <span class="built_in">dfs</span>(i, j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>如果当前点是<code>W</code>且没有被访问过，说明这是一个全新的水坑，就用dfs去遍历并打上访问标签即可，代表该水坑已计算</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1135. 奇怪的电梯</title>
+    <url>/2023/10/19/P1135-%E5%A5%87%E6%80%AA%E7%9A%84%E7%94%B5%E6%A2%AF/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>BFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">250</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> N, A, B, ans = <span class="number">-1</span>, dis[LEN], vis[LEN];</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> floor_, cnt_;</span><br><span class="line">    <span class="built_in">Node</span>(<span class="type">int</span> floor, <span class="type">int</span> cnt) : <span class="built_in">floor_</span>(floor), <span class="built_in">cnt_</span>(cnt) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">queue&lt;Node&gt; q;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bfs</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        Node u = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="type">int</span> uf = u.floor_, uc = u.cnt_;</span><br><span class="line">        <span class="keyword">if</span> (uf == B)</span><br><span class="line">        &#123;</span><br><span class="line">            ans = uc;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">-1</span>; i &lt;= <span class="number">1</span>; i += <span class="number">2</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> f = uf + i * dis[uf];</span><br><span class="line">            <span class="keyword">if</span> (f &lt; <span class="number">1</span> || f &gt; N || vis[f])</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            vis[f] = <span class="number">1</span>;</span><br><span class="line">            q.<span class="built_in">emplace</span>(f, uc + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N &gt;&gt; A &gt;&gt; B;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">        cin &gt;&gt; dis[i];</span><br><span class="line">    q.<span class="built_in">emplace</span>(A, <span class="number">0</span>);</span><br><span class="line">    vis[A] = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">bfs</span>();</span><br><span class="line">    cout &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>根据题眼<strong>至少要按几次按钮</strong>，要找步骤最少的解当然是BFS</p>
+<p>有两个注意点：</p>
+<ul>
+<li>BFS不回头，所以走过的楼层就不再走，否则会导致死循环</li>
+<li>每次先判断当前楼层是否为答案，再枚举下一次的新状态</li>
+</ul>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>BFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1605. 迷宫</title>
+    <url>/2023/10/22/P1605-%E8%BF%B7%E5%AE%AB/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">6</span>;</span><br><span class="line"><span class="type">int</span> N, M, bg_x, bg_y, ed_x, ed_y, ans;</span><br><span class="line"><span class="type">int</span> arr[LEN][LEN], vis[LEN][LEN], obs[LEN][LEN], walk[<span class="number">4</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">-1</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x &lt; <span class="number">1</span> || x &gt; N || y &lt; <span class="number">1</span> || y &gt; M || vis[x][y])</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (x == ed_x &amp;&amp; y == ed_y)</span><br><span class="line">    &#123;</span><br><span class="line">        ++ans;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    vis[x][y] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)</span><br><span class="line">        <span class="built_in">dfs</span>(x + walk[i][<span class="number">0</span>], y + walk[i][<span class="number">1</span>]);</span><br><span class="line">    vis[x][y] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> t, x, y;</span><br><span class="line">    cin &gt;&gt; N &gt;&gt; M &gt;&gt; t &gt;&gt; bg_x &gt;&gt; bg_y &gt;&gt; ed_x &gt;&gt; ed_y;</span><br><span class="line">    <span class="keyword">while</span> (t--)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        vis[x][y] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">dfs</span>(bg_x, bg_y);</span><br><span class="line">    cout &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>DFS模板题，直接套DFS模板即可</p>
+<p>这里偷了懒，将障碍物直接标记为“已走过”也可以达到阻挡路径的效果</p>
+<p>但还是要养成好习惯，单独再建一个障碍物数组比较好...防止吃亏</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1825. Corn Maze S</title>
+    <url>/2023/10/22/P1825-Corn-Maze-S/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>BFS</li>
+<li>模拟</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">350</span>;</span><br><span class="line"><span class="type">int</span> N, M, vis[LEN][LEN], walk[<span class="number">4</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">0</span>, <span class="number">-1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line"><span class="type">char</span> arr[LEN][LEN];</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> x_, y_, time_;</span><br><span class="line">    <span class="built_in">Node</span>(<span class="type">int</span> x = <span class="number">0</span>, <span class="type">int</span> y = <span class="number">0</span>, <span class="type">int</span> time = <span class="number">0</span>) : <span class="built_in">x_</span>(x), <span class="built_in">y_</span>(y), <span class="built_in">time_</span>(time) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">queue&lt;Node&gt; q;</span><br><span class="line"><span class="comment">//记录传送门</span></span><br><span class="line">pair&lt;Node, Node&gt; p[<span class="number">27</span>];</span><br><span class="line">Node bg, ed;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bfs</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    q.<span class="built_in">emplace</span>(bg.x_, bg.y_, <span class="number">0</span>);</span><br><span class="line">    vis[bg.x_][bg.y_] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        Node u = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="type">int</span> ux = u.x_, uy = u.y_, ut = u.time_;</span><br><span class="line">        <span class="keyword">if</span> (ux == ed.x_ &amp;&amp; uy == ed.y_)</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; ut;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> x = ux + walk[i][<span class="number">0</span>], y = uy + walk[i][<span class="number">1</span>];</span><br><span class="line">            <span class="type">char</span> chr = arr[x][y];</span><br><span class="line">            <span class="keyword">if</span> (x &lt; <span class="number">1</span> || x &gt; N || y &lt; <span class="number">1</span> || y &gt; M || vis[x][y] || chr == <span class="string">&#x27;#&#x27;</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">isalpha</span>(chr))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="type">int</span> nxt_x = p[chr - <span class="string">&#x27;A&#x27;</span>].first.x_ == x ? p[chr - <span class="string">&#x27;A&#x27;</span>].second.x_ : p[chr - <span class="string">&#x27;A&#x27;</span>].first.x_;</span><br><span class="line">                <span class="type">int</span> nxt_y = p[chr - <span class="string">&#x27;A&#x27;</span>].first.y_ == y ? p[chr - <span class="string">&#x27;A&#x27;</span>].second.y_ : p[chr - <span class="string">&#x27;A&#x27;</span>].first.y_;</span><br><span class="line">                <span class="comment">//传送门不能被记录</span></span><br><span class="line">                q.<span class="built_in">emplace</span>(nxt_x, nxt_y, ut + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                vis[x][y] = <span class="number">1</span>;</span><br><span class="line">                q.<span class="built_in">emplace</span>(x, y, ut + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N &gt;&gt; M;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= M; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            cin &gt;&gt; arr[i][j];</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">isalpha</span>(arr[i][j]))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (!p[arr[i][j] - <span class="string">&#x27;A&#x27;</span>].first.x_)</span><br><span class="line">                    p[arr[i][j] - <span class="string">&#x27;A&#x27;</span>].first.x_ = i, p[arr[i][j] - <span class="string">&#x27;A&#x27;</span>].first.y_ = j;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    p[arr[i][j] - <span class="string">&#x27;A&#x27;</span>].second.x_ = i, p[arr[i][j] - <span class="string">&#x27;A&#x27;</span>].second.y_ = j;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (arr[i][j] == <span class="string">&#x27;@&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                bg.x_ = i, bg.y_ = j;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (arr[i][j] == <span class="string">&#x27;=&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                ed.x_ = i, ed.y_ = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="built_in">bfs</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>根据题眼<strong>起点到出口所需的最短时间</strong>，而每走一步就是1单位时间，所以是求步骤最少的解，直接套bfs模板即可</p>
+<p>唯一的坑点就在于，<strong>传送门是不需要被标记数组标记的！</strong>因为传送门不同于其他点，本身不会衍生其他状态</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>模拟</tag>
+        <tag>BFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P2404. 自然数的拆分问题</title>
+    <url>/2023/10/22/P2404-%E8%87%AA%E7%84%B6%E6%95%B0%E7%9A%84%E6%8B%86%E5%88%86%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">8</span>;</span><br><span class="line"><span class="type">int</span> N, ans[LEN];</span><br><span class="line"></span><br><span class="line"><span class="comment">//cnt统计取了多少个数，方便输出</span></span><br><span class="line"><span class="comment">//pre保存上一次取的数</span></span><br><span class="line"><span class="comment">//sum保存上一次的总和</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> cnt, <span class="type">int</span> pre, <span class="type">int</span> sum)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (sum &gt; N)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (sum == N &amp;&amp; cnt &gt; <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; ans[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; cnt; ++i)</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;+&quot;</span> &lt;&lt; ans[i];</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = pre; i &lt;= N; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        ans[cnt] = i;</span><br><span class="line">        <span class="built_in">dfs</span>(cnt + <span class="number">1</span>, i, sum + i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>标准的dfs模板题，没有坑点；唯一注意的是，需要额外增加一个<code>pre</code>变量保存上一次递归选择的数</p>
+<p>因为根据题意，后面的数应该大于等于前面的数</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P2895. Meteor Shower S</title>
+    <url>/2023/10/20/P2895-Meteor-Shower-S/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>BFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">350</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> ans = <span class="number">-1</span>, vis[LEN][LEN], table[LEN][LEN], walk[<span class="number">4</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">-1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">-1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> x_, y_, t_;</span><br><span class="line">    <span class="built_in">Node</span>(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> t) : <span class="built_in">x_</span>(x), <span class="built_in">y_</span>(y), <span class="built_in">t_</span>(t) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">queue&lt;Node&gt; q;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(table, <span class="number">-1</span>, <span class="built_in">sizeof</span>(table));</span><br><span class="line">    <span class="type">int</span> n, x, y, t;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">while</span> (n--)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; x &gt;&gt; y &gt;&gt; t;</span><br><span class="line">        <span class="comment">//坑点，同一位置可能有数次流星</span></span><br><span class="line">        <span class="keyword">if</span> (table[x][y] == <span class="number">-1</span>)</span><br><span class="line">            table[x][y] = t;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            table[x][y] = <span class="built_in">min</span>(t, table[x][y]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> nxt_x = x + walk[i][<span class="number">0</span>], nxt_y = y + walk[i][<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (nxt_x &lt; <span class="number">0</span> || nxt_y &lt; <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            table[nxt_x][nxt_y] = table[nxt_x][nxt_y] == <span class="number">-1</span> ? t : <span class="built_in">min</span>(table[nxt_x][nxt_y], t);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    q.<span class="built_in">emplace</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    vis[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bfs</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        Node u = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="type">int</span> ux = u.x_, uy = u.y_, ut = u.t_;</span><br><span class="line">        <span class="keyword">if</span> (table[ux][uy] == <span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            ans = ut;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> x = ux + walk[i][<span class="number">0</span>], y = uy + walk[i][<span class="number">1</span>], t = ut + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (x &lt; <span class="number">0</span> || y &lt; <span class="number">0</span> || vis[x][y] || (table[x][y] != <span class="number">-1</span> &amp;&amp; table[x][y] &lt;= t))</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            q.<span class="built_in">emplace</span>(x, y, t);</span><br><span class="line">            vis[x][y] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">init</span>();</span><br><span class="line">    <span class="built_in">bfs</span>();</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>根据题眼<strong>最少需要多少时间到达一个安全的格子</strong>，求步骤最少的解自然是BFS；本题蕴藏着相当多的细节</p>
+<ol type="1">
+<li><p>不要省标记数组。</p>
+<p>在地区被炸之前，你是可以自由出入它的；所以不能将坠落时间直接赋值到标记数组上</p>
+<p>仍需要额外建立一个标记数组来控制程序不要回头</p></li>
+<li><p>同一个地方流星会掉数次。</p>
+<p>每一片地区都有可能被炸数次，所以每次更新坠落点及其周围区域的坠落时间时，都要取最小值</p></li>
+<li><p>牛是可以跑出牧场的。</p>
+<p>题眼提到<strong>她只能在第一象限中，平行于坐标轴行动</strong></p>
+<p>也就是说，牛的横纵坐标不能为负数，但是正数取值并没有限制</p>
+<p>尽管题目给了横纵坐标各300的取值限制，但如果能从坐标轴上方或右方逃离牧场，也算解</p></li>
+</ol>
+<p>整理上述细节后，本题就没有难点啦~</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>模板题</tag>
+        <tag>BFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>搜索_解题技巧</title>
+    <url>/2023/10/23/%E6%90%9C%E7%B4%A2-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h1 id="使用范围">使用范围</h1>
+<p>DFS，深度优先搜索，寻找操作步骤字典序最小的解；白话文来说，就是能按序遍历所有情况</p>
+<p>BFS，广度优先搜索，找到步骤最小的解；白话文来说，就是递归/迭代次数最少的解</p>
+<h1 id="模板">模板</h1>
+<h2 id="dfs">DFS</h2>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> k)</span></span>&#123;<span class="comment">//k代表递归层数，或者说要填第几个空</span></span><br><span class="line">    <span class="keyword">if</span>(所有空都填完了)&#123;</span><br><span class="line">        判断最优解/记录答案;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(枚举这个空能填的选项)</span><br><span class="line">        <span class="keyword">if</span>(这个选项是合法的)&#123;</span><br><span class="line">            记录下这个空(保存现场);</span><br><span class="line">            <span class="built_in">dfs</span>(k+<span class="number">1</span>);</span><br><span class="line">            取消这个空(恢复现场);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>模板仅供参考，毕竟千变万化（我本人也不按照模板设计），核心编程思路有两点：</p>
+<ol type="1">
+<li><p>递归函数体内，每次处理的是当前的选项；下一次的情况丢给下一次递归就好</p>
+<p>若下一次递归的情况不符合题意怎么办呢？还往下递归吗？</p>
+<p>当然，函数体开头直接写相关的<code>return</code>语句，等下一次递归执行时，不就自动处理掉了嘛</p></li>
+<li><p>根据题意判断是否要恢复现场。但基本上，都需要额外新建标记数组来记录解以及重复情况</p>
+<p>如果拿不定主意，千万不要省标记数组！！！会吃大亏！</p></li>
+</ol>
+<h2 id="bfs">BFS</h2>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Q是队列</span></span><br><span class="line">Q.<span class="built_in">push</span>(初始状态);<span class="comment">//将初始状态入队</span></span><br><span class="line"><span class="keyword">while</span>(!Q.<span class="built_in">empty</span>())&#123;</span><br><span class="line">    State u = Q.<span class="built_in">front</span>();<span class="comment">//取出队首</span></span><br><span class="line">    Q.<span class="built_in">pop</span>();<span class="comment">//出队</span></span><br><span class="line">    <span class="keyword">for</span>(枚举所有可扩展状态)<span class="comment">//找到u的所有可达状态v</span></span><br><span class="line">        <span class="keyword">if</span>(是合法的)<span class="comment">//v需要满足某些条件，如未访问过、未在队内等</span></span><br><span class="line">            Q.<span class="built_in">push</span>(v);<span class="comment">//入队(同时可能需要维护某些必要信息)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我基本也不按模板来...核心编程思路也有两点：</p>
+<ol type="1">
+<li><p>与DFS不同，BFS的函数体内每次处理的是下一次的选项！所以下一次的状态是否塞入队列，当前就要决定好！</p></li>
+<li><p>BFS为了避免死循环，也同样需要标记数组记录重复情况；比如<a
+href="https://www.luogu.com.cn/problem/P2895">该题</a></p>
+<p>二次强调，除非确实认定逻辑上不需要标记数组，否则一定要加上！多个数组才多少空间啊....</p></li>
+</ol>
+]]></content>
+      <categories>
+        <category>解题技巧</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+        <tag>BFS</tag>
       </tags>
   </entry>
 </search>
