@@ -5311,4 +5311,449 @@ class="math inline">\(O\left( n^2 \right)\)</span>会超时</p>
         <tag>排序</tag>
       </tags>
   </entry>
+  <entry>
+    <title>1030. 求先序排列</title>
+    <url>/2023/10/27/1030-%E6%B1%82%E5%85%88%E5%BA%8F%E6%8E%92%E5%88%97/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>树形数据结构</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="comment">//后序排列与中序排列</span></span><br><span class="line">string post, in;</span><br><span class="line"></span><br><span class="line"><span class="comment">//pl: 后序排列左端点</span></span><br><span class="line"><span class="comment">//pr: 后序排列右端点</span></span><br><span class="line"><span class="comment">//il: 中序排列左端点</span></span><br><span class="line"><span class="comment">//ir: 中序排列右端点</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> pl, <span class="type">int</span> pr, <span class="type">int</span> il, <span class="type">int</span> ir)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pr &lt; pl || ir &lt; il)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> idx = il; idx &lt;= ir; ++idx)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (post[pr] == in[idx])</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; in[idx];<span class="comment">//输出当前根结点</span></span><br><span class="line">            <span class="built_in">dfs</span>(pl, pl + idx - il - <span class="number">1</span>, il, il + idx - <span class="number">1</span>);<span class="comment">//递归左子树</span></span><br><span class="line">            <span class="built_in">dfs</span>(pl + idx - il, pr - <span class="number">1</span>, idx + <span class="number">1</span>, ir);<span class="comment">//递归右子树</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; in &gt;&gt; post;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">0</span>, post.<span class="built_in">length</span>() - <span class="number">1</span>, <span class="number">0</span>, in.<span class="built_in">length</span>());</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>通过后序遍历可以找出当前二叉树的根（即后序遍历中最后一个位置的值）</p>
+<p>中序遍历可以找出当前二叉树的根所在的位置，即可以找到左子树与右子树的大小；即可递归找左右子树的根结点</p>
+<p>假设有：</p>
+<ul>
+<li>后序遍历 <code>&#123;D E B C A&#125;</code></li>
+<li>中序遍历 <code>&#123;D B E A C&#125;</code></li>
+</ul>
+<p>先找出后序遍历的根A，然后在中序遍历中找到A的位置</p>
+<ul>
+<li>后序遍历 <code>&#123;D E B C [A]&#125;</code></li>
+<li>中序遍历 <code>&#123;D B E [A] C&#125;</code></li>
+</ul>
+<p>所以“D B
+E”这些数都是在以A为根的左子树里面，“C”是在以A为根的右子树里面</p>
+<p>因此，可以在后序遍历中提取出“D E
+B”这个区间作为左子树的后序遍历，“C”这个区间作为右子树的后序遍历</p>
+<p>最终递归的时候按照前序遍历的顺序输出根结点的值即可</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>树形数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1229 遍历问题</title>
+    <url>/2023/10/27/P1229-%E9%81%8D%E5%8E%86%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>树形数据结构</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="comment">//前序序列和后序序列</span></span><br><span class="line">string pre, post;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; pre &gt;&gt; post;</span><br><span class="line">    <span class="type">int</span> n = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>, idx; i &lt; pre.<span class="built_in">length</span>() - <span class="number">1</span>; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt; post.<span class="built_in">length</span>(); ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (pre[i] == post[j] &amp;&amp; pre[i + <span class="number">1</span>] == post[j - <span class="number">1</span>])</span><br><span class="line">                ++n;</span><br><span class="line">        &#125;</span><br><span class="line">    cout &lt;&lt; (<span class="number">1</span> &lt;&lt; n);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>通过作图可以发现，如果父结点只有一个孩子，在知道前序后序的情况下有不同的中序遍历</p>
+<img src="/2023/10/27/P1229-%E9%81%8D%E5%8E%86%E9%97%AE%E9%A2%98/1.png" class="" title="image-20231027160938241">
+<p>由于前序的输出规则是<code>中左右</code>，而后序的输出规则是<code>左右中</code>，显然：</p>
+<ul>
+<li>如果缺少左孩子，那么前序输出为<code>中右</code>，后序输出为<code>右中</code></li>
+<li>如果缺少右孩子，那么前序输出为<code>中左</code>，后序输出为<code>左中</code></li>
+</ul>
+<p>找到满足这样的父结点数<code>n</code>后，根据乘法原理，每个这样的父结点都有两种可能性：有左孩子或者右孩子</p>
+<p>所以最终结果应为2<sup>n</sup></p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>树形数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1305. 新二叉树</title>
+    <url>/2023/10/27/P1305-%E6%96%B0%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>树形数据结构</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">30</span>;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> lc_, rc_;</span><br><span class="line">&#125; tree[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">idx</span><span class="params">(<span class="type">char</span> chr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> chr - <span class="string">&#x27;a&#x27;</span> + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pre_order</span><span class="params">(<span class="type">int</span> root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    cout &lt;&lt; (<span class="type">char</span>)(root - <span class="number">1</span> + <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">    <span class="built_in">pre_order</span>(tree[root].lc_), <span class="built_in">pre_order</span>(tree[root].rc_);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, flag = <span class="literal">true</span>;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="type">char</span> root, rt, lc, rc;</span><br><span class="line">    <span class="keyword">while</span> (n--)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; rt &gt;&gt; lc &gt;&gt; rc;</span><br><span class="line">        <span class="keyword">if</span> (flag)</span><br><span class="line">        &#123;</span><br><span class="line">            root = rt;</span><br><span class="line">            flag = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        tree[<span class="built_in">idx</span>(rt)].lc_ = lc == <span class="string">&#x27;*&#x27;</span> ? <span class="number">0</span> : <span class="built_in">idx</span>(lc);</span><br><span class="line">        tree[<span class="built_in">idx</span>(rt)].rc_ = rc == <span class="string">&#x27;*&#x27;</span> ? <span class="number">0</span> : <span class="built_in">idx</span>(rc);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">pre_order</span>(<span class="built_in">idx</span>(root));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>由于最多26个结点，且值均不重复；可将值作为结点在链式存储中的物理数组下标，即<code>字母 - 'a' + 1</code></p>
+<p>这样即可方便地修改父结点</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>树形数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1827. 美国血统</title>
+    <url>/2023/10/27/P1827-%E7%BE%8E%E5%9B%BD%E8%A1%80%E7%BB%9F/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>树形数据结构</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="comment">//前序和中序数组</span></span><br><span class="line">string pre, in;</span><br><span class="line"></span><br><span class="line"><span class="comment">//pl 前序左端点</span></span><br><span class="line"><span class="comment">//pr 前序右端点</span></span><br><span class="line"><span class="comment">//il 中序左端点</span></span><br><span class="line"><span class="comment">//ir 中序右端点</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> pl, <span class="type">int</span> pr, <span class="type">int</span> il, <span class="type">int</span> ir)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pr &lt; pl || ir &lt; il)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> idx = il; idx &lt;= ir; ++idx)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (pre[pl] == in[idx])</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">dfs</span>(pl + <span class="number">1</span>, pl + idx - il, il, idx - <span class="number">1</span>);<span class="comment">//递归左子树</span></span><br><span class="line">            <span class="built_in">dfs</span>(pl + idx - il + <span class="number">1</span>, pr, idx + <span class="number">1</span>, ir);<span class="comment">//递归右子树</span></span><br><span class="line">            cout &lt;&lt; pre[pl];<span class="comment">//输出当前根结点</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; in &gt;&gt; pre;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">0</span>, pre.<span class="built_in">length</span>() - <span class="number">1</span>, <span class="number">0</span>, in.<span class="built_in">length</span>() - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>通过前序遍历可以找出当前二叉树的根（即前序遍历中第一个位置的值）</p>
+<p>中序遍历可以找出当前二叉树的根所在的位置，即可以找到左子树与右子树的大小；即可递归找左右子树的根结点</p>
+<p>假设有：</p>
+<ul>
+<li>前序遍历 <code>&#123;1 2 3 4 5 6 7&#125;</code></li>
+<li>中序遍历 <code>&#123;4 3 5 2 6 1 7&#125;</code></li>
+</ul>
+<p>先找出前序遍历的根1，然后在中序遍历中找到1的位置</p>
+<ul>
+<li><p>前序遍历 <code>&#123;[1] 2 3 4 5 6 7&#125;</code></p></li>
+<li><p>中序遍历 <code>&#123;4 3 5 2 6 [1] 7&#125;</code></p></li>
+</ul>
+<p>所以“4 3 5 2
+6”这些数都是在以1为根的左子树里面，“7”是在以1为根的右子树里面</p>
+<p>因此，可以在前序遍历中提取出“2 3 4 5
+6”这个区间作为左子树的前序遍历，“7”这个区间作为右子树的前序遍历</p>
+<p>最终递归的时候按照后序遍历的顺序输出根结点的值即可</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>树形数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P4715. 淘汰赛</title>
+    <url>/2023/10/26/P4715-%E6%B7%98%E6%B1%B0%E8%B5%9B/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>树形数据结构</li>
+</ul>
+<span id="more"></span>
+<p># 题解</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1024</span>;</span><br><span class="line"><span class="type">int</span> N;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> id_, v_;</span><br><span class="line">&#125; arr[<span class="number">4</span> * LEN];</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rt arr[root]</span></span><br><span class="line"></span><br><span class="line"><span class="function">Node <span class="title">dfs</span><span class="params">(<span class="type">int</span> root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//如果当前是叶子结点，直接返回</span></span><br><span class="line">    <span class="keyword">if</span> (root &gt;= (<span class="number">1</span> &lt;&lt; N))</span><br><span class="line">        <span class="keyword">return</span> rt;</span><br><span class="line">    <span class="comment">//递归建立左子树、右子树，最后才建立父结点</span></span><br><span class="line">    <span class="comment">//类似后序遍历</span></span><br><span class="line">    Node lc = <span class="built_in">dfs</span>(root * <span class="number">2</span>), rc = <span class="built_in">dfs</span>(root * <span class="number">2</span> + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> rt = lc.v_ &gt; rc.v_ ? lc : rc;<span class="comment">//每次取左右孩子的最大值建立父结点</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    <span class="comment">//顺序存储树时，1为根结点下标</span></span><br><span class="line">    <span class="comment">//2 * i为左孩子下标，2 * i + 1为右孩子下标</span></span><br><span class="line">    <span class="comment">//先填满叶子结点，满二叉树中，编号不小于1 &lt;&lt; N都是叶子结点</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; (<span class="number">1</span> &lt;&lt; N); ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; arr[i + (<span class="number">1</span> &lt;&lt; N)].v_;</span><br><span class="line">        arr[i + (<span class="number">1</span> &lt;&lt; N)].id_ = i + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">1</span>);</span><br><span class="line">    cout &lt;&lt; (arr[<span class="number">2</span>].v_ &lt; arr[<span class="number">3</span>].v_ ? arr[<span class="number">2</span>].id_ : arr[<span class="number">3</span>].id_);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>根据题意画出如下流程图</p>
+<p>很显然题目是要我们根据叶子结点构造一颗满二叉树，以<strong>父结点等于两个子结点中的最大值</strong>这个规律</p>
+<img src="/2023/10/26/P4715-%E6%B7%98%E6%B1%B0%E8%B5%9B/1.png" class="" title="image-20231026193528180">
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>模拟</tag>
+        <tag>树形数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1185. 绘制二叉树</title>
+    <url>/2023/10/28/P1185-%E7%BB%98%E5%88%B6%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>树形数据结构</li>
+<li>模拟</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">10240</span>;</span><br><span class="line"><span class="type">char</span> ans[LEN][LEN]; <span class="comment">//记录答案</span></span><br><span class="line"><span class="type">bool</span> del[LEN][LEN]; <span class="comment">//一维记录被删结点的层次，二维记录被删结点的名次</span></span><br><span class="line"><span class="type">int</span> width, height, m, n;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//横纵坐标，层次，在树中的下标</span></span><br><span class="line">    <span class="comment">//左孩子的下标等于 父结点 * 2</span></span><br><span class="line">    <span class="comment">//右孩子的下标等于 父结点 * 2 + 1</span></span><br><span class="line">    <span class="type">int</span> x_, y_, lv_, id_;</span><br><span class="line">    <span class="built_in">Node</span>(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> lv, <span class="type">int</span> id) : <span class="built_in">x_</span>(x), <span class="built_in">y_</span>(y), <span class="built_in">lv_</span>(lv), <span class="built_in">id_</span>(id) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">queue&lt;Node&gt; q;</span><br><span class="line"></span><br><span class="line"><span class="comment">//孩子结点往父亲结点方向，填充斜杠</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">filling</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">bool</span> lft, <span class="type">int</span> cnt)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (lft)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= cnt; ++i)</span><br><span class="line">            ans[x + i][y + i] = <span class="string">&#x27;/&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= cnt; ++i)</span><br><span class="line">            ans[x + i][y - i] = <span class="string">&#x27;\\&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bfs</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        Node u = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="comment">//即将填充的斜杠个数</span></span><br><span class="line">        <span class="type">int</span> cnt = u.lv_ == m - <span class="number">1</span> ? <span class="number">1</span> : <span class="number">3</span> * <span class="built_in">pow</span>(<span class="number">2</span>, m + <span class="number">1</span> - u.lv_ - <span class="number">3</span>) - <span class="number">1</span>;</span><br><span class="line">        <span class="comment">//左孩子的信息</span></span><br><span class="line">        <span class="type">int</span> lx = u.x_ - (cnt + <span class="number">1</span>), ly = u.y_ - (cnt + <span class="number">1</span>), llv = u.lv_ + <span class="number">1</span>, lid = u.id_ * <span class="number">2</span>;</span><br><span class="line">        <span class="comment">//右孩子的信息</span></span><br><span class="line">        <span class="type">int</span> rx = u.x_ - (cnt + <span class="number">1</span>), ry = u.y_ + (cnt + <span class="number">1</span>), rlv = u.lv_ + <span class="number">1</span>, rid = u.id_ * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">        <span class="comment">//如果左孩子不被删除</span></span><br><span class="line">        <span class="keyword">if</span> (!del[llv][lid - (<span class="number">1</span> &lt;&lt; u.lv_) + <span class="number">1</span>])</span><br><span class="line">        &#123;</span><br><span class="line">            ans[lx][ly] = <span class="string">&#x27;o&#x27;</span>;</span><br><span class="line">            <span class="comment">//填充斜杠</span></span><br><span class="line">            <span class="built_in">filling</span>(lx, ly, <span class="literal">true</span>, cnt);</span><br><span class="line">            <span class="comment">//如果左孩子是最后一层，说明它是叶子结点没有孩子，就没必要塞入队列</span></span><br><span class="line">            <span class="keyword">if</span> (llv != m)</span><br><span class="line">                q.<span class="built_in">emplace</span>(lx, ly, llv, lid);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!del[rlv][rid - (<span class="number">1</span> &lt;&lt; u.lv_) + <span class="number">1</span>])</span><br><span class="line">        &#123;</span><br><span class="line">            ans[rx][ry] = <span class="string">&#x27;o&#x27;</span>;</span><br><span class="line">            <span class="built_in">filling</span>(rx, ry, <span class="literal">false</span>, cnt);</span><br><span class="line">            <span class="keyword">if</span> (rlv != m)</span><br><span class="line">                q.<span class="built_in">emplace</span>(rx, ry, rlv, rid);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> level, idx;</span><br><span class="line">    cin &gt;&gt; m &gt;&gt; n;</span><br><span class="line">    <span class="comment">//如果只有一层，即根结点，直接输出即可</span></span><br><span class="line">    <span class="comment">//因为不可能删除根结点</span></span><br><span class="line">    <span class="keyword">if</span> (m == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&#x27;o&#x27;</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memset</span>(ans, <span class="string">&#x27; &#x27;</span>, <span class="built_in">sizeof</span>(ans));</span><br><span class="line">    <span class="keyword">while</span> (n--)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; level &gt;&gt; idx;</span><br><span class="line">        del[level][idx] = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//计算整棵树的宽度与高度</span></span><br><span class="line">    width = <span class="number">6</span> * <span class="built_in">pow</span>(<span class="number">2</span>, m - <span class="number">2</span>) - <span class="number">1</span>, height = <span class="number">3</span> * <span class="built_in">pow</span>(<span class="number">2</span>, m - <span class="number">2</span>);</span><br><span class="line">    <span class="comment">//加入根结点</span></span><br><span class="line">    q.<span class="built_in">emplace</span>(height - <span class="number">1</span>, (width - <span class="number">1</span>) / <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">    ans[height - <span class="number">1</span>][(width - <span class="number">1</span>) / <span class="number">2</span>] = <span class="string">&#x27;o&#x27;</span>;</span><br><span class="line">    <span class="built_in">bfs</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> x = height - <span class="number">1</span>; x &gt;= <span class="number">0</span>; --x, cout &lt;&lt; endl)</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> y = <span class="number">0</span>; y &lt; width; ++y)</span><br><span class="line">            cout &lt;&lt; ans[x][y];</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>具体实现细节见代码，主要阐述一下编程思维</p>
+<p>很容易想到实现流程：</p>
+<ul>
+<li><p>最终要输出结果，所以需要二维数组<code>ans</code>来保存</p>
+<p>还要一个标志数组<code>del</code>记录第几层的第几个结点需要被删除</p></li>
+<li><p>从根结点开始，递归地处理左子树与右子树</p>
+<p>左右子树的处理次序与答案不相关，DFS或BFS的实现也与答案不相关；因为本身其实是一颗满二叉树</p>
+<p>但这种按层次处理的二叉树问题，显然用BFS能极大降低思维难度</p></li>
+<li><p>若用BFS实现</p>
+<p>每次当前的父结点判断左右孩子是否需要被删除：</p>
+<ul>
+<li><p>需要被删除的就不填充斜杠与孩子结点</p></li>
+<li><p>保留的孩子则填充与父结点之间的斜杠；若孩子所处不在最后一层，就将其添加进队列进行下一轮扩展</p>
+<p>（最后一层是叶子结点，没有孩子，扩展啥）</p></li>
+</ul></li>
+</ul>
+<hr />
+<p>答案的存储样式如下：</p>
+<img src="/2023/10/28/P1185-%E7%BB%98%E5%88%B6%E4%BA%8C%E5%8F%89%E6%A0%91/1.png" class="" title="image-20231028225318216">
+<p>先找找x轴，即二叉树的高度<code>height</code>的规律</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">m</th>
+<th style="text-align: center;">height</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">12</td>
+</tr>
+</tbody>
+</table>
+<p>得到<span class="math inline">\(height=3\times
+2^{m-2}\)</span>这一规律，其中<code>m = 1</code>只有根结点的时候特判即可</p>
+<p>接下来找y轴，二叉树的宽度<code>width</code>的规律</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">m</th>
+<th style="text-align: center;">width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">23</td>
+</tr>
+</tbody>
+</table>
+<p>得到<span class="math inline">\(width=6\times
+2^{m-2}-1\)</span>这一规律，同样<code>m = 1</code>时特判</p>
+<hr />
+<p>根结点的位置规律：<span
+class="math inline">\(\text{横坐标}x=height-1\)</span>，<span
+class="math inline">\(\text{纵坐标}y=\frac{width-1}{2}\)</span></p>
+<p>由于满二叉树的对称性，尽管题目没有给出其他层数的数据，但知道根结点就能在草稿纸上推斜杠的规律</p>
+<hr />
+<p>正常情况下根结点所在层次定义为第一层，但是斜杠的规律就不好找；所以定义叶子结点为固定的第一层</p>
+<p>设当前层次为<code>lv</code>，斜杠数定义为<strong>当前层次的父结点与其左或右孩子中间的斜杠数</strong></p>
+<p>比如<code>lv = 3</code>，此时斜杠数等于第3层的父结点与第2层的左或右孩子中间的斜杠数</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">lv</th>
+<th style="text-align: center;">斜杠数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">23</td>
+</tr>
+</tbody>
+</table>
+<p>得到<span class="math inline">\(\text{斜杠数}=3\times
+2^{lv-3}-1\)</span>，<code>lv</code>等于2时特判</p>
+<p>这是叶子结点为第一层时的定义，需要将其转换为根结点为第一层的定义：<span
+class="math inline">\(\text{斜杠数}=3\times 2^{m+1-lv-3}-1\)</span></p>
+<blockquote>
+<p>你可以自己发现一下规律，有数组<code>&#123;1, 2, 3, 4&#125;</code></p>
+<p>要变成<code>&#123;4, 3, 2, 1&#125;</code>要如何做呢？</p>
+<p>每个元素被5减不就好了嘛~</p>
+</blockquote>
+<hr />
+<p>如何断定当前结点是该层的第几个呢？</p>
+<p>假设根结点的下标为1，以顺序存储的办法</p>
+<p>那么左孩子的下标为<code>父结点下标 * 2</code>，右孩子的下标为<code>父结点下标 * 2 + 1</code></p>
+<img src="/2023/10/28/P1185-%E7%BB%98%E5%88%B6%E4%BA%8C%E5%8F%89%E6%A0%91/2.png" class="" title="image-20231028233451559">
+<p>假设当前为<code>k + 1</code>层，下标为<code>id</code>；根据满二叉树的性质，本层之前共有<span
+class="math inline">\(2^k-1\)</span>个结点</p>
+<p>那么该节点在本层的次序，不就等于<span class="math inline">\(id-\left(
+2^k-1 \right)\)</span>嘛</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>模拟</tag>
+        <tag>树形数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P4913. 二叉树深度</title>
+    <url>/2023/10/26/P4913-%E4%BA%8C%E5%8F%89%E6%A0%91%E6%B7%B1%E5%BA%A6/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>树形数据结构</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e6</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> N;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> lc_, rc_;</span><br><span class="line">&#125; arr[LEN];</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rt arr[root]</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">max</span>(<span class="built_in">dfs</span>(rt.lc_), <span class="built_in">dfs</span>(rt.rc_)) + <span class="number">1</span>;<span class="comment">//根结点的深度 = 左右子树的最大深度 + 根结点本身</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; ++i)</span><br><span class="line">        cin &gt;&gt; arr[i].lc_ &gt;&gt; arr[i].rc_;</span><br><span class="line">    cout &lt;&lt; <span class="built_in">dfs</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>题目每次是按照结点编号增加子结点的，如果按照顺序存储，估算一下数组大小：</p>
+<ul>
+<li>1结点的子结点若是2，那么2的下标是<code>1结点的下标 * 2 = 2</code></li>
+<li>2结点的子结点若是3，那么3的下标是<code>2结点的下标 * 2 = 4</code></li>
+<li>3结点的子结点若是4，那么4的下标是<code>3结点的下标 * 2 = 8</code></li>
+<li>如此类推，1e6节点的下标是2<sup>1e6</sup>，任何类型的数组都存不下</li>
+</ul>
+<p>上述是二叉树的一种极端情况，退化成了一条链</p>
+<p>此时树的深度等于结点个数<code>n</code>，若采用顺序存储需要建立一个大小为2<sup>n</sup>的数组</p>
+<img src="/2023/10/26/P4913-%E4%BA%8C%E5%8F%89%E6%A0%91%E6%B7%B1%E5%BA%A6/1.png" class="" title="image-20231026212214958">
+<p>所以需要用链式存储，用结构体记录左右孩子的位置</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>树形数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P5076. 普通二叉树（简化版）</title>
+    <url>/2023/10/29/P5076-%E6%99%AE%E9%80%9A%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%88%E7%AE%80%E5%8C%96%E7%89%88%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>平衡树</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e4</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> tot;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//lc_: 左孩子下标</span></span><br><span class="line">    <span class="comment">//rc_: 右孩子下标</span></span><br><span class="line">    <span class="comment">//size_: 以当前结点为根结点时，左右子树的结点个数和(包括本身的个数num_)</span></span><br><span class="line">    <span class="comment">//value_: 结点的权值</span></span><br><span class="line">    <span class="comment">//num_: 当前结点权值出现的次数</span></span><br><span class="line">    <span class="type">int</span> lc_, rc_, size_, value_, num_;</span><br><span class="line">    <span class="built_in">Node</span>(<span class="type">int</span> lc = <span class="number">0</span>, <span class="type">int</span> rc = <span class="number">0</span>, <span class="type">int</span> size = <span class="number">0</span>, <span class="type">int</span> value = <span class="number">0</span>, <span class="type">int</span> num = <span class="number">1</span>) : <span class="built_in">lc_</span>(lc), <span class="built_in">rc_</span>(rc), <span class="built_in">size_</span>(size), <span class="built_in">value_</span>(value), <span class="built_in">num_</span>(num) &#123;&#125;</span><br><span class="line">&#125; tree[LEN];</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rt tree[root]</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lc tree[tree[root].lc_]</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rc tree[tree[root].rc_]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//更新沿途的结点信息</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">update</span><span class="params">(<span class="type">int</span> root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    rt.size_ = lc.size_ + rc.size_ + rt.num_;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//查找数的排名</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rk</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//若找不到，返回第一个大于x的数的排名</span></span><br><span class="line">    <span class="keyword">if</span> (!root)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//小于当前根结点值，向左子树找</span></span><br><span class="line">    <span class="keyword">if</span> (x &lt; rt.value_)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">rk</span>(x, rt.lc_);</span><br><span class="line">    <span class="comment">//大于当前根结点值，向右子树找</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (x &gt; rt.value_)</span><br><span class="line">        <span class="keyword">return</span> lc.size_ + rt.num_ + <span class="built_in">rk</span>(x, rt.rc_);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> lc.size_ + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//查询排名为x的数</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">kth</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//排名x的数在左子树</span></span><br><span class="line">    <span class="keyword">if</span> (x &lt;= lc.size_)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">kth</span>(x, rt.lc_);</span><br><span class="line">    <span class="comment">//当前根结点就是排名为x的数</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (x &lt;= lc.size_ + rt.num_)</span><br><span class="line">        <span class="keyword">return</span> rt.value_;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">kth</span>(x - lc.size_ - rt.num_, rt.rc_);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//插入数x</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//x在左子树</span></span><br><span class="line">    <span class="keyword">if</span> (x &lt; rt.value_)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//如果左子树存在，继续递归</span></span><br><span class="line">        <span class="keyword">if</span> (rt.lc_)</span><br><span class="line">            <span class="built_in">insert</span>(x, rt.lc_);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            tree[rt.lc_ = ++tot] = <span class="built_in">Node</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, x);<span class="comment">//不存在则新建左孩子</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (x &gt; rt.value_)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (rt.rc_)</span><br><span class="line">            <span class="built_in">insert</span>(x, rt.rc_);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            tree[rt.rc_ = ++tot] = <span class="built_in">Node</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        ++rt.num_;</span><br><span class="line">    <span class="built_in">update</span>(root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> q, root, opt, x;</span><br><span class="line">    cin &gt;&gt; q;</span><br><span class="line">    tree[root = ++tot] = <span class="built_in">Node</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2147483647</span>);</span><br><span class="line">    <span class="keyword">while</span> (q--)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; opt &gt;&gt; x;</span><br><span class="line">        <span class="keyword">switch</span> (opt)</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">            cout &lt;&lt; <span class="built_in">rk</span>(x, root) &lt;&lt; endl;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">            cout &lt;&lt; <span class="built_in">kth</span>(x, root) &lt;&lt; endl;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> nth = <span class="built_in">rk</span>(x, root) - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (nth == <span class="number">0</span>)</span><br><span class="line">                cout &lt;&lt; <span class="number">-2147483647</span> &lt;&lt; endl;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                cout &lt;&lt; <span class="built_in">kth</span>(nth, root) &lt;&lt; endl;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">            cout &lt;&lt; <span class="built_in">kth</span>(<span class="built_in">rk</span>(x + <span class="number">1</span>, root), root) &lt;&lt; endl;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">            <span class="built_in">insert</span>(x, root);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>本题是BST二叉搜索树的模板题，BST本身并没有应用空间，基本都是在用Splay、Treap、红黑树等平衡树</p>
+<p>但手敲BST之后能对后续的平衡树学习有极大的帮助</p>
+<p>具体实现细节见代码，主要讲一下实现难点</p>
+<h2 id="编程设计">编程设计</h2>
+<h3 id="查询x数的排名">查询x数的排名</h3>
+<p>每次将x和根结点root的权值比较：</p>
+<ul>
+<li><p>如果x小于根结点root的权值，那么root及其右子树里面的所有权值都比x要大，所以递归下去查询左子树</p></li>
+<li><p>如果x大于根结点root的权值，那么root及其左子树里面的所有权值都比x要小，所以递归下去查找右子树</p>
+<p>并且把左子树的大小及根结点的权值出现次数纳入到答案中</p></li>
+<li><p>如果x等于根结点root的权值，答案就等于<code>左子树大小 + 1</code></p></li>
+<li><p>如果x不存在，返回第一个大于x的数的排名</p></li>
+</ul>
+<p>比如数据<code>&#123;1, 2, 3, 3, 5&#125;</code></p>
+<p>查询0，应返回1</p>
+<p>查询3，应返回3</p>
+<p>查询5，应返回5</p>
+<p>查询6，应返回6</p>
+<h3 id="查询排名为x的数">查询排名为x的数</h3>
+<ul>
+<li>如果x小于或等于左子树的大小，则数必在左子树当中，递归查询左子树</li>
+<li>如果x大于左子树的大小但小于等于<code>左子树大小 + 根结点权值出现次数</code>，说明根结点的权值就是该数</li>
+<li>若大于<code>左子树大小 + 根结点权值出现次数</code>，说明在右子树；则减去<code>左子树大小 + 根结点权值出现次数</code>后递归查询右子树</li>
+</ul>
+<h3 id="插入">插入</h3>
+<p>找合适的位置插入即可，不再赘述</p>
+<h3 id="前驱与后继">前驱与后继</h3>
+<p>这才是本题的核心坑点</p>
+<p>根据题眼<strong>未找到前驱输出−2147483647，未找到后驱输出2147483647</strong>，实际上就是数列中的极小值和极大值...</p>
+<p>找数的排名时，若该数不存在则返回第一个大于该数的排名；可以插入一个结点，令其权值设为极大值</p>
+<p>比如<code>&#123;1, 2&#125;</code>查找数字3，得到的结果是3，但是数列并没有3；直接插入极大值<code>&#123;1, 2, 2147483647&#125;</code>解决</p>
+<p>可以直接插入极小值吗？不可以！因为排名是根据左子树大小来计算的，插入极小值左子树大小会变更</p>
+<p>考虑到唯一没有前驱的时候，就是求第一元素的前驱...所以特判即可处理</p>
+<hr />
+<p>怎么求前驱呢？先求该数的排名<code>nth</code>，再去找排名等于<code>nth - 1</code>的数即可</p>
+<blockquote>
+<p>题目说了，<strong>排名定义为比当前数小的数的个数+1</strong></p>
+<p>无论该数有多少个重复，都只取该数的第一个的排名作为答案</p>
+<p>若该数不存在，也是<strong>返回第一个大于该数的排名</strong></p>
+<p>两种情况下，排名减去1都是前驱的排名</p>
+</blockquote>
+<p>怎么求后驱呢？不能像前驱那样，会受重复数的影响</p>
+<blockquote>
+<p>比如有例子<code>&#123;1, 3, 3, 4, 4, 5&#125;</code></p>
+<p>查找3，排名为2</p>
+<p>查找4，排名为4</p>
+<p>如果找排名为3的数，答案是3而不是4</p>
+</blockquote>
+<p>应该去找<code>x + 1</code>的数的排名，再通过这个排名去找数，才能得到后继</p>
+<p>还是那个性质，<strong>若该数不存在，返回第一个大于该数的排名</strong></p>
+<blockquote>
+<p>比如有例子<code>&#123;1, 3, 3, 4, 4, 7&#125;</code></p>
+<p>要找4的后继，就先去找5的排名</p>
+<p>但是5不存在，返回排名6</p>
+<p>再去找排名6的数，得到真正的后继数字7</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>BST</tag>
+        <tag>平衡树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>二叉树_解题技巧</title>
+    <url>/2023/10/30/%E4%BA%8C%E5%8F%89%E6%A0%91-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h2 id="二叉树基础">二叉树基础</h2>
+<ul>
+<li><p><a href="https://www.luogu.com.cn/problem/P4715">P4715</a>
+顺序存储基础</p></li>
+<li><p><a href="https://www.luogu.com.cn/problem/P4913">P4913</a>
+链式存储基础</p></li>
+</ul>
+<h2 id="二叉树的遍历">二叉树的遍历</h2>
+<ul>
+<li><a href="https://www.luogu.com.cn/problem/P1827">P1827</a>
+根据前序中序求后序</li>
+<li><a href="https://www.luogu.com.cn/problem/P1229">P1229</a>
+根据前序后序求中序个数，找只有一个孩子的父结点</li>
+<li><a href="https://www.luogu.com.cn/problem/P1305">P1305</a>
+建树后求前序</li>
+<li><a href="https://www.luogu.com.cn/problem/P1030">P1030</a>
+根据中序后序求前序</li>
+<li><a href="https://www.luogu.com.cn/problem/P1185">P1185</a>
+层序遍历构建二叉树，重要的模拟题！</li>
+</ul>
+<h2 id="二叉搜索树-bst">二叉搜索树 BST</h2>
+<ul>
+<li><a href="https://www.luogu.com.cn/problem/P5076">P5076</a>
+模板题</li>
+</ul>
+]]></content>
+      <categories>
+        <category>解题技巧</category>
+      </categories>
+      <tags>
+        <tag>树形数据结构</tag>
+      </tags>
+  </entry>
 </search>
