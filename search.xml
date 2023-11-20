@@ -56,7 +56,6 @@ href="https://oi-wiki.org/math/binary-set/#%E5%AD%90%E9%9B%86%E9%81%8D%E5%8E%86"
         <tag>位运算</tag>
         <tag>状态压缩</tag>
         <tag>哈希函数</tag>
-        <tag>哈希表</tag>
       </tags>
   </entry>
   <entry>
@@ -171,7 +170,6 @@ class="math inline">\(C\)</span>等于<code>long</code>的位数64</p>
         <category>力扣</category>
       </categories>
       <tags>
-        <tag>哈希表</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -458,7 +456,6 @@ Used)，淘汰最早访问的页面</p>
         <category>力扣</category>
       </categories>
       <tags>
-        <tag>哈希表</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -618,7 +615,6 @@ class="math inline">\(2^{21}\)</span></p>
       <tags>
         <tag>位运算</tag>
         <tag>状态压缩</tag>
-        <tag>哈希表</tag>
         <tag>排列组合</tag>
       </tags>
   </entry>
@@ -1257,7 +1253,6 @@ class="math inline">\(O\left( n^3 \right)\)</span>，是绝对不可取的</p>
         <tag>位运算</tag>
         <tag>状态压缩</tag>
         <tag>哈希函数</tag>
-        <tag>哈希表</tag>
       </tags>
   </entry>
   <entry>
@@ -1474,7 +1469,6 @@ href="https://cplusplus.com/reference/list/list/begin/">begin</a>，满足这一
         <category>力扣</category>
       </categories>
       <tags>
-        <tag>哈希表</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -1542,7 +1536,6 @@ B}，A与B频率均为1，<code>minFreq</code>也为初始状态1</p>
         <category>力扣</category>
       </categories>
       <tags>
-        <tag>哈希表</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -1788,7 +1781,6 @@ href="https://segmentfault.com/a/1190000012926722">Java的HashMap源码</a>，�
       </categories>
       <tags>
         <tag>哈希函数</tag>
-        <tag>哈希表</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -1810,7 +1802,6 @@ href="https://segmentfault.com/a/1190000012926722">Java的HashMap源码</a>，�
       </categories>
       <tags>
         <tag>哈希函数</tag>
-        <tag>哈希表</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -2569,7 +2560,6 @@ class="math display">\[
       </categories>
       <tags>
         <tag>哈希函数</tag>
-        <tag>哈希表</tag>
         <tag>模拟</tag>
       </tags>
   </entry>
@@ -4559,7 +4549,6 @@ href="https://www.luogu.com.cn/problem/P1678">P1678</a>来熟悉</p>
         <category>洛谷</category>
       </categories>
       <tags>
-        <tag>哈希表</tag>
         <tag>字符串</tag>
         <tag>BFS</tag>
       </tags>
@@ -5741,7 +5730,7 @@ class="math inline">\(2^k-1\)</span>个结点</p>
 <li><a href="https://www.luogu.com.cn/problem/P1030">P1030</a>
 根据中序后序求前序</li>
 <li><a href="https://www.luogu.com.cn/problem/P1185">P1185</a>
-层序遍历构建二叉树，重要的模拟题！</li>
+层次遍历构建二叉树，重要的模拟题！</li>
 </ul>
 <h2 id="二叉搜索树-bst">二叉搜索树 BST</h2>
 <ul>
@@ -5754,6 +5743,1489 @@ class="math inline">\(2^k-1\)</span>个结点</p>
       </categories>
       <tags>
         <tag>树形数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1113 杂务</title>
+    <url>/2023/11/09/P1113-%E6%9D%82%E5%8A%A1/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>拓扑排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e4</span> + <span class="number">50</span>;</span><br><span class="line"><span class="comment">//每个任务的前置任务中的最大时间开销，每个任务的时间开销，每个任务的入度</span></span><br><span class="line"><span class="type">int</span> n, mx[LEN], val[LEN], ind[LEN];</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; e[LEN];</span><br><span class="line">queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">toposort</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> rt;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (ind[i] == <span class="number">0</span>) &#123;</span><br><span class="line">      rt = i;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  q.<span class="built_in">emplace</span>(rt);</span><br><span class="line">  <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    <span class="type">int</span> u = q.<span class="built_in">front</span>();</span><br><span class="line">    q.<span class="built_in">pop</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>, sz = e[u].<span class="built_in">size</span>(); i &lt; sz; ++i) &#123;</span><br><span class="line">      <span class="type">int</span> v = e[u][i];</span><br><span class="line">      <span class="comment">//取前置任务开销里最大的</span></span><br><span class="line">      mx[v] = <span class="built_in">max</span>(mx[v], val[u]);</span><br><span class="line">      <span class="keyword">if</span> (--ind[v] == <span class="number">0</span>) &#123;</span><br><span class="line">        val[v] += mx[v];</span><br><span class="line">        q.<span class="built_in">emplace</span>(v);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> a, b, c;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">    val[a] = b;</span><br><span class="line">    <span class="keyword">while</span> (cin &gt;&gt; c &amp;&amp; c) &#123;</span><br><span class="line">      e[c].<span class="built_in">emplace_back</span>(a);</span><br><span class="line">      ++ind[a];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">toposort</span>();</span><br><span class="line">  <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) ans = <span class="built_in">max</span>(ans, val[i]);</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>拓扑排序的模板题，直接上《深基》的图解便于理解，只不过书上用DFS实现，我用的Kahn</p>
+<img src="/2023/11/09/P1113-%E6%9D%82%E5%8A%A1/1.png" class="" title="image-20231109224134030">
+<img src="/2023/11/09/P1113-%E6%9D%82%E5%8A%A1/2.png" class="" title="image-20231109224243858">
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>拓扑排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1196. 银河英雄传说</title>
+    <url>/2023/11/13/P1196-%E9%93%B6%E6%B2%B3%E8%8B%B1%E9%9B%84%E4%BC%A0%E8%AF%B4/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>边带权并查集</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">10e5</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, fa[LEN], dis[LEN], sz[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (fa[x] == x) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="type">int</span> anc = fa[x];</span><br><span class="line">  fa[x] = <span class="built_in">find</span>(fa[x]);</span><br><span class="line">  dis[x] += dis[anc];</span><br><span class="line">  <span class="keyword">return</span> fa[x];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">join</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> a = <span class="built_in">find</span>(x), b = <span class="built_in">find</span>(y);</span><br><span class="line">  fa[a] = b;</span><br><span class="line">  dis[a] = sz[b];</span><br><span class="line">  sz[b] += sz[a];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">char</span> ch;</span><br><span class="line">  <span class="type">int</span> x, y;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) fa[i] = i, sz[i] = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; ch &gt;&gt; x &gt;&gt; y;</span><br><span class="line">    <span class="keyword">if</span> (ch == <span class="string">&#x27;M&#x27;</span>) &#123;</span><br><span class="line">      <span class="built_in">join</span>(x, y);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ch == <span class="string">&#x27;C&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">find</span>(x) != <span class="built_in">find</span>(y))</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;-1&quot;</span> &lt;&lt; endl;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        cout &lt;&lt; <span class="built_in">abs</span>(dis[x] - dis[y]) - <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>题目要求两结点中间有多少个结点，令<code>dis[x]</code>为<code>x</code>走到祖宗结点的所需步数</p>
+<p>这样一来，<code>abs(dis[x] - dis[y])</code>就能得到<code>x</code>走到<code>y</code>的所需步数，再减去到达<code>y</code>的那一步</p>
+<p>最终要求的就是<code>abs(dis[x] - dis[y]) - 1</code></p>
+<blockquote>
+<p>题目要求结点之间的个数，不含两结点本身</p>
+</blockquote>
+<hr />
+<p>先考虑路径压缩部分。由于并查集合并时只会修改祖宗结点</p>
+<p>那么结点3的步数可以直接从0修改到集合A的大小，令<code>sz[x]</code>为<code>x</code>为祖先时，其内部的集合大小</p>
+<p>即<code>dis[3] = sz[1] = 2</code></p>
+<p>但是<code>dis[4]</code>仍等于1，还是处在以3为祖先情况下尚未更新</p>
+<p>所以应该有<code>新dis[4] = 原dis[4] + 更新后的dis[3]</code></p>
+<hr />
+<p>再考虑合并部分。</p>
+<p>方才提到，可以直接令结点3的步数赋值为集合A的大小，结合路径压缩就可以更新集合B的所有子结点</p>
+<p>修改完结点3后，再更新集合A的大小<code>sz[1] = sz[1] + sz[3]</code></p>
+<img src="/2023/11/13/P1196-%E9%93%B6%E6%B2%B3%E8%8B%B1%E9%9B%84%E4%BC%A0%E8%AF%B4/1.png" class="" title="image-20231113014542307">
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1347. 排序</title>
+    <url>/2023/11/18/P1347-%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>拓扑排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">26</span>;</span><br><span class="line"><span class="type">int</span> n, m, tot, cnt, len, head[LEN], ind[LEN], tind[LEN], val[LEN];</span><br><span class="line">string ans;</span><br><span class="line">queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">  <span class="type">int</span> to_, nxt_;</span><br><span class="line">&#125; e[(<span class="type">int</span>)<span class="number">600</span> + <span class="number">50</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> v)</span> </span>&#123;</span><br><span class="line">  e[tot].nxt_ = head[u], e[tot].to_ = v;</span><br><span class="line">  head[u] = tot++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">toposort</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">    <span class="comment">// 由于是在线建图，入度为0且有边的结点才纳入</span></span><br><span class="line">    <span class="keyword">if</span> (~head[i] &amp;&amp; !tind[i]) &#123;</span><br><span class="line">      q.<span class="built_in">emplace</span>(i);</span><br><span class="line">      <span class="comment">// 初始时路径长度为1，即本身</span></span><br><span class="line">      val[i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    <span class="type">int</span> u = q.<span class="built_in">front</span>();</span><br><span class="line">    q.<span class="built_in">pop</span>();</span><br><span class="line">    ans += (<span class="type">char</span>)(u + <span class="string">&#x27;A&#x27;</span>);</span><br><span class="line">    ++cnt;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = head[u]; ~i; i = e[i].nxt_) &#123;</span><br><span class="line">      <span class="type">int</span> v = e[i].to_;</span><br><span class="line">      val[v] = <span class="built_in">max</span>(val[v], val[u] + <span class="number">1</span>);</span><br><span class="line">      <span class="keyword">if</span> (--tind[v] == <span class="number">0</span>) q.<span class="built_in">emplace</span>(v);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) len = <span class="built_in">max</span>(len, val[i]);</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    <span class="keyword">if</span> (tind[i]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 链式前向星保存有向边</span></span><br><span class="line">  <span class="built_in">memset</span>(head, <span class="number">-1</span>, <span class="built_in">sizeof</span>(head));</span><br><span class="line">  string in;</span><br><span class="line">  <span class="type">int</span> u, v;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    <span class="comment">// 每次都要拓扑排序+找最长路，得初始化</span></span><br><span class="line">    <span class="comment">// len记录最长路径，cnt记录拓扑序列长度，ans记录答案</span></span><br><span class="line">    len = cnt = <span class="number">0</span>, ans = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="built_in">memset</span>(val, <span class="number">0</span>, <span class="built_in">sizeof</span>(val));</span><br><span class="line">    cin &gt;&gt; in, u = in[<span class="number">0</span>] - <span class="string">&#x27;A&#x27;</span>, v = in[<span class="number">2</span>] - <span class="string">&#x27;A&#x27;</span>;</span><br><span class="line">    <span class="built_in">add</span>(u, v), ++ind[v];</span><br><span class="line">    <span class="built_in">copy</span>(ind, ind + LEN, tind);</span><br><span class="line">    <span class="comment">// 初始化结束</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">toposort</span>()) &#123;</span><br><span class="line">      cout &lt;&lt; <span class="string">&quot;Inconsistency found after &quot;</span> &lt;&lt; i &lt;&lt; <span class="string">&quot; relations.&quot;</span>;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cnt == n &amp;&amp; len == n) &#123;</span><br><span class="line">      cout &lt;&lt; <span class="string">&quot;Sorted sequence determined after &quot;</span> &lt;&lt; i &lt;&lt; <span class="string">&quot; relations: &quot;</span> &lt;&lt; ans</span><br><span class="line">           &lt;&lt; <span class="string">&quot;.&quot;</span>;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (cnt != n || len != n) cout &lt;&lt; <span class="string">&quot;Sorted sequence cannot be determined.&quot;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>将题目抽象化，记<code>A -&gt; B</code>为<code>A &lt; B</code>，实际上是问所给条件能否构成<code>A -&gt; B -&gt; C -&gt; D</code></p>
+<p>需要满足以下两个条件：</p>
+<ul>
+<li>不存在环路，<code>A -&gt; D</code>时不可能存在<code>D -&gt; A</code></li>
+<li>图中的最长路长度等于元素个数<code>n</code></li>
+</ul>
+<p>所以步骤设计如下：</p>
+<ol type="1">
+<li>用链式前向星在线建图。因为结果要返回步骤数，不能选择离线</li>
+<li>每次拓扑排序+寻找最长路，有以下三种情况：
+<ul>
+<li>拓扑序列的元素个数、<code>n</code>、最长路长度三者相等，此时能确定整个数列的顺序</li>
+<li>边全部建完后，上述三者仍有不等的情况，说明无法确定</li>
+<li>拓扑序列的元素个数不等于<code>n</code>，说明存在环路，输出矛盾结果</li>
+</ul></li>
+</ol>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>拓扑排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1536. 村村通</title>
+    <url>/2023/10/30/P1536-%E6%9D%91%E6%9D%91%E9%80%9A/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>并查集</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1050</span>;</span><br><span class="line"><span class="type">int</span> ans, fa[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> fa[], <span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x == fa[x])</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">return</span> fa[x] = <span class="built_in">find</span>(fa, fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">join</span><span class="params">(<span class="type">int</span> fa[], <span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> f1 = <span class="built_in">find</span>(fa, a), f2 = <span class="built_in">find</span>(fa, b);</span><br><span class="line">    <span class="keyword">if</span> (f1 != f2)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//每次合并都会减少一个连通块</span></span><br><span class="line">        fa[f1] = f2;</span><br><span class="line">        --ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, m, a, b;</span><br><span class="line">    <span class="keyword">while</span> (cin &gt;&gt; n &amp;&amp; n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">            fa[i] = i;</span><br><span class="line">        ans = n;</span><br><span class="line">        cin &gt;&gt; m;</span><br><span class="line">        <span class="keyword">while</span> (m--)</span><br><span class="line">        &#123;</span><br><span class="line">            cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">            <span class="built_in">join</span>(fa, a, b);</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; ans - <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>根据题眼<strong>任何两个城镇间都可以实现交通</strong>，也就是将所有城镇并入到同一个集合中，考虑并查集</p>
+<p>先处理每条存在的边，即把每条存在的边所连接的两个结点用并查集合并起来</p>
+<p>然后通过记录不同的代表元个数，就可以知道有多少个集合，即有多少个连通块了</p>
+<p>每次合并连通块的个数都会减一，若要满足题意，则连通块应该只有一个；所以答案就是<code>连通块数 - 1</code></p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1525. 关押罪犯</title>
+    <url>/2023/11/10/P1525-%E5%85%B3%E6%8A%BC%E7%BD%AA%E7%8A%AF/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>扩展域并查集</li>
+<li>贪心</li>
+<li>二分图</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="comment">//扩大一倍</span></span><br><span class="line"><span class="type">int</span> n, m, fa[LEN &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (fa[x] == x) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="keyword">return</span> fa[x] = <span class="built_in">find</span>(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">join</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> a = <span class="built_in">find</span>(x), b = <span class="built_in">find</span>(y);</span><br><span class="line">  fa[a] = b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">  <span class="type">int</span> x_, y_, w_;</span><br><span class="line">&#125; arr[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  <span class="comment">//扩大的那一倍也要初始化</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= (n &lt;&lt; <span class="number">1</span>); ++i) fa[i] = i;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; arr[i].x_ &gt;&gt; arr[i].y_ &gt;&gt; arr[i].w_;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">sort</span>(arr + <span class="number">1</span>, arr + <span class="number">1</span> + m,</span><br><span class="line">       [](node &amp;a, node &amp;b) -&gt; <span class="type">bool</span> &#123; <span class="keyword">return</span> a.w_ &gt; b.w_; &#125;);</span><br><span class="line">  <span class="type">int</span> x, y, a, b;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    x = arr[i].x_, y = arr[i].y_;</span><br><span class="line">    <span class="keyword">if</span> ((a = <span class="built_in">find</span>(x)) == (b = <span class="built_in">find</span>(y))) &#123;</span><br><span class="line">      cout &lt;&lt; arr[i].w_;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">join</span>(x, y + n), <span class="built_in">join</span>(y, x + n);</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>扩展域并查集的模板题</p>
+<p>很容易想到贪心策略，将仇恨值从大到小排，优先拆开仇恨值大的，即可保证后续数据组成的集合仇恨值尽量小</p>
+<p>样例为例，排序后得到数据如下，自上而下处理：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">x</th>
+<th style="text-align: center;">y</th>
+<th style="text-align: center;">w</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">28351</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">12884</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6618</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3512</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2534</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1805</td>
+</tr>
+</tbody>
+</table>
+<p>对于每个人而言，都有两种关系：“我的朋友”和“我的敌人”</p>
+<p>扩展域并查集中，多一种关系就扩大一倍空间以存储额外的关系；在这里，多出来的一倍空间存储<strong>我的敌人</strong>集合</p>
+<p>假设当前有输入<code>1 2 28351</code></p>
+<p><code>2</code>应该放在<code>1 + n</code>同一集合，意为将<code>2</code>放入<code>1</code>的敌人集合</p>
+<p>相应的，<code>1</code>应该放在<code>2 + n</code>同一集合，意为将<code>1</code>放入<code>2</code>的敌人集合</p>
+<p>重复上述操作，直到发现当前两个人已经在同一集合内，无法再拆；此时就得到了最大的仇恨值，输出即可</p>
+<blockquote>
+<p>我们是以仇恨值从大到小的顺序拆开两个人的</p>
+<p>若当前二人已在同一集合，是之前拆分更大仇恨值得到的结果</p>
+<p>如果依旧再拆，岂不是违背贪心策略吗？</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>贪心</tag>
+        <tag>并查集</tag>
+        <tag>二分图</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1363. 幻象迷宫</title>
+    <url>/2023/11/17/P1363-%E5%B9%BB%E8%B1%A1%E8%BF%B7%E5%AE%AB/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">2500</span>;</span><br><span class="line"><span class="type">int</span> n, m, walk[<span class="number">4</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">-1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line"><span class="type">bool</span> ans;</span><br><span class="line"><span class="type">char</span> arr[LEN][LEN];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">  <span class="type">bool</span> vis_;</span><br><span class="line">  <span class="type">int</span> nx_, ny_;</span><br><span class="line">&#125; vis[LEN][LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> nx, <span class="type">int</span> ny)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (ans) <span class="keyword">return</span>;</span><br><span class="line">  x = (x + n) % n, y = (y + m) % m;</span><br><span class="line">  <span class="keyword">if</span> (arr[x][y] == <span class="string">&#x27;#&#x27;</span>) <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">if</span> (vis[x][y].vis_) &#123;</span><br><span class="line">    <span class="keyword">if</span> ((vis[x][y].nx_ != nx || vis[x][y].ny_ != ny)) ans = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  vis[x][y].vis_ = <span class="number">1</span>, vis[x][y].nx_ = nx, vis[x][y].ny_ = ny;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i) &#123;</span><br><span class="line">    <span class="built_in">dfs</span>(x + walk[i][<span class="number">0</span>], y + walk[i][<span class="number">1</span>], nx + walk[i][<span class="number">0</span>], ny + walk[i][<span class="number">1</span>]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> x, y;</span><br><span class="line">  <span class="keyword">while</span> (cin &gt;&gt; n &gt;&gt; m) &#123;</span><br><span class="line">    ans = <span class="literal">false</span>;</span><br><span class="line">    <span class="built_in">memset</span>(vis, <span class="number">0</span>, <span class="built_in">sizeof</span>(vis));</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; m; ++j) &#123;</span><br><span class="line">        cin &gt;&gt; arr[i][j];</span><br><span class="line">        <span class="keyword">if</span> (arr[i][j] == <span class="string">&#x27;S&#x27;</span>) x = i, y = j;</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="built_in">dfs</span>(x, y, x, y);</span><br><span class="line">    cout &lt;&lt; (ans ? <span class="string">&quot;Yes&quot;</span> : <span class="string">&quot;No&quot;</span>) &lt;&lt; endl;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>迷宫是能无限延伸的，但实际上就是个九宫格....</p>
+<p>终止条件如下：</p>
+<ul>
+<li><p>遇到墙停止</p></li>
+<li><p>遇到之前走过的、取模后相对位置相同的起点停止，说明可以无限循环</p></li>
+</ul>
+<p>但通过作图可以发现，不管在迷宫外还是迷宫内都有可能存在环</p>
+<p>正常的标志数组<code>vis</code>只会记录坐标是否访问过，这里需要做如下改进：</p>
+<ul>
+<li><p><code>x</code>和<code>y</code>为取模后的坐标，用于判断相对位置；<code>nx</code>和<code>ny</code>记录真实的坐标</p></li>
+<li><p><code>nx_</code>和<code>ny_</code>记录上一次访问该结点的真实坐标，<code>vis_</code>判断该结点是否被访问过</p></li>
+<li><p>如果再次遇到某个点，其性质如下，则说明能无限循环：</p>
+<ul>
+<li>该点之前被访问过（<code>vis_</code>为真）</li>
+<li>之前访问该点的真实坐标，与当前真实坐标不同(<code>nx != nx_</code>或<code>ny != ny_</code>)</li>
+</ul>
+<p>如果是环，第二次遇到该点真实坐标还是会相同；</p>
+<p>而若能无限循环，第二次的真实坐标肯定与第一次不同，一往无前了都</p></li>
+</ul>
+<img src="/2023/11/17/P1363-%E5%B9%BB%E8%B1%A1%E8%BF%B7%E5%AE%AB/1.png" class="" title="image-20231117165900624">
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1551. 亲戚</title>
+    <url>/2023/10/30/P1551-%E4%BA%B2%E6%88%9A/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>并查集</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">5050</span>;</span><br><span class="line"><span class="type">int</span> fa[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x == fa[x])</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">return</span> fa[x] = <span class="built_in">find</span>(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">join</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> f1 = <span class="built_in">find</span>(a), f2 = <span class="built_in">find</span>(b);</span><br><span class="line">    <span class="keyword">if</span> (f1 != f2)</span><br><span class="line">        fa[f1] = f2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, m, p, a, b;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; p;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">        fa[i] = i;</span><br><span class="line">    <span class="keyword">while</span> (m--)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">        <span class="built_in">join</span>(a, b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (p--)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">find</span>(a) != <span class="built_in">find</span>(b))</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;No&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;Yes&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>并查集的模板题，我觉得《深基》讲得还是很透彻的，直接上图</p>
+<img src="/2023/10/30/P1551-%E4%BA%B2%E6%88%9A/1.png" class="" title="image-20231030144044001">
+<img src="/2023/10/30/P1551-%E4%BA%B2%E6%88%9A/2.png" class="" title="image-20231030144147864">
+<img src="/2023/10/30/P1551-%E4%BA%B2%E6%88%9A/3.png" class="" title="image-20231030144225172">
+<img src="/2023/10/30/P1551-%E4%BA%B2%E6%88%9A/4.png" class="" title="image-20231030144259743">
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1621. 集合</title>
+    <url>/2023/11/10/P1621-%E9%9B%86%E5%90%88/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>并查集</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> a, b, p, cnt, fa[LEN], prim[LEN];</span><br><span class="line"><span class="type">bool</span> vis[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (fa[x] == x) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="keyword">return</span> fa[x] = <span class="built_in">find</span>(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">join</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> a = <span class="built_in">find</span>(x), b = <span class="built_in">find</span>(y);</span><br><span class="line">  fa[a] = b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">//线性筛</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= b; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!vis[i]) prim[cnt++] = i;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; cnt; ++j) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="number">1ll</span> * i * prim[j] &gt; b) <span class="keyword">continue</span>;</span><br><span class="line">      vis[i * prim[j]] = <span class="literal">true</span>;</span><br><span class="line">      <span class="keyword">if</span> (i % prim[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= b; ++i) fa[i] = i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; a &gt;&gt; b &gt;&gt; p;</span><br><span class="line">  <span class="built_in">init</span>();</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>, x; i &lt; cnt; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (prim[i] &lt; p) <span class="keyword">continue</span>;</span><br><span class="line">    x = prim[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j * x &lt;= b; ++j) &#123;</span><br><span class="line">      <span class="keyword">if</span> (j * x &gt;= a) <span class="built_in">join</span>(x, x * j);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = a; i &lt;= b; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (fa[i] == i) ++ans;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>先用线性筛得到指定范围内的所有质数，再枚举每个质数的所有倍数；若倍数在指定范围内，则质数所在集合与倍数所在集合合并即可</p>
+<p>注意！质数本身可能不在范围内，但合并时会将其并入</p>
+<p>故而合并时，应将质数的祖先设置为倍数，便于统计集合数</p>
+<p>如图所示，显然前者通过<code>fa[i] == i</code>即可一次遍历得到集合数；而后者需要一次寻找各结点祖先，一次计数祖先共两次遍历</p>
+<img src="/2023/11/10/P1621-%E9%9B%86%E5%90%88/1.png" class="" title="image-20231110230158304">
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>质数</tag>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1807. 最长路</title>
+    <url>/2023/11/15/P1807-%E6%9C%80%E9%95%BF%E8%B7%AF/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>拓扑排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">5e4</span> + <span class="number">50</span>, MIN = <span class="number">0xc0c0c0c0</span>;</span><br><span class="line"><span class="type">int</span> n, m, tot, head[LEN], dp[LEN], ind[LEN];</span><br><span class="line">queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">  <span class="type">int</span> to_, nxt_, w_;</span><br><span class="line">&#125; e[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> v, <span class="type">int</span> w)</span> </span>&#123;</span><br><span class="line">  e[tot].nxt_ = head[u], e[tot].to_ = v, e[tot].w_ = w;</span><br><span class="line">  head[u] = tot++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">toposort</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  dp[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!ind[i]) &#123;</span><br><span class="line">      q.<span class="built_in">emplace</span>(i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    <span class="type">int</span> u = q.<span class="built_in">front</span>();</span><br><span class="line">    q.<span class="built_in">pop</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = head[u]; ~i; i = e[i].nxt_) &#123;</span><br><span class="line">      <span class="type">int</span> v = e[i].to_;</span><br><span class="line">      <span class="keyword">if</span> (dp[u] != MIN) dp[v] = <span class="built_in">max</span>(dp[v], dp[u] + e[i].w_);</span><br><span class="line">      <span class="keyword">if</span> (--ind[v] == <span class="number">0</span>) q.<span class="built_in">emplace</span>(v);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> u, v, w;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  <span class="built_in">memset</span>(head, <span class="number">-1</span>, <span class="built_in">sizeof</span>(head)), <span class="built_in">memset</span>(dp, <span class="number">0xc0</span>, <span class="built_in">sizeof</span>(dp));</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;</span><br><span class="line">    <span class="built_in">add</span>(u, v, w);</span><br><span class="line">    ++ind[v];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">toposort</span>();</span><br><span class="line">  cout &lt;&lt; (dp[n] == MIN ? <span class="number">-1</span> : dp[n]);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>题目说明了是<strong>有向无环图</strong>，即DAG，那么就可以使用拓扑排序</p>
+<p>设<code>dp[x]</code>为到达结点<code>x</code>的最长路径，可以找到状态转移方程：
+<span class="math display">\[
+dp\left[ v \right] =\max \left( dp\left[ v \right] ,dp\left[ u \right]
++w \right) ,u\xrightarrow{w}v
+\]</span>
+题目问的仅仅是<code>1</code>到<code>n</code>的最长路径，除1以外的、入度为0的结点为起点的路径就要无视掉</p>
+<p>所以令<code>dp[1] = 0</code>，而其他入度为0的结点设置为<code>dp[x] = MIN</code></p>
+<p>这样一来，在决定最大路径时，只要忽略<code>dp[x] == MIN</code>的结点即可</p>
+<p>因为拓扑排序是自上而下的，子结点等于<code>MIN</code>只有一种情况，那就是没有访问到</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>拓扑排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1892. 团伙</title>
+    <url>/2023/11/11/P1892-%E5%9B%A2%E4%BC%99/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>扩展域并查集</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e3</span> + <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> n, m, p, q, fa[LEN &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (fa[x] == x) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="keyword">return</span> fa[x] = <span class="built_in">find</span>(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">join</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> a = <span class="built_in">find</span>(x), b = <span class="built_in">find</span>(y);</span><br><span class="line">  fa[a] = b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">char</span> ch;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= (n &lt;&lt; <span class="number">1</span>); ++i) fa[i] = i;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; ch &gt;&gt; p &gt;&gt; q;</span><br><span class="line">    <span class="keyword">if</span> (ch == <span class="string">&#x27;F&#x27;</span>) &#123;</span><br><span class="line">      <span class="built_in">join</span>(p, q);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">join</span>(q + n, p), <span class="built_in">join</span>(p + n, q);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    <span class="keyword">if</span> (fa[i] == i) ++ans;</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>典型的扩展域并查集</p>
+<p>每个人都有两种关系属性，<strong>我的朋友</strong>和<strong>我的敌人</strong>，所以<code>fa</code>数组应该多开一倍</p>
+<p><code>1 ~ n</code>的范围存储<strong>我的朋友</strong>这一关系，<code>n + 1 ~ 2n</code>的范围存储<strong>我的敌人</strong>这一关系</p>
+<p>题目给了两个关系传递要求：</p>
+<ul>
+<li><p>朋友的朋友是朋友</p>
+<p><code>p</code>和<code>q</code>直接合并即可</p></li>
+<li><p>敌人的敌人是朋友</p>
+<p>对于<code>p</code>而言，它的敌人关系对应<code>p + n</code>，那么<code>q</code>应与<code>p + n</code>同处一集合</p>
+<p>同样的，对于<code>q</code>而言，它的敌人关系对应<code>q + n</code>，那么<code>p</code>应于<code>q + n</code>同处一集合</p>
+<p>考虑以下样例：</p>
+<blockquote>
+<p>E 1 2</p>
+<p>E 2 6</p>
+</blockquote></li>
+</ul>
+<p>​ 设字符<code>&#123;&#125;</code>代表同一集合，根据上述描述有：</p>
+<p>​
+<code>&#123;1+n, 2&#125;</code>、<code>&#123;2+n, 1&#125;</code>、<code>&#123;2+n, 6&#125;</code>、<code>&#123;6+n, 2&#125;</code></p>
+<p>​ 是满足题目要求的</p>
+<p>这里还有一个小Trick，合并的时候应让朋友关系设置为敌人关系的祖先，而不能颠倒：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">join</span>(q + n, p), <span class="built_in">join</span>(p + n, q);</span><br></pre></td></tr></table></figure>
+<p>两者颠倒从效果上看并不会有差异，无论怎样二者都将同处一集合</p>
+<p>但朋友关系设为敌人关系的祖先，最终统计连通块个数会更方便，只需一次遍历判断<code>fa[i] == i</code>即可</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1955. 程序自动分析</title>
+    <url>/2023/11/11/P1955-%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%8A%A8%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>并查集</li>
+<li>离散化</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e6</span> + <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> n, tot, fa[LEN], discre[LEN &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">  <span class="type">int</span> x_, y_, e_;</span><br><span class="line">&#125; arr[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (fa[x] == x) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="keyword">return</span> fa[x] = <span class="built_in">find</span>(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">join</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> a = <span class="built_in">find</span>(x), b = <span class="built_in">find</span>(y);</span><br><span class="line">  fa[a] = b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 离散化开始</span></span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; arr[i].x_ &gt;&gt; arr[i].y_ &gt;&gt; arr[i].e_;</span><br><span class="line">    discre[tot++] = arr[i].x_, discre[tot++] = arr[i].y_;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">sort</span>(discre, discre + tot);</span><br><span class="line">  tot = <span class="built_in">unique</span>(discre, discre + tot) - discre;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    arr[i].x_ = <span class="built_in">lower_bound</span>(discre, discre + tot, arr[i].x_) - discre + <span class="number">1</span>;</span><br><span class="line">    arr[i].y_ = <span class="built_in">lower_bound</span>(discre, discre + tot, arr[i].y_) - discre + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 离散化结束</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= tot; ++i) fa[i] = i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">work</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">init</span>();</span><br><span class="line">  <span class="built_in">sort</span>(arr + <span class="number">1</span>, arr + <span class="number">1</span> + n,</span><br><span class="line">       [](node &amp;a, node &amp;b) -&gt; <span class="type">bool</span> &#123; <span class="keyword">return</span> a.e_ &gt; b.e_; &#125;);</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (arr[i].e_) &#123;</span><br><span class="line">      <span class="built_in">join</span>(arr[i].x_, arr[i].y_);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">find</span>(arr[i].x_) == <span class="built_in">find</span>(arr[i].y_)) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;NO&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; <span class="string">&quot;YES&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> t;</span><br><span class="line">  cin &gt;&gt; t;</span><br><span class="line">  <span class="keyword">while</span> (t--) <span class="built_in">work</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>本题<strong>不能</strong>使用扩展域并查集或边带权并查集，从两个角度分析</p>
+<h2 id="边带权并查集">边带权并查集</h2>
+<p>举个例子：</p>
+<ul>
+<li><p>A和B相等，B和C相等，能推出A等于C</p></li>
+<li><p>A和B相等，B和C不等，能推出A不等于C</p></li>
+<li><p>A和B不等，B和C相等，能推出A不等于C</p></li>
+<li><p>A和B不等，B和C不等，A和C能确定唯一的关系吗？不能吧</p>
+<p>假设A等于1，B等于2，C也等于1，此时A等于C</p>
+<p>若A等于1，B等于2，C等于3，此时A不等于C</p>
+<p>并查集是不能处理重边的，它本身只是一个森林</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">A(A与B的关系边权)</th>
+<th style="text-align: center;">B(B与C的关系边权)</th>
+<th style="text-align: center;">C(A与C的关系边权)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">?</td>
+</tr>
+</tbody>
+</table>
+<h2 id="扩展域并查集">扩展域并查集</h2>
+<p>举个例子：</p>
+<blockquote>
+<p>1 2 0</p>
+<p>2 3 0</p>
+</blockquote>
+<p>也就是1不等于2, 2不等于3</p>
+<p>按照扩展域的处理方式，原长度存储相等关系，扩大一倍的长度存储不等关系</p>
+<p>那么有<code>&#123;1+n, 2&#125;</code>、<code>&#123;2+n, 1&#125;</code>、<code>&#123;2+n, 3&#125;</code>、<code>&#123;3+n, 2&#125;</code></p>
+<p>合并后的结果为<code>&#123;1+n, 3+n, 2&#125;</code>、<code>&#123;2+n, 1, 3&#125;</code></p>
+<p>可是1和3之间的关系并不能确定啊？你这就把它俩放一个集合了？</p>
+<h2 id="正解">正解</h2>
+<p>首先离散化，1e9的数据范围肯定会炸</p>
+<p>通过排序，先处理相等关系，然后再判断不等关系是否与相等关系矛盾即可</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+        <tag>离散化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1918 保龄球</title>
+    <url>/2023/10/31/P1918-%E4%BF%9D%E9%BE%84%E7%90%83/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>模拟</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; mp;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, q, in;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">        cin &gt;&gt; in, mp[in] = i;</span><br><span class="line">    cin &gt;&gt; q;</span><br><span class="line">    <span class="keyword">while</span> (q--)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; in;</span><br><span class="line">        <span class="keyword">if</span> (mp.<span class="built_in">count</span>(in))</span><br><span class="line">            cout &lt;&lt; mp[in] &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            cout &lt;&lt; <span class="number">0</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>根据题眼<strong>保证各个位置的瓶子数不同</strong>，直接用哈希表模拟即可</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>模拟</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P2024. 食物链</title>
+    <url>/2023/11/12/P2024-%E9%A3%9F%E7%89%A9%E9%93%BE/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>边带权并查集</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e5</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, k, fa[LEN], val[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (fa[x] == x) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="type">int</span> anc = fa[x];</span><br><span class="line">  fa[x] = <span class="built_in">find</span>(fa[x]);</span><br><span class="line">  val[x] = (val[x] + val[anc]) % <span class="number">3</span>;</span><br><span class="line">  <span class="keyword">return</span> fa[x];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">join</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> w)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> a = <span class="built_in">find</span>(x), b = <span class="built_in">find</span>(y);</span><br><span class="line">  fa[a] = b;</span><br><span class="line">  val[a] = (val[y] + w - val[x] + <span class="number">3</span>) % <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> x, y, w, a, b, ans = <span class="number">0</span>;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; k;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) fa[i] = i;</span><br><span class="line">  <span class="keyword">while</span> (k--) &#123;</span><br><span class="line">    cin &gt;&gt; w &gt;&gt; x &gt;&gt; y;</span><br><span class="line">    <span class="keyword">if</span> (x &gt; n || y &gt; n || (w == <span class="number">2</span> &amp;&amp; x == y))</span><br><span class="line">      ++ans;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      --w;</span><br><span class="line">      a = <span class="built_in">find</span>(x), b = <span class="built_in">find</span>(y);</span><br><span class="line">      <span class="keyword">if</span> (a != b) &#123;</span><br><span class="line">        <span class="built_in">join</span>(x, y, w);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (w != (val[x] - val[y] + <span class="number">3</span>) % <span class="number">3</span>) ++ans;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>边带权并查集的模板题</p>
+<p>设边权表达式为<span
+class="math inline">\(X\xrightarrow{w}Y\)</span></p>
+<ul>
+<li><code>w</code>等于0时，X和Y是同类</li>
+<li><code>w</code>等于1时，X吃Y</li>
+<li><code>w</code>等于2时，X被Y吃</li>
+</ul>
+<h2 id="边权表">边权表</h2>
+<p>举几个例子：</p>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 44%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">A(A对于B的关系)</th>
+<th style="text-align: center;">B(B对于C的关系)</th>
+<th style="text-align: center;">C(A对于C的关系)</th>
+<th style="text-align: center;">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td
+style="text-align: center;">A、B同类，B、C同类，那么A、C也是同类</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">A吃B，B吃C，那么A被C吃</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">A被B吃，B被C吃，那么A吃C</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">A吃B，B、C同类，那么A吃C</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">A、B同类，B吃C，那么A吃C</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">A被B吃，B、C同类，那么A被C吃</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">A、B同类，B被C吃，那么A被C吃</td>
+</tr>
+</tbody>
+</table>
+<p>可以发现，如果已知<code>A -&gt; B</code>，<code>B -&gt; C</code>，可得<code>A -&gt; C</code></p>
+<p>边权表是编写边带权并查集的核心，只有关系能够递推与传递才有意义啊</p>
+<h2 id="路径压缩">路径压缩</h2>
+<p>如左图所示，B是A的父亲，C是A、B的祖先（所以中间画虚线）；右图则是路径压缩后的模样</p>
+<img src="/2023/11/12/P2024-%E9%A3%9F%E7%89%A9%E9%93%BE/1.png" class="" title="image-20231112195946997">
+<p>可以发现，已知<code>A -&gt; B</code>，<code>B -&gt; C</code>，要求<code>A -&gt; C</code></p>
+<p>这一操作在刚才的边权表已经计算过了，可以直接令<code>val[x]</code>为<code>x</code>结点到其祖先的边权</p>
+<p>那么有</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> B = fa[A];</span><br><span class="line">...</span><br><span class="line"><span class="comment">//原本A-&gt;B的边权加上B-&gt;C的边权，就等于A-&gt;C的边权啦</span></span><br><span class="line">val[A] = (val[A] + val[B]) % <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<img src="/2023/11/12/P2024-%E9%A3%9F%E7%89%A9%E9%93%BE/2.png" class="" title="image-20231112202420158">
+<h2 id="合并">合并</h2>
+<p>两个集合合并时，<strong>只</strong>需要修改祖先结点的<code>val值</code>，因为子结点会在路径压缩的过程中更新</p>
+<p>已知x和y的边权为w，要合并x和y所在的集合，<strong>只</strong>需要修改祖先a的<code>val值</code></p>
+<blockquote>
+<p>因为祖先a的祖先原本是自己，现在变成祖先b了</p>
+</blockquote>
+<p>通过作图，可以得到</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//内部加3是为了避免负数的出现</span></span><br><span class="line">val[a] = (val[y] + w - val[x] + <span class="number">3</span>) % <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<img src="/2023/11/12/P2024-%E9%A3%9F%E7%89%A9%E9%93%BE/3.png" class="" title="image-20231112211003065">
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1983. 车站分级</title>
+    <url>/2023/11/19/P1983-%E8%BD%A6%E7%AB%99%E5%88%86%E7%BA%A7/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>贪心</li>
+<li>拓扑排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e3</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, m, cnt, tot, ans, head[LEN], val[LEN], ind[LEN];</span><br><span class="line"><span class="type">bool</span> vis[LEN][LEN];</span><br><span class="line">queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">  <span class="type">int</span> to_, nxt_;</span><br><span class="line">&#125; e[(<span class="type">int</span>)<span class="number">1e6</span> + <span class="number">50</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> v)</span> </span>&#123;</span><br><span class="line">  e[tot].nxt_ = head[u], e[tot].to_ = v;</span><br><span class="line">  head[u] = tot++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">toposort</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (ind[i] == <span class="number">0</span>) &#123;</span><br><span class="line">      q.<span class="built_in">emplace</span>(i);</span><br><span class="line">      val[i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    <span class="type">int</span> u = q.<span class="built_in">front</span>();</span><br><span class="line">    q.<span class="built_in">pop</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = head[u]; ~i; i = e[i].nxt_) &#123;</span><br><span class="line">      <span class="type">int</span> v = e[i].to_;</span><br><span class="line">      val[v] = <span class="built_in">max</span>(val[v], val[u] + <span class="number">1</span>);</span><br><span class="line">      <span class="keyword">if</span> (--ind[v] == <span class="number">0</span>) q.<span class="built_in">emplace</span>(v);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    ans = <span class="built_in">max</span>(ans, val[i]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">//链式前向星存储有向边</span></span><br><span class="line">  <span class="built_in">memset</span>(head, <span class="number">-1</span>, <span class="built_in">sizeof</span>(head));</span><br><span class="line">  <span class="type">int</span> bg, ed, arr[LEN], used[LEN];</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    <span class="built_in">memset</span>(arr, <span class="number">0</span>, <span class="built_in">sizeof</span>(arr)), <span class="built_in">memset</span>(used, <span class="number">0</span>, <span class="built_in">sizeof</span>(used));</span><br><span class="line">    cin &gt;&gt; cnt;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= cnt; ++j) &#123;</span><br><span class="line">      cin &gt;&gt; arr[j];</span><br><span class="line">      used[arr[j]] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    bg = arr[<span class="number">1</span>], ed = arr[cnt];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> u = bg; u &lt;= ed; ++u) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!used[u]) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> v, k = <span class="number">1</span>; k &lt;= cnt; ++k) &#123;</span><br><span class="line">          v = arr[k];</span><br><span class="line">          <span class="keyword">if</span> (!vis[u][v]) &#123;</span><br><span class="line">            <span class="comment">//去掉重边</span></span><br><span class="line">            vis[u][v] = <span class="number">1</span>;</span><br><span class="line">            ++ind[v];</span><br><span class="line">            <span class="built_in">add</span>(u, v);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">toposort</span>();</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>由于要级别最少，可以考虑以下贪心策略：</p>
+<p>令停靠站之间的优先级均相等，设停靠站的集合为<code>A</code>；不停靠站之间的优先级也均相等，设不停靠站的集合为<code>B</code></p>
+<p>而不停靠站的优先级肯定小于停靠站的，有<code>A &gt; B</code>，即两个优先级</p>
+<p>推广一下，题目需求的最少优先级数，实际上是求<code>A &gt; B &gt; C ... &gt; D</code>这一有向无环图的最长路径</p>
+<p>所以步骤设计如下：</p>
+<ol type="1">
+<li>令每辆车的不停靠站指向停靠站（反过来也行，能代表大小关系即可）</li>
+<li>去掉重边（不同车经过的站点可能相同）</li>
+<li>拓扑排序求最长路径即可</li>
+</ol>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>贪心</tag>
+        <tag>拓扑排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P2294. 狡猾的商人</title>
+    <url>/2023/11/13/P2294-%E7%8B%A1%E7%8C%BE%E7%9A%84%E5%95%86%E4%BA%BA/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>边带权并查集</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e5</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, m, fa[LEN], dis[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (fa[x] == x) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="type">int</span> anc = fa[x];</span><br><span class="line">  fa[x] = <span class="built_in">find</span>(fa[x]);</span><br><span class="line">  dis[x] += dis[anc];</span><br><span class="line">  <span class="keyword">return</span> fa[x];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">join</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> w)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> a = <span class="built_in">find</span>(x), b = <span class="built_in">find</span>(y);</span><br><span class="line">  fa[a] = b;</span><br><span class="line">  dis[a] = dis[y] + w - dis[x];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">work</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">  <span class="type">int</span> x, y, w;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= n; ++i) fa[i] = i, dis[i] = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (m--) &#123;</span><br><span class="line">    cin &gt;&gt; x &gt;&gt; y &gt;&gt; w;</span><br><span class="line">    --x;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">find</span>(x) != <span class="built_in">find</span>(y)) &#123;</span><br><span class="line">      <span class="built_in">join</span>(x, y, w);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (dis[x] - dis[y] != w) &#123;</span><br><span class="line">        flag = <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  flag ? <span class="built_in">puts</span>(<span class="string">&quot;true&quot;</span>) : <span class="built_in">puts</span>(<span class="string">&quot;false&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> t;</span><br><span class="line">  cin &gt;&gt; t;</span><br><span class="line">  <span class="keyword">while</span> (t--) <span class="built_in">work</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>询问当前请求是否满足前提条件的，要量化之前的关系保存下来的，一般是边带权并查集</p>
+<h2 id="路径压缩">路径压缩</h2>
+<p>设<code>dis[x]</code>为<code>x</code>结点到当前祖先结点的步数，通过作图可知<code>[x, y] = dis[x - 1] - dis[y]</code></p>
+<p>通过编程实现就是</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">新dis[x] = 原dis[x] + 新dis[x的父亲]</span><br></pre></td></tr></table></figure>
+<img src="/2023/11/13/P2294-%E7%8B%A1%E7%8C%BE%E7%9A%84%E5%95%86%E4%BA%BA/1.png" class="" title="image-20231113150746687">
+<h2 id="合并">合并</h2>
+<p>同样作图，很显然能得到</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">dis[a] = dis[y] + w - dis[x];</span><br></pre></td></tr></table></figure>
+<img src="/2023/11/13/P2294-%E7%8B%A1%E7%8C%BE%E7%9A%84%E5%95%86%E4%BA%BA/2.png" class="" title="image-20231113152409678">
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P2712. 摄像头</title>
+    <url>/2023/11/20/P2712-%E6%91%84%E5%83%8F%E5%A4%B4/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>拓扑排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e3</span> + <span class="number">50</span>;</span><br><span class="line"><span class="comment">// arr记录摄像头的位置，is判断当前位置是不是摄像头所在</span></span><br><span class="line"><span class="type">int</span> n, tot, cnt, head[LEN], ind[LEN], arr[LEN];</span><br><span class="line"><span class="type">bool</span> is[LEN];</span><br><span class="line">queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">  <span class="type">int</span> nxt_, to_;</span><br><span class="line">&#125; e[LEN * LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> v)</span> </span>&#123;</span><br><span class="line">  e[tot].nxt_ = head[u], e[tot].to_ = v;</span><br><span class="line">  head[u] = tot++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">toposort</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (ind[arr[i]] == <span class="number">0</span>) &#123;</span><br><span class="line">      q.<span class="built_in">emplace</span>(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    <span class="type">int</span> u = q.<span class="built_in">front</span>();</span><br><span class="line">    q.<span class="built_in">pop</span>();</span><br><span class="line">    ++cnt;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = head[u]; ~i; i = e[i].nxt_) &#123;</span><br><span class="line">      <span class="type">int</span> v = e[i].to_;</span><br><span class="line">      <span class="comment">// 入度为0的摄像头才加入队列，不是摄像头没有意义呀</span></span><br><span class="line">      <span class="keyword">if</span> (is[v] &amp;&amp; --ind[v] == <span class="number">0</span>) q.<span class="built_in">emplace</span>(v);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 链式前向星存储有向边</span></span><br><span class="line">  <span class="built_in">memset</span>(head, <span class="number">-1</span>, <span class="built_in">sizeof</span>(head));</span><br><span class="line">  <span class="type">int</span> u, v, m;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; u;</span><br><span class="line">    is[arr[i] = u] = <span class="literal">true</span>;</span><br><span class="line">    cin &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; ++j) &#123;</span><br><span class="line">      cin &gt;&gt; v;</span><br><span class="line">      ++ind[v];</span><br><span class="line">      <span class="built_in">add</span>(u, v);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">toposort</span>();</span><br><span class="line">  cnt == n ? cout &lt;&lt; <span class="string">&quot;YES&quot;</span> : cout &lt;&lt; n - cnt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>设有向边<code>A -&gt; B</code>为A监视B</p>
+<p>如果拆掉A，被监视的B自然就少一个入度；若要删除B，就必须保证B没有入度（不被监视）</p>
+<p>每次都只处理入度为0的结点，其中产生新的入度0结点也要循环处理</p>
+<p>显然直接套拓扑排序板子即可....</p>
+<p>记得额外新建数组保存摄像头的位置哟~</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>拓扑排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P3370. 字符串哈希</title>
+    <url>/2023/10/30/P3370-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>哈希函数</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">23333</span>, P = <span class="number">131</span>;</span><br><span class="line">string s;</span><br><span class="line">vector&lt;string&gt; hsh[LEN];</span><br><span class="line"><span class="type">int</span> ans;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> h = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; (<span class="type">int</span>)s.<span class="built_in">length</span>(); ++i)</span><br><span class="line">        h = (<span class="number">1ll</span> * P * h + s[i]) % LEN;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; hsh[h].<span class="built_in">size</span>(); ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (hsh[h][i] == s)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    hsh[h].<span class="built_in">emplace_back</span>(s);</span><br><span class="line">    ++ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">while</span> (n--)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; s;</span><br><span class="line">        <span class="built_in">f</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>经典的拉链法处理哈希碰撞</p>
+<p>拉链法是在每个存放数据的地方开一个链表/数组</p>
+<p>如果有多个键值索引到同一个地方，把它们都放到那个位置的链表/数组中</p>
+<p>查询的时候需要把对应位置的链表/数组整个扫一遍，对其中的每个数据比较其键值与查询的键值是否一致</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>哈希函数</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P2814. 家谱</title>
+    <url>/2023/11/12/P2814-%E5%AE%B6%E8%B0%B1/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>并查集</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">unordered_map&lt;string, string&gt; fa;</span><br><span class="line"></span><br><span class="line"><span class="function">string <span class="title">find</span><span class="params">(string x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (fa[x] == x) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="keyword">return</span> fa[x] = <span class="built_in">find</span>(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">join</span><span class="params">(string x, string y)</span> </span>&#123;</span><br><span class="line">  string a = <span class="built_in">find</span>(x), b = <span class="built_in">find</span>(y);</span><br><span class="line">  fa[a] = b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">char</span> ch;</span><br><span class="line">  string anc, str;</span><br><span class="line">  <span class="keyword">while</span> (cin &gt;&gt; str &amp;&amp; (ch = str[<span class="number">0</span>]) != <span class="string">&#x27;$&#x27;</span>) &#123;</span><br><span class="line">    str = str.<span class="built_in">substr</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="comment">// 如果不存在这个人，就先初始化</span></span><br><span class="line">    <span class="keyword">if</span> (!fa.<span class="built_in">count</span>(str)) fa[str] = str;</span><br><span class="line">    <span class="keyword">if</span> (ch == <span class="string">&#x27;#&#x27;</span>) &#123;</span><br><span class="line">      anc = str;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ch == <span class="string">&#x27;+&#x27;</span>) &#123;</span><br><span class="line">      <span class="built_in">join</span>(str, anc);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      cout &lt;&lt; str &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; <span class="built_in">find</span>(str) &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>并查集的板子题，只不过从数组改用哈希表</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P3405. Cities and States S</title>
+    <url>/2023/10/31/P3405-Cities-and-States-S/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>哈希函数</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">23333</span>, P = <span class="number">131</span>;</span><br><span class="line"><span class="comment">//拉链法处理冲突</span></span><br><span class="line"><span class="comment">//pair第一个元素保存字符串哈希值，第二个元素保存字符串哈希值出现的个数</span></span><br><span class="line">vector&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&gt; hsh[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">gethash</span><span class="params">(string a, string b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a[<span class="number">0</span>] - <span class="string">&#x27;A&#x27;</span>) * P * P * P + (a[<span class="number">1</span>] - <span class="string">&#x27;A&#x27;</span>) * P * P + (b[<span class="number">0</span>] - <span class="string">&#x27;A&#x27;</span>) * P + (b[<span class="number">1</span>] - <span class="string">&#x27;A&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> idx = x % LEN;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; hsh[idx].<span class="built_in">size</span>(); ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//哈希表中存在该字符串哈希值，增加次数即可</span></span><br><span class="line">        <span class="keyword">if</span> (hsh[idx][i].first == x)</span><br><span class="line">        &#123;</span><br><span class="line">            ++hsh[idx][i].second;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//若不存在，新增</span></span><br><span class="line">    hsh[idx].<span class="built_in">emplace_back</span>(x, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> idx = x % LEN;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; hsh[idx].<span class="built_in">size</span>(); ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (hsh[idx][i].first == x)</span><br><span class="line">            <span class="keyword">return</span> hsh[idx][i].second;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> ans = <span class="number">0</span>;</span><br><span class="line">    string a, b;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">while</span> (n--)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">        <span class="keyword">if</span> (a[<span class="number">0</span>] == b[<span class="number">0</span>] &amp;&amp; a[<span class="number">1</span>] == b[<span class="number">1</span>])</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        ans += <span class="built_in">find</span>(<span class="built_in">gethash</span>(b.<span class="built_in">substr</span>(<span class="number">0</span>, <span class="number">2</span>), a.<span class="built_in">substr</span>(<span class="number">0</span>, <span class="number">2</span>)));</span><br><span class="line">        <span class="built_in">insert</span>(<span class="built_in">gethash</span>(a.<span class="built_in">substr</span>(<span class="number">0</span>, <span class="number">2</span>), b.<span class="built_in">substr</span>(<span class="number">0</span>, <span class="number">2</span>)));</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>输入<code>城市+州</code>，要你去找<code>州+城市</code>的字符串个数，手写哈希表并用拉链法处理冲突即可</p>
+<p>哈希本身不难，看题解即可。下面着重讲一下重点：</p>
+<h2 id="去重">去重</h2>
+<p>统计对数，一般都是离线操作，即统计完所有各类字符串的个数后，从头扫到尾</p>
+<p>比如字符串<code>ab</code>有2个，字符串<code>ba</code>有3个，那么就有<code>2 * 3 = 6</code>对；但遇到字符串<code>ba</code>会再去寻找<code>ab</code>，重复计算</p>
+<p>如果是在线操作，就不会重复了，相当于当前字符串与前面满足条件的字符串各组一次</p>
+<blockquote>
+<p>比如有满足条件的字符串A和B，与之配对的有C和D</p>
+<p>离线操作中，迭代到字符串A和B时，有<code>A -- c</code>、<code>A -- D</code>、<code>B -- C</code>、<code>B -- D</code></p>
+<p>迭代到字符串C和D时，又会重复<code>C -- A</code>、<code>C -- B</code>、<code>D -- A</code>、<code>D -- B</code></p>
+<p>所以直接在线操作就好，只留后者那一种情况</p>
+</blockquote>
+<h2 id="坑">坑</h2>
+<p>假设有组合城市<code>a</code>、州<code>b</code>，城市<code>c</code>、州<code>d</code></p>
+<p>按照题目的要求，寻找<code>a == d</code>且<code>b == c</code>的一对组合进行配对</p>
+<p>考虑一个满足条件的特例，如果<code>a == b</code>，此时<code>a == d</code>且<code>a == c</code>，那么<code>b == d == a == c</code></p>
+<p>然而题目说<strong>同一个州内不会有两个同名的城市</strong>，该特例虽满足配对条件，但与前提不符，应当删去</p>
+<p>就是下面这段代码的由来：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (a[<span class="number">0</span>] == b[<span class="number">0</span>] &amp;&amp; a[<span class="number">1</span>] == b[<span class="number">1</span>])</span><br><span class="line">            <span class="keyword">continue</span>;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>哈希函数</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P3535. TOU-Tour de Byteotia</title>
+    <url>/2023/11/14/P3535-TOU-Tour-de-Byteotia/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>并查集</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e6</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, m, k, fa[LEN];</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; e[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (fa[x] == x) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="keyword">return</span> fa[x] = <span class="built_in">find</span>(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">join</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> a = <span class="built_in">find</span>(x), b = <span class="built_in">find</span>(y);</span><br><span class="line">  fa[a] = b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> x, y, ans = <span class="number">0</span>;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">    e[x].<span class="built_in">emplace_back</span>(y), e[y].<span class="built_in">emplace_back</span>(x);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> u, v, i = n; i &gt; k; --i) &#123;</span><br><span class="line">    fa[i] = u = i;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; e[u].<span class="built_in">size</span>(); ++j) &#123;</span><br><span class="line">      v = e[u][j];</span><br><span class="line">      <span class="keyword">if</span> (fa[v] &amp;&amp; <span class="built_in">find</span>(u) != <span class="built_in">find</span>(v)) <span class="built_in">join</span>(u, v);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> u, v, i = k; i &gt;= <span class="number">1</span>; --i) &#123;</span><br><span class="line">    fa[i] = u = i;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; e[u].<span class="built_in">size</span>(); ++j) &#123;</span><br><span class="line">      v = e[u][j];</span><br><span class="line">      <span class="keyword">if</span> (!fa[v]) <span class="keyword">continue</span>;</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">find</span>(u) == <span class="built_in">find</span>(v))</span><br><span class="line">        ++ans;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">join</span>(u, v);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>并查集其中一个用途就是用来判环：</p>
+<blockquote>
+<p>A、B两结点已连通（祖先相同），若此时再赋A、B两点一条边，必存在环</p>
+</blockquote>
+<p>由于题目要求<strong>编号小于等于k的点都不在环上</strong>，那也得先有环啊：</p>
+<ol type="1">
+<li>反向建图，编号从<code>n</code>遍历到<code>k+1</code>，编号大于k的点先构成图</li>
+<li>编号从<code>k</code>遍历到<code>1</code>，判断当前结点的所有边，若与之前的图构成环，则删除</li>
+</ol>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P2853. Cow Picnic S</title>
+    <url>/2023/11/17/P2853-Cow-Picnic-S/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e3</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, m, k, tot, ans, head[LEN], vis[LEN], cow[LEN], cnt[LEN];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">  <span class="type">int</span> to_, nxt_;</span><br><span class="line">&#125; e[(<span class="type">int</span>)<span class="number">1e5</span> + <span class="number">50</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> v)</span> </span>&#123;</span><br><span class="line">  e[tot].nxt_ = head[u], e[tot].to_ = v;</span><br><span class="line">  head[u] = tot++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (vis[x]) <span class="keyword">return</span>;</span><br><span class="line">  vis[x] = <span class="number">1</span>;</span><br><span class="line">  ++cnt[x];</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = head[x]; ~i; i = e[i].nxt_) &#123;</span><br><span class="line">    <span class="built_in">dfs</span>(e[i].to_);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> u, v;</span><br><span class="line">  cin &gt;&gt; k &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  <span class="built_in">memset</span>(head, <span class="number">-1</span>, <span class="built_in">sizeof</span>(head));</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; k; ++i) cin &gt;&gt; cow[i];</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">    <span class="built_in">add</span>(u, v);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; k; ++i) &#123;</span><br><span class="line">    <span class="built_in">memset</span>(vis, <span class="number">0</span>, <span class="built_in">sizeof</span>(vis));</span><br><span class="line">    <span class="built_in">dfs</span>(cow[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (cnt[i] == k) ++ans;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>从奶牛所在牧场开始dfs，所经路径中的牧场的被访问次数加一</p>
+<p>dfs结束后，遍历所有牧场的被访问次数，等于<code>k</code>就是我们需要的</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P3916 图的遍历</title>
+    <url>/2023/11/09/P3916-%E5%9B%BE%E7%9A%84%E9%81%8D%E5%8E%86/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>强连通分量</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<p>见思路</p>
+<h1 id="思路">思路</h1>
+<h2 id="dfs">DFS</h2>
+<p>如果直接对每个点都做一次DFS，肯定超时</p>
+<p>考虑在DFS的过程中做优化。设DFS函数<code>f(x)</code>为x能到达的编号最大的点</p>
+<p>显然有<code>f(1) = max(1, f(2))</code>，<code>f(2) = max(2, f(4))</code>，<code>f(4) = max(4, f(3))</code>，<code>f(3) = 3</code></p>
+<p>这样一来，在回溯的过程中就能一并处理同一路径的其他结点，避免重复计算</p>
+<img src="/2023/11/09/P3916-%E5%9B%BE%E7%9A%84%E9%81%8D%E5%8E%86/1.png" class="" title="image-20231109215350499">
+<p>但是，图论的题目得当心是否存在环；本题并没有说排除环这一情况，如下图的一个环</p>
+<p><code>f(1) = max(1, f(2))</code>，<code>f(2) = max(2, f(4))</code>，<code>f(4) = max(4, f(3))</code>，<code>f(3) = max(3, f(1))</code></p>
+<p>如果按照上述思路，<code>f(3)</code>最终会拿自己和<strong>未更新</strong>的<code>f(1)</code>进行相比，得到错误的<code>f(3) = 3</code>，但实际上<code>f(3) = 4</code></p>
+<img src="/2023/11/09/P3916-%E5%9B%BE%E7%9A%84%E9%81%8D%E5%8E%86/2.png" class="" title="image-20231109220637253">
+<p>所以转变一下思路，之前是让点自己去找它能到达的最大的点，现在让最大的点去告诉哪些点能到达它</p>
+<p>用反向边建图，若原图中有一条边是<code>u -&gt; v</code>，我们就建反向的边<code>v -&gt; u</code></p>
+<p>从编号大的结点<code>v</code>开始DFS，更新所经路径上没有被更新过的结点为<code>v</code>即可</p>
+<blockquote>
+<p>因为从<code>n</code>枚举到1时，被更新过的点一定是用比当前数字大的点更新的</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">2e5</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, m, val[LEN];</span><br><span class="line"><span class="comment">//标志数组，走过的结点不再走</span></span><br><span class="line"><span class="type">bool</span> vis[LEN];</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; e[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> mx)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (vis[x]) <span class="keyword">return</span>;</span><br><span class="line">  val[x] = mx, vis[x] = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>, sz = e[x].<span class="built_in">size</span>(); i &lt; sz; ++i) <span class="built_in">dfs</span>(e[x][i], mx);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> x, y;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">    e[y].<span class="built_in">emplace_back</span>(x);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = n; i &gt;= <span class="number">1</span>; --i) <span class="built_in">dfs</span>(i, i);</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) cout &lt;&lt; val[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>强连通分量</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P4017. 最大食物链计数</title>
+    <url>/2023/11/14/P4017-%E6%9C%80%E5%A4%A7%E9%A3%9F%E7%89%A9%E9%93%BE%E8%AE%A1%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>拓扑排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">5e5</span> + <span class="number">50</span>, MOD = <span class="number">80112002</span>;</span><br><span class="line"><span class="type">int</span> n, m, f[LEN], ind[LEN], outd[LEN];</span><br><span class="line">queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; e[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">toposort</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    <span class="keyword">if</span> (ind[i] == <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">//将入度为0的点加入队列</span></span><br><span class="line">      q.<span class="built_in">emplace</span>(i);</span><br><span class="line">      f[i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    <span class="type">int</span> x = q.<span class="built_in">front</span>();</span><br><span class="line">    q.<span class="built_in">pop</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; e[x].<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">      <span class="type">int</span> y = e[x][i];</span><br><span class="line">      f[y] = (f[y] + f[x]) % MOD;</span><br><span class="line">      <span class="comment">//点y无入度，将点y加入队列</span></span><br><span class="line">      <span class="keyword">if</span> (--ind[y] == <span class="number">0</span>) q.<span class="built_in">emplace</span>(y);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> x, y;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">    <span class="comment">//邻接表存储边</span></span><br><span class="line">    e[x].<span class="built_in">emplace_back</span>(y);</span><br><span class="line">    <span class="comment">//点x的出度加1，点y的入度加1</span></span><br><span class="line">    ++outd[x], ++ind[y];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">toposort</span>();</span><br><span class="line">  <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="comment">//在出度为0的点中统计答案</span></span><br><span class="line">    <span class="keyword">if</span> (outd[i] == <span class="number">0</span>) ans = (ans + f[i]) % MOD;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>拓扑排序的模板题，直接用《深基》的截图吧~</p>
+<img src="/2023/11/14/P4017-%E6%9C%80%E5%A4%A7%E9%A3%9F%E7%89%A9%E9%93%BE%E8%AE%A1%E6%95%B0/1.png" class="" title="image-20231114200308386">
+<img src="/2023/11/14/P4017-%E6%9C%80%E5%A4%A7%E9%A3%9F%E7%89%A9%E9%93%BE%E8%AE%A1%E6%95%B0/2.png" class="" title="image-20231114200526164">
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>拓扑排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P4305. 不重复数字</title>
+    <url>/2023/11/11/P4305-%E4%B8%8D%E9%87%8D%E5%A4%8D%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>模拟</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">5e4</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line">unordered_map&lt;<span class="type">int</span>, <span class="type">bool</span>&gt; mp;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> in;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="keyword">while</span> (n--) &#123;</span><br><span class="line">    cin &gt;&gt; in;</span><br><span class="line">    <span class="keyword">if</span> (!mp.<span class="built_in">count</span>(in)) &#123;</span><br><span class="line">      cout &lt;&lt; in &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">      mp[in] = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  mp.<span class="built_in">clear</span>();</span><br><span class="line">  cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">  cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">  <span class="type">int</span> t;</span><br><span class="line">  cin &gt;&gt; t;</span><br><span class="line">  <span class="keyword">while</span> (t--) <span class="built_in">f</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>哈希表记录是否出现过即可</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>模拟</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P5250. 木材仓库</title>
+    <url>/2023/10/31/P5250-%E6%9C%A8%E6%9D%90%E4%BB%93%E5%BA%93/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>模拟</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">set&lt;<span class="type">int</span>&gt; st;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, opt, val;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">while</span> (n--)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; opt &gt;&gt; val;</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (st.<span class="built_in">count</span>(val))</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;Already Exist&quot;</span> &lt;&lt; endl;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                st.<span class="built_in">emplace</span>(val);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (st.<span class="built_in">empty</span>())</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;Empty&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            set&lt;<span class="type">int</span>&gt;::iterator i = st.<span class="built_in">lower_bound</span>(val), j = i;</span><br><span class="line">            <span class="comment">//val比所有数都小，只有第一个数符合</span></span><br><span class="line">            <span class="keyword">if</span> (i == st.<span class="built_in">begin</span>())</span><br><span class="line">                <span class="number">1</span> == <span class="number">1</span>;</span><br><span class="line">            <span class="comment">//val比所有数都大，只有最后一个数符合</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (i == st.<span class="built_in">end</span>())</span><br><span class="line">                --i;</span><br><span class="line">            <span class="comment">//比较前后两个数谁更接近val，程度相同取前者(取出比较短的一根)</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                i = val - *(--j) &lt;= (*i) - val ? j : i;</span><br><span class="line">            cout &lt;&lt; (*i) &lt;&lt; endl, st.<span class="built_in">erase</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>直接看题解即可，很简单的模拟题</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>模拟</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P5318. 查找文献</title>
+    <url>/2023/11/08/P5318-%E6%9F%A5%E6%89%BE%E6%96%87%E7%8C%AE/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+<li>BFS</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e6</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, m;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; e[LEN];</span><br><span class="line"><span class="comment">//标志数组，限制结点只被访问一次</span></span><br><span class="line"><span class="type">bool</span> vis[LEN];</span><br><span class="line">queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">  <span class="type">int</span> x_, y_;</span><br><span class="line">&#125; arr[LEN];</span><br><span class="line"></span><br><span class="line"><span class="comment">//排序后存储</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; arr[i].x_ &gt;&gt; arr[i].y_;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">sort</span>(arr + <span class="number">1</span>, arr + <span class="number">1</span> + m, [](edge &amp;a, edge &amp;b) -&gt; <span class="type">bool</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (a.x_ != b.x_) <span class="keyword">return</span> a.x_ &lt; b.x_;</span><br><span class="line">    <span class="keyword">return</span> a.y_ &lt; b.y_;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    e[arr[i].x_].<span class="built_in">emplace_back</span>(arr[i].y_);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (vis[x]) <span class="keyword">return</span>;</span><br><span class="line">  vis[x] = <span class="literal">true</span>;</span><br><span class="line">  cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>, sz = e[x].<span class="built_in">size</span>(); i &lt; sz; ++i) &#123;</span><br><span class="line">    <span class="built_in">dfs</span>(e[x][i]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bfs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  vis[<span class="number">1</span>] = <span class="literal">true</span>;</span><br><span class="line">  q.<span class="built_in">emplace</span>(<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    <span class="type">int</span> u = q.<span class="built_in">front</span>();</span><br><span class="line">    q.<span class="built_in">pop</span>();</span><br><span class="line">    cout &lt;&lt; u &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>, sz = e[u].<span class="built_in">size</span>(); i &lt; sz; ++i) &#123;</span><br><span class="line">      <span class="keyword">if</span> (vis[e[u][i]]) <span class="keyword">continue</span>;</span><br><span class="line">      vis[e[u][i]] = <span class="literal">true</span>;</span><br><span class="line">      q.<span class="built_in">emplace</span>(e[u][i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">init</span>();</span><br><span class="line">  <span class="built_in">dfs</span>(<span class="number">1</span>);</span><br><span class="line">  <span class="built_in">memset</span>(vis, <span class="number">0</span>, <span class="built_in">sizeof</span>(vis));</span><br><span class="line">  cout &lt;&lt; endl;</span><br><span class="line">  <span class="built_in">bfs</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>图遍历的模板题，直接看题解就行</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+        <tag>BFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P5266. 学籍管理</title>
+    <url>/2023/10/31/P5266-%E5%AD%A6%E7%B1%8D%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>模拟</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">unordered_map&lt;string, <span class="type">int</span>&gt; mp;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, opt, score;</span><br><span class="line">    string name;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">while</span> (n--)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; opt;</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cin &gt;&gt; name &gt;&gt; score;</span><br><span class="line">            mp[name] = score;</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;OK&quot;</span> &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (opt == <span class="number">2</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cin &gt;&gt; name;</span><br><span class="line">            <span class="keyword">if</span> (!mp.<span class="built_in">count</span>(name))</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;Not found&quot;</span> &lt;&lt; endl;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                cout &lt;&lt; mp[name] &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (opt == <span class="number">3</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cin &gt;&gt; name;</span><br><span class="line">            <span class="keyword">if</span> (!mp.<span class="built_in">count</span>(name))</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;Not found&quot;</span> &lt;&lt; endl;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                mp.<span class="built_in">erase</span>(name), cout &lt;&lt; <span class="string">&quot;Deleted successfully&quot;</span> &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; mp.<span class="built_in">size</span>() &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>直接用哈希表模拟即可</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>模拟</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P5937. Parity Game</title>
+    <url>/2023/11/13/P5937-Parity-Game/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>边带权并查集</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e5</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, m, cnt, fa[LEN], val[LEN], discrete[LEN];</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">  <span class="type">int</span> x_, y_, w_;</span><br><span class="line">&#125; arr[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (fa[x] == x) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="type">int</span> anc = fa[x];</span><br><span class="line">  fa[x] = <span class="built_in">find</span>(fa[x]);</span><br><span class="line">  val[x] ^= val[anc];</span><br><span class="line">  <span class="keyword">return</span> fa[x];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">join</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> w)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> a = <span class="built_in">find</span>(x), b = <span class="built_in">find</span>(y);</span><br><span class="line">  val[a] = w ^ val[y] ^ val[x];</span><br><span class="line">  fa[a] = b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 离散化开始</span></span><br><span class="line">  <span class="built_in">sort</span>(discrete + <span class="number">1</span>, discrete + <span class="number">1</span> + cnt);</span><br><span class="line">  cnt = <span class="built_in">unique</span>(discrete + <span class="number">1</span>, discrete + <span class="number">1</span> + cnt) - (discrete + <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    arr[i].x_ =</span><br><span class="line">        <span class="built_in">lower_bound</span>(discrete + <span class="number">1</span>, discrete + <span class="number">1</span> + cnt, arr[i].x_) - discrete;</span><br><span class="line">    arr[i].y_ =</span><br><span class="line">        <span class="built_in">lower_bound</span>(discrete + <span class="number">1</span>, discrete + <span class="number">1</span> + cnt, arr[i].y_) - discrete;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 离散化结束</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= cnt; ++i) fa[i] = i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">work</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> x, y, w;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    x = arr[i].x_, y = arr[i].y_, w = arr[i].w_;</span><br><span class="line">    --x;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">find</span>(x) != <span class="built_in">find</span>(y)) &#123;</span><br><span class="line">      <span class="built_in">join</span>(x, y, w);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (val[x] ^ val[y] != w) &#123;</span><br><span class="line">        cout &lt;&lt; i - <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; m &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  string str;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; arr[i].x_ &gt;&gt; arr[i].y_ &gt;&gt; str;</span><br><span class="line">    arr[i].w_ = str[<span class="number">0</span>] == <span class="string">&#x27;e&#x27;</span> ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">    discrete[++cnt] = arr[i].x_, discrete[++cnt] = arr[i].y_;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">init</span>(), <span class="built_in">work</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>数据范围高达1e9，所以先需要离散化</p>
+<h2 id="路径压缩">路径压缩</h2>
+<p>先作图，发现结点之间的边权是可以传递的，可以进行路径压缩：</p>
+<img src="/2023/11/13/P5937-Parity-Game/2.png" class="" title="image-20231113225244583">
+<p>令偶数边权为0，奇数边权为1，可以发现以下规律：</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 29%" />
+<col style="width: 29%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">x(x走到y步数的奇偶性)</th>
+<th style="text-align: center;">y(y走到z步数的奇偶性)</th>
+<th style="text-align: center;">z(x走到z步数的奇偶性)</th>
+<th style="text-align: center;">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">偶+偶=偶</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">偶+奇=奇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">奇+偶=奇</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">奇+奇=偶</td>
+</tr>
+</tbody>
+</table>
+<p>令<code>val[x]</code> 为x走到当前祖先的所需步数，直接用异或即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">新val[x] = 旧val[x] ^ 新val[父结点]</span><br></pre></td></tr></table></figure>
+<h2 id="合并">合并</h2>
+<p>根据上述推断，显然有<code>x到y的步数 + y到祖先b的步数 = x到祖先b的步数</code></p>
+<p>就可以得到<code>祖先a到祖先b的步数 = x到y的步数 + y到祖先b的步数 - x到祖先a的步数</code></p>
+<img src="/2023/11/13/P5937-Parity-Game/3.png" class="" title="image-20231113225445542">
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P6121. Closing the Farm G</title>
+    <url>/2023/11/13/P6121-Closing-the-Farm-G/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>反向建图</li>
+<li>并查集</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">2e5</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, m, tot, fa[LEN], del[LEN], ans[LEN];</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; e[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (fa[x] == x) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="keyword">return</span> fa[x] = <span class="built_in">find</span>(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">join</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> a = <span class="built_in">find</span>(x), b = <span class="built_in">find</span>(y);</span><br><span class="line">  fa[a] = b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> x, y;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  <span class="comment">// 不能加这句话哟！因为要确定该结点是否已被新建</span></span><br><span class="line">  <span class="comment">// for (int i = 1; i &lt;= n; ++i) fa[i] = i;</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">    <span class="comment">//无向图当然双向都要保存</span></span><br><span class="line">    e[x].<span class="built_in">emplace_back</span>(y), e[y].<span class="built_in">emplace_back</span>(x);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) cin &gt;&gt; del[i];</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = n; i &gt;= <span class="number">1</span>; --i) &#123;</span><br><span class="line">    <span class="comment">//建立该结点</span></span><br><span class="line">    fa[x] = x = del[i];</span><br><span class="line">    ++tot;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>, sz = e[x].<span class="built_in">size</span>(); j &lt; sz; ++j) &#123;</span><br><span class="line">      <span class="keyword">if</span> (fa[y = e[x][j]] &amp;&amp; <span class="built_in">find</span>(x) != <span class="built_in">find</span>(y)) &#123;</span><br><span class="line">        --tot;</span><br><span class="line">        <span class="built_in">join</span>(x, y);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ans[i] = tot;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) ans[i] == <span class="number">1</span> ? <span class="built_in">puts</span>(<span class="string">&quot;YES&quot;</span>) : <span class="built_in">puts</span>(<span class="string">&quot;NO&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>并查集基本不考虑删除操作，时间复杂度直接上天了</p>
+<p>从原图逐个删结点，完全可以用反向建图来达到一样的效果：</p>
+<ul>
+<li><p><code>fa</code>数组在常规并查集中，需要初始化为自己，代表默认情况下祖先就是自己</p>
+<p>这里不需要初始化，保持为0即可，代表“尚未创建该结点”</p>
+<p>直到建立该结点时，再初始化为<code>fa[x] = x</code></p>
+<p>每次建立新结点时，<code>tot</code>加一，因为多了一个独立的连通块</p></li>
+<li><p>遍历当前结点的边，如果同边的另一个结点已被创建，说明当前这条边就是有效的</p>
+<p>但是，应再判断另一个结点是否已经与当前结点连通；若连通，没必要合并，若不连通，合并的同时<code>tot</code>减1</p></li>
+</ul>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P8710. 网络分析</title>
+    <url>/2023/11/13/P8710-%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>并查集</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e5</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, m, fa[LEN], val[LEN], add[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (fa[x] == x) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="keyword">return</span> fa[x] = <span class="built_in">find</span>(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">join</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> a = <span class="built_in">find</span>(x), b = <span class="built_in">find</span>(y);</span><br><span class="line">  <span class="comment">//剪枝，否则超时</span></span><br><span class="line">  <span class="keyword">if</span> (a == b) <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    val[i] += add[<span class="built_in">find</span>(i)];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">memset</span>(add, <span class="number">0</span>, <span class="built_in">sizeof</span>(add));</span><br><span class="line">  fa[a] = b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  <span class="type">int</span> opt, a, b, p, t;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) fa[i] = i;</span><br><span class="line">  <span class="keyword">while</span> (m--) &#123;</span><br><span class="line">    cin &gt;&gt; opt;</span><br><span class="line">    <span class="keyword">if</span> (opt == <span class="number">1</span>) &#123;</span><br><span class="line">      cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">      <span class="built_in">join</span>(a, b);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (opt == <span class="number">2</span>) &#123;</span><br><span class="line">      cin &gt;&gt; p &gt;&gt; t;</span><br><span class="line">      add[<span class="built_in">find</span>(p)] += t;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) cout &lt;&lt; val[i] + add[<span class="built_in">find</span>(i)] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>将并查集作为数据结构的好题很少见啊~</p>
+<p>更新并查集的一个子结点，如何将影响扩散至整个集合？</p>
+<p>将各个子结点的累加量，记录在该子结点的祖先，即<code>add[祖先]</code>保存</p>
+<p>每次合并前，遍历整个集合，把祖先记录的累加量一次性赋给其所在集合内的所有子结点</p>
+<blockquote>
+<p>假设集合A有累加量<code>4</code>，B有累加量<code>8</code>，A、B两集合即将合并</p>
+<p>我们应分别将<code>4</code>赋给集合A的所有结点，<code>8</code>赋给集合B的所有结点后，两集合再合并</p>
+<p>否则强行合并的话，最终就变成了B集合有累加量<code>4 + 8 = 12</code>，这是不对的</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P8686. 修改数组</title>
+    <url>/2023/11/14/P8686-%E4%BF%AE%E6%94%B9%E6%95%B0%E7%BB%84/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>并查集</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e6</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, fa[LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (fa[x] == x) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="keyword">return</span> fa[x] = <span class="built_in">find</span>(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> x, anc;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; LEN; ++i) fa[i] = i;</span><br><span class="line">  <span class="keyword">while</span> (n--) &#123;</span><br><span class="line">    cin &gt;&gt; x;</span><br><span class="line">    cout &lt;&lt; (anc = <span class="built_in">find</span>(x)) &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    fa[anc] = anc + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>并查集在搜索上的妙用</p>
+<p>考虑以下例子：</p>
+<ol type="1">
+<li><p>初始状态下，数组为空；分别输入<code>2</code>、<code>1</code>，数组变成<code>&#123;2, 1&#125;</code></p></li>
+<li><p>再输入<code>1</code>，你会希望数组内的<code>1</code>元素指向<code>3</code>，这样就不必暴力地轮询加1</p>
+<p>如果输入<code>2</code>呢？你也希望数组内的<code>2</code>元素指向<code>3</code></p>
+<p>塞入<code>3</code>后，数组变成<code>&#123;2, 1, 3&#125;</code></p></li>
+<li><p>再输入<code>1</code>，你希望数组内的<code>1</code>元素指向<code>4</code></p>
+<p>如果输入<code>2</code>呢？你希望数组内的<code>2</code>元素指向<code>4</code></p>
+<p>如果输入<code>3</code>呢？你还是希望数组内的<code>3</code>元素指向<code>4</code></p>
+<p>塞入<code>4</code>后，数组变成<code>&#123;2, 1, 3, 4&#125;</code></p></li>
+<li><p>再输入<code>1</code>，你希望数组内的<code>1</code>元素指向<code>5</code></p>
+<p>如果输入<code>2</code>呢？你希望数组内的<code>2</code>元素指向<code>5</code></p>
+<p>如果输入<code>3</code>呢？你希望数组内的<code>3</code>元素指向<code>5</code></p>
+<p>如果输入<code>4</code>呢？你还是希望数组内的<code>4</code>元素指向<code>5</code></p>
+<p>塞入<code>4</code>后，数组变成<code>&#123;2, 1, 3, 4, 5&#125;</code></p></li>
+</ol>
+<p>发现了吗，每次查询的时候，我们都会希望原数组是个经过路径压缩后的并查集</p>
+<img src="/2023/11/14/P8686-%E4%BF%AE%E6%94%B9%E6%95%B0%E7%BB%84/1.png" class="" title="image-20231114172751644">
+<p>所以每次查询完结点的祖先后，令祖先的祖先为<code>祖先 + 1</code>即可，代表下次查询应该指向的值</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P8893. 智能推荐</title>
+    <url>/2023/11/19/P8893-%E6%99%BA%E8%83%BD%E6%8E%A8%E8%8D%90/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>拓扑排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">5e3</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> N, K, P, R, tot, ans = <span class="number">-1</span>, arr[LEN], head[LEN], ind[LEN], val[LEN];</span><br><span class="line">queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">  <span class="type">int</span> to_, nxt_;</span><br><span class="line">&#125; e[LEN * LEN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> v)</span> </span>&#123;</span><br><span class="line">  e[tot].to_ = v, e[tot].nxt_ = head[u];</span><br><span class="line">  head[u] = tot++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">toposort</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= P; ++i) q.<span class="built_in">emplace</span>(arr[i]);</span><br><span class="line">  <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    <span class="type">int</span> u = q.<span class="built_in">front</span>();</span><br><span class="line">    q.<span class="built_in">pop</span>();</span><br><span class="line">    <span class="keyword">if</span> (u == K) &#123;</span><br><span class="line">      ans = val[K];</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = head[u]; ~i; i = e[i].nxt_) &#123;</span><br><span class="line">      <span class="type">int</span> v = e[i].to_;</span><br><span class="line">      val[v] = <span class="built_in">max</span>(val[v], val[u] + <span class="number">1</span>);</span><br><span class="line">      <span class="keyword">if</span> (--ind[v] == <span class="number">0</span>) q.<span class="built_in">emplace</span>(v);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 链式前向星存储有向边</span></span><br><span class="line">  <span class="built_in">memset</span>(head, <span class="number">-1</span>, <span class="built_in">sizeof</span>(head));</span><br><span class="line">  <span class="type">int</span> u, v, s, p;</span><br><span class="line">  cin &gt;&gt; N &gt;&gt; K &gt;&gt; P;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= P; ++i) cin &gt;&gt; arr[i];</span><br><span class="line">  cin &gt;&gt; R;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= R; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; v &gt;&gt; s;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= s; ++j) &#123;</span><br><span class="line">      cin &gt;&gt; u;</span><br><span class="line">      <span class="built_in">add</span>(u, v);</span><br><span class="line">      ++ind[v];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">toposort</span>();</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>每次只能做被推荐的题目，而题目要被推荐，得先做完一系列前置题目</p>
+<p>令前置题目指向推荐题目后，直接套拓扑排序板子即可</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>拓扑排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>哈希函数_解题技巧</title>
+    <url>/2023/11/10/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<p>绝大部分的场景用STL自带即可解决，但部分题目还是需要自己手敲哈希表处理</p>
+<p>一般手敲哈希表选用<a
+href="https://oi-wiki.org/ds/hash/#%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0">拉链法</a>实现，掌握<a
+href="https://www.luogu.com.cn/problem/P3370">P3370</a>和<a
+href="https://www.luogu.com.cn/problem/P3405">P3405</a>这两题即可</p>
+]]></content>
+      <categories>
+        <category>解题技巧</category>
+      </categories>
+      <tags>
+        <tag>哈希函数</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>字符串哈希_解题技巧</title>
+    <url>/2023/11/10/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h1 id="定义">定义</h1>
+<p>能将一个字符串<span class="math inline">\(s\)</span>映射为整数的函数$
+f $，我们可以将其称作为Hash函数，即： <span class="math display">\[
+f\left( s \right) \longrightarrow \text{数字}
+\]</span> 如此一来，就能方便我们比较两个字符串是否相等。</p>
+<p>下面介绍的方法在算法界称为<strong>Rabin-Karp算法</strong>，简称<strong>RK</strong></p>
+<h1 id="性质">性质</h1>
+<ol type="1">
+<li><p>在 Hash 函数值不一样的时候，两个字符串一定不一样</p></li>
+<li><p>在 Hash 函数值一样的时候，两个字符串不一定一样</p>
+<p>我们将 Hash 函数值一样但原字符串不一样的现象称为哈希碰撞</p></li>
+</ol>
+<h1 id="实现">实现</h1>
+<p>令<span
+class="math inline">\(h\)</span>为哈希数组，字符串起始下标为1（计算机内是0起始），<span
+class="math inline">\(h[i]\)</span>记录下标<span
+class="math inline">\([1...i]\)</span>字串的哈希值；<span
+class="math inline">\(l\)</span>为字符串长度，<span
+class="math inline">\(P\)</span>为质数</p>
+<p>有哈希数组公式如下。在没有特别注解的情况下默认都是用它： <span
+class="math display">\[
+h\left[ i \right] =h\left[ i-1 \right] \times P+idx\left( s\left[ i
+\right] \right)
+\]</span></p>
+<p><span class="math display">\[
+i\in \left[ 1,l \right]
+\]</span></p>
+<p>一般<span class="math inline">\(idx\)</span>函数定义如下：</p>
+<blockquote>
+<p>idx(x) = x - 'a' + 1</p>
+</blockquote>
+<p>但没必要，一般直接用字符的ASCII码，即int(s[i])替代即可</p>
+<p>以字符串xyz举例：</p>
+<blockquote>
+<p>h[0] = 0</p>
+<p>h[1] = h[0] * P + s[1] = x</p>
+<p>h[2] = h[1] * P + s[2] = x*P + y</p>
+<p>h[3] = h[2] * P + s[3] = x<em>P<sup>2</sup> + y </em> P + z</p>
+</blockquote>
+<p>显然，哈希数组公式是将字符串作为了<span
+class="math inline">\(P\)</span>进制的数来描述，那么可以用数学语言进行归纳：
+<span class="math display">\[
+f\left( s \right) =\sum{\begin{array}{c}
+    l\\
+    i=1\\
+\end{array}s\left[ i \right] \times P^{l-i}}\left( mod\,\,M \right)
+\]</span></p>
+<hr />
+<p>另一种哈希数组公式描述如下。其中<span
+class="math inline">\(p\)</span>数组保存<span
+class="math inline">\(P\)</span>的幂次，即<span
+class="math inline">\(p[i]\)</span>保存<span
+class="math inline">\(P^{i}\)</span>的结果： <span
+class="math display">\[
+p\left[ i \right] =p\left[ i-1 \right] \times P
+\]</span></p>
+<p><span class="math display">\[
+h[i]=idx(s[i])\times p[i-1]+h[i-1]
+\]</span></p>
+<p>用数学语言归纳的话就是这样： <span class="math display">\[
+f\left( s \right) =\sum{\begin{array}{c}
+    l\\
+    i=1\\
+\end{array}s\left[ i \right] \times P^{i-1}\left( mod\,\,M \right)}
+\]</span> 结果如下：</p>
+<blockquote>
+<p>p[0] = 1, h[0] = 0</p>
+<p>p[1] = P, h[1] = s[1] * p[0] + h[0] = x</p>
+<p>p[2] = P<sup>2</sup>, h[2] = s[2] * p[1] + h[1] = x + y*P</p>
+<p>p[3] = P<sup>3</sup>, h[3] = s[3] * p[2] + h[2] = x + y*P +
+z*P<sup>2</sup></p>
+</blockquote>
+<p>故而用第一种公式处理源字符串得到的哈希值，等于用第二种公式处理源字符串的翻转</p>
+<p>即： <span class="math display">\[
+f_{\text{第一种}}\left( abc \right) =f_{\text{第二种}}\left( cba \right)
+\]</span></p>
+<hr />
+<p>下面解答一些疑问，默认为第一种公式</p>
+<h2 id="为什么取模">为什么取模？</h2>
+<p>对<span
+class="math inline">\(M\)</span>取模是因为幂次运算过于巨无霸，必须要手动控制精度确保不会溢出</p>
+<h2 id="m是质数为什么">M是质数，为什么？</h2>
+<p>哈希表中的数列冲突分布间隔，受模的因子数量影响；同样的随机数列，模的因子越多，冲突的可能性就越大</p>
+<p>所以要减少冲突，肯定希望模的因子最少，而因子最少的就是质数了</p>
+<p>详细证明可参见<a
+href="https://blog.csdn.net/zhishengqianjun/article/details/79087525">链接</a></p>
+<h2 id="m一般取什么值">M一般取什么值？</h2>
+<p>一般在算法界，我们喜欢取1e9+7和1e9+9</p>
+<p>这俩是<span
+class="math inline">\(2^{30}\)</span>范围内比较好记的超大质数，好处在哪？</p>
+<ol type="1">
+<li>所有模过之后的数进行加法操作不会溢出int范围</li>
+</ol>
+<p><span class="math display">\[
+a,b&lt;2^{30}, a+b&lt;2^{31}
+\]</span></p>
+<ol start="2" type="1">
+<li>所有模过之后的数进行乘法操作不会溢出long long范围 <span
+class="math display">\[
+a\times b&lt;2^{60}
+\]</span></li>
+</ol>
+<p>详细讨论可参见<a
+href="https://www.zhihu.com/question/49374703">链接</a></p>
+<h2 id="p一般取什么值">P一般取什么值？</h2>
+<p>我个人喜欢131和13331，<span
+class="math inline">\(P\)</span>一定要小于<span
+class="math inline">\(M\)</span>（不然取模的意义在哪呢）</p>
+<p>有一个在线判断质数的<a
+href="https://www.osgeo.cn/app/s2711">网址</a>，可以记一个你喜欢的质数（笑）</p>
+<h2 id="求子串的哈希值">求子串的哈希值？</h2>
+<p>令<span class="math inline">\(f_i\left( s \right)\)</span>表示<span
+class="math inline">\(f\left( s\left[ 1...i \right]
+\right)\)</span>，即下标1到<span
+class="math inline">\(i\)</span>的字串哈希值</p>
+<p>我们需要求下标<span
+class="math inline">\([l..r]\)</span>的字串哈希值就是： <span
+class="math display">\[
+f\left( s\left[ l...r \right] \right) =s\left[ l \right] \times
+P^{r-l}+s\left[ l+1 \right] \times P^{r-l-1}+...+s\left[ r-1 \right]
+\times P+s\left[ r \right]
+\]</span> 观察下方两个式子</p>
+<p><span class="math inline">\(f_l\left( s
+\right)\)</span>是下标1到<span
+class="math inline">\(l\)</span>的字串哈希值，<span
+class="math inline">\(f_r\left( s \right)\)</span>是下标1到<span
+class="math inline">\(r\)</span>的字串哈希值，<span
+class="math inline">\(l\)</span>&lt;<span
+class="math inline">\(r\)</span> <span class="math display">\[
+f_l\left( s \right) =s\left[ 1 \right] \times P^{l-1}+s\left[ 2 \right]
+\times P^{l-2}+...+s\left[ l-1 \right] \times P+s\left[ l \right]
+\]</span></p>
+<p><span class="math display">\[
+f_r\left( s \right) =s\left[ 1 \right] \times P^{r-1}+s\left[ 2 \right]
+\times P^{r-2}+...+s\left[ r-1 \right] \times P+s\left[ r \right]
+\]</span></p>
+<p>列出下标1到<span class="math inline">\(l-1\)</span>的字串哈希值 <span
+class="math display">\[
+f_{l-1}\left( s \right) =s\left[ 1 \right] \times P^{l-2}+s\left[ 2
+\right] \times P^{l-3}+...+s\left[ l-2 \right] \times P+s\left[ l-1
+\right]
+\]</span> 如果再乘<span class="math inline">\(P^{r-l+1}\)</span> <span
+class="math display">\[
+P^{r-l+1}\times f_{l-1}\left( s \right) =s\left[ 1 \right] \times
+P^{r-1}+s\left[ 2 \right] \times P^{l-2}+...+s\left[ l-2 \right] \times
+P^{r-l+2}+s\left[ l-1 \right] \times P^{r-l+1}
+\]</span> 你会惊奇地发现，任何一个字串的哈希值都能通过这个等式以<span
+class="math inline">\(O(1)\)</span>的时间复杂度算出 <span
+class="math display">\[
+f\left( s\left[ l...r \right] \right) =f_r\left( s \right)
+-f_{l-1}\left( s \right) \times P^{r-l+1}
+\]</span> 如果用哈希公式来表达，那就是 <span class="math display">\[
+h\left[ l...r \right] =h\left[ r \right] -h\left[ l-1 \right] \times
+P^{r-l+1}
+\]</span> 大质数<span
+class="math inline">\(P\)</span>的幂次用上面提到的<span
+class="math inline">\(p\)</span>数组记录，即<span
+class="math inline">\(p[i]\)</span>等于<span
+class="math inline">\(P\)</span>的<span
+class="math inline">\(i\)</span>次幂 <span class="math display">\[
+h\left[ l...r \right] =h\left[ r \right] -h\left[ l-1 \right] \times
+p\left[ r-l+1 \right]
+\]</span> 方才说过，为了防止溢出，我们会对<span
+class="math inline">\(M\)</span>进行取模 <span class="math display">\[
+h\left[ l...r \right] =\left( h\left[ r \right] -h\left[ l-1 \right]
+\times p\left[ r-l+1 \right] \right) \%M
+\]</span>
+表达式结果有可能是负数。编程语言是允许对负数取模的（事实上被模数和模数都允许为负数），但负数会带来很多不确定...</p>
+<p>（也没人喜欢负数吧，笑）</p>
+<p>所以还需作以下处理得到最终的字串哈希表达式： <span
+class="math display">\[
+h\left[ l...r \right] =\left( \left( h\left[ r \right] -h\left[ l-1
+\right] \times p\left[ r-l+1 \right] \right) \%M+M \right) \%M
+\]</span></p>
+<h2 id="取模的trick">取模的Trick</h2>
+<p>上面的各种七七八八取模操作会相当影响编程...</p>
+<p>可喜的是，在实际编程中可以令<span
+class="math inline">\(h\)</span>与<span
+class="math inline">\(p\)</span>这种存储超大质数的数组类型设定为<code>unsigned long long</code>，这样一旦溢出会自动取模<span
+class="math inline">\(2^{64}\)</span></p>
+<p>所以你只需要这样：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="comment">//s为字符串，P取了131，M就是2^64</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> P = <span class="number">131</span>, N = s.<span class="built_in">length</span>() + <span class="number">1</span>;</span><br><span class="line">ull h[N], p[N], h_r[N];</span><br><span class="line">p[<span class="number">0</span>]=<span class="number">1</span>,h[<span class="number">0</span>]=<span class="number">0</span>,h_r[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line"><span class="comment">//h数组使用的第一种公式</span></span><br><span class="line"><span class="comment">//h_r数组使用的第二种公式</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt; N; i++ )&#123;</span><br><span class="line">    <span class="comment">//编程中还需使用s[i-1]，因为计算机内部数组下标还是0开头</span></span><br><span class="line">    h[i] = h[i<span class="number">-1</span>] * P + s[i<span class="number">-1</span>];</span><br><span class="line">    p[i] = p[i<span class="number">-1</span>] * P;</span><br><span class="line">    h_r[i] = s[i<span class="number">-1</span>] * p[i<span class="number">-1</span>] + h_r[i<span class="number">-1</span>];</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="双哈希">双哈希</h2>
+<p>字面意思，用两个不同的质数进行两次取模，结果用一对数<span
+class="math inline">\(&lt;h_1[i],h_2[i]&gt;\)</span>来代表字符串的哈希值</p>
+<p>（但说实话，我刷题还没遇到过必须用双哈希解决冲突的....没有对冲突率如此严苛）
+<span class="math display">\[
+h_1\left[ i \right] =h_1\left[ i-1 \right] \times P+idx\left( s\left[ i
+\right] \right) \left( mod\,\,M_1 \right)
+\]</span></p>
+<p><span class="math display">\[
+h_2\left[ i \right] =h_2\left[ i-1 \right] \times P+idx\left( s\left[ i
+\right] \right) \left( mod\,\,M_2 \right)
+\]</span></p>
+]]></content>
+      <categories>
+        <category>解题技巧</category>
+      </categories>
+      <tags>
+        <tag>哈希函数</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>并查集_解题技巧</title>
+    <url>/2023/11/14/%E5%B9%B6%E6%9F%A5%E9%9B%86-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h1 id="求连通块集合个数">求连通块、集合个数</h1>
+<ul>
+<li><p>能保证没有冗余的合并操作时</p>
+<p>正常情况下，初始时每个结点的祖先都是自己；若结点个数为<code>tot</code>，初始时则有<code>tot</code>个连通块</p>
+<p>每一次合并都会少一个连通块，就执行<code>--tot</code>；最终的连通块个数就等于<code>tot</code></p>
+<p>比如<a
+href="https://www.luogu.com.cn/problem/P1536">P1536</a></p></li>
+<li><p>有冗余合并操作，但能固定祖先结点时</p>
+<p>例如<a href="https://www.luogu.com.cn/problem/P1892">P1892</a>和<a
+href="https://www.luogu.com.cn/problem/P1621">P1621</a>，通过固定祖先结点的方式，以<span
+class="math inline">\(O\left( n
+\right)\)</span>的时间复杂度判断<code>fa[i] == i</code>即可得到连通块数</p></li>
+<li><p>上述情况都无法满足时</p>
+<p>先以<span class="math inline">\(O\left( n\log n
+\right)\)</span>的时间复杂度寻找所有结点的祖先，再以<span
+class="math inline">\(O\left( n
+\right)\)</span>的时间复杂度对祖先计数....</p>
+<p>还需要额外的<span class="math inline">\(O\left( n
+\right)\)</span>的空间复杂度保存祖先....</p>
+<p>所以万不得已尽量别用该办法，考察并查集的题数据量都很大，很容易TLE</p></li>
+</ul>
+<h1 id="普通并查集">普通并查集</h1>
+<h2 id="用法">用法</h2>
+<p>并查集只有<strong>查询</strong>、<strong>合并</strong>两种操作！</p>
+<blockquote>
+<p>其实是有删除操作的，参见<a
+href="https://oi-wiki.org/ds/dsu/#%E5%88%A0%E9%99%A4">Wiki</a></p>
+<p>但实际复杂度高到天上去了....</p>
+</blockquote>
+<p>并查集能在一张无向图中维护结点之间的连通性</p>
+<p>这个“连通性”是可以通过结点之间的关系量化的</p>
+<blockquote>
+<p>假设有一条规律，亲戚的亲戚也是我的亲戚</p>
+<p>有<code>A -&gt; B</code>，即<code>A</code>与<code>B</code>是亲戚；也有<code>B -&gt; C</code>，显然能得到<code>A -&gt; C</code></p>
+</blockquote>
+<h2 id="练习题">练习题</h2>
+<ul>
+<li><a href="https://www.luogu.com.cn/problem/P1551">P1551</a>
+并查集板子题</li>
+<li><a href="https://www.luogu.com.cn/problem/P1536">P1536</a>
+学会统计连通块</li>
+<li><a href="https://www.luogu.com.cn/problem/P1621">P1621</a>
+分类的思维</li>
+<li><a href="https://www.luogu.com.cn/problem/P1955">P1955</a>
+必刷的经典好题！强化后续的扩展域、边带权并查集理解</li>
+<li><a href="https://www.luogu.com.cn/problem/P2814">P2814</a>
+哈希表替代数组</li>
+</ul>
+<h1 id="作为优化手段数据结构">作为优化手段/数据结构</h1>
+<ul>
+<li><p><a href="https://www.luogu.com.cn/problem/P3535">P3535</a>
+并查集判环，并用反向建图实现贪心</p></li>
+<li><p><a href="https://www.luogu.com.cn/problem/P8686">P8686</a>
+优化搜索</p></li>
+<li><p><a href="https://www.luogu.com.cn/problem/P6121">P6121</a>
+反向建图实现并查集的结点删除</p></li>
+<li><p><a href="https://www.luogu.com.cn/problem/P8710">P8710</a>
+修改子结点，影响扩散至全集合</p></li>
+</ul>
+<h1 id="扩展域并查集种类并查集">扩展域并查集（种类并查集）</h1>
+<h2 id="用法-1">用法</h2>
+<p>根据不同的关系属性，将数据拆分并重组为不同的集合</p>
+<p>记得双向都要处理！因为<code>a</code>对<code>b</code>的关系，也同样有<code>b</code>对<code>a</code></p>
+<p>常见于<strong>求某一种关系的集合</strong></p>
+<blockquote>
+<p>举个例子，对于人而言，有“朋友”、“亲人”和“敌人”三种关系</p>
+<p>现在要你求有几个“朋友”的集合</p>
+</blockquote>
+<h2 id="练习题-1">练习题</h2>
+<ul>
+<li><a href="https://www.luogu.com.cn/problem/P1525">P1525</a>
+经典的模板题</li>
+<li><a href="https://www.luogu.com.cn/problem/P1892">P1892</a>
+也是板子题</li>
+</ul>
+<h1 id="边带权并查集带权并查集">边带权并查集（带权并查集）</h1>
+<h2 id="用法-2">用法</h2>
+<p>扩展域并查集是根据关系将数据拆分重组成不同的集合</p>
+<p>边带权并查集则是将关系映射为边权，从而能将不同的关系合并至同一集合</p>
+<p>常见于<strong>判断所给条件是否满足前提</strong></p>
+<blockquote>
+<p>举个例子，对于人而言，有“朋友”、“亲人”和“敌人”三种关系</p>
+<p>现有a、b二人，题目说他俩是亲人关系，要你辨真伪</p>
+<p>你需要知道两件事：</p>
+<ol type="1">
+<li><p>a和b有没有关系</p>
+<p>即希望a和b能够通过某种方式验证连通性，判断祖先是否一致</p></li>
+<li><p>a和b若有关系，符不符合题意</p>
+<p>即希望能记录a和b之间的关系</p></li>
+</ol>
+<p>白话文来说，在边带权并查集中，任何两个结点都是连通的，代表这两个结点是“有关系的”</p>
+<p>而两个结点之间的关系则通过它俩的边权记录，代表“是什么关系”</p>
+</blockquote>
+<p>具体的设计思路，参考<a
+href="https://www.luogu.com.cn/problem/P2024">P2024</a></p>
+<h2 id="练习题-2">练习题</h2>
+<ul>
+<li><a href="https://www.luogu.com.cn/problem/P2024">P2024</a>
+经典的模板题</li>
+<li><a href="https://www.luogu.com.cn/problem/P1196">P1196</a>
+也是经典的模板题</li>
+<li><a href="https://www.luogu.com.cn/problem/P2294">P2294</a></li>
+<li><a href="https://www.luogu.com.cn/problem/P5937">P5937</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>解题技巧</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>拓扑排序_解题技巧</title>
+    <url>/2023/11/20/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h1 id="用途">用途</h1>
+<ul>
+<li><p>判断有向图是否存在环</p>
+<p>将结点个数、拓扑序列的元素个数二者对比，不等则说明存在环路</p></li>
+<li><p>根据<strong>一种、可传递的</strong>优先级规则（类似贪心），将有向图划分为若干个集合，并根据优先级按序处理各个集合</p></li>
+</ul>
+<h1 id="与并查集的异同">与并查集的异同</h1>
+<h2 id="相同">相同</h2>
+<ul>
+<li><p>有向无环图只能朝一个方向（反向不就带环了吗），只能根据<strong>一种、可传递的</strong>优先级规则进行分类</p></li>
+<li><p>尽管并查集是无向图，且有扩展域并查集、边带权并查集两类</p>
+<p>但根本上也是将各种状态合并为<strong>一种、且可传递的</strong>优先级规则</p></li>
+</ul>
+<h2 id="不同">不同</h2>
+<ul>
+<li><p>有向无环图的结点整体分布是自上而下，且有向边的方向均朝下</p></li>
+<li><p>并查集是不固定的森林结构，没有层次可言</p></li>
+</ul>
+<h1 id="练习题">练习题</h1>
+<p><a href="https://www.luogu.com.cn/problem/P1113">P1113</a>
+模板题+最长路</p>
+<p><a href="https://www.luogu.com.cn/problem/P4017">P4017</a>
+模板题+最长路</p>
+<p><a href="https://www.luogu.com.cn/problem/P1807">P1807</a>
+控制拓扑排序的起点</p>
+<p><a href="https://www.luogu.com.cn/problem/P1347">P1347</a>
+判环+最长路</p>
+<p><a href="https://www.luogu.com.cn/problem/P1983">P1983</a>
+模板题+最长路</p>
+<p><a href="https://www.luogu.com.cn/problem/P8893">P8893</a> 最长路</p>
+<p><a href="https://www.luogu.com.cn/problem/P2712">P2712</a> 最长路</p>
+]]></content>
+      <categories>
+        <category>解题技巧</category>
+      </categories>
+      <tags>
+        <tag>拓扑排序</tag>
       </tags>
   </entry>
 </search>
