@@ -6,7 +6,7 @@
   <link href="https://fi3wey.github.io/atom.xml" rel="self"/>
   
   <link href="https://fi3wey.github.io/"/>
-  <updated>2023-12-11T19:26:19.862Z</updated>
+  <updated>2023-12-12T15:00:35.689Z</updated>
   <id>https://fi3wey.github.io/</id>
   
   <author>
@@ -17,11 +17,33 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>P7960. 报数</title>
+    <link href="https://fi3wey.github.io/2023/12/12/P7960-%E6%8A%A5%E6%95%B0/"/>
+    <id>https://fi3wey.github.io/2023/12/12/P7960-%E6%8A%A5%E6%95%B0/</id>
+    <published>2023-12-12T14:59:52.000Z</published>
+    <updated>2023-12-12T15:00:35.689Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;质数&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
+    
+    
+    <category term="质数" scheme="https://fi3wey.github.io/tags/%E8%B4%A8%E6%95%B0/"/>
+    
+  </entry>
+  
+  <entry>
     <title>组合数学与计数_解题技巧</title>
     <link href="https://fi3wey.github.io/2023/12/12/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E4%B8%8E%E8%AE%A1%E6%95%B0-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/"/>
     <id>https://fi3wey.github.io/2023/12/12/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E4%B8%8E%E8%AE%A1%E6%95%B0-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/</id>
     <published>2023-12-11T18:45:11.000Z</published>
-    <updated>2023-12-11T19:26:19.862Z</updated>
+    <updated>2023-12-12T13:08:27.260Z</updated>
     
     
       
@@ -30,7 +52,8 @@
         
     <summary type="html">&lt;h1 id=&quot;排列组合&quot;&gt;排列组合&lt;/h1&gt;
 &lt;h2 id=&quot;技巧&quot;&gt;技巧&lt;/h2&gt;
-&lt;p&gt;具体参考https://oi-wiki.org/math/combinatorics/combination/&lt;/p&gt;
+&lt;p&gt;具体参考&lt;a
+href=&quot;https://oi-wiki.org/math/combinatorics/combination/&quot;&gt;链接&lt;/a&gt;&lt;/p&gt;
 &lt;h2</summary>
         
       
@@ -441,28 +464,6 @@
     <id>https://fi3wey.github.io/2023/12/08/P2789-%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E6%95%B0/</id>
     <published>2023-12-08T06:01:07.000Z</published>
     <updated>2023-12-08T06:44:05.818Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;排列组合&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
-    
-    
-    <category term="排列组合" scheme="https://fi3wey.github.io/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>P2822. 组合数问题</title>
-    <link href="https://fi3wey.github.io/2023/12/07/P2822-%E7%BB%84%E5%90%88%E6%95%B0%E9%97%AE%E9%A2%98/"/>
-    <id>https://fi3wey.github.io/2023/12/07/P2822-%E7%BB%84%E5%90%88%E6%95%B0%E9%97%AE%E9%A2%98/</id>
-    <published>2023-12-07T15:39:40.000Z</published>
-    <updated>2023-12-11T19:08:59.867Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
