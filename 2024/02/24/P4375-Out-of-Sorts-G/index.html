@@ -20,30 +20,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"fi3wey.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="双指针 技巧 使用前提是，该区间已具有单调性，一般来说是贪心策略 有两种写法：  左闭右闭：两边界情况必须可取，当前条件的处理与可行性判定在本次完成 左闭右开：左边界情况可取，右边界情况不可取； 参考DFS的构造，每次处理当前条件，但可行性判定可留到下一次，精简代码逻辑； 求区间长度方便，r - l即可  练习题  P1102 双指针的科普题 P1638 滑动窗口模板">
+    <meta name="description" content="考点  排序">
 <meta property="og:type" content="article">
-<meta property="og:title" content="常见优化技巧_解题思路">
-<meta property="og:url" content="https://fi3wey.github.io/2024/01/12/%E5%B8%B8%E8%A7%81%E4%BC%98%E5%8C%96%E6%8A%80%E5%B7%A7-%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/index.html">
+<meta property="og:title" content="P4375. Out of Sorts G">
+<meta property="og:url" content="https://fi3wey.github.io/2024/02/24/P4375-Out-of-Sorts-G/index.html">
 <meta property="og:site_name" content="峰狂算法">
-<meta property="og:description" content="双指针 技巧 使用前提是，该区间已具有单调性，一般来说是贪心策略 有两种写法：  左闭右闭：两边界情况必须可取，当前条件的处理与可行性判定在本次完成 左闭右开：左边界情况可取，右边界情况不可取； 参考DFS的构造，每次处理当前条件，但可行性判定可留到下一次，精简代码逻辑； 求区间长度方便，r - l即可  练习题  P1102 双指针的科普题 P1638 滑动窗口模板">
+<meta property="og:description" content="考点  排序">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-01-12T08:00:24.000Z">
-<meta property="article:modified_time" content="2024-01-12T08:00:53.673Z">
+<meta property="article:published_time" content="2024-02-23T16:06:54.000Z">
+<meta property="article:modified_time" content="2024-02-23T16:07:54.369Z">
 <meta property="article:author" content="峰">
-<meta property="article:tag" content="双指针">
-<meta property="article:tag" content="单调栈">
-<meta property="article:tag" content="单调队列">
+<meta property="article:tag" content="排序">
+<meta property="article:tag" content="离散化">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://fi3wey.github.io/2024/01/12/%E5%B8%B8%E8%A7%81%E4%BC%98%E5%8C%96%E6%8A%80%E5%B7%A7-%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/">
+<link rel="canonical" href="https://fi3wey.github.io/2024/02/24/P4375-Out-of-Sorts-G/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://fi3wey.github.io/2024/01/12/%E5%B8%B8%E8%A7%81%E4%BC%98%E5%8C%96%E6%8A%80%E5%B7%A7-%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/","path":"2024/01/12/常见优化技巧-解题思路/","title":"常见优化技巧_解题思路"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://fi3wey.github.io/2024/02/24/P4375-Out-of-Sorts-G/","path":"2024/02/24/P4375-Out-of-Sorts-G/","title":"P4375. Out of Sorts G"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>常见优化技巧_解题思路 | 峰狂算法</title>
+<title>P4375. Out of Sorts G | 峰狂算法</title>
   
 
 
@@ -92,7 +91,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">50</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">257</span></a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">53</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">273</span></a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -143,7 +142,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8C%E6%8C%87%E9%92%88"><span class="nav-number">1.</span> <span class="nav-text">双指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E5%B7%A7"><span class="nav-number">1.1.</span> <span class="nav-text">技巧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">练习题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E6%8D%A2%E6%97%B6%E9%97%B4"><span class="nav-number">2.</span> <span class="nav-text">空间换时间</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98-1"><span class="nav-number">2.1.</span> <span class="nav-text">练习题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E7%9A%84%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">排序的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98-2"><span class="nav-number">3.1.</span> <span class="nav-text">练习题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%AD%90%E7%9F%A9%E9%98%B5"><span class="nav-number">4.</span> <span class="nav-text">最大子矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E5%B7%A7-1"><span class="nav-number">4.1.</span> <span class="nav-text">技巧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98-3"><span class="nav-number">4.2.</span> <span class="nav-text">练习题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E8%B0%83%E6%A0%88"><span class="nav-number">5.</span> <span class="nav-text">单调栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E5%B7%A7-2"><span class="nav-number">5.1.</span> <span class="nav-text">技巧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98-4"><span class="nav-number">5.2.</span> <span class="nav-text">练习题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97"><span class="nav-number">6.</span> <span class="nav-text">单调队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E5%B7%A7-3"><span class="nav-number">6.1.</span> <span class="nav-text">技巧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98-5"><span class="nav-number">6.2.</span> <span class="nav-text">练习题</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%80%83%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">考点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">思路</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -158,7 +157,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">257</span>
+          <span class="site-state-item-count">273</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -169,7 +168,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">53</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -207,7 +206,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2024/01/12/%E5%B8%B8%E8%A7%81%E4%BC%98%E5%8C%96%E6%8A%80%E5%B7%A7-%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/">
+    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2024/02/24/P4375-Out-of-Sorts-G/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -220,12 +219,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="常见优化技巧_解题思路 | 峰狂算法">
+      <meta itemprop="name" content="P4375. Out of Sorts G | 峰狂算法">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          常见优化技巧_解题思路
+          P4375. Out of Sorts G
         </h1>
 
         <div class="post-meta-container">
@@ -237,7 +236,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2024-01-12 16:00:24 / 修改时间：16:00:53" itemprop="dateCreated datePublished" datetime="2024-01-12T16:00:24+08:00">2024-01-12</time>
+      <time title="创建时间：2024-02-24 00:06:54 / 修改时间：00:07:54" itemprop="dateCreated datePublished" datetime="2024-02-24T00:06:54+08:00">2024-02-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -245,7 +244,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/" itemprop="url" rel="index"><span itemprop="name">解题技巧</span></a>
+          <a href="/categories/%E6%B4%9B%E8%B0%B7/" itemprop="url" rel="index"><span itemprop="name">洛谷</span></a>
         </span>
     </span>
 
@@ -265,8 +264,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/2024/01/12/%E5%B8%B8%E8%A7%81%E4%BC%98%E5%8C%96%E6%8A%80%E5%B7%A7-%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/#waline" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" data-path="/2024/01/12/%E5%B8%B8%E8%A7%81%E4%BC%98%E5%8C%96%E6%8A%80%E5%B7%A7-%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/" itemprop="commentCount"></span>
+    <a title="waline" href="/2024/02/24/P4375-Out-of-Sorts-G/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2024/02/24/P4375-Out-of-Sorts-G/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -277,7 +276,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>593</span>
+      <span>573</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -294,96 +293,129 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="双指针">双指针</h1>
-<h2 id="技巧">技巧</h2>
-<p>使用前提是，该区间<strong>已具有单调性</strong>，一般来说是贪心策略</p>
-<p>有两种写法：</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="考点">考点</h1>
 <ul>
-<li><p>左闭右闭：两边界情况必须可取，当前条件的处理与可行性判定在本次完成</p></li>
-<li><p>左闭右开：左边界情况可取，右边界情况不可取；</p>
-<p>参考DFS的构造，每次处理当前条件，但可行性判定可留到下一次，精简代码逻辑；</p>
-<p>求区间长度方便，<code>r - l</code>即可</p></li>
+<li>排序</li>
 </ul>
-<h2 id="练习题">练习题</h2>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1102">P1102</a>
-双指针的科普题</li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1638">P1638</a>
-滑动窗口模板题</li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA11572">唯一的雪花</a>
-滑动窗口</li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4653">P4653</a>
-贪心+前缀和，双指针提高题</li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3143">P3143</a>
-双指针提高题</li>
-</ul>
-<h1 id="空间换时间">空间换时间</h1>
-<h2 id="练习题-1">练习题</h2>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7072">P7072</a>
-计数排序/桶排序，典型的空间换时间</li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2671">P2671</a>
-复杂的数学公式展开后，再合并同类项找规律，也很经典</li>
-</ul>
-<h1 id="排序的优化">排序的优化</h1>
-<h2 id="练习题-2">练习题</h2>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7910">P7910</a>
-在有序数组内修改一个数，可通过<span class="math inline">\(O\left( n
-\right)\)</span>的打擂台将其放在合适的位置</li>
-</ul>
-<h1 id="最大子矩阵">最大子矩阵</h1>
-<h2 id="技巧-1">技巧</h2>
-<p>共两种方法：</p>
-<ul>
-<li>悬线法或单调栈法，依赖于长宽的大小；</li>
-<li>障碍物法，依赖于障碍物的个数；</li>
-</ul>
-<p>上述几个方法都是<span class="math inline">\(O\left( n^2
-\right)\)</span>的时间复杂度，所以长宽或障碍物哪个小选择哪个方法即可~</p>
-<h2 id="练习题-3">练习题</h2>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4147">P4147</a>
-单调栈的绝世教学题，悬线法的模板题</li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1950">P1950</a>
-P4147的加强版，单调栈+悬线法的绝世教学题</li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5943">P5943</a>
-悬线法</li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1578">P1578</a>
-障碍物法模板题</li>
-</ul>
-<h1 id="单调栈">单调栈</h1>
-<h2 id="技巧-2">技巧</h2>
-<p>维护区间单调性，比如”右边的元素都比我大“</p>
-<p>和单调队列不同，偏向于<strong>破坏单调性时，反向更新单调区间内的元素</strong></p>
-<h2 id="练习题-4">练习题</h2>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4147">P4147</a>
-单调栈的绝世教学题</li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1950">P1950</a>
-P4147的加强版，单调栈+悬线法的绝世教学题</li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2866">P2866</a>
-统计元素出栈时，对答案的贡献</li>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3467">P3467</a>
-P4147的简化版</li>
-</ul>
-<h1 id="单调队列">单调队列</h1>
-<h2 id="技巧-3">技巧</h2>
-<p>维护区间单调性，比如”右边的元素都比我大“；常见于滑动窗口</p>
-<p>和单调栈不同，偏向于<strong>维护区间极值</strong></p>
-<h2 id="练习题-5">练习题</h2>
-<ul>
-<li><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2216">P2216</a>
-维护区间最大经典例题</p></li>
-<li><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2032">P2032</a>
-维护区间最大，模板题</p></li>
-<li><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1886">P1886</a>
-维护区间最大、维护区间最小的模板题</p></li>
-<li><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1714">P1714</a>
-前缀和+区间最大</p></li>
-<li><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1725">P1725</a>
-DP+区间最大</p></li>
-</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e5</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, bit[maxn];</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">  <span class="type">int</span> val_, id_;</span><br><span class="line">  <span class="type">bool</span> <span class="keyword">operator</span>&lt;(node &amp;x) &#123;</span><br><span class="line">    <span class="keyword">if</span> (val_ != x.val_) <span class="keyword">return</span> val_ &lt; x.val_;</span><br><span class="line">    <span class="keyword">return</span> id_ &lt; x.id_;</span><br><span class="line">  &#125;</span><br><span class="line">&#125; arr[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">lowbit</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123; <span class="keyword">return</span> x &amp; -x; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> v)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">while</span> (x &lt;= n) &#123;</span><br><span class="line">    bit[x] += v;</span><br><span class="line">    x += <span class="built_in">lowbit</span>(x);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">query</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (x &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    res += bit[x];</span><br><span class="line">    x -= <span class="built_in">lowbit</span>(x);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) cin &gt;&gt; arr[i].val_, arr[i].id_ = i;</span><br><span class="line">  <span class="built_in">sort</span>(arr + <span class="number">1</span>, arr + <span class="number">1</span> + n);</span><br><span class="line">  <span class="type">int</span> ans = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="built_in">add</span>(arr[i].id_, <span class="number">1</span>);</span><br><span class="line">    ans = <span class="built_in">max</span>(ans, <span class="built_in">query</span>(n) - <span class="built_in">query</span>(i));</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4378">P4378</a>的加强版，假设有下列数组。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">值</th>
+<th style="text-align: center;">65</th>
+<th style="text-align: center;">64</th>
+<th style="text-align: center;">63</th>
+<th style="text-align: center;">62</th>
+<th style="text-align: center;">61</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">下标</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">5</td>
+</tr>
+</tbody>
+</table>
+<p>第一次冒泡排序（正常的冒泡排序）后，成功将元素<code>65</code>送到了它应去的地方，下标5的位置。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">值</th>
+<th style="text-align: center;">64</th>
+<th style="text-align: center;">63</th>
+<th style="text-align: center;">62</th>
+<th style="text-align: center;">61</th>
+<th style="text-align: center;">65</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">下标</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">5</td>
+</tr>
+</tbody>
+</table>
+<p>第二次排序后，将元素<code>61</code>送到了下标1的位置</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">值</th>
+<th style="text-align: center;">61</th>
+<th style="text-align: center;">64</th>
+<th style="text-align: center;">63</th>
+<th style="text-align: center;">62</th>
+<th style="text-align: center;">65</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">下标</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">5</td>
+</tr>
+</tbody>
+</table>
+<p>可以发现规律，设当前下标为<code>x</code>，值为<code>arr[x]</code>：</p>
+<p>第一次操作会将<code>x</code>的左侧，某个大于<code>arr[x]</code>的元素<code>A</code>换到<code>x</code>的右侧，且<code>A</code>到达正确下标位置；</p>
+<p>第二次操作会将<code>x</code>的右侧，某个小于等于<code>arr[x]</code>的元素<code>B</code>换到<code>x</code>的左侧，且<code>B</code>到达正确下标位置。</p>
+<p>每一轮的双向排序，对于<code>x</code>而言，就是维护了一次两边的平衡。</p>
+<p>那么统计每个<code>x</code>左边（含自己）有多少个不平衡的下标即可，随后遍历<code>x</code>打擂台取最大值即为最终轮数。</p>
+<p>当然，平衡是对称的，你也可以统计每个<code>x</code>右边（含自己）有多少个不平衡的下标。</p>
+<hr />
+<p>举上面那个例子</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">值</th>
+<th style="text-align: center;">65</th>
+<th style="text-align: center;">64</th>
+<th style="text-align: center;">63</th>
+<th style="text-align: center;">62</th>
+<th style="text-align: center;">61</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">当前下标</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">应处下标</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+<p>由于平衡是对称的，这里设“不平衡”代表<strong>应处下标大于当前下标</strong></p>
+<p>（你也可以反过来，结果一样的）</p>
+<p><code>65</code>的左边不平衡数有<code>&#123;65&#125;</code>，数量为1</p>
+<p><code>64</code>的左边不平衡数有<code>&#123;65、64&#125;</code>，数量为2</p>
+<p><code>63</code>的左边不平衡数有<code>&#123;65、64&#125;</code>，数量为2</p>
+<p><code>62</code>和<code>61</code>没有左边不平衡数</p>
+<p>那么最终结果就是取最大值，2轮</p>
 
     </div>
 
@@ -424,7 +456,7 @@ DP+区间最大</p></li>
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://fi3wey.github.io/2024/01/12/%E5%B8%B8%E8%A7%81%E4%BC%98%E5%8C%96%E6%8A%80%E5%B7%A7-%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/" title="常见优化技巧_解题思路">https://fi3wey.github.io/2024/01/12/常见优化技巧-解题思路/</a>
+      <a href="https://fi3wey.github.io/2024/02/24/P4375-Out-of-Sorts-G/" title="P4375. Out of Sorts G">https://fi3wey.github.io/2024/02/24/P4375-Out-of-Sorts-G/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -433,20 +465,22 @@ DP+区间最大</p></li>
 </div>
 
           <div class="post-tags">
-              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag"><i class="fa fa-tag"></i> 双指针</a>
-              <a href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/" rel="tag"><i class="fa fa-tag"></i> 单调栈</a>
-              <a href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" rel="tag"><i class="fa fa-tag"></i> 单调队列</a>
+              <a href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag"><i class="fa fa-tag"></i> 排序</a>
+              <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag"><i class="fa fa-tag"></i> 离散化</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/01/12/P1725-%E7%90%AA%E9%9C%B2%E8%AF%BA/" rel="prev" title="P1725. 琪露诺">
-                  <i class="fa fa-chevron-left"></i> P1725. 琪露诺
+                <a href="/2024/02/23/P4378-Out-of-Sorts-S/" rel="prev" title="P4378. Out of Sorts S">
+                  <i class="fa fa-chevron-left"></i> P4378. Out of Sorts S
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2024/02/24/P4552-IncDec-Sequence/" rel="next" title="P4552. IncDec Sequence">
+                  P4552. IncDec Sequence <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -479,14 +513,14 @@ DP+区间最大</p></li>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">88k</span>
+    <span title="站点总字数">93k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:53</span>
+    <span title="站点阅读时长">5:10</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -558,9 +592,9 @@ DP+区间最大</p></li>
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://fi3wey.github.io/2024/01/12/%E5%B8%B8%E8%A7%81%E4%BC%98%E5%8C%96%E6%8A%80%E5%B7%A7-%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/"}</script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://fi3wey.github.io/2024/02/24/P4375-Out-of-Sorts-G/"}</script>
   <script src="/js/third-party/quicklink.js"></script>
-<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-theta-olive.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2024/01/12/%E5%B8%B8%E8%A7%81%E4%BC%98%E5%8C%96%E6%8A%80%E5%B7%A7-%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/"}</script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-theta-olive.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2024/02/24/P4375-Out-of-Sorts-G/"}</script>
 <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
 <script>
 document.addEventListener('page:loaded', () => {

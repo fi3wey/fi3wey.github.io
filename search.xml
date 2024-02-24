@@ -5274,6 +5274,10 @@ class="math inline">\(O\left( n^2 \right)\)</span>会超时</p>
 <p>排序真正的精髓：</p>
 <ul>
 <li><a href="https://www.luogu.com.cn/problem/P1012">P1012</a></li>
+<li><a href="https://www.luogu.com.cn/problem/P4378">P4378</a>
+冒泡排序的灵魂</li>
+<li><a href="https://www.luogu.com.cn/problem/P4375">P4375</a>
+P4378的加强版</li>
 </ul>
 ]]></content>
       <categories>
@@ -5281,42 +5285,6 @@ class="math inline">\(O\left( n^2 \right)\)</span>会超时</p>
       </categories>
       <tags>
         <tag>排序</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>1030. 求先序排列</title>
-    <url>/2023/10/27/1030-%E6%B1%82%E5%85%88%E5%BA%8F%E6%8E%92%E5%88%97/</url>
-    <content><![CDATA[<h1 id="考点">考点</h1>
-<ul>
-<li>树形数据结构</li>
-</ul>
-<span id="more"></span>
-<h1 id="题解">题解</h1>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="comment">//后序排列与中序排列</span></span><br><span class="line">string post, in;</span><br><span class="line"></span><br><span class="line"><span class="comment">//pl: 后序排列左端点</span></span><br><span class="line"><span class="comment">//pr: 后序排列右端点</span></span><br><span class="line"><span class="comment">//il: 中序排列左端点</span></span><br><span class="line"><span class="comment">//ir: 中序排列右端点</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> pl, <span class="type">int</span> pr, <span class="type">int</span> il, <span class="type">int</span> ir)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pr &lt; pl || ir &lt; il)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> idx = il; idx &lt;= ir; ++idx)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (post[pr] == in[idx])</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; in[idx];<span class="comment">//输出当前根结点</span></span><br><span class="line">            <span class="built_in">dfs</span>(pl, pl + idx - il - <span class="number">1</span>, il, il + idx - <span class="number">1</span>);<span class="comment">//递归左子树</span></span><br><span class="line">            <span class="built_in">dfs</span>(pl + idx - il, pr - <span class="number">1</span>, idx + <span class="number">1</span>, ir);<span class="comment">//递归右子树</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; in &gt;&gt; post;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">0</span>, post.<span class="built_in">length</span>() - <span class="number">1</span>, <span class="number">0</span>, in.<span class="built_in">length</span>());</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="思路">思路</h1>
-<p>通过后序遍历可以找出当前二叉树的根（即后序遍历中最后一个位置的值）</p>
-<p>中序遍历可以找出当前二叉树的根所在的位置，即可以找到左子树与右子树的大小；即可递归找左右子树的根结点</p>
-<p>假设有：</p>
-<ul>
-<li>后序遍历 <code>&#123;D E B C A&#125;</code></li>
-<li>中序遍历 <code>&#123;D B E A C&#125;</code></li>
-</ul>
-<p>先找出后序遍历的根A，然后在中序遍历中找到A的位置</p>
-<ul>
-<li>后序遍历 <code>&#123;D E B C [A]&#125;</code></li>
-<li>中序遍历 <code>&#123;D B E [A] C&#125;</code></li>
-</ul>
-<p>所以“D B
-E”这些数都是在以A为根的左子树里面，“C”是在以A为根的右子树里面</p>
-<p>因此，可以在后序遍历中提取出“D E
-B”这个区间作为左子树的后序遍历，“C”这个区间作为右子树的后序遍历</p>
-<p>最终递归的时候按照前序遍历的顺序输出根结点的值即可</p>
-]]></content>
-      <categories>
-        <category>洛谷</category>
-      </categories>
-      <tags>
-        <tag>树形数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -9043,8 +9011,709 @@ class="math inline">\(O\left( n
       </tags>
   </entry>
   <entry>
-    <title>常见优化技巧_解题思路</title>
-    <url>/2024/01/12/%E5%B8%B8%E8%A7%81%E4%BC%98%E5%8C%96%E6%8A%80%E5%B7%A7-%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/</url>
+    <title>P1030. 求先序排列</title>
+    <url>/2023/10/27/P1030-%E6%B1%82%E5%85%88%E5%BA%8F%E6%8E%92%E5%88%97/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>树形数据结构</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="comment">//后序排列与中序排列</span></span><br><span class="line">string post, in;</span><br><span class="line"></span><br><span class="line"><span class="comment">//pl: 后序排列左端点</span></span><br><span class="line"><span class="comment">//pr: 后序排列右端点</span></span><br><span class="line"><span class="comment">//il: 中序排列左端点</span></span><br><span class="line"><span class="comment">//ir: 中序排列右端点</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> pl, <span class="type">int</span> pr, <span class="type">int</span> il, <span class="type">int</span> ir)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pr &lt; pl || ir &lt; il)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> idx = il; idx &lt;= ir; ++idx)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (post[pr] == in[idx])</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; in[idx];<span class="comment">//输出当前根结点</span></span><br><span class="line">            <span class="built_in">dfs</span>(pl, pl + idx - il - <span class="number">1</span>, il, il + idx - <span class="number">1</span>);<span class="comment">//递归左子树</span></span><br><span class="line">            <span class="built_in">dfs</span>(pl + idx - il, pr - <span class="number">1</span>, idx + <span class="number">1</span>, ir);<span class="comment">//递归右子树</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; in &gt;&gt; post;</span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">0</span>, post.<span class="built_in">length</span>() - <span class="number">1</span>, <span class="number">0</span>, in.<span class="built_in">length</span>());</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>通过后序遍历可以找出当前二叉树的根（即后序遍历中最后一个位置的值）</p>
+<p>中序遍历可以找出当前二叉树的根所在的位置，即可以找到左子树与右子树的大小；即可递归找左右子树的根结点</p>
+<p>假设有：</p>
+<ul>
+<li>后序遍历 <code>&#123;D E B C A&#125;</code></li>
+<li>中序遍历 <code>&#123;D B E A C&#125;</code></li>
+</ul>
+<p>先找出后序遍历的根A，然后在中序遍历中找到A的位置</p>
+<ul>
+<li>后序遍历 <code>&#123;D E B C [A]&#125;</code></li>
+<li>中序遍历 <code>&#123;D B E [A] C&#125;</code></li>
+</ul>
+<p>所以“D B
+E”这些数都是在以A为根的左子树里面，“C”是在以A为根的右子树里面</p>
+<p>因此，可以在后序遍历中提取出“D E
+B”这个区间作为左子树的后序遍历，“C”这个区间作为右子树的后序遍历</p>
+<p>最终递归的时候按照前序遍历的顺序输出根结点的值即可</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>树形数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1083. 借教室</title>
+    <url>/2024/01/18/P1083-%E5%80%9F%E6%95%99%E5%AE%A4/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>差分</li>
+<li>线段树</li>
+<li>二分</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<p>见思路</p>
+<h1 id="思路">思路</h1>
+<p>本题的最优解实际上是线段树，但是也有巧妙的解法。</p>
+<h2 id="差分二分">差分+二分</h2>
+<p>设需要修改订单的申请人编号为<code>idx</code>，能发现答案二分的单调性：</p>
+<ul>
+<li>如果<code>idx</code>大于真实答案，订单无法满足</li>
+<li>如果<code>idx</code>小于真实答案，订单可以满足</li>
+</ul>
+<p>所以直接二分答案，每次用差分批量修改区间，并求差分数组的前缀和来验证答案。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e6</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, m, b[maxn];</span><br><span class="line">ll diff[maxn];</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">  <span class="type">int</span> d_, s_, t_;</span><br><span class="line">&#125; a[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">check</span><span class="params">(<span class="type">int</span> idx)</span> </span>&#123;</span><br><span class="line">  <span class="built_in">memset</span>(diff, <span class="number">0</span>, <span class="built_in">sizeof</span>(diff));</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= idx; ++i) &#123;</span><br><span class="line">    diff[a[i].s_] += a[i].d_;</span><br><span class="line">    diff[a[i].t_ + <span class="number">1</span>] -= a[i].d_;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    diff[i] += diff[i - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span> (diff[i] &gt; b[i]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) cin &gt;&gt; b[i];</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) cin &gt;&gt; a[i].d_ &gt;&gt; a[i].s_ &gt;&gt; a[i].t_;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">check</span>(m + <span class="number">1</span>)) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="type">int</span> l = <span class="number">1</span>, r = m;</span><br><span class="line">  <span class="keyword">while</span> (l &lt;= r) &#123;</span><br><span class="line">    <span class="type">int</span> mid = (l + r) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">check</span>(mid)) &#123;</span><br><span class="line">      l = mid + <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      r = mid - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; <span class="number">-1</span> &lt;&lt; endl &lt;&lt; l;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="线段树待跟进">线段树（待跟进）</h2>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>二分</tag>
+        <tag>线段树</tag>
+        <tag>差分</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1719. 最大加权矩形</title>
+    <url>/2024/01/13/P1719-%E6%9C%80%E5%A4%A7%E5%8A%A0%E6%9D%83%E7%9F%A9%E5%BD%A2/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>前缀和</li>
+<li>最大子段和</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">2e2</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, pre[maxn][maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 初始化二维前缀和数组</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n; ++j) &#123;</span><br><span class="line">      cin &gt;&gt; pre[i][j];</span><br><span class="line">      pre[i][j] += pre[i - <span class="number">1</span>][j] + pre[i][j - <span class="number">1</span>] - pre[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">query</span><span class="params">(<span class="type">int</span> x1, <span class="type">int</span> y1, <span class="type">int</span> x2, <span class="type">int</span> y2)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> pre[x2][y2] - pre[x1 - <span class="number">1</span>][y2] - pre[x2][y1 - <span class="number">1</span>] + pre[x1 - <span class="number">1</span>][y1 - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="built_in">init</span>();</span><br><span class="line">  <span class="type">int</span> ans = <span class="number">0xc0c0c0c0</span>;</span><br><span class="line">  <span class="comment">// 枚举矩形的上下边界</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = i; j &lt;= n; ++j) &#123;</span><br><span class="line">      <span class="type">int</span> dp = <span class="number">0xc0c0c0c0</span>;</span><br><span class="line">      <span class="comment">// 控制上下边界后，按“最大子段和”的思路求子矩阵和</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">1</span>; k &lt;= n; ++k) &#123;</span><br><span class="line">        <span class="type">int</span> cur = <span class="built_in">query</span>(i, k, j, k);</span><br><span class="line">        dp = <span class="built_in">max</span>(dp + cur, cur);</span><br><span class="line">        ans = <span class="built_in">max</span>(ans, dp);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>二维前缀和的模板题+<a
+href="https://www.luogu.com.cn/problem/P1115">最大子段和</a></p>
+<img src="/2024/01/13/P1719-%E6%9C%80%E5%A4%A7%E5%8A%A0%E6%9D%83%E7%9F%A9%E5%BD%A2/1.png" class="" title="image-20240113213153651">
+<img src="/2024/01/13/P1719-%E6%9C%80%E5%A4%A7%E5%8A%A0%E6%9D%83%E7%9F%A9%E5%BD%A2/2.png" class="" title="image-20240113213430499">
+<img src="/2024/01/13/P1719-%E6%9C%80%E5%A4%A7%E5%8A%A0%E6%9D%83%E7%9F%A9%E5%BD%A2/3.png" class="" title="image-20240113213513344">
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>线性动态规划</tag>
+        <tag>前缀和</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1314. 聪明的质监员</title>
+    <url>/2024/01/15/P1314-%E8%81%AA%E6%98%8E%E7%9A%84%E8%B4%A8%E7%9B%91%E5%91%98/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>二分</li>
+<li>前缀和</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">2e5</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, m;</span><br><span class="line"><span class="comment">// wv前缀和 有效重量的个数和</span></span><br><span class="line"><span class="comment">// vv前缀和 有效重量的价值和</span></span><br><span class="line">ll s, wv[maxn], vv[maxn];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 存储矿石信息</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">  <span class="type">int</span> w_, v_;</span><br><span class="line">&#125; a[maxn];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 存储区间信息</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">range</span> &#123;</span><br><span class="line">  <span class="type">int</span> l_, r_;</span><br><span class="line">&#125; b[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">calc</span><span class="params">(<span class="type">int</span> mid)</span> </span>&#123;</span><br><span class="line">  <span class="built_in">memset</span>(wv, <span class="number">0</span>, <span class="built_in">sizeof</span>(wv)), <span class="built_in">memset</span>(vv, <span class="number">0</span>, <span class="built_in">sizeof</span>(vv));</span><br><span class="line">  ll sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (a[i].w_ &gt;= mid) &#123;</span><br><span class="line">      wv[i] += <span class="number">1</span>, vv[i] += a[i].v_;</span><br><span class="line">    &#125;</span><br><span class="line">    wv[i] += wv[i - <span class="number">1</span>], vv[i] += vv[i - <span class="number">1</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) &#123;</span><br><span class="line">    sum += (wv[b[i].r_] - wv[b[i].l_ - <span class="number">1</span>]) * (vv[b[i].r_] - vv[b[i].l_ - <span class="number">1</span>]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m &gt;&gt; s;</span><br><span class="line">  <span class="type">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) cin &gt;&gt; a[i].w_ &gt;&gt; a[i].v_, r = <span class="built_in">max</span>(r, a[i].w_);</span><br><span class="line">  ++r;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) cin &gt;&gt; b[i].l_ &gt;&gt; b[i].r_;</span><br><span class="line">  ll ans = LLONG_MAX;</span><br><span class="line">  <span class="keyword">while</span> (l &lt;= r) &#123;</span><br><span class="line">    <span class="type">int</span> mid = (l + r) / <span class="number">2</span>;</span><br><span class="line">    ll y = <span class="built_in">calc</span>(mid);</span><br><span class="line">    ans = <span class="built_in">min</span>(ans, <span class="built_in">abs</span>(s - y));</span><br><span class="line">    <span class="keyword">if</span> (y == s) &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (y &gt; s) &#123;</span><br><span class="line">      l = mid + <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      r = mid - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>根据题意，每个区间内都有：</p>
+<blockquote>
+<p>Y = 合法个数乘上合法价值和</p>
+</blockquote>
+<p>而要我们求的<code>y</code>就等于每个区间的<code>Y</code>之和。</p>
+<p>显然<code>区间合法个数</code>与<code>区间合法价值和</code>是满足容斥原理的，可以使用前缀和进行优化。</p>
+<hr />
+<p>由于要让<code>y</code>尽可能地接近<code>s</code>，发现结果具有单调性，可以进行答案二分：</p>
+<ul>
+<li>标准值<code>W</code>越大，那么合法的矿石就少，<code>y</code>就小；</li>
+<li>标准值<code>W</code>越小，那么合法的矿石就多，<code>y</code>就大；</li>
+<li><code>y</code>小于<code>s</code>时，说明<code>y</code>应该变大，这样才能接近<code>s</code>，也就是让<code>W</code>变小；</li>
+<li><code>y</code>大于<code>s</code>时，说明<code>y</code>应该变小，这样才能接近<code>s</code>，也就是让<code>W</code>变大。</li>
+</ul>
+<p>而<code>W</code>的二分范围等于<code>[0, 最大矿石重量 + 1]</code>，</p>
+<p>左边界是所有矿石都满足条件时，右边界是所有矿石都不满足条件时；这样就不会遗漏情况。</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>二分</tag>
+        <tag>前缀和</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P2004. 领地选择</title>
+    <url>/2024/01/17/P2004-%E9%A2%86%E5%9C%B0%E9%80%89%E6%8B%A9/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>前缀和</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e3</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, m, c, ans_x, ans_y, pre[maxn][maxn];</span><br><span class="line">ll ans = LLONG_MIN;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">query</span><span class="params">(<span class="type">int</span> x1, <span class="type">int</span> y1, <span class="type">int</span> x2, <span class="type">int</span> y2)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> pre[x2][y2] - pre[x1 - <span class="number">1</span>][y2] - pre[x2][y1 - <span class="number">1</span>] + pre[x1 - <span class="number">1</span>][y1 - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m &gt;&gt; c;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; ++j) &#123;</span><br><span class="line">      cin &gt;&gt; pre[i][j];</span><br><span class="line">      pre[i][j] += pre[i - <span class="number">1</span>][j] + pre[i][j - <span class="number">1</span>] - pre[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n - c + <span class="number">1</span>; ++i) &#123;</span><br><span class="line">    ll sum = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> l = <span class="number">1</span>, r = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (l &lt;= r &amp;&amp; r &lt;= n) &#123;</span><br><span class="line">      <span class="keyword">if</span> (r - l + <span class="number">1</span> &gt; c) sum -= <span class="built_in">query</span>(i, l, i + c - <span class="number">1</span>, l), ++l;</span><br><span class="line">      sum += <span class="built_in">query</span>(i, r, i + c - <span class="number">1</span>, r);</span><br><span class="line">      <span class="keyword">if</span> (r &gt;= c &amp;&amp; sum &gt; ans) ans = sum, ans_x = i, ans_y = l;</span><br><span class="line">      ++r;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; ans_x &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; ans_y;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>枚举每个<code>c * c</code>的正方形和即可，这里的枚举方式选择对每行执行一次滑动窗口；</p>
+<p>正方形和选择用二维前缀和进行优化。</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>双指针</tag>
+        <tag>前缀和</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1496. 火烧赤壁</title>
+    <url>/2024/01/16/P1496-%E7%81%AB%E7%83%A7%E8%B5%A4%E5%A3%81/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>离散化</li>
+<li>差分</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">2e4</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, btop, b[<span class="number">2</span> * maxn], ctop, c[<span class="number">2</span> * maxn], vis[<span class="number">2</span> * maxn];</span><br><span class="line">unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; mp;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">  <span class="type">int</span> l_, r_;</span><br><span class="line">&#125; a[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 离散化处理</span></span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; a[i].l_ &gt;&gt; a[i].r_;</span><br><span class="line">    b[++btop] = a[i].l_, b[++btop] = a[i].r_;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">sort</span>(b + <span class="number">1</span>, b + <span class="number">1</span> + btop);</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= btop; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (i == <span class="number">1</span> || b[i] != b[i - <span class="number">1</span>]) &#123;</span><br><span class="line">      c[++ctop] = b[i];</span><br><span class="line">      mp[b[i]] = ctop;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 差分修改区间</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="type">int</span> l = mp[a[i].l_], r = mp[a[i].r_];</span><br><span class="line">    ++vis[l], --vis[r];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= btop; ++i) &#123;</span><br><span class="line">    vis[i] += vis[i - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span> (vis[i]) ans += c[i + <span class="number">1</span>] - c[i];</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>离散化的模板题，上《深进》截图。</p>
+<img src="/2024/01/16/P1496-%E7%81%AB%E7%83%A7%E8%B5%A4%E5%A3%81/1.png" class="" title="image-20240116125720082">
+<img src="/2024/01/16/P1496-%E7%81%AB%E7%83%A7%E8%B5%A4%E5%A3%81/2.png" class="" title="image-20240116125832942">
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>离散化</tag>
+        <tag>差分</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P2367. 语文成绩</title>
+    <url>/2024/01/15/P2367-%E8%AF%AD%E6%96%87%E6%88%90%E7%BB%A9/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>差分</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">5e6</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, p, a[maxn], b[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> x, y, z, cur = <span class="number">0</span>, ans = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; p;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; a[i];</span><br><span class="line">    b[i] = a[i] - a[i - <span class="number">1</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> (p--) &#123;</span><br><span class="line">    cin &gt;&gt; x &gt;&gt; y &gt;&gt; z;</span><br><span class="line">    b[x] += z, b[y + <span class="number">1</span>] -= z;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    cur += b[i];</span><br><span class="line">    ans = <span class="built_in">min</span>(ans, cur);</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>一维差分的模板题，直接上《深进》截图。</p>
+<img src="/2024/01/15/P2367-%E8%AF%AD%E6%96%87%E6%88%90%E7%BB%A9/1.png" class="" title="image-20240115204743228">
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>差分</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P1884. Overplanting S</title>
+    <url>/2024/01/16/P1884-Overplanting-S/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>离散化</li>
+<li>差分</li>
+<li>扫描线</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<p>见思路</p>
+<h1 id="思路">思路</h1>
+<h2 id="差分">差分</h2>
+<p>以样例<code>0 5 4 1</code>为例，先要把它们转换成常规数组下的坐标（这里都是点啊！不是格子！）</p>
+<img src="/2024/01/16/P1884-Overplanting-S/1.png" class="" title="image-20240116225333458">
+<p>由于<code>1e8</code>远超数组下标能表达的范围，显然需要先离散化处理，然后根据样例作图：</p>
+<img src="/2024/01/16/P1884-Overplanting-S/2.png" class="" title="image-20240116231220438">
+<p>由于是不规则的矩形，考虑<a
+href="https://www.luogu.com.cn/problem/P1496">P1496</a>的做法：</p>
+<p>令<code>diff[i][j]</code>表示<code>i行j列</code>为左上角，<code>i + 1行j + 1列</code>为右下角的单位矩形，即下图的绿色单位矩形；</p>
+<p>不管重复染色多少次，只要染色的单位矩形就只统计一次；</p>
+<p>这样统计全图的绿色单位矩形就能得到不规则矩形面积。</p>
+<img src="/2024/01/16/P1884-Overplanting-S/3.png" class="" title="image-20240116231625366">
+<p>但显然，每个大矩形最多有接近<code>4000 * 4000</code>个单位矩形，最多<code>1000</code>个大矩形，是绝对会TLE的。</p>
+<p>所以采用差分，每行进行批量修改即可，如图操作即可修改绿色一行：</p>
+<img src="/2024/01/16/P1884-Overplanting-S/4.png" class="" title="image-20240116233935726">
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e3</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, btop, b[<span class="number">4</span> * maxn], ctop, c[<span class="number">4</span> * maxn];</span><br><span class="line"><span class="type">int</span> diff[<span class="number">4</span> * maxn][<span class="number">4</span> * maxn];</span><br><span class="line">unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; mp;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">  <span class="type">int</span> x1_, y2_, x2_, y1_;</span><br><span class="line">&#125; a[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> x1, y1, x2, y2;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="comment">// 注意换了位置</span></span><br><span class="line">    cin &gt;&gt; a[i].x1_ &gt;&gt; a[i].y2_ &gt;&gt; a[i].x2_ &gt;&gt; a[i].y1_;</span><br><span class="line">    b[++btop] = a[i].x1_, b[++btop] = a[i].y2_;</span><br><span class="line">    b[++btop] = a[i].x2_, b[++btop] = a[i].y1_;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 离散化</span></span><br><span class="line">  <span class="built_in">sort</span>(b + <span class="number">1</span>, b + <span class="number">1</span> + btop);</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= btop; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (i == <span class="number">1</span> || b[i] != b[i - <span class="number">1</span>]) &#123;</span><br><span class="line">      c[++ctop] = b[i];</span><br><span class="line">      mp[b[i]] = ctop;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 按行差分</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="type">int</span> x1 = mp[a[i].x1_], x2 = mp[a[i].x2_], y1 = mp[a[i].y1_],</span><br><span class="line">        y2 = mp[a[i].y2_];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> row = x1; row &lt; x2; ++row) &#123;</span><br><span class="line">      ++diff[row][y1], --diff[row][y2];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 按行前缀和</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; ctop; ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt; ctop; ++j) &#123;</span><br><span class="line">      diff[i][j] += diff[i][j - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ll ans = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; ctop; ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt; ctop; ++j) &#123;</span><br><span class="line">      <span class="keyword">if</span> (diff[i][j]) &#123;</span><br><span class="line">        ans += <span class="number">1ll</span> * (c[i + <span class="number">1</span>] - c[i]) * (c[j + <span class="number">1</span>] - c[j]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="扫描线待更新">扫描线（待更新）</h2>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>离散化</tag>
+        <tag>差分</tag>
+        <tag>扫描线</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P2882. Face The Right Way G</title>
+    <url>/2024/01/18/P2882-Face-The-Right-Way-G/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>贪心</li>
+<li>差分</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">5e3</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, K, M, diff[maxn];</span><br><span class="line"><span class="type">char</span> a[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  K = M = INT_MAX;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) cin &gt;&gt; a[i];</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">1</span>; k &lt;= n; ++k) &#123;</span><br><span class="line">    <span class="type">int</span> m = <span class="number">0</span>;</span><br><span class="line">    <span class="type">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">    <span class="built_in">memset</span>(diff, <span class="number">0</span>, <span class="built_in">sizeof</span>(diff));</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">      diff[i] ^= diff[i - <span class="number">1</span>];</span><br><span class="line">      <span class="keyword">if</span> (a[i] == <span class="string">&#x27;F&#x27;</span> &amp;&amp; diff[i] || a[i] == <span class="string">&#x27;B&#x27;</span> &amp;&amp; !diff[i]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i + k - <span class="number">1</span> &lt;= n) &#123;</span><br><span class="line">          ++m;</span><br><span class="line">          diff[i + <span class="number">1</span>] ^= <span class="number">1</span>, diff[i + k] ^= <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          flag = <span class="literal">false</span>;</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (flag &amp;&amp; m &lt; M) K = k, M = m;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; K &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; M;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>在固定<code>k</code>的情况下，如何让<code>m</code>最小呢？先翻转<code>B</code>个数多的那一段<code>k</code>吗？万一每段<code>k</code>的<code>B</code>个数相同该怎么办？</p>
+<p>贪心的侧重点不在增加<code>k</code>中
+<code>B</code>的个数，而是尽可能减少修改<code>k</code>中的<code>F</code>；</p>
+<p>白话文就是，尽可能减少拆东墙（改变<code>F</code>）补西墙（改变<code>B</code>）的次数。</p>
+<p>如下图所示，范围<code>[1, 3]</code>内都是连续的<code>F</code>，图2显然比图1更优：</p>
+<ul>
+<li>图1拆了<code>[1, 3]</code>内的一个<code>F</code>，且不管后续如何，对于<code>[1, 3]</code>而言这就是劣的</li>
+<li>图2没拆<code>[1, 3]</code>，且不管后续如何，对于<code>[1, 3]</code>而言这就是优的</li>
+</ul>
+<img src="/2024/01/18/P2882-Face-The-Right-Way-G/1.png" class="" title="image-20240118170459295">
+<p>制定最终的贪心思路：</p>
+<ul>
+<li><p>尝试维护一个<code>[1, n]</code>的最长连续<code>F</code>序列，遍历顺序应该是从左到右或从右到左；</p>
+<p>这里选择从左到右。</p></li>
+<li><p>假设当前下标为<code>x</code>，<code>[1, x - 1]</code>已经是连续的<code>F</code>序列，不能回头动这个区间；</p>
+<p>那么只要当前为<code>B</code>，就向右修改<code>[x, x + k - 1]</code>。</p></li>
+<li><p>如果最后<code>[n - k + 2, n]</code>区间内还有<code>B</code>，说明贪心失败；反之成功。</p></li>
+</ul>
+<hr />
+<p>修改区间可以用双指针，但是时间复杂度为平方级，用差分进行优化。</p>
+<p>最后一个问题，枚举<code>k</code>可以用二分优化吗？</p>
+<p>显然不可以，<code>k</code>小难道<code>m</code>就小了吗？<code>k</code>大难道<code>m</code>就大了吗？</p>
+<p>只能暴力枚举啦~</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>贪心</tag>
+        <tag>差分</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P3017. Brownie Slicing G</title>
+    <url>/2024/01/17/P3017-Brownie-Slicing-G/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>二分</li>
+<li>前缀和</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">5e2</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> R, C, A, B, pre[maxn][maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">query</span><span class="params">(<span class="type">int</span> x1, <span class="type">int</span> y1, <span class="type">int</span> x2, <span class="type">int</span> y2)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> pre[x2][y2] - pre[x1 - <span class="number">1</span>][y2] - pre[x2][y1 - <span class="number">1</span>] + pre[x1 - <span class="number">1</span>][y1 - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">check</span><span class="params">(<span class="type">int</span> s)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> valid = <span class="number">0</span>, x1 = <span class="number">1</span>, y1 = <span class="number">1</span>, x2 = <span class="number">1</span>, y2 = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span> (x1 &lt;= R &amp;&amp; x2 &lt;= R) &#123;</span><br><span class="line">    <span class="type">int</span> block = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 当前行数下，够不够竖切B个和为s的块</span></span><br><span class="line">    <span class="keyword">while</span> (y2 &lt;= C) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">query</span>(x1, y1, x2, y2) &gt;= s) &#123;</span><br><span class="line">        ++block;</span><br><span class="line">        y1 = y2 + <span class="number">1</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      ++y2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (block &gt;= B) &#123;</span><br><span class="line">      <span class="comment">// 够的话，记录答案，并切换到下一横切</span></span><br><span class="line">      ++valid;</span><br><span class="line">      x2 = x1 = x2 + <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 不够的话，新增行数</span></span><br><span class="line">      ++x2;</span><br><span class="line">    &#125;</span><br><span class="line">    y1 = y2 = <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> valid &gt;= A;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; R &gt;&gt; C &gt;&gt; A &gt;&gt; B;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= R; ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= C; ++j) &#123;</span><br><span class="line">      cin &gt;&gt; pre[i][j];</span><br><span class="line">      pre[i][j] += pre[i - <span class="number">1</span>][j] + pre[i][j - <span class="number">1</span>] - pre[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="type">int</span> l = <span class="number">0</span>, r = pre[R][C];</span><br><span class="line">  <span class="keyword">while</span> (l &lt;= r) &#123;</span><br><span class="line">    <span class="type">int</span> mid = l + (r - l) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">check</span>(mid)) &#123;</span><br><span class="line">      l = mid + <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      r = mid - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; r;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>由于横切和竖切组合有接近无数种切法，靠暴力枚举找答案是绝对行不通的。</p>
+<p>题目要让<strong>最小值最大</strong>，考虑二分答案：</p>
+<blockquote>
+<p>令<code>s</code>为所有蛋糕块里的最小值，</p>
+<p>如果<code>s</code>是合法的，那么所有蛋糕块均为<code>s</code>的情况下，得到的块数一定是大于等于<code>A * B</code>的。</p>
+<p>由此可以得到单调性：</p>
+<ul>
+<li><code>s</code>越大，总块数越小于<code>A * B</code></li>
+<li><code>s</code>越小，总块数越大于<code>A * B</code></li>
+<li>若总块数大于等于<code>A * B</code>，说明<code>s</code>过小了，应该增大</li>
+<li>若总块数小于<code>A * B</code>，说明<code>s</code>过大了，应该减小</li>
+</ul>
+</blockquote>
+<p>由于轮询的都是二维区间和，须用二维前缀和进行优化。</p>
+<hr />
+<p>设<code>(x1,y1)</code>为矩形左上角，<code>(x2,y2)</code>为矩形右下角</p>
+<p>每次移动<code>y2</code>并判定矩形的和是否达到<code>s</code>，若是的话则令<code>y1 = y2 + 1</code>，进入下一次竖切：</p>
+<img src="/2024/01/17/P3017-Brownie-Slicing-G/1.png" class="" title="image-20240117184129634">
+<p>当<code>y2 == C</code>时，即本轮竖切全部结束后进行判定，随后令<code>y1 = y2 = 1</code>进行复位：</p>
+<p>如果块数大于等于<code>B</code>，可进入下一次横切。</p>
+<img src="/2024/01/17/P3017-Brownie-Slicing-G/2.png" class="" title="image-20240117184856380">
+<p>如果块数小于<code>B</code>，和下一行合并后，再次竖切。</p>
+<img src="/2024/01/17/P3017-Brownie-Slicing-G/3.png" class="" title="image-20240117185302092">
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>二分</tag>
+        <tag>前缀和</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P3029. Cow Lineup S</title>
+    <url>/2024/02/24/P3029-Cow-Lineup-S/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>双指针</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">5e4</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, cnt;</span><br><span class="line">unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; mp;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">  <span class="type">int</span> x_, id_;</span><br><span class="line">  <span class="type">bool</span> <span class="keyword">operator</span>&lt;(node &amp;x) &#123; <span class="keyword">return</span> x_ &lt; x.x_; &#125;</span><br><span class="line">&#125; arr[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; arr[i].x_ &gt;&gt; arr[i].id_;</span><br><span class="line">    ++mp[arr[i].id_];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">sort</span>(arr + <span class="number">1</span>, arr + <span class="number">1</span> + n);</span><br><span class="line">  cnt = mp.<span class="built_in">size</span>(), mp.<span class="built_in">clear</span>();</span><br><span class="line">  <span class="type">int</span> head = <span class="number">1</span>, tail = <span class="number">1</span>, ans = INT_MAX;</span><br><span class="line">  <span class="keyword">while</span> (head &lt;= tail &amp;&amp; tail &lt;= n) &#123;</span><br><span class="line">    ++mp[arr[tail].id_];</span><br><span class="line">    <span class="keyword">while</span> (head &lt;= tail &amp;&amp; mp.<span class="built_in">size</span>() == cnt) &#123;</span><br><span class="line">      ans = <span class="built_in">min</span>(ans, arr[tail].x_ - arr[head].x_);</span><br><span class="line">      <span class="keyword">if</span> (--mp[arr[head].id_] == <span class="number">0</span>) mp.<span class="built_in">erase</span>(arr[head].id_);</span><br><span class="line">      ++head;</span><br><span class="line">    &#125;</span><br><span class="line">    ++tail;</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>根据<code>x</code>排序后，用双指针+哈希表维护当前区间内的奶牛种类数即可。</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P3397. 地毯</title>
+    <url>/2024/01/16/P3397-%E5%9C%B0%E6%AF%AF/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>差分</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e3</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, m, a[maxn][maxn], b[maxn][maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  <span class="type">int</span> x1, y1, x2, y2;</span><br><span class="line">  <span class="keyword">while</span> (m--) &#123;</span><br><span class="line">    cin &gt;&gt; x1 &gt;&gt; y1 &gt;&gt; x2 &gt;&gt; y2;</span><br><span class="line">    ++a[x1][y1], --a[x2 + <span class="number">1</span>][y1], --a[x1][y2 + <span class="number">1</span>], ++a[x2 + <span class="number">1</span>][y2 + <span class="number">1</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i, cout &lt;&lt; endl) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n; ++j) &#123;</span><br><span class="line">      a[i][j] += a[i - <span class="number">1</span>][j] + a[i][j - <span class="number">1</span>] - a[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">      cout &lt;&lt; a[i][j] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>二维差分的模板题，上《深进》截图。</p>
+<img src="/2024/01/16/P3397-%E5%9C%B0%E6%AF%AF/1.png" class="" title="image-20240116000041019">
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>差分</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P3406. 海底高铁</title>
+    <url>/2024/01/17/P3406-%E6%B5%B7%E5%BA%95%E9%AB%98%E9%93%81/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>差分</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e5</span> + <span class="number">50</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">int</span> n, m, b[maxn], diff[maxn], pre[maxn];</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">  <span class="type">int</span> a_, b_, c_;</span><br><span class="line">&#125; a[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++i) cin &gt;&gt; b[i];</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; n; ++i) cin &gt;&gt; a[i].a_ &gt;&gt; a[i].b_ &gt;&gt; a[i].c_;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; m; ++i) &#123;</span><br><span class="line">    <span class="type">int</span> mi = <span class="built_in">min</span>(b[i], b[i + <span class="number">1</span>]), mx = <span class="built_in">max</span>(b[i], b[i + <span class="number">1</span>]);</span><br><span class="line">    ++diff[mi], --diff[mx];</span><br><span class="line">  &#125;</span><br><span class="line">  ll ans = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">    diff[i] += diff[i - <span class="number">1</span>];</span><br><span class="line">    ans += <span class="built_in">min</span>(<span class="number">1ll</span> * a[i].a_ * diff[i], (a[i].c_ + <span class="number">1ll</span> * a[i].b_ * diff[i]));</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>从<code>i</code>到<code>i + 1</code>的最低开销应该等于<span
+class="math inline">\(\min \left( cnt_i\times a_i,c_i+cnt_i\times b_i
+\right)\)</span>，</p>
+<p>其中<span
+class="math inline">\(cnt_i\)</span>代表<code>i</code>到<code>i + 1</code>的次数。</p>
+<p>直接用差分进行区间修改即可。</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>差分</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P4375. Out of Sorts G</title>
+    <url>/2024/02/24/P4375-Out-of-Sorts-G/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>排序</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e5</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, bit[maxn];</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">  <span class="type">int</span> val_, id_;</span><br><span class="line">  <span class="type">bool</span> <span class="keyword">operator</span>&lt;(node &amp;x) &#123;</span><br><span class="line">    <span class="keyword">if</span> (val_ != x.val_) <span class="keyword">return</span> val_ &lt; x.val_;</span><br><span class="line">    <span class="keyword">return</span> id_ &lt; x.id_;</span><br><span class="line">  &#125;</span><br><span class="line">&#125; arr[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">lowbit</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123; <span class="keyword">return</span> x &amp; -x; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> v)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">while</span> (x &lt;= n) &#123;</span><br><span class="line">    bit[x] += v;</span><br><span class="line">    x += <span class="built_in">lowbit</span>(x);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">query</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (x &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    res += bit[x];</span><br><span class="line">    x -= <span class="built_in">lowbit</span>(x);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) cin &gt;&gt; arr[i].val_, arr[i].id_ = i;</span><br><span class="line">  <span class="built_in">sort</span>(arr + <span class="number">1</span>, arr + <span class="number">1</span> + n);</span><br><span class="line">  <span class="type">int</span> ans = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    <span class="built_in">add</span>(arr[i].id_, <span class="number">1</span>);</span><br><span class="line">    ans = <span class="built_in">max</span>(ans, <span class="built_in">query</span>(n) - <span class="built_in">query</span>(i));</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; ans;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p><a
+href="https://www.luogu.com.cn/problem/P4378">P4378</a>的加强版，假设有下列数组。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">值</th>
+<th style="text-align: center;">65</th>
+<th style="text-align: center;">64</th>
+<th style="text-align: center;">63</th>
+<th style="text-align: center;">62</th>
+<th style="text-align: center;">61</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">下标</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">5</td>
+</tr>
+</tbody>
+</table>
+<p>第一次冒泡排序（正常的冒泡排序）后，成功将元素<code>65</code>送到了它应去的地方，下标5的位置。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">值</th>
+<th style="text-align: center;">64</th>
+<th style="text-align: center;">63</th>
+<th style="text-align: center;">62</th>
+<th style="text-align: center;">61</th>
+<th style="text-align: center;">65</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">下标</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">5</td>
+</tr>
+</tbody>
+</table>
+<p>第二次排序后，将元素<code>61</code>送到了下标1的位置</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">值</th>
+<th style="text-align: center;">61</th>
+<th style="text-align: center;">64</th>
+<th style="text-align: center;">63</th>
+<th style="text-align: center;">62</th>
+<th style="text-align: center;">65</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">下标</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">5</td>
+</tr>
+</tbody>
+</table>
+<p>可以发现规律，设当前下标为<code>x</code>，值为<code>arr[x]</code>：</p>
+<p>第一次操作会将<code>x</code>的左侧，某个大于<code>arr[x]</code>的元素<code>A</code>换到<code>x</code>的右侧，且<code>A</code>到达正确下标位置；</p>
+<p>第二次操作会将<code>x</code>的右侧，某个小于等于<code>arr[x]</code>的元素<code>B</code>换到<code>x</code>的左侧，且<code>B</code>到达正确下标位置。</p>
+<p>每一轮的双向排序，对于<code>x</code>而言，就是维护了一次两边的平衡。</p>
+<p>那么统计每个<code>x</code>左边（含自己）有多少个不平衡的下标即可，随后遍历<code>x</code>打擂台取最大值即为最终轮数。</p>
+<p>当然，平衡是对称的，你也可以统计每个<code>x</code>右边（含自己）有多少个不平衡的下标。</p>
+<hr />
+<p>举上面那个例子</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">值</th>
+<th style="text-align: center;">65</th>
+<th style="text-align: center;">64</th>
+<th style="text-align: center;">63</th>
+<th style="text-align: center;">62</th>
+<th style="text-align: center;">61</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">当前下标</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">应处下标</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+<p>由于平衡是对称的，这里设“不平衡”代表<strong>应处下标大于当前下标</strong></p>
+<p>（你也可以反过来，结果一样的）</p>
+<p><code>65</code>的左边不平衡数有<code>&#123;65&#125;</code>，数量为1</p>
+<p><code>64</code>的左边不平衡数有<code>&#123;65、64&#125;</code>，数量为2</p>
+<p><code>63</code>的左边不平衡数有<code>&#123;65、64&#125;</code>，数量为2</p>
+<p><code>62</code>和<code>61</code>没有左边不平衡数</p>
+<p>那么最终结果就是取最大值，2轮</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排序</tag>
+        <tag>离散化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P4552. IncDec Sequence</title>
+    <url>/2024/02/24/P4552-IncDec-Sequence/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>差分</li>
+<li>贪心</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e5</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line">ll arr[maxn], diff[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  ll neg = <span class="number">0</span>, pos = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    cin &gt;&gt; arr[i];</span><br><span class="line">    diff[i] = arr[i] - arr[i - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span> (i &gt; <span class="number">1</span>) diff[i] &lt; <span class="number">0</span> ? neg += -diff[i] : pos += diff[i];</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; <span class="built_in">max</span>(neg, pos) &lt;&lt; endl &lt;&lt; <span class="built_in">abs</span>(neg - pos) + <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>根据原数组建立差分数组<code>diff</code>后，题目的要求就变成了：</p>
+<blockquote>
+<p>在差分数组<code>diff</code>中，</p>
+<p>除下标1以外，每次在2~n中选两个下标，一个值+1，一个值-1，</p>
+<p>求能把除下标1以外的其他位置的值都归0的最小次数。</p>
+</blockquote>
+<p>举个例子，有如下数组：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>求出差分数组<code>diff</code>:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">-3</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">1</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>为了让归0的次数最少，显然希望每次都是负数+1，正数-1</p>
+<p>两轮后变成了：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">-1</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">1</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>再一轮：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">0</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>现在场上只剩正数了，继续：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">0</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>此时如果将<code>diff</code>转回正常数组，得到如下：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">3</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>在保证最小次数的情况下，也就是只剩2次操作机会，整个序列可以取1或2或3。</p>
+<hr />
+<p>综上，设差分数组<code>diff</code>中，
+除下标1外的负数绝对值和为<code>neg</code>，除下标1外的正数绝对值和为<code>pos</code>；</p>
+<p>最大操作次数等于<code>max(neg, pos)</code>；</p>
+<p>序列的可能数等于<code>abs(neg - pos) + 1</code>。</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>贪心</tag>
+        <tag>差分</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P8218. 求区间和</title>
+    <url>/2024/01/13/P8218-%E6%B1%82%E5%8C%BA%E9%97%B4%E5%92%8C/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>前缀和</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">2e5</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, m, l, r, pre[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) cin &gt;&gt; pre[i], pre[i] += pre[i - <span class="number">1</span>];</span><br><span class="line">  cin &gt;&gt; m;</span><br><span class="line">  <span class="keyword">while</span> (m--) cin &gt;&gt; l &gt;&gt; r, cout &lt;&lt; pre[r] - pre[l - <span class="number">1</span>] &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>一维前缀和的模板题，直接上《深进》截图。</p>
+<img src="/2024/01/13/P8218-%E6%B1%82%E5%8C%BA%E9%97%B4%E5%92%8C/1.png" class="" title="image-20240113201644608">
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>前缀和</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P4378. Out of Sorts S</title>
+    <url>/2024/02/23/P4378-Out-of-Sorts-S/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>排序</li>
+<li>离散化</li>
+</ul>
+<span id="more"></span>
+<h1 id="题解">题解</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e5</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, tot, arr[maxn], dis[maxn], bit[maxn];</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">lowbit</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123; <span class="keyword">return</span> x &amp; -x; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> v)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">while</span> (x &lt;= n) &#123;</span><br><span class="line">    bit[x] += v;</span><br><span class="line">    x += <span class="built_in">lowbit</span>(x);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">query</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (x &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    res += bit[x];</span><br><span class="line">    x -= <span class="built_in">lowbit</span>(x);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) cin &gt;&gt; arr[i], dis[i] = arr[i];</span><br><span class="line">  <span class="built_in">sort</span>(dis + <span class="number">1</span>, dis + <span class="number">1</span> + n);</span><br><span class="line">  tot = <span class="built_in">unique</span>(dis + <span class="number">1</span>, dis + <span class="number">1</span> + n) - <span class="number">1</span> - dis;</span><br><span class="line">  <span class="type">int</span> x, ans = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    x = <span class="built_in">lower_bound</span>(dis + <span class="number">1</span>, dis + <span class="number">1</span> + tot, arr[i]) - dis;</span><br><span class="line">    ans = <span class="built_in">max</span>(ans, <span class="built_in">query</span>(n) - <span class="built_in">query</span>(x));</span><br><span class="line">    <span class="built_in">add</span>(x, <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  cout &lt;&lt; ans + <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思路">思路</h1>
+<p>对排序精髓的考验，很好的结论题；以序列<code>5 4 3 2 1</code>为例</p>
+<p>逆序对的定义为<span
+class="math inline">\(i&lt;j,a_i&gt;a_j\)</span></p>
+<p>初始时，元素<code>4</code>有1个，<code>3</code>有2个，<code>2</code>有3个，<code>1</code>有4个</p>
+<p>冒泡排序一次后，序列变成了<code>4 3 2 1 5</code></p>
+<p>此时，元素<code>4</code>有0个，<code>3</code>有1个，<code>2</code>有2个，<code>1</code>有3个</p>
+<p>这意味着，每一次冒泡排序实际上就是减少每个元素的逆序对，冒泡排序的执行次数就等于最大逆序对个数！</p>
+<p>套用离散化+树状数组依次求每个元素的逆序对个数，挨个打擂台保存最大逆序对个数即可。</p>
+]]></content>
+      <categories>
+        <category>洛谷</category>
+      </categories>
+      <tags>
+        <tag>排序</tag>
+        <tag>离散化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常见优化技巧_解题技巧</title>
+    <url>/2024/01/12/%E5%B8%B8%E8%A7%81%E4%BC%98%E5%8C%96%E6%8A%80%E5%B7%A7-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/</url>
     <content><![CDATA[<h1 id="双指针">双指针</h1>
 <h2 id="技巧">技巧</h2>
 <p>使用前提是，该区间<strong>已具有单调性</strong>，一般来说是贪心策略</p>
@@ -9067,6 +9736,7 @@ class="math inline">\(O\left( n
 贪心+前缀和，双指针提高题</li>
 <li><a href="https://www.luogu.com.cn/problem/P3143">P3143</a>
 双指针提高题</li>
+<li><a href="https://www.luogu.com.cn/problem/P3029">P3029</a></li>
 </ul>
 <h1 id="空间换时间">空间换时间</h1>
 <h2 id="练习题-1">练习题</h2>
@@ -9135,14 +9805,68 @@ P4147的简化版</li>
 <li><p><a href="https://www.luogu.com.cn/problem/P1725">P1725</a>
 DP+区间最大</p></li>
 </ul>
+<h1 id="前缀和">前缀和</h1>
+<h2 id="技巧-4">技巧</h2>
+<p>多用于频繁询问<strong>满足容斥原理</strong>区间和的优化</p>
+<h2 id="练习题-6">练习题</h2>
+<ul>
+<li><a href="https://www.luogu.com.cn/problem/P8218">P8218</a>
+一维前缀和模板题</li>
+<li><a href="https://www.luogu.com.cn/problem/P1719">P1719</a>
+二维前缀和模板题+最大子段和</li>
+<li><a href="https://www.luogu.com.cn/problem/P2004">P2004</a>
+二维前缀和模板题</li>
+<li><a href="https://www.luogu.com.cn/problem/P1314">P1314</a>
+答案二分+前缀和优化</li>
+<li><a href="https://www.luogu.com.cn/problem/P3017">P3017</a>
+答案二分+前缀和优化</li>
+</ul>
+<h1 id="差分">差分</h1>
+<h2 id="技巧-5">技巧</h2>
+<p>用于区间修改，<span class="math inline">\(O\left( 1
+\right)\)</span>的区间修改时间复杂度，<span
+class="math inline">\(O\left( n \right)\)</span>的区间查询时间复杂度</p>
+<h2 id="练习题-7">练习题</h2>
+<ul>
+<li><a href="https://www.luogu.com.cn/problem/P2367">P2367</a>
+一维差分模板题</li>
+<li><a href="https://www.luogu.com.cn/problem/P3397">P3397</a>
+二维差分模板题</li>
+<li><a href="https://www.luogu.com.cn/problem/P3406">P3406</a></li>
+<li><a href="https://www.luogu.com.cn/problem/P1083">P1083</a>
+二分+差分</li>
+<li><a href="https://www.luogu.com.cn/problem/P2882">P2882</a>
+贪心+差分，贪心的好题，最小反转次数问题</li>
+<li><a href="https://www.luogu.com.cn/problem/P4552">P4552</a>
+贪心+差分</li>
+</ul>
+<h1 id="离散化">离散化</h1>
+<h2 id="技巧-6">技巧</h2>
+<p>数据点范围极其庞大，但只需要用到数据点本身，不需要在数组上表达两点之间的具体区间。</p>
+<h2 id="练习题-8">练习题</h2>
+<ul>
+<li><a href="https://www.luogu.com.cn/problem/P1496">P1496</a>
+离散化的模板题+差分</li>
+<li><a href="https://www.luogu.com.cn/problem/P1955">P1955</a>
+离散化+并查集</li>
+<li><a href="https://www.luogu.com.cn/problem/P5937">P5937</a>
+离散化+并查集</li>
+<li><a href="https://www.luogu.com.cn/problem/P1884">P1884</a>
+P1496的二维升级版本</li>
+<li><a href="https://www.luogu.com.cn/problem/P1904">P1904</a>
+离散化+扫描线</li>
+</ul>
 ]]></content>
       <categories>
         <category>解题技巧</category>
       </categories>
       <tags>
         <tag>双指针</tag>
+        <tag>前缀和</tag>
+        <tag>离散化</tag>
         <tag>单调栈</tag>
         <tag>单调队列</tag>
+        <tag>差分</tag>
       </tags>
   </entry>
 </search>
