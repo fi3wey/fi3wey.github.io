@@ -27,11 +27,14 @@
 <meta property="og:site_name" content="峰狂算法">
 <meta property="og:description" content="考点  排序">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fi3wey.github.io/2023/10/04/P1177-%E6%A8%A1%E6%9D%BF%E9%A2%98-%E6%8E%92%E5%BA%8F/1.png">
+<meta property="og:image" content="https://fi3wey.github.io/2023/10/04/P1177-%E6%A8%A1%E6%9D%BF%E9%A2%98-%E6%8E%92%E5%BA%8F/2.png">
 <meta property="article:published_time" content="2023-10-04T14:50:32.000Z">
-<meta property="article:modified_time" content="2023-10-25T08:18:41.416Z">
+<meta property="article:modified_time" content="2024-03-02T11:46:03.845Z">
 <meta property="article:author" content="峰">
 <meta property="article:tag" content="排序">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fi3wey.github.io/2023/10/04/P1177-%E6%A8%A1%E6%9D%BF%E9%A2%98-%E6%8E%92%E5%BA%8F/1.png">
 
 
 <link rel="canonical" href="https://fi3wey.github.io/2023/10/04/P1177-%E6%A8%A1%E6%9D%BF%E9%A2%98-%E6%8E%92%E5%BA%8F/">
@@ -90,7 +93,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">54</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">287</span></a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">56</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">7</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">306</span></a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -141,7 +144,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%80%83%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">考点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E5%BF%AB%E6%8E%92"><span class="nav-number">3.1.</span> <span class="nav-text">普通快排</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E8%B7%AF%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-number">3.2.</span> <span class="nav-text">三路快速排序</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%80%83%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">考点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E5%BF%AB%E6%8E%92"><span class="nav-number">3.1.</span> <span class="nav-text">普通快排</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E8%B7%AF%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-number">3.2.</span> <span class="nav-text">三路快速排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="nav-number">3.3.</span> <span class="nav-text">归并排序</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -156,18 +159,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">287</span>
+          <span class="site-state-item-count">306</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -241,7 +244,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-10-25 16:18:41" itemprop="dateModified" datetime="2023-10-25T16:18:41+08:00">2023-10-25</time>
+      <time title="修改时间：2024-03-02 19:46:03" itemprop="dateModified" datetime="2024-03-02T19:46:03+08:00">2024-03-02</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -281,14 +284,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>704</span>
+      <span>805</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -306,7 +309,7 @@
 <h1 id="题解">题解</h1>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> LEN = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">quick_sort</span><span class="params">(<span class="type">int</span> arr[], <span class="type">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (len &lt;= <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, k = len;</span><br><span class="line">    <span class="type">int</span> pivot = arr[<span class="built_in">rand</span>() % len];</span><br><span class="line">    <span class="keyword">while</span> (i &lt; k)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[i] &lt; pivot)</span><br><span class="line">            <span class="built_in">swap</span>(arr[i++], arr[j++]);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (arr[i] &gt; pivot)</span><br><span class="line">            <span class="built_in">swap</span>(arr[i], arr[--k]);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            ++i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">quick_sort</span>(arr, j);</span><br><span class="line">    <span class="built_in">quick_sort</span>(arr + k, len - k);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, arr[LEN];</span><br><span class="line">    <span class="built_in">memset</span>(arr, <span class="number">0</span>, <span class="built_in">sizeof</span>(arr));</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        cin &gt;&gt; arr[i];</span><br><span class="line">    <span class="built_in">quick_sort</span>(arr, n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        cout &lt;&lt; arr[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="思路">思路</h1>
-<p>由于是模板题，所以来系统地整理一下快速排序的相关问题；所有的模板均来源于<a
+<p>部分模板来源于<a
 target="_blank" rel="noopener" href="https://oi-wiki.org/basic/sort-intro/">OIWiki</a></p>
 <h2 id="普通快排">普通快排</h2>
 <p>普通快排的迭代版模板如下，来源于上述的OIWiki</p>
@@ -318,6 +321,11 @@ target="_blank" rel="noopener" href="https://oi-wiki.org/basic/sort-intro/">OIWi
 <p>普通快排效率并不高，上面的代码本题就会超时，就需要用到三路快排；模板同样来自OIWiki</p>
 <p>顺带提一嘴，rand函数的用法可以简单记为<code>a + rand() % b</code>；即从a开始（包括a）共b个连续整数的生成范围</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模板的 T 参数表示元素的类型，此类型需要定义小于（&lt;）运算</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="comment">// arr 为需要被排序的数组，len 为数组长度</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">quick_sort</span><span class="params">(T arr[], <span class="type">const</span> <span class="type">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (len &lt;= <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// 随机选择基准（pivot）</span></span><br><span class="line">    <span class="type">const</span> T pivot = arr[<span class="built_in">rand</span>() % len];</span><br><span class="line">    <span class="comment">// i：当前操作的元素下标</span></span><br><span class="line">    <span class="comment">// arr[0, j)：存储小于 pivot 的元素</span></span><br><span class="line">    <span class="comment">// arr[k, len)：存储大于 pivot 的元素</span></span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, k = len;</span><br><span class="line">    <span class="comment">// 完成一趟三路快排，将序列分为：</span></span><br><span class="line">    <span class="comment">// 小于 pivot 的元素 | 等于 pivot 的元素 | 大于 pivot 的元素</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt; k)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[i] &lt; pivot)</span><br><span class="line">            <span class="built_in">swap</span>(arr[i++], arr[j++]);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (pivot &lt; arr[i])</span><br><span class="line">            <span class="built_in">swap</span>(arr[i], arr[--k]);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 递归完成对于两个子序列的快速排序</span></span><br><span class="line">    <span class="built_in">quick_sort</span>(arr, j);</span><br><span class="line">    <span class="built_in">quick_sort</span>(arr + k, len - k);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="归并排序">归并排序</h2>
+<p>直接上图~</p>
+<img src="/2023/10/04/P1177-%E6%A8%A1%E6%9D%BF%E9%A2%98-%E6%8E%92%E5%BA%8F/1.png" class="" title="image-20240302194323915">
+<img src="/2023/10/04/P1177-%E6%A8%A1%E6%9D%BF%E9%A2%98-%E6%8E%92%E5%BA%8F/2.png" class="" title="image-20240302194421345">
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e5</span> + <span class="number">50</span>;</span><br><span class="line"><span class="type">int</span> n, a[maxn], t[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">merge</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (l == r) <span class="keyword">return</span>;</span><br><span class="line">  <span class="type">int</span> i = l, j = l, mid = (l + r) / <span class="number">2</span>, k = mid + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">merge</span>(l, mid), <span class="built_in">merge</span>(mid + <span class="number">1</span>, r);</span><br><span class="line">  <span class="keyword">while</span> (j &lt;= mid &amp;&amp; k &lt;= r) t[i++] = a[j] &lt;= a[k] ? a[j++] : a[k++];</span><br><span class="line">  <span class="keyword">while</span> (j &lt;= mid) t[i++] = a[j++];</span><br><span class="line">  <span class="keyword">while</span> (k &lt;= r) t[i++] = a[k++];</span><br><span class="line">  <span class="keyword">for</span> (i = l; i &lt;= r; ++i) a[i] = t[i];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) cin &gt;&gt; a[i];</span><br><span class="line">  <span class="built_in">merge</span>(<span class="number">1</span>, n);</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) cout &lt;&lt; a[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -414,14 +422,14 @@ target="_blank" rel="noopener" href="https://oi-wiki.org/basic/sort-intro/">OIWi
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">103k</span>
+    <span title="站点总字数">111k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:44</span>
+    <span title="站点阅读时长">6:10</span>
   </span>
 </div>
 <div class="busuanzi-count">
