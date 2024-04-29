@@ -28,7 +28,7 @@
 <meta property="og:description" content="使用范围 DFS，深度优先搜索，寻找操作步骤字典序最小的解；白话文来说，就是能按序遍历所有情况 然而，DFS也是可以求最小解的：  用一个全局变量，记录最小值（打擂台） 迭代加深  BFS，广度优先搜索，找到步骤最小的解；白话文来说，就是递归&#x2F;迭代次数最少的解 DFS 模板 123456789101112void dfs(int k)&amp;#123;&#x2F;&#x2F;k代表递归层数，或者说要填第">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-22T16:38:38.000Z">
-<meta property="article:modified_time" content="2024-04-11T14:17:51.830Z">
+<meta property="article:modified_time" content="2024-04-18T13:09:55.532Z">
 <meta property="article:author" content="峰">
 <meta property="article:tag" content="DFS">
 <meta property="article:tag" content="BFS">
@@ -91,7 +91,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">66</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">7</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">335</span></a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">70</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">7</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">356</span></a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -157,7 +157,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">335</span>
+          <span class="site-state-item-count">356</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -168,7 +168,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-count">70</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -242,7 +242,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-04-11 22:17:51" itemprop="dateModified" datetime="2024-04-11T22:17:51+08:00">2024-04-11</time>
+      <time title="修改时间：2024-04-18 21:09:55" itemprop="dateModified" datetime="2024-04-18T21:09:55+08:00">2024-04-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -282,14 +282,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
+      <span>2.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>6 分钟</span>
+      <span>7 分钟</span>
     </span>
 </div>
 
@@ -437,12 +437,15 @@ class="math inline">\(O\left( N^2 \right)\)</span>。</p>
 </ul>
 <h2 id="双端队列bfs">双端队列BFS</h2>
 <h3 id="使用-1">使用</h3>
-<p>只能用在边权0或1的图上求最短路</p>
+<p>只能用在边权0或1的图上求最短路，和dijkstra完全一样的写法，只不过二叉堆换成了双端队列</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">memset</span>(d, <span class="number">0x3f</span>, <span class="built_in">sizeof</span>(d)), <span class="built_in">memset</span>(vis, <span class="number">0</span>, <span class="built_in">sizeof</span>(vis));</span><br><span class="line">d[<span class="number">1</span>] = <span class="number">0</span>, q.<span class="built_in">push_back</span>(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">  <span class="type">int</span> u = q.<span class="built_in">front</span>();</span><br><span class="line">  q.<span class="built_in">pop_front</span>();</span><br><span class="line">  <span class="keyword">if</span> (vis[u]) <span class="keyword">continue</span>;</span><br><span class="line">  vis[u] = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = head[u]; ~i; i = g[i].nxt_) &#123;</span><br><span class="line">    <span class="type">int</span> v = g[i].v_, w = g[i].w_ &gt; mid;</span><br><span class="line">    <span class="keyword">if</span> (d[v] &gt; d[u] + w) &#123;</span><br><span class="line">      d[v] = d[u] + w;</span><br><span class="line">      <span class="keyword">if</span> (w)</span><br><span class="line">        q.<span class="built_in">push_back</span>(v);</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        q.<span class="built_in">push_front</span>(v);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="练习题-3">练习题</h3>
 <ul>
 <li><a
 target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/177/">acwing-175</a>
 模板题</li>
+<li><a target="_blank" rel="noopener" href="http://poj.org/problem?id=3662">poj-3662</a> 二分 +
+双端队列BFS求最短路</li>
 </ul>
 <h2 id="双向bfs">双向BFS</h2>
 <h3 id="使用-2">使用</h3>
@@ -465,6 +468,8 @@ target="_blank" rel="noopener" href="https://acm.hdu.edu.cn/showproblem.php?pid=
 <li><a
 target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/submission/181/">acwing-179.
 八数码</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1379">P1379</a>
+上面那道题的低配版</li>
 </ul>
 <h2 id="迭代加深">迭代加深</h2>
 <h3 id="使用-3">使用</h3>
@@ -476,6 +481,8 @@ target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/subm
 <li><a target="_blank" rel="noopener" href="http://poj.org/problem?id=1167">poj-1167</a></li>
 <li><a target="_blank" rel="noopener" href="http://poj.org/problem?id=3700">poj-3700</a>
 贪心+迭代加深控制步数，非常好的题！</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1763">P1763</a>
+高难度剪枝，枚举分母所考虑的细节</li>
 </ul>
 <h2 id="双向dfs">双向DFS</h2>
 <h3 id="使用-4">使用</h3>
@@ -484,6 +491,12 @@ target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/subm
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/173/">acwing-171</a>
 双向DFS模板题</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF525E">CF525E</a>
+高难度的记忆化搜索优化</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF912E">CF912E</a>
+优化双向DFS + 二分 + 双指针</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4799">P4799</a>
+和上面那题类似</li>
 </ul>
 <h2 id="astar">Astar</h2>
 <h3 id="使用-5">使用</h3>
@@ -501,6 +514,7 @@ target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/desc
 模板题</li>
 <li><a
 target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/submission/181/">八数码</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5507">机关</a></li>
 </ul>
 <h2 id="idastar">IDAstar</h2>
 <h3 id="使用-6">使用</h3>
@@ -520,6 +534,8 @@ target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/desc
 flood-fill优化</li>
 <li><a
 target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/197/">骑士精神</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2324">P2324</a>
+上面那道题的低配版</li>
 </ul>
 
     </div>
@@ -618,14 +634,14 @@ target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/desc
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">128k</span>
+    <span title="站点总字数">144k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:05</span>
+    <span title="站点阅读时长">8:01</span>
   </span>
 </div>
 <div class="busuanzi-count">
