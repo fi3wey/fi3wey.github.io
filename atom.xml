@@ -6,7 +6,7 @@
   <link href="https://fi3wey.github.io/atom.xml" rel="self"/>
   
   <link href="https://fi3wey.github.io/"/>
-  <updated>2024-04-29T07:52:34.901Z</updated>
+  <updated>2024-08-12T07:55:55.184Z</updated>
   <id>https://fi3wey.github.io/</id>
   
   <author>
@@ -17,11 +17,211 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>最小生成树_解题技巧</title>
+    <link href="https://fi3wey.github.io/2024/08/12/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/"/>
+    <id>https://fi3wey.github.io/2024/08/12/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/</id>
+    <published>2024-08-12T07:55:30.000Z</published>
+    <updated>2024-08-12T07:55:55.184Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;模板&quot;&gt;模板&lt;/h1&gt;
+&lt;h2 id=&quot;kruskal&quot;&gt;Kruskal&lt;/h2&gt;
+&lt;figure class=&quot;highlight c++&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="解题技巧" scheme="https://fi3wey.github.io/categories/%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="最小生成树" scheme="https://fi3wey.github.io/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>acwing-387. 北极网络</title>
+    <link href="https://fi3wey.github.io/2024/08/12/acwing-387-%E5%8C%97%E6%9E%81%E7%BD%91%E7%BB%9C/"/>
+    <id>https://fi3wey.github.io/2024/08/12/acwing-387-%E5%8C%97%E6%9E%81%E7%BD%91%E7%BB%9C/</id>
+    <published>2024-08-12T07:54:03.000Z</published>
+    <updated>2024-08-12T07:54:32.134Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;最小生成树&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="acwing" scheme="https://fi3wey.github.io/categories/acwing/"/>
+    
+    
+    <category term="最小生成树" scheme="https://fi3wey.github.io/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>acwing-388. 四叶草魔杖</title>
+    <link href="https://fi3wey.github.io/2024/08/12/acwing-388-%E5%9B%9B%E5%8F%B6%E8%8D%89%E9%AD%94%E6%9D%96/"/>
+    <id>https://fi3wey.github.io/2024/08/12/acwing-388-%E5%9B%9B%E5%8F%B6%E8%8D%89%E9%AD%94%E6%9D%96/</id>
+    <published>2024-08-12T07:22:27.000Z</published>
+    <updated>2024-08-12T07:28:42.562Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;最小生成树&lt;/li&gt;
+&lt;li&gt;状态压缩DP&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="acwing" scheme="https://fi3wey.github.io/categories/acwing/"/>
+    
+    
+    <category term="状态压缩DP" scheme="https://fi3wey.github.io/tags/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9DP/"/>
+    
+    <category term="最小生成树" scheme="https://fi3wey.github.io/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>atcoder-abc363_e</title>
+    <link href="https://fi3wey.github.io/2024/07/22/atcoder-abc363-e/"/>
+    <id>https://fi3wey.github.io/2024/07/22/atcoder-abc363-e/</id>
+    <published>2024-07-22T06:28:14.000Z</published>
+    <updated>2024-07-22T06:39:03.881Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;最短路&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="atcoder" scheme="https://fi3wey.github.io/categories/atcoder/"/>
+    
+    
+    <category term="最短路" scheme="https://fi3wey.github.io/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>acwing-348. 沙漠之王</title>
+    <link href="https://fi3wey.github.io/2024/05/09/acwing-348-%E6%B2%99%E6%BC%A0%E4%B9%8B%E7%8E%8B/"/>
+    <id>https://fi3wey.github.io/2024/05/09/acwing-348-%E6%B2%99%E6%BC%A0%E4%B9%8B%E7%8E%8B/</id>
+    <published>2024-05-09T08:13:21.000Z</published>
+    <updated>2024-05-09T13:20:26.401Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;最小生成树&lt;/li&gt;
+&lt;li&gt;01分数规划&lt;/li&gt;
+&lt;li&gt;二分&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="acwing" scheme="https://fi3wey.github.io/categories/acwing/"/>
+    
+    
+    <category term="二分" scheme="https://fi3wey.github.io/tags/%E4%BA%8C%E5%88%86/"/>
+    
+    <category term="最小生成树" scheme="https://fi3wey.github.io/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/"/>
+    
+    <category term="01分数规划" scheme="https://fi3wey.github.io/tags/01%E5%88%86%E6%95%B0%E8%A7%84%E5%88%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>acwing-349. 黑暗城堡</title>
+    <link href="https://fi3wey.github.io/2024/05/06/acwing-349-%E9%BB%91%E6%9A%97%E5%9F%8E%E5%A0%A1/"/>
+    <id>https://fi3wey.github.io/2024/05/06/acwing-349-%E9%BB%91%E6%9A%97%E5%9F%8E%E5%A0%A1/</id>
+    <published>2024-05-06T12:04:35.000Z</published>
+    <updated>2024-05-06T12:05:45.981Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;最短路径生成树&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="acwing" scheme="https://fi3wey.github.io/categories/acwing/"/>
+    
+    
+    <category term="最短路" scheme="https://fi3wey.github.io/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/"/>
+    
+    <category term="最小生成树" scheme="https://fi3wey.github.io/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/"/>
+    
+    <category term="最短路径生成树" scheme="https://fi3wey.github.io/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%94%9F%E6%88%90%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>acwing-347. 野餐规划</title>
+    <link href="https://fi3wey.github.io/2024/05/05/acwing-347-%E9%87%8E%E9%A4%90%E8%A7%84%E5%88%92/"/>
+    <id>https://fi3wey.github.io/2024/05/05/acwing-347-%E9%87%8E%E9%A4%90%E8%A7%84%E5%88%92/</id>
+    <published>2024-05-05T09:52:06.000Z</published>
+    <updated>2024-05-05T09:56:13.195Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;最小生成树&lt;/li&gt;
+&lt;li&gt;flood-fill找连通块&lt;/li&gt;
+&lt;li&gt;树形DP&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="acwing" scheme="https://fi3wey.github.io/categories/acwing/"/>
+    
+    
+    <category term="DFS" scheme="https://fi3wey.github.io/tags/DFS/"/>
+    
+    <category term="最小生成树" scheme="https://fi3wey.github.io/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/"/>
+    
+    <category term="树形DP" scheme="https://fi3wey.github.io/tags/%E6%A0%91%E5%BD%A2DP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>acwing-346. 走廊泼水节</title>
+    <link href="https://fi3wey.github.io/2024/04/29/acwing-346-%E8%B5%B0%E5%BB%8A%E6%B3%BC%E6%B0%B4%E8%8A%82/"/>
+    <id>https://fi3wey.github.io/2024/04/29/acwing-346-%E8%B5%B0%E5%BB%8A%E6%B3%BC%E6%B0%B4%E8%8A%82/</id>
+    <published>2024-04-29T13:12:29.000Z</published>
+    <updated>2024-04-29T13:46:13.421Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;最小生成树&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="acwing" scheme="https://fi3wey.github.io/categories/acwing/"/>
+    
+    
+    <category term="最小生成树" scheme="https://fi3wey.github.io/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
     <title>最短路_解题技巧</title>
     <link href="https://fi3wey.github.io/2024/04/29/%E6%9C%80%E7%9F%AD%E8%B7%AF-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/"/>
     <id>https://fi3wey.github.io/2024/04/29/%E6%9C%80%E7%9F%AD%E8%B7%AF-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/</id>
     <published>2024-04-29T07:51:27.000Z</published>
-    <updated>2024-04-29T07:52:34.901Z</updated>
+    <updated>2024-07-22T06:41:21.650Z</updated>
     
     
       
@@ -320,223 +520,6 @@
     <category term="拓扑排序" scheme="https://fi3wey.github.io/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/"/>
     
     <category term="最短路" scheme="https://fi3wey.github.io/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>acwing-341. 最优贸易</title>
-    <link href="https://fi3wey.github.io/2024/04/20/acwing-341-%E6%9C%80%E4%BC%98%E8%B4%B8%E6%98%93/"/>
-    <id>https://fi3wey.github.io/2024/04/20/acwing-341-%E6%9C%80%E4%BC%98%E8%B4%B8%E6%98%93/</id>
-    <published>2024-04-19T16:23:25.000Z</published>
-    <updated>2024-04-19T16:26:16.635Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;最短路&lt;/li&gt;
-&lt;li&gt;后效性处理&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="acwing" scheme="https://fi3wey.github.io/categories/acwing/"/>
-    
-    
-    <category term="最短路" scheme="https://fi3wey.github.io/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/"/>
-    
-    <category term="后效性处理" scheme="https://fi3wey.github.io/tags/%E5%90%8E%E6%95%88%E6%80%A7%E5%A4%84%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>poj-3662. Telephone Lines</title>
-    <link href="https://fi3wey.github.io/2024/04/18/poj-3662-Telephone-Lines/"/>
-    <id>https://fi3wey.github.io/2024/04/18/poj-3662-Telephone-Lines/</id>
-    <published>2024-04-18T15:45:25.000Z</published>
-    <updated>2024-04-18T15:48:24.582Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;后效性处理&lt;/li&gt;
-&lt;li&gt;最短路&lt;/li&gt;
-&lt;li&gt;二分&lt;/li&gt;
-&lt;li&gt;双端队列BFS&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="poj" scheme="https://fi3wey.github.io/categories/poj/"/>
-    
-    
-    <category term="二分" scheme="https://fi3wey.github.io/tags/%E4%BA%8C%E5%88%86/"/>
-    
-    <category term="双端队列BFS" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97BFS/"/>
-    
-    <category term="最短路" scheme="https://fi3wey.github.io/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/"/>
-    
-    <category term="后效性处理" scheme="https://fi3wey.github.io/tags/%E5%90%8E%E6%95%88%E6%80%A7%E5%A4%84%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>P4799. 世界冰球锦标赛</title>
-    <link href="https://fi3wey.github.io/2024/04/17/P4799-%E4%B8%96%E7%95%8C%E5%86%B0%E7%90%83%E9%94%A6%E6%A0%87%E8%B5%9B/"/>
-    <id>https://fi3wey.github.io/2024/04/17/P4799-%E4%B8%96%E7%95%8C%E5%86%B0%E7%90%83%E9%94%A6%E6%A0%87%E8%B5%9B/</id>
-    <published>2024-04-17T12:20:20.000Z</published>
-    <updated>2024-04-17T12:33:18.449Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;双向DFS&lt;/li&gt;
-&lt;li&gt;双指针&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
-    
-    
-    <category term="双指针" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
-    
-    <category term="DFS" scheme="https://fi3wey.github.io/tags/DFS/"/>
-    
-    <category term="二分" scheme="https://fi3wey.github.io/tags/%E4%BA%8C%E5%88%86/"/>
-    
-    <category term="双向DFS" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E5%90%91DFS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CF912E. Prime Gift</title>
-    <link href="https://fi3wey.github.io/2024/04/17/CF912E-Prime-Gift/"/>
-    <id>https://fi3wey.github.io/2024/04/17/CF912E-Prime-Gift/</id>
-    <published>2024-04-17T10:52:27.000Z</published>
-    <updated>2024-04-17T10:54:52.418Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;双向DFS&lt;/li&gt;
-&lt;li&gt;二分&lt;/li&gt;
-&lt;li&gt;双指针&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
-    
-    
-    <category term="双指针" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
-    
-    <category term="DFS" scheme="https://fi3wey.github.io/tags/DFS/"/>
-    
-    <category term="二分" scheme="https://fi3wey.github.io/tags/%E4%BA%8C%E5%88%86/"/>
-    
-    <category term="双向DFS" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E5%90%91DFS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>P5507. 机关</title>
-    <link href="https://fi3wey.github.io/2024/04/16/P5507-%E6%9C%BA%E5%85%B3/"/>
-    <id>https://fi3wey.github.io/2024/04/16/P5507-%E6%9C%BA%E5%85%B3/</id>
-    <published>2024-04-16T08:38:23.000Z</published>
-    <updated>2024-04-16T14:22:43.382Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;Astar&lt;/li&gt;
-&lt;li&gt;双向BFS&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
-    
-    
-    <category term="BFS" scheme="https://fi3wey.github.io/tags/BFS/"/>
-    
-    <category term="双向BFS" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E5%90%91BFS/"/>
-    
-    <category term="Astar" scheme="https://fi3wey.github.io/tags/Astar/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>P2324. 骑士精神</title>
-    <link href="https://fi3wey.github.io/2024/04/15/P2324-%E9%AA%91%E5%A3%AB%E7%B2%BE%E7%A5%9E/"/>
-    <id>https://fi3wey.github.io/2024/04/15/P2324-%E9%AA%91%E5%A3%AB%E7%B2%BE%E7%A5%9E/</id>
-    <published>2024-04-15T12:04:25.000Z</published>
-    <updated>2024-04-15T12:06:25.635Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;IDAstar&lt;/li&gt;
-&lt;li&gt;双向BFS&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
-    
-    
-    <category term="BFS" scheme="https://fi3wey.github.io/tags/BFS/"/>
-    
-    <category term="双向BFS" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E5%90%91BFS/"/>
-    
-    <category term="IDAstar" scheme="https://fi3wey.github.io/tags/IDAstar/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>P1379. 八数码难题</title>
-    <link href="https://fi3wey.github.io/2024/04/15/P1379-%E5%85%AB%E6%95%B0%E7%A0%81%E9%9A%BE%E9%A2%98/"/>
-    <id>https://fi3wey.github.io/2024/04/15/P1379-%E5%85%AB%E6%95%B0%E7%A0%81%E9%9A%BE%E9%A2%98/</id>
-    <published>2024-04-14T16:11:40.000Z</published>
-    <updated>2024-04-14T16:14:42.988Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;双向BFS&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
-    
-    
-    <category term="BFS" scheme="https://fi3wey.github.io/tags/BFS/"/>
-    
-    <category term="双向BFS" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E5%90%91BFS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CF525E. Anya and Cubes</title>
-    <link href="https://fi3wey.github.io/2024/04/14/CF525E-Anya-and-Cubes/"/>
-    <id>https://fi3wey.github.io/2024/04/14/CF525E-Anya-and-Cubes/</id>
-    <published>2024-04-14T11:54:09.000Z</published>
-    <updated>2024-04-14T11:55:05.507Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;考点&quot;&gt;考点&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;双向DFS&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="洛谷" scheme="https://fi3wey.github.io/categories/%E6%B4%9B%E8%B0%B7/"/>
-    
-    
-    <category term="DFS" scheme="https://fi3wey.github.io/tags/DFS/"/>
-    
-    <category term="双向DFS" scheme="https://fi3wey.github.io/tags/%E5%8F%8C%E5%90%91DFS/"/>
     
   </entry>
   
