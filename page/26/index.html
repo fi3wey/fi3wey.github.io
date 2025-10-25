@@ -88,7 +88,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">76</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">396</span></a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">80</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">407</span></a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -153,7 +153,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">396</span>
+          <span class="site-state-item-count">407</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -164,7 +164,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">76</span>
+        <span class="site-state-item-count">80</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -201,7 +201,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/22/P1825-Corn-Maze-S/">
+    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/24/P1160-%E9%98%9F%E5%88%97%E5%AE%89%E6%8E%92/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -219,7 +219,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/10/22/P1825-Corn-Maze-S/" class="post-title-link" itemprop="url">P1825. Corn Maze S</a>
+          <a href="/2023/10/24/P1160-%E9%98%9F%E5%88%97%E5%AE%89%E6%8E%92/" class="post-title-link" itemprop="url">P1160. 队列安排</a>
         </h2>
 
         <div class="post-meta-container">
@@ -231,7 +231,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-10-22 17:56:52 / 修改时间：17:57:28" itemprop="dateCreated datePublished" datetime="2023-10-22T17:56:52+08:00">2023-10-22</time>
+      <time title="创建时间：2023-10-24 12:43:22 / 修改时间：12:45:22" itemprop="dateCreated datePublished" datetime="2023-10-24T12:43:22+08:00">2023-10-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -252,8 +252,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/2023/10/22/P1825-Corn-Maze-S/#waline" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" data-path="/2023/10/22/P1825-Corn-Maze-S/" itemprop="commentCount"></span>
+    <a title="waline" href="/2023/10/24/P1160-%E9%98%9F%E5%88%97%E5%AE%89%E6%8E%92/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2023/10/24/P1160-%E9%98%9F%E5%88%97%E5%AE%89%E6%8E%92/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -264,7 +264,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>380</span>
+      <span>416</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -284,12 +284,132 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="考点">考点</h1>
 <ul>
-<li>BFS</li>
+<li>模拟</li>
+<li>链表</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/10/24/P1160-%E9%98%9F%E5%88%97%E5%AE%89%E6%8E%92/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/23/P1996-%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="峰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="峰狂算法">
+      <meta itemprop="description" content="让算法之旅更加疯狂而奇妙">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 峰狂算法">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/10/23/P1996-%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">P1996. 约瑟夫问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-10-23 16:29:41 / 修改时间：20:53:37" itemprop="dateCreated datePublished" datetime="2023-10-23T16:29:41+08:00">2023-10-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B4%9B%E8%B0%B7/" itemprop="url" rel="index"><span itemprop="name">洛谷</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2023/10/23/P1996-%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2023/10/23/P1996-%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>355</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="考点">考点</h1>
+<ul>
+<li>链表</li>
+<li>队列</li>
 <li>模拟</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/10/22/P1825-Corn-Maze-S/#more" rel="contents">
+              <a class="btn" href="/2023/10/23/P1996-%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -320,7 +440,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/22/P1032-%E5%AD%97%E4%B8%B2%E5%8F%98%E6%8D%A2/">
+    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/23/P1449-%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -338,7 +458,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/10/22/P1032-%E5%AD%97%E4%B8%B2%E5%8F%98%E6%8D%A2/" class="post-title-link" itemprop="url">P1032. 字串变换</a>
+          <a href="/2023/10/23/P1449-%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="post-title-link" itemprop="url">P1449 后缀表达式</a>
         </h2>
 
         <div class="post-meta-container">
@@ -348,15 +468,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2023-10-22 15:50:37" itemprop="dateCreated datePublished" datetime="2023-10-22T15:50:37+08:00">2023-10-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-03-31 15:24:47" itemprop="dateModified" datetime="2024-03-31T15:24:47+08:00">2024-03-31</time>
+      <time title="创建时间：2023-10-23 16:02:10 / 修改时间：16:07:28" itemprop="dateCreated datePublished" datetime="2023-10-23T16:02:10+08:00">2023-10-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -377,8 +491,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/2023/10/22/P1032-%E5%AD%97%E4%B8%B2%E5%8F%98%E6%8D%A2/#waline" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" data-path="/2023/10/22/P1032-%E5%AD%97%E4%B8%B2%E5%8F%98%E6%8D%A2/" itemprop="commentCount"></span>
+    <a title="waline" href="/2023/10/23/P1449-%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2023/10/23/P1449-%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -389,7 +503,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>348</span>
+      <span>187</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -409,14 +523,13 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="考点">考点</h1>
 <ul>
-<li>BFS</li>
+<li>模拟</li>
 <li>字符串</li>
-<li>哈希表</li>
-<li>双向BFS</li>
+<li>栈</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/10/22/P1032-%E5%AD%97%E4%B8%B2%E5%8F%98%E6%8D%A2/#more" rel="contents">
+              <a class="btn" href="/2023/10/23/P1449-%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -447,7 +560,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/22/P1019-%E5%8D%95%E8%AF%8D%E6%8E%A5%E9%BE%99/">
+    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/23/P3613-%E5%AF%84%E5%8C%85%E6%9F%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -465,7 +578,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/10/22/P1019-%E5%8D%95%E8%AF%8D%E6%8E%A5%E9%BE%99/" class="post-title-link" itemprop="url">P1019. 单词接龙</a>
+          <a href="/2023/10/23/P3613-%E5%AF%84%E5%8C%85%E6%9F%9C/" class="post-title-link" itemprop="url">P3613. 寄包柜</a>
         </h2>
 
         <div class="post-meta-container">
@@ -477,7 +590,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-10-22 00:34:43 / 修改时间：00:35:19" itemprop="dateCreated datePublished" datetime="2023-10-22T00:34:43+08:00">2023-10-22</time>
+      <time title="创建时间：2023-10-23 15:04:09 / 修改时间：15:04:27" itemprop="dateCreated datePublished" datetime="2023-10-23T15:04:09+08:00">2023-10-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -498,8 +611,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/2023/10/22/P1019-%E5%8D%95%E8%AF%8D%E6%8E%A5%E9%BE%99/#waline" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" data-path="/2023/10/22/P1019-%E5%8D%95%E8%AF%8D%E6%8E%A5%E9%BE%99/" itemprop="commentCount"></span>
+    <a title="waline" href="/2023/10/23/P3613-%E5%AF%84%E5%8C%85%E6%9F%9C/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2023/10/23/P3613-%E5%AF%84%E5%8C%85%E6%9F%9C/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -510,374 +623,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>483</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="考点">考点</h1>
-<ul>
-<li>DFS</li>
-<li>字符串</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/22/P1019-%E5%8D%95%E8%AF%8D%E6%8E%A5%E9%BE%99/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/21/P1433-%E5%90%83%E5%A5%B6%E9%85%AA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="峰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="峰狂算法">
-      <meta itemprop="description" content="让算法之旅更加疯狂而奇妙">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 峰狂算法">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/10/21/P1433-%E5%90%83%E5%A5%B6%E9%85%AA/" class="post-title-link" itemprop="url">P1433. 吃奶酪</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-10-21 18:22:50" itemprop="dateCreated datePublished" datetime="2023-10-21T18:22:50+08:00">2023-10-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-03-19 01:47:53" itemprop="dateModified" datetime="2024-03-19T01:47:53+08:00">2024-03-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B4%9B%E8%B0%B7/" itemprop="url" rel="index"><span itemprop="name">洛谷</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/2023/10/21/P1433-%E5%90%83%E5%A5%B6%E9%85%AA/#waline" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" data-path="/2023/10/21/P1433-%E5%90%83%E5%A5%B6%E9%85%AA/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="考点">考点</h1>
-<ul>
-<li>状态压缩动态规划</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/21/P1433-%E5%90%83%E5%A5%B6%E9%85%AA/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/20/P2895-Meteor-Shower-S/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="峰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="峰狂算法">
-      <meta itemprop="description" content="让算法之旅更加疯狂而奇妙">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 峰狂算法">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/10/20/P2895-Meteor-Shower-S/" class="post-title-link" itemprop="url">P2895. Meteor Shower S</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-10-20 00:51:38" itemprop="dateCreated datePublished" datetime="2023-10-20T00:51:38+08:00">2023-10-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-10-25 16:37:59" itemprop="dateModified" datetime="2023-10-25T16:37:59+08:00">2023-10-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B4%9B%E8%B0%B7/" itemprop="url" rel="index"><span itemprop="name">洛谷</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/2023/10/20/P2895-Meteor-Shower-S/#waline" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" data-path="/2023/10/20/P2895-Meteor-Shower-S/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>506</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="考点">考点</h1>
-<ul>
-<li>BFS</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/20/P2895-Meteor-Shower-S/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/19/P1135-%E5%A5%87%E6%80%AA%E7%9A%84%E7%94%B5%E6%A2%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="峰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="峰狂算法">
-      <meta itemprop="description" content="让算法之旅更加疯狂而奇妙">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 峰狂算法">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/10/19/P1135-%E5%A5%87%E6%80%AA%E7%9A%84%E7%94%B5%E6%A2%AF/" class="post-title-link" itemprop="url">P1135. 奇怪的电梯</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-10-19 16:55:32 / 修改时间：16:57:12" itemprop="dateCreated datePublished" datetime="2023-10-19T16:55:32+08:00">2023-10-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B4%9B%E8%B0%B7/" itemprop="url" rel="index"><span itemprop="name">洛谷</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/2023/10/19/P1135-%E5%A5%87%E6%80%AA%E7%9A%84%E7%94%B5%E6%A2%AF/#waline" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" data-path="/2023/10/19/P1135-%E5%A5%87%E6%80%AA%E7%9A%84%E7%94%B5%E6%A2%AF/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>199</span>
+      <span>172</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -897,11 +643,11 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="考点">考点</h1>
 <ul>
-<li>BFS</li>
+<li>模拟</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/10/19/P1135-%E5%A5%87%E6%80%AA%E7%9A%84%E7%94%B5%E6%A2%AF/#more" rel="contents">
+              <a class="btn" href="/2023/10/23/P3613-%E5%AF%84%E5%8C%85%E6%9F%9C/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -932,7 +678,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/19/P1443-%E9%A9%AC%E7%9A%84%E9%81%8D%E5%8E%86/">
+    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/23/P3156-%E8%AF%A2%E9%97%AE%E5%AD%A6%E5%8F%B7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -950,7 +696,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/10/19/P1443-%E9%A9%AC%E7%9A%84%E9%81%8D%E5%8E%86/" class="post-title-link" itemprop="url">P1443. 马的遍历</a>
+          <a href="/2023/10/23/P3156-%E8%AF%A2%E9%97%AE%E5%AD%A6%E5%8F%B7/" class="post-title-link" itemprop="url">P3156. 询问学号</a>
         </h2>
 
         <div class="post-meta-container">
@@ -960,15 +706,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2023-10-19 16:15:00" itemprop="dateCreated datePublished" datetime="2023-10-19T16:15:00+08:00">2023-10-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-10-25 16:37:45" itemprop="dateModified" datetime="2023-10-25T16:37:45+08:00">2023-10-25</time>
+      <time title="创建时间：2023-10-23 14:33:37 / 修改时间：14:33:57" itemprop="dateCreated datePublished" datetime="2023-10-23T14:33:37+08:00">2023-10-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -989,8 +729,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/2023/10/19/P1443-%E9%A9%AC%E7%9A%84%E9%81%8D%E5%8E%86/#waline" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" data-path="/2023/10/19/P1443-%E9%A9%AC%E7%9A%84%E9%81%8D%E5%8E%86/" itemprop="commentCount"></span>
+    <a title="waline" href="/2023/10/23/P3156-%E8%AF%A2%E9%97%AE%E5%AD%A6%E5%8F%B7/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2023/10/23/P3156-%E8%AF%A2%E9%97%AE%E5%AD%A6%E5%8F%B7/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1001,7 +741,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>257</span>
+      <span>54</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1021,11 +761,11 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="考点">考点</h1>
 <ul>
-<li>BFS</li>
+<li>模拟</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/10/19/P1443-%E9%A9%AC%E7%9A%84%E9%81%8D%E5%8E%86/#more" rel="contents">
+              <a class="btn" href="/2023/10/23/P3156-%E8%AF%A2%E9%97%AE%E5%AD%A6%E5%8F%B7/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1056,7 +796,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/19/P1219-%E5%85%AB%E7%9A%87%E5%90%8E-Checker-Challenge/">
+    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/23/%E6%90%9C%E7%B4%A2-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1074,125 +814,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/10/19/P1219-%E5%85%AB%E7%9A%87%E5%90%8E-Checker-Challenge/" class="post-title-link" itemprop="url">P1219. 八皇后 Checker Challenge</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-10-19 14:40:27 / 修改时间：14:40:52" itemprop="dateCreated datePublished" datetime="2023-10-19T14:40:27+08:00">2023-10-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B4%9B%E8%B0%B7/" itemprop="url" rel="index"><span itemprop="name">洛谷</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/2023/10/19/P1219-%E5%85%AB%E7%9A%87%E5%90%8E-Checker-Challenge/#waline" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" data-path="/2023/10/19/P1219-%E5%85%AB%E7%9A%87%E5%90%8E-Checker-Challenge/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>328</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="考点">考点</h1>
-<ul>
-<li>DFS</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/19/P1219-%E5%85%AB%E7%9A%87%E5%90%8E-Checker-Challenge/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/18/%E4%BA%8C%E5%88%86-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="峰">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="峰狂算法">
-      <meta itemprop="description" content="让算法之旅更加疯狂而奇妙">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 峰狂算法">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/10/18/%E4%BA%8C%E5%88%86-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/" class="post-title-link" itemprop="url">二分_解题技巧</a>
+          <a href="/2023/10/23/%E6%90%9C%E7%B4%A2-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/" class="post-title-link" itemprop="url">搜索_解题技巧</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1203,14 +825,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-10-18 21:22:28" itemprop="dateCreated datePublished" datetime="2023-10-18T21:22:28+08:00">2023-10-18</time>
+      <time title="创建时间：2023-10-23 00:38:38" itemprop="dateCreated datePublished" datetime="2023-10-23T00:38:38+08:00">2023-10-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-10-25 16:42:33" itemprop="dateModified" datetime="2023-10-25T16:42:33+08:00">2023-10-25</time>
+      <time title="修改时间：2024-04-18 21:09:55" itemprop="dateModified" datetime="2024-04-18T21:09:55+08:00">2024-04-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1231,8 +853,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/2023/10/18/%E4%BA%8C%E5%88%86-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/#waline" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" data-path="/2023/10/18/%E4%BA%8C%E5%88%86-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/" itemprop="commentCount"></span>
+    <a title="waline" href="/2023/10/23/%E6%90%9C%E7%B4%A2-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2023/10/23/%E6%90%9C%E7%B4%A2-%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1243,14 +865,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>274</span>
+      <span>2.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>7 分钟</span>
     </span>
 </div>
 
@@ -1261,27 +883,244 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="适用范围">适用范围</h1>
+          <h1 id="使用范围">使用范围</h1>
+<p>DFS，深度优先搜索，寻找操作步骤字典序最小的解；白话文来说，就是能按序遍历所有情况</p>
+<p>然而，DFS也是可以求最小解的：</p>
 <ol type="1">
-<li>能找到确切的答案边界范围</li>
-<li>答案的分布具有单调性</li>
+<li>用一个全局变量，记录最小值（打擂台）</li>
+<li>迭代加深</li>
 </ol>
-<p>满足上述两点就可以尝试二分答案搜索了~</p>
-<p>一般来说，会有<strong>最大求最小</strong>、<strong>最小求最大</strong>、<strong>在误差精度的范围内</strong>等等字眼</p>
-<h1 id="模板">模板</h1>
-<p>答案二分的伪代码模板如下</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(l &lt;= r)&#123;</span><br><span class="line">    <span class="comment">//l和r都要可取</span></span><br><span class="line">    mid = l + (r - l) / <span class="number">2</span>;</span><br><span class="line">    <span class="comment">//防止溢出</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">check</span>(mid))</span><br><span class="line">        <span class="comment">//向右边界移动就是 l = mid + 1</span></span><br><span class="line">        <span class="comment">//向左边界移动就是 r = mid - 1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//如果求的是右边界, return r</span></span><br><span class="line"><span class="comment">//如果求的是左边界，return l</span></span><br></pre></td></tr></table></figure>
-<p>实数二分的伪代码模板如下，可通过该<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1024">模板题</a>熟悉：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(r - l &gt; eps)&#123;</span><br><span class="line">    <span class="comment">//eps是精度范围</span></span><br><span class="line">    mid = (l + r) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">check</span>(mid))</span><br><span class="line">        <span class="comment">//向右边界移动就是 l = mid</span></span><br><span class="line">        <span class="comment">//向左边界移动就是 r = mid</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//如果求的是右边界, return r</span></span><br><span class="line"><span class="comment">//如果求的是左边界，return l</span></span><br></pre></td></tr></table></figure>
-<h1 id="贴士">贴士</h1>
-<p>STL自带的俩函数：</p>
+<p>BFS，广度优先搜索，找到步骤最小的解；白话文来说，就是递归/迭代次数最少的解</p>
+<h1 id="dfs">DFS</h1>
+<h2 id="模板">模板</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> k)</span></span>&#123;<span class="comment">//k代表递归层数，或者说要填第几个空</span></span><br><span class="line">    <span class="keyword">if</span>(所有空都填完了)&#123;</span><br><span class="line">        判断最优解/记录答案;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(枚举这个空能填的选项)</span><br><span class="line">        <span class="keyword">if</span>(这个选项是合法的)&#123;</span><br><span class="line">            记录下这个空(保存现场);</span><br><span class="line">            <span class="built_in">dfs</span>(k+<span class="number">1</span>);</span><br><span class="line">            取消这个空(恢复现场);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>模板仅供参考，毕竟千变万化（我本人也不按照模板设计），核心编程思路有两点：</p>
+<ol type="1">
+<li><p>递归函数体内，每次处理的是当前的选项；下一次的情况丢给下一次递归就好</p>
+<p>若下一次递归的情况不符合题意怎么办呢？还往下递归吗？</p>
+<p>当然，函数体开头直接写相关的<code>return</code>语句，等下一次递归执行时，不就自动处理掉了嘛</p></li>
+<li><p>根据题意判断是否要恢复现场。但基本上，都需要额外新建标记数组来记录解以及重复情况</p>
+<p>如果拿不定主意，千万不要省标记数组！！！会吃大亏！</p></li>
+</ol>
+<h2 id="练习题">练习题</h2>
 <ul>
-<li><p><code>lower_bound</code>函数是找到第一个大于或等于</p></li>
-<li><p><code>upper_bound</code>函数是找到第一个大于</p></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1019">P1019</a>
+字符串拼接+DFS</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1036">P1036</a>
+选数+DFS</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1088">P1088</a>
+全排列</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1101">P1101</a>
+八个方向DFS</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1149">P1149</a>
+数学+DFS</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1157">P1157</a>
+选数+DFS</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1162">P1162</a>
+正难则反覆盖+DFS</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1219">P1219</a>
+经典的八皇后！</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1363">P1363</a>
+如何处理地图无限大的搜索</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1596">P1596</a>
+经典的flood-fill模型，DFS找连通块个数</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1605">P1605</a>
+DFS枚举走迷宫的方案数</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1706">P1706</a>
+经典的全排列！</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2036">P2036</a>
+简单剪枝</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2089">P2089</a>
+简单剪枝</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2392">P2392</a>
+分类DFS</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2404">P2404</a>
+经典的自然数拆分</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2853">P2853</a>
+flood-fill找共同连通块</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5318">P5318</a>
+图的遍历</li>
+<li><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/167/">acwing-165.
+小猫爬山</a> 中等难度的分配问题+剪枝</li>
+<li><a target="_blank" rel="noopener" href="http://poj.org/problem?id=3074">poj-3074 Sudoku</a>
+高难度状态压缩+剪枝</li>
+<li><a target="_blank" rel="noopener" href="http://poj.org/problem?id=2676">poj-2676 Sudoku</a>
+poj-3074的简化版</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1120">P1120</a>
+高难度剪枝</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/T148457">P1731</a>
+高难度剪枝</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1074">P1074</a>
+剪枝+状态压缩</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1092">P1092</a> 剪枝</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1312">P1312</a>
+消消乐的大模拟，考验码力</li>
 </ul>
-<p>可通过<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1678">P1678</a>来熟悉</p>
+<h1 id="bfs">BFS</h1>
+<h2 id="模板-1">模板</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Q是队列</span></span><br><span class="line">Q.<span class="built_in">push</span>(初始状态);<span class="comment">//将初始状态入队</span></span><br><span class="line"><span class="keyword">while</span>(!Q.<span class="built_in">empty</span>())&#123;</span><br><span class="line">    State u = Q.<span class="built_in">front</span>();<span class="comment">//取出队首</span></span><br><span class="line">    Q.<span class="built_in">pop</span>();<span class="comment">//出队</span></span><br><span class="line">    <span class="keyword">for</span>(枚举所有可扩展状态)<span class="comment">//找到u的所有可达状态v</span></span><br><span class="line">        <span class="keyword">if</span>(是合法的)<span class="comment">//v需要满足某些条件，如未访问过、未在队内等</span></span><br><span class="line">            Q.<span class="built_in">push</span>(v);<span class="comment">//入队(同时可能需要维护某些必要信息)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我基本也不按模板来...核心编程思路也有两点：</p>
+<ol type="1">
+<li><p>与DFS不同，BFS的函数体内每次处理的是下一次的选项！所以下一次的状态是否塞入队列，当前就要决定好！</p></li>
+<li><p>BFS为了避免死循环，也同样需要标记数组记录重复情况；比如<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2895">该题</a></p>
+<p>二次强调，除非确实认定逻辑上不需要标记数组，否则一定要加上！多个数组才多少空间啊....</p></li>
+</ol>
+<h2 id="练习题-1">练习题</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1135">P1135</a>
+二维走地图</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1443">P1443</a>
+二维走地图</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1825">P1825</a>
+二维走地图</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2895">P2895</a>
+二维走地图</li>
+<li><a target="_blank" rel="noopener" href="http://poj.org/problem?id=3322">poj-3322</a>
+三维走地图</li>
+<li><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/175/">acwing-173</a>
+flood-fill模型</li>
+<li><a
+target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/176/">acwing-174</a>
+双重BFS，Dijkstra和SPFA的精髓题，绝世好题！</li>
+<li><a
+target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/190/">acwing-188</a>
+二维走地图</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2960">P2960</a>
+二维走地图，输入有坑</li>
+<li><a target="_blank" rel="noopener" href="http://poj.org/problem?id=2044">poj-2044</a>
+思维题+二维走地图</li>
+</ul>
+<h1 id="进阶搜索">进阶搜索</h1>
+<p>根据边权情况分类即可：</p>
+<ol type="1">
+<li><p>问题只计最少步数，等价于在边权都为1的图上求最短路。</p>
+<p>使用普通的BFS，时间复杂度<span class="math inline">\(O\left( N
+\right)\)</span></p>
+<p>每个状态<strong>只访问（入队）一次，第一次入队时</strong>即为该状态的最少步数。</p></li>
+<li><p>问题每次扩展的代价可能是0或1，等价于在边权只有0和1的图上求最短路。</p>
+<p>使用双端队列BFS，时间复杂度<span class="math inline">\(O\left( N
+\right)\)</span></p>
+<p>每个状态被<strong>更新（入队）多次，只扩展一次，第一次出队时</strong>即为该状态的最小代价。</p></li>
+<li><p>问题每次扩展的代价是任意数值，等价于一般的最短路问题。</p>
+<ol type="1">
+<li><p>使用优先队列BFS，时间复杂度<span class="math inline">\(O\left(
+N\log N \right)\)</span>。</p>
+<p>每个状态被<strong>更新（入队）多次，只扩展一次，第一次出队时</strong>即为该状态的最小代价。</p></li>
+<li><p>使用迭代思想+普通的BFS（常用SPFA），时间复杂度<span
+class="math inline">\(O\left( N^2 \right)\)</span>。</p>
+<p>每个状态被更新（入队）、扩展（出队）多次，最终完成搜索后，记录数组中保存了最小代价。</p></li>
+</ol></li>
+</ol>
+<h2 id="优先队列bfs">优先队列BFS</h2>
+<h3 id="使用">使用</h3>
+<p>其实就是Dijkstra和SPFA</p>
+<h3 id="练习题-2">练习题</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://poj.org/problem?id=3635">poj-3635</a></li>
+</ul>
+<h2 id="双端队列bfs">双端队列BFS</h2>
+<h3 id="使用-1">使用</h3>
+<p>只能用在边权0或1的图上求最短路，和dijkstra完全一样的写法，只不过二叉堆换成了双端队列</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">memset</span>(d, <span class="number">0x3f</span>, <span class="built_in">sizeof</span>(d)), <span class="built_in">memset</span>(vis, <span class="number">0</span>, <span class="built_in">sizeof</span>(vis));</span><br><span class="line">d[<span class="number">1</span>] = <span class="number">0</span>, q.<span class="built_in">push_back</span>(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">  <span class="type">int</span> u = q.<span class="built_in">front</span>();</span><br><span class="line">  q.<span class="built_in">pop_front</span>();</span><br><span class="line">  <span class="keyword">if</span> (vis[u]) <span class="keyword">continue</span>;</span><br><span class="line">  vis[u] = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = head[u]; ~i; i = g[i].nxt_) &#123;</span><br><span class="line">    <span class="type">int</span> v = g[i].v_, w = g[i].w_ &gt; mid;</span><br><span class="line">    <span class="keyword">if</span> (d[v] &gt; d[u] + w) &#123;</span><br><span class="line">      d[v] = d[u] + w;</span><br><span class="line">      <span class="keyword">if</span> (w)</span><br><span class="line">        q.<span class="built_in">push_back</span>(v);</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        q.<span class="built_in">push_front</span>(v);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="练习题-3">练习题</h3>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/177/">acwing-175</a>
+模板题</li>
+<li><a target="_blank" rel="noopener" href="http://poj.org/problem?id=3662">poj-3662</a> 二分 +
+双端队列BFS求最短路</li>
+</ul>
+<h2 id="双向bfs">双向BFS</h2>
+<h3 id="使用-2">使用</h3>
+<p>用以减少一半的搜索树深度，两个方向轮流做BFS，每次可以先选状态少的进行扩展；</p>
+<p>注意！如果有无解情况，一定要先排除，否则复杂度会是普通BFS的两倍！</p>
+<p>若要输出路径，反向BFS的方向数组千万记得取反！</p>
+<blockquote>
+<p>正向方向数组为opa[4]={上，右，下，左}</p>
+<p>反向方向数组应为opb[4]={下，左，上，右}</p>
+</blockquote>
+<p>在反向BFS中，目标状态作为起点，中间状态作为终点；但客观上目标状态才是终点，中间状态是起点。</p>
+<p>所以，在反向BFS的视角中，从目标状态朝中间状态向上移动；</p>
+<p>客观上应该保存为从中间状态朝向目标状态向下移动！</p>
+<p>如果双向BFS仍超时，只能考虑启发式搜索进行优化了。</p>
+<h3 id="练习题-4">练习题</h3>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://acm.hdu.edu.cn/showproblem.php?pid=3085">hdoj-3085</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1032">P1032</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/submission/181/">acwing-179.
+八数码</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1379">P1379</a>
+上面那道题的低配版</li>
+</ul>
+<h2 id="迭代加深">迭代加深</h2>
+<h3 id="使用-3">使用</h3>
+<p>因为DFS的性质，无法像BFS一样很方便地找最少步骤解，要么就只能开一个全局变量打擂台并剪枝；</p>
+<p>迭代加深就是模拟BFS，判断答案在第几层，异曲同工之妙。</p>
+<h3 id="练习题-5">练习题</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://poj.org/problem?id=2248">poj-2248</a> 模板题</li>
+<li><a target="_blank" rel="noopener" href="http://poj.org/problem?id=1167">poj-1167</a></li>
+<li><a target="_blank" rel="noopener" href="http://poj.org/problem?id=3700">poj-3700</a>
+贪心+迭代加深控制步数，非常好的题！</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1763">P1763</a>
+高难度剪枝，枚举分母所考虑的细节</li>
+</ul>
+<h2 id="双向dfs">双向DFS</h2>
+<h3 id="使用-4">使用</h3>
+<p>减少一半的搜索树深度</p>
+<h3 id="练习题-6">练习题</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/173/">acwing-171</a>
+双向DFS模板题</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF525E">CF525E</a>
+高难度的记忆化搜索优化</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF912E">CF912E</a>
+优化双向DFS + 二分 + 双指针</li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4799">P4799</a>
+和上面那题类似</li>
+</ul>
+<h2 id="astar">Astar</h2>
+<h3 id="使用-5">使用</h3>
+<p>设当前状态为<code>now</code>，当前状态到目标状态的<strong>最小开销(理想值)</strong>为估价函数<code>f(now)</code>，初始状态到当前状态的开销为<code>d[now]</code></p>
+<p>每次取出最小的<code>f(now) + d[now]</code>进行扩展</p>
+<p>与Dijkstra的大不相同！</p>
+<p>除了目标状态之外，其余状态会<strong>重复出队入队</strong>，<strong>不能</strong>像Dijkstra那样只出队一次！</p>
+<p>因为<code>f(now) + d[now]</code>是由两个变量共同组成，收敛性不一致；</p>
+<p>且由于本身用了Dijkstra的贪心思想，所以不能用在负边权的图上！</p>
+<p>适用于规模巨大的优先队列BFS题，一定要用估价函数来加快搜索进程否则会TLE的那种</p>
+<h3 id="练习题-7">练习题</h3>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/180/">第K短路</a>
+模板题</li>
+<li><a
+target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/submission/181/">八数码</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5507">机关</a></li>
+</ul>
+<h2 id="idastar">IDAstar</h2>
+<h3 id="使用-6">使用</h3>
+<p>迭代加深+估价函数构成，</p>
+<p>每次计算<code>初始状态到当前状态的开销 + 当前状态到目标状态的最小开销(理想值，即估价函数)</code>是否大于阈值，用以剪枝</p>
+<h3 id="练习题-8">练习题</h3>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/182/">排书</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/183/">回转游戏</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/195/">算乘方的牛</a>
+最大公约数 + 数学思维剪枝，涵盖了几乎所有的剪枝技巧，大赞！</li>
+<li><a
+target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/196/">涂满它</a>
+flood-fill优化</li>
+<li><a
+target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/197/">骑士精神</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2324">P2324</a>
+上面那道题的低配版</li>
+</ul>
 
       
     </div>
@@ -1308,7 +1147,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1678">P16
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/18/P3743-kotori%E7%9A%84%E8%AE%BE%E5%A4%87/">
+    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/23/P1162-%E5%A1%AB%E6%B6%82%E9%A2%9C%E8%89%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1326,7 +1165,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1678">P16
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/10/18/P3743-kotori%E7%9A%84%E8%AE%BE%E5%A4%87/" class="post-title-link" itemprop="url">P3743. kotori的设备</a>
+          <a href="/2023/10/23/P1162-%E5%A1%AB%E6%B6%82%E9%A2%9C%E8%89%B2/" class="post-title-link" itemprop="url">P1162. 填涂颜色</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1338,7 +1177,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1678">P16
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-10-18 20:52:44 / 修改时间：20:53:17" itemprop="dateCreated datePublished" datetime="2023-10-18T20:52:44+08:00">2023-10-18</time>
+      <time title="创建时间：2023-10-23 00:03:00 / 修改时间：00:03:19" itemprop="dateCreated datePublished" datetime="2023-10-23T00:03:00+08:00">2023-10-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1359,8 +1198,8 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1678">P16
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/2023/10/18/P3743-kotori%E7%9A%84%E8%AE%BE%E5%A4%87/#waline" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" data-path="/2023/10/18/P3743-kotori%E7%9A%84%E8%AE%BE%E5%A4%87/" itemprop="commentCount"></span>
+    <a title="waline" href="/2023/10/23/P1162-%E5%A1%AB%E6%B6%82%E9%A2%9C%E8%89%B2/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2023/10/23/P1162-%E5%A1%AB%E6%B6%82%E9%A2%9C%E8%89%B2/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1371,14 +1210,14 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1678">P16
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.1k</span>
+      <span>324</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -1391,12 +1230,365 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1678">P16
     <div class="post-body" itemprop="articleBody">
           <h1 id="考点">考点</h1>
 <ul>
-<li>二分</li>
-<li>贪心</li>
+<li>DFS</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/10/18/P3743-kotori%E7%9A%84%E8%AE%BE%E5%A4%87/#more" rel="contents">
+              <a class="btn" href="/2023/10/23/P1162-%E5%A1%AB%E6%B6%82%E9%A2%9C%E8%89%B2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/22/P1596-Lake-Counting-S/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="峰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="峰狂算法">
+      <meta itemprop="description" content="让算法之旅更加疯狂而奇妙">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 峰狂算法">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/10/22/P1596-Lake-Counting-S/" class="post-title-link" itemprop="url">P1596. Lake Counting S</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-10-22 22:38:02 / 修改时间：22:38:23" itemprop="dateCreated datePublished" datetime="2023-10-22T22:38:02+08:00">2023-10-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B4%9B%E8%B0%B7/" itemprop="url" rel="index"><span itemprop="name">洛谷</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2023/10/22/P1596-Lake-Counting-S/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2023/10/22/P1596-Lake-Counting-S/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>198</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/10/22/P1596-Lake-Counting-S/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/22/P2404-%E8%87%AA%E7%84%B6%E6%95%B0%E7%9A%84%E6%8B%86%E5%88%86%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="峰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="峰狂算法">
+      <meta itemprop="description" content="让算法之旅更加疯狂而奇妙">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 峰狂算法">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/10/22/P2404-%E8%87%AA%E7%84%B6%E6%95%B0%E7%9A%84%E6%8B%86%E5%88%86%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">P2404. 自然数的拆分问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-10-22 22:01:02 / 修改时间：22:01:22" itemprop="dateCreated datePublished" datetime="2023-10-22T22:01:02+08:00">2023-10-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B4%9B%E8%B0%B7/" itemprop="url" rel="index"><span itemprop="name">洛谷</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2023/10/22/P2404-%E8%87%AA%E7%84%B6%E6%95%B0%E7%9A%84%E6%8B%86%E5%88%86%E9%97%AE%E9%A2%98/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2023/10/22/P2404-%E8%87%AA%E7%84%B6%E6%95%B0%E7%9A%84%E6%8B%86%E5%88%86%E9%97%AE%E9%A2%98/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>173</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/10/22/P2404-%E8%87%AA%E7%84%B6%E6%95%B0%E7%9A%84%E6%8B%86%E5%88%86%E9%97%AE%E9%A2%98/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2023/10/22/P1101-%E5%8D%95%E8%AF%8D%E6%96%B9%E9%98%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="峰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="峰狂算法">
+      <meta itemprop="description" content="让算法之旅更加疯狂而奇妙">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 峰狂算法">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/10/22/P1101-%E5%8D%95%E8%AF%8D%E6%96%B9%E9%98%B5/" class="post-title-link" itemprop="url">P1101. 单词方阵</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-10-22 21:11:36 / 修改时间：21:15:42" itemprop="dateCreated datePublished" datetime="2023-10-22T21:11:36+08:00">2023-10-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B4%9B%E8%B0%B7/" itemprop="url" rel="index"><span itemprop="name">洛谷</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2023/10/22/P1101-%E5%8D%95%E8%AF%8D%E6%96%B9%E9%98%B5/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2023/10/22/P1101-%E5%8D%95%E8%AF%8D%E6%96%B9%E9%98%B5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>263</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="考点">考点</h1>
+<ul>
+<li>DFS</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/10/22/P1101-%E5%8D%95%E8%AF%8D%E6%96%B9%E9%98%B5/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1420,7 +1612,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1678">P16
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/25/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/40/">40</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/27/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/25/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/">41</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/27/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -1431,7 +1623,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1678">P16
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2024</span>
+    <span itemprop="copyrightYear">2025</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
@@ -1443,14 +1635,14 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1678">P16
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">173k</span>
+    <span title="站点总字数">181k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">9:35</span>
+    <span title="站点阅读时长">10:02</span>
   </span>
 </div>
 <div class="busuanzi-count">
