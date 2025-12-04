@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="duqHy3dcEjYWGMlIrrgCOyJ2KVh-pkq2tdoA6cKaSV4">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"fi3wey.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="考点  划分DP 前缀和 二分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3599. 划分数组得到最小 XOR">
+<meta property="og:url" content="https://fi3wey.github.io/2025/11/30/3599-%E5%88%92%E5%88%86%E6%95%B0%E7%BB%84%E5%BE%97%E5%88%B0%E6%9C%80%E5%B0%8F-XOR/index.html">
+<meta property="og:site_name" content="峰狂算法">
+<meta property="og:description" content="考点  划分DP 前缀和 二分">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-11-30T06:52:15.000Z">
+<meta property="article:modified_time" content="2025-11-30T07:54:36.136Z">
+<meta property="article:author" content="峰">
+<meta property="article:tag" content="二分">
+<meta property="article:tag" content="前缀和">
+<meta property="article:tag" content="划分DP">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://fi3wey.github.io/2025/11/30/3599-%E5%88%92%E5%88%86%E6%95%B0%E7%BB%84%E5%BE%97%E5%88%B0%E6%9C%80%E5%B0%8F-XOR/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://fi3wey.github.io/2025/11/30/3599-%E5%88%92%E5%88%86%E6%95%B0%E7%BB%84%E5%BE%97%E5%88%B0%E6%9C%80%E5%B0%8F-XOR/","path":"2025/11/30/3599-划分数组得到最小-XOR/","title":"3599. 划分数组得到最小 XOR"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>3599. 划分数组得到最小 XOR | 峰狂算法</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="waline-theta-olive.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="峰狂算法" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">峰狂算法</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">98</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">470</span></a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%80%83%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">考点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%92%E5%88%86dp"><span class="nav-number">2.1.</span> <span class="nav-text">划分DP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%88%86dp"><span class="nav-number">2.2.</span> <span class="nav-text">二分+DP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. 命题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%81%E6%98%8E-ft-%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E8%BF%99%E8%B7%9F-xor-%E6%9C%AC%E8%BA%AB%E6%97%A0%E5%85%B3"><span class="nav-number">2.2.2.</span> <span class="nav-text">2. 证明 F(T) 的单调性（这跟
+XOR 本身无关）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B"><span class="nav-number">2.2.3.</span> <span class="nav-text">3. 举例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E4%B8%BB%E4%BD%93%E6%80%9D%E8%B7%AF"><span class="nav-number">2.2.4.</span> <span class="nav-text">二分主体思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99-checklimit"><span class="nav-number">2.2.5.</span> <span class="nav-text">编写 check(limit)</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="峰"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">峰</p>
+  <div class="site-description" itemprop="description">让算法之旅更加疯狂而奇妙</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">470</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">98</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/fi3wey" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fi3wey" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fi3wey@gmail.com" title="E-Mail → mailto:fi3wey@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2025/11/30/3599-%E5%88%92%E5%88%86%E6%95%B0%E7%BB%84%E5%BE%97%E5%88%B0%E6%9C%80%E5%B0%8F-XOR/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="峰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="峰狂算法">
+      <meta itemprop="description" content="让算法之旅更加疯狂而奇妙">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="3599. 划分数组得到最小 XOR | 峰狂算法">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          3599. 划分数组得到最小 XOR
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-11-30 14:52:15 / 修改时间：15:54:36" itemprop="dateCreated datePublished" datetime="2025-11-30T14:52:15+08:00">2025-11-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%8A%9B%E6%89%A3/" itemprop="url" rel="index"><span itemprop="name">力扣</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2025/11/30/3599-%E5%88%92%E5%88%86%E6%95%B0%E7%BB%84%E5%BE%97%E5%88%B0%E6%9C%80%E5%B0%8F-XOR/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2025/11/30/3599-%E5%88%92%E5%88%86%E6%95%B0%E7%BB%84%E5%BE%97%E5%88%B0%E6%9C%80%E5%B0%8F-XOR/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="考点">考点</h1>
+<ul>
+<li>划分DP</li>
+<li>前缀和</li>
+<li>二分</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<h2 id="划分dp">划分DP</h2>
+<p>直接看代码即可，要注意这里异或值可能会非常大，<code>0x3f3f3f3f</code>不够用，建议直接上<code>INT_MAX</code></p>
+<p>我代码用<code>0x7f7f7f7f</code>发现也可以：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> inf = <span class="number">0x7f7f7f7f</span>;</span><br><span class="line">  <span class="function"><span class="type">int</span> <span class="title">minXor</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n = nums.<span class="built_in">size</span>(), f[<span class="number">300</span>][<span class="number">300</span>];</span><br><span class="line">    <span class="comment">// f[j][i]: 前i个数字划分为j个数组时的最大异或值，取最小</span></span><br><span class="line">    <span class="comment">// 要注意, 这里最大值有可能接近1&lt;&lt;30, 所以无穷取0x7f7f7f7f或者INT_MAX</span></span><br><span class="line">    <span class="built_in">memset</span>(f, <span class="number">0x7f</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line">    f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= k; ++j) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> r = j; r &lt;= n; ++r) &#123;</span><br><span class="line">        <span class="type">int</span> s = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> l = r; l &gt;= j; --l) &#123;</span><br><span class="line">          s ^= nums[l - <span class="number">1</span>];</span><br><span class="line">          <span class="keyword">if</span> (f[j - <span class="number">1</span>][l - <span class="number">1</span>] != inf)</span><br><span class="line">            f[j][r] = <span class="built_in">min</span>(f[j][r], <span class="built_in">max</span>(f[j - <span class="number">1</span>][l - <span class="number">1</span>], s));</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f[k][n];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>当然也可以滚动数组滚掉一维：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> inf = INT_MAX;</span><br><span class="line">  <span class="function"><span class="type">int</span> <span class="title">minXor</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n = nums.<span class="built_in">size</span>(), f[<span class="number">300</span>];</span><br><span class="line">    <span class="comment">// f[j][i]: 前i个数字划分为j个数组时的最大异或值，取最小</span></span><br><span class="line">    <span class="comment">// 要注意, 这里最大值有可能接近1&lt;&lt;30, 所以无穷取INT_MAX</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) f[i] = inf;</span><br><span class="line">    f[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= k; ++j) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> r = n; r &gt;= j; --r) &#123;</span><br><span class="line">        f[r] = inf;</span><br><span class="line">        <span class="type">int</span> s = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> l = r; l &gt;= j; --l) &#123;</span><br><span class="line">          s ^= nums[l - <span class="number">1</span>];</span><br><span class="line">          <span class="keyword">if</span> (f[l - <span class="number">1</span>] != inf) f[r] = <span class="built_in">min</span>(f[r], <span class="built_in">max</span>(f[l - <span class="number">1</span>], s));</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f[n];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="二分dp">二分+DP</h2>
+<p>本题用二分并不优，因为内部还要用一次DP，锻炼码力也可以写一下</p>
+<p>先证明一下二分的可行性，尽管异或值本身并不单调，但二分答案根本不需要“异或值本身单调”
+二分需要的是一个 <strong>布尔函数</strong> 的单调性：</p>
+<blockquote>
+<p>F(T) = 是否存在一种划分，使得所有段的 XOR 都 ≤ T</p>
+</blockquote>
+<p>只要能证明： 如果 F(T) = true，那对所有 <code>T' &gt; T</code> 也有
+F(T') = true， 那就可以二分 T。 这里的“单调性”是 <strong>F(T) 随着 T
+的单调（从 false→true）</strong>，跟异或怎么跳来跳去无关。</p>
+<hr />
+<h3 id="命题描述">1. 命题描述</h3>
+<p>题目：给定数组 <code>nums</code> 和整数 <code>k</code>，把它划成 k
+段， 每段的 XOR 记为 <code>xor_seg_1, xor_seg_2, ..., xor_seg_k</code>，
+我们想最小化 <code>max(xor_seg_1, ..., xor_seg_k)</code>。</p>
+<p>定义一个函数：</p>
+<blockquote>
+<p>F(T) = 是否存在一种把数组划成 k 段的方案， 使得每一段的 XOR 都 ≤
+T。</p>
+</blockquote>
+<p>那么题目要找的答案就是所有满足 F(T)=true 的 T 的最小值。</p>
+<p><strong>二分需要的条件：</strong></p>
+<blockquote>
+<p>如果 F(T) = true，则对所有 <code>T' ≥ T</code>，F(T') 也必须是
+true。</p>
+</blockquote>
+<p>这就是所谓的“二分单调性”。</p>
+<hr />
+<h3 id="证明-ft-的单调性这跟-xor-本身无关">2. 证明 F(T) 的单调性（这跟
+XOR 本身无关）</h3>
+<p>假设对某个 T，F(T) = true。 这意味着：存在某种划分方案 S，把数组分成
+k 段：</p>
+<ul>
+<li>这一种方案 S 下，每一段的 XOR 都 ≤ T。</li>
+</ul>
+<p>现在随便取一个更大的数 T' ≥ T。</p>
+<p>同一套划分方案 S，所有段的 XOR 仍然是当初那几个值，没变： 它们原来 ≤
+T，所以当然也 ≤ T'（因为 T' 更大）。</p>
+<p>所以：</p>
+<ul>
+<li>用同一个方案 S，F(T') 也为 true。</li>
+</ul>
+<p>这说明：</p>
+<blockquote>
+<p>T 满足 ⇒ 所有更大的 T' 也满足， F 在 T 上是从 false→true
+一次性跳过去，就不会来回乱跳。</p>
+</blockquote>
+<p>你可以把这个逻辑注意一下： 我们二分的是 <strong>“允许的最大值 T
+有多松”</strong>， 约束越松（T
+越大），<strong>方案只会更多，不会更少</strong>。
+这个跟“异或值自己是不是递增”一点关系都没有。</p>
+<hr />
+<h3 id="举例">3. 举例</h3>
+<p>比如数组 <code>nums = [1, 2, 3]</code>，k = 2。
+我们可以列一下所有划分方案和它们的 “最大 XOR”：</p>
+<ol type="1">
+<li><code>[1] | [2,3]</code>
+<ul>
+<li>XOR: <code>1</code> 和 <code>2^3=1</code>，max = 1</li>
+</ul></li>
+<li><code>[1,2] | [3]</code>
+<ul>
+<li>XOR: <code>1^2=3</code> 和 <code>3</code>，max = 3</li>
+</ul></li>
+</ol>
+<p>所以所有可能的“最大 XOR”是 {1, 3}，答案是 min{1,3} = 1。</p>
+<p>现在看 F(T)：</p>
+<ul>
+<li>T = 0： 没有任何划分方案能让所有段 XOR ≤ 0 ⇒ F(0) = false</li>
+<li>T = 1： 方案 1 里 max XOR = 1 ≤ 1 ⇒ F(1) = true</li>
+<li>T = 2： 方案 1 里 max XOR = 1 ≤ 2 ⇒ F(2) = true</li>
+<li>T = 3： 方案 1、2 都可以 ⇒ F(3) = true</li>
+</ul>
+<p>所以：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">T:    0  1  2  3 ...</span><br><span class="line">F(T): 0  1  1  1 ...</span><br></pre></td></tr></table></figure>
+<p>这就是典型的 <strong>0,0,...,0,1,1,1,1...</strong>
+的模式，可以二分</p>
+<p>二分的思路如下：</p>
+<h3 id="二分主体思路">二分主体思路</h3>
+<p>我们现在要二分的是一个上界 <code>limit</code>：</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F(limit) = 是否存在一种把数组划分成恰好 k 段的方案，使得每一段的 XOR 都 ≤ limit</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>如果 <code>F(limit)</code> 为真，那么同一套划分在更大的
+<code>limit'</code> 下也一定合法，所以：</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F(limit) = true  ⇒  对所有 limit&#x27; ≥ limit, F(limit&#x27;) 也为 true</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>这个布尔函数对 <code>limit</code> 是单调的，可以二分</p>
+<p>二分区间可以取：</p>
+<ul>
+<li><code>lo = 0</code></li>
+<li><code>hi = (1 &lt;&lt; 30) - 1</code> （因为
+<code>nums[i] ≤ 1e9 &lt; 2^30</code>，任何子数组 XOR 都 &lt; 2^30）</li>
+</ul>
+<hr />
+<h3 id="编写-checklimit">编写 <code>check(limit)</code></h3>
+<p>用一个布尔 DP：</p>
+<ul>
+<li><code>dp[i][c]</code>：前 <code>i</code>
+个数（<code>nums[0..i-1]</code>）能不能被划分成恰好 <code>c</code>
+段，且每一段的 XOR 都 ≤ <code>limit</code></li>
+</ul>
+<p>初始条件：</p>
+<ul>
+<li><code>dp[0][0] = true</code></li>
+<li><code>dp[0][c&gt;0] = false</code></li>
+</ul>
+<p>转移：</p>
+<ul>
+<li>让最后一段是 <code>[l .. i-1]</code>（1-based 就是
+<code>[l..i]</code>），它的 XOR 记为 <code>xor(l..i-1)</code></li>
+<li>如果：
+<ul>
+<li><code>dp[l][c-1] == true</code>，并且</li>
+<li><code>xor(l..i-1) ≤ limit</code></li>
+</ul></li>
+<li>那么：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i][c] = true;</span><br></pre></td></tr></table></figure>
+<p>这样最后 <code>dp[n][k]</code> 就是 <code>F(limit)</code>
+的真假。</p>
+<p>AC代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> inf = INT_MAX;</span><br><span class="line">  <span class="function"><span class="type">int</span> <span class="title">minXor</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">auto</span> check = [&amp;](<span class="type">int</span> mid) -&gt; <span class="type">bool</span> &#123;</span><br><span class="line">      <span class="comment">// f[j][i]: 前i个数凑成j个数组，每个数组的异或和能否小于等于mid</span></span><br><span class="line">      <span class="type">bool</span> f[<span class="number">305</span>][<span class="number">305</span>];</span><br><span class="line">      <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line">      f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= k; ++j) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> r = j; r &lt;= n; ++r) &#123;</span><br><span class="line">          <span class="type">int</span> s = <span class="number">0</span>;</span><br><span class="line">          <span class="keyword">for</span> (<span class="type">int</span> l = r; l &gt;= j; --l) &#123;</span><br><span class="line">            s ^= nums[l - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (s &lt;= mid &amp;&amp; f[j - <span class="number">1</span>][l - <span class="number">1</span>]) &#123;</span><br><span class="line">              f[j][r] = <span class="number">1</span>;</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> f[k][n];</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// 二分主体</span></span><br><span class="line">    <span class="type">int</span> l = <span class="number">0</span>, r = (<span class="number">1</span> &lt;&lt; <span class="number">30</span>) - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">      <span class="type">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">check</span>(mid))</span><br><span class="line">        r = mid;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        l = mid + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> l;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>蟹蟹看官大人的赏赐呀~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="峰 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="峰 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="wechat_channel">
+    <!-- 这里添加你的二维码图片 -->
+    <img src="/images/wechat_channel.png">
+</div>
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>峰
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://fi3wey.github.io/2025/11/30/3599-%E5%88%92%E5%88%86%E6%95%B0%E7%BB%84%E5%BE%97%E5%88%B0%E6%9C%80%E5%B0%8F-XOR/" title="3599. 划分数组得到最小 XOR">https://fi3wey.github.io/2025/11/30/3599-划分数组得到最小-XOR/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E4%BA%8C%E5%88%86/" rel="tag"><i class="fa fa-tag"></i> 二分</a>
+              <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" rel="tag"><i class="fa fa-tag"></i> 前缀和</a>
+              <a href="/tags/%E5%88%92%E5%88%86DP/" rel="tag"><i class="fa fa-tag"></i> 划分DP</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/11/29/813-%E6%9C%80%E5%A4%A7%E5%B9%B3%E5%9D%87%E5%80%BC%E5%92%8C%E7%9A%84%E5%88%86%E7%BB%84/" rel="prev" title="813. 最大平均值和的分组">
+                  <i class="fa fa-chevron-left"></i> 813. 最大平均值和的分组
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/11/30/410-%E5%88%86%E5%89%B2%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/" rel="next" title="410. 分割数组的最大值">
+                  410. 分割数组的最大值 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">峰</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">218k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">12:05</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/fi3wey" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.8/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://fi3wey.github.io/2025/11/30/3599-%E5%88%92%E5%88%86%E6%95%B0%E7%BB%84%E5%BE%97%E5%88%B0%E6%9C%80%E5%B0%8F-XOR/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-theta-olive.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2025/11/30/3599-%E5%88%92%E5%88%86%E6%95%B0%E7%BB%84%E5%BE%97%E5%88%B0%E6%9C%80%E5%B0%8F-XOR/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+</body>
+</html>

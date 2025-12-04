@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="duqHy3dcEjYWGMlIrrgCOyJ2KVh-pkq2tdoA6cKaSV4">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"fi3wey.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="考点  划分DP 单调栈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1335. 工作计划的最低难度">
+<meta property="og:url" content="https://fi3wey.github.io/2025/12/01/1335-%E5%B7%A5%E4%BD%9C%E8%AE%A1%E5%88%92%E7%9A%84%E6%9C%80%E4%BD%8E%E9%9A%BE%E5%BA%A6/index.html">
+<meta property="og:site_name" content="峰狂算法">
+<meta property="og:description" content="考点  划分DP 单调栈">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-12-01T05:09:07.000Z">
+<meta property="article:modified_time" content="2025-12-02T06:36:05.753Z">
+<meta property="article:author" content="峰">
+<meta property="article:tag" content="单调栈">
+<meta property="article:tag" content="划分DP">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://fi3wey.github.io/2025/12/01/1335-%E5%B7%A5%E4%BD%9C%E8%AE%A1%E5%88%92%E7%9A%84%E6%9C%80%E4%BD%8E%E9%9A%BE%E5%BA%A6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://fi3wey.github.io/2025/12/01/1335-%E5%B7%A5%E4%BD%9C%E8%AE%A1%E5%88%92%E7%9A%84%E6%9C%80%E4%BD%8E%E9%9A%BE%E5%BA%A6/","path":"2025/12/01/1335-工作计划的最低难度/","title":"1335. 工作计划的最低难度"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>1335. 工作计划的最低难度 | 峰狂算法</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="waline-theta-olive.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="峰狂算法" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">峰狂算法</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">98</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">470</span></a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%80%83%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">考点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%92%E5%88%86dp"><span class="nav-number">2.1.</span> <span class="nav-text">划分DP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E8%B0%83%E6%A0%88"><span class="nav-number">2.2.</span> <span class="nav-text">单调栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E7%A7%BB%E6%9C%BA%E5%88%B6"><span class="nav-number">2.2.1.</span> <span class="nav-text">转移机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%85%E5%86%B5-1%E5%8F%AA%E8%80%83%E8%99%91%E6%9C%80%E5%90%8E%E4%B8%80%E5%A4%A9%E5%8F%AA%E5%81%9A-ai"><span class="nav-number">2.2.2.</span> <span class="nav-text">情况 1：只考虑最后一天只做
+a[i]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%85%E5%86%B5-2%E5%90%88%E5%B9%B6%E6%89%80%E6%9C%89%E6%9C%80%E5%A4%A7%E5%80%BC%E5%B0%8F%E4%BA%8E%E7%AD%89%E4%BA%8E-x-%E7%9A%84%E5%9D%97"><span class="nav-number">2.2.3.</span> <span class="nav-text">情况
+2：合并所有最大值小于等于 x 的块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%85%E5%86%B5-3%E6%A0%88%E4%B8%AD%E4%BB%8D%E6%9C%89%E5%9D%97%E5%85%B6%E6%9C%80%E5%A4%A7%E5%80%BC-x"><span class="nav-number">2.2.4.</span> <span class="nav-text">情况 3：栈中仍有块，其最大值 &gt;
+x</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%85%E5%86%B5-4%E5%B0%86%E5%BD%93%E5%89%8D-i-%E4%BD%9C%E4%B8%BA%E6%96%B0%E5%9D%97%E5%85%A5%E6%A0%88"><span class="nav-number">2.2.5.</span> <span class="nav-text">情况 4：将当前 i 作为新块入栈</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="峰"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">峰</p>
+  <div class="site-description" itemprop="description">让算法之旅更加疯狂而奇妙</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">470</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">98</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/fi3wey" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fi3wey" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fi3wey@gmail.com" title="E-Mail → mailto:fi3wey@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2025/12/01/1335-%E5%B7%A5%E4%BD%9C%E8%AE%A1%E5%88%92%E7%9A%84%E6%9C%80%E4%BD%8E%E9%9A%BE%E5%BA%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="峰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="峰狂算法">
+      <meta itemprop="description" content="让算法之旅更加疯狂而奇妙">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="1335. 工作计划的最低难度 | 峰狂算法">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          1335. 工作计划的最低难度
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-12-01 13:09:07" itemprop="dateCreated datePublished" datetime="2025-12-01T13:09:07+08:00">2025-12-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-12-02 14:36:05" itemprop="dateModified" datetime="2025-12-02T14:36:05+08:00">2025-12-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%8A%9B%E6%89%A3/" itemprop="url" rel="index"><span itemprop="name">力扣</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2025/12/01/1335-%E5%B7%A5%E4%BD%9C%E8%AE%A1%E5%88%92%E7%9A%84%E6%9C%80%E4%BD%8E%E9%9A%BE%E5%BA%A6/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2025/12/01/1335-%E5%B7%A5%E4%BD%9C%E8%AE%A1%E5%88%92%E7%9A%84%E6%9C%80%E4%BD%8E%E9%9A%BE%E5%BA%A6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="考点">考点</h1>
+<ul>
+<li>划分DP</li>
+<li>单调栈</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<h2 id="划分dp">划分DP</h2>
+<p>裸的划分DP，不再赘述</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> inf = <span class="number">0x7f7f7f7f</span>;</span><br><span class="line">  <span class="function"><span class="type">int</span> <span class="title">minDifficulty</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; jobDifficulty, <span class="type">int</span> d)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> f[<span class="number">305</span>][<span class="number">305</span>];</span><br><span class="line">    <span class="built_in">memset</span>(f, <span class="number">0x7f</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line">    f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> n = jobDifficulty.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= d; ++j) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> r = j; r &lt;= n; ++r) &#123;</span><br><span class="line">        <span class="type">int</span> mx = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> l = r; l &gt;= j; --l) &#123;</span><br><span class="line">          mx = <span class="built_in">max</span>(mx, jobDifficulty[l - <span class="number">1</span>]);</span><br><span class="line">          <span class="keyword">if</span> (f[j - <span class="number">1</span>][l - <span class="number">1</span>] != inf)</span><br><span class="line">            f[j][r] = <span class="built_in">min</span>(f[j][r], f[j - <span class="number">1</span>][l - <span class="number">1</span>] + mx);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f[d][n] == inf ? <span class="number">-1</span> : f[d][n];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>注意，如果压缩为一维，要注意<code>n &lt; d</code>时的不可能情况，否则数组保留的可能还是上次的可行性解：</p>
+<p>看一个具体反例：</p>
+<ul>
+<li><code>jobDifficulty = [9]</code></li>
+<li><code>d = 2</code></li>
+</ul>
+<p>显然无法在 2 天内安排 1 个任务且每天至少一个任务，所以答案应该是
+<code>-1</code>。</p>
+<p>如果不特判的话，执行过程：</p>
+<ol type="1">
+<li>初始化：<code>f[0] = 0, f[1..n] = inf</code></li>
+<li>第一天 <code>j = 1</code>：
+<ul>
+<li><code>r = 1</code>：
+<ul>
+<li><code>mx = 9</code></li>
+<li>用 <code>f[0]</code> 更新 <code>f[1] = 9</code></li>
+</ul></li>
+<li>结束后，此时数组含义是：<code>f[1] = f[1][1] = 9</code></li>
+</ul></li>
+<li>第二天 <code>j = 2</code>：
+<ul>
+<li><code>for (int r = n; r &gt;= j; --r)</code>
+里，<code>n=1, j=2</code>，循环根本不进</li>
+<li>所以 <code>f[1]</code> 仍然是第一次循环留下来的
+<code>9</code>，即上一行的 <code>f[1][1]</code>，而不是
+<code>f[2][1]</code></li>
+</ul></li>
+<li>最后直接返回 <code>f[n] = 9</code></li>
+</ol>
+<p>但是二维版里返回的是 <code>f[d][n]</code>，也就是
+<code>f[2][1]</code>，这格从来没被更新过，仍然是
+<code>inf</code>，所以返回 <code>-1</code>，是正确的。</p>
+<p>所以在 <code>n &lt; d</code>
+的场景下，不特判的写法最后拿到的是「天数不够的状态」<code>f[1][1]</code>，而不是「真正要的」<code>f[2][1]</code></p>
+<p>代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> inf = <span class="number">0x7f7f7f7f</span>;</span><br><span class="line">  <span class="function"><span class="type">int</span> <span class="title">minDifficulty</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; jobDifficulty, <span class="type">int</span> d)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n = jobDifficulty.<span class="built_in">size</span>();</span><br><span class="line">    <span class="comment">// 滚动数组要注意加这一句</span></span><br><span class="line">    <span class="keyword">if</span> (n &lt; d) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="type">int</span> f[<span class="number">305</span>];</span><br><span class="line">    <span class="built_in">memset</span>(f, <span class="number">0x7f</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line">    f[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= d; ++j) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> r = n; r &gt;= j; --r) &#123;</span><br><span class="line">        <span class="type">int</span> mx = <span class="number">-1</span>;</span><br><span class="line">        f[r] = inf;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> l = r; l &gt;= j; --l) &#123;</span><br><span class="line">          mx = <span class="built_in">max</span>(mx, jobDifficulty[l - <span class="number">1</span>]);</span><br><span class="line">          <span class="keyword">if</span> (f[l - <span class="number">1</span>] != inf) f[r] = <span class="built_in">min</span>(f[r], f[l - <span class="number">1</span>] + mx);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f[n] == inf ? <span class="number">-1</span> : f[n];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="单调栈">单调栈</h2>
+<p>先回忆一下单调栈的特性：</p>
+<ul>
+<li>单调队列每次都会有区间范围限制，而单调栈后续所有的情况都从同一起点出发，类似前缀和</li>
+<li>每次只用栈顶就可以获得答案，而不需要栈内其他元素</li>
+</ul>
+<p>对固定的 day，计算一整行 <span
+class="math inline">\(f[\text{day}][i]\)</span> 时，我们按 i
+从左到右递增地扫描。</p>
+<p>对于固定右端 i，所有可能的左端 k 满足： <span class="math display">\[
+k \in [\text{day}..i]
+\]</span> 每个 k 对应最后一天做区间 <span class="math display">\[
+[k..i]
+\]</span> 而这些区间的最大值 <span class="math display">\[
+\max(a[k..i])
+\]</span> 随着 k 从右向左移动是 <strong>单调不减</strong> 的，即所有候选
+k 会自然分成如下几段（块）：</p>
+<ul>
+<li>块 1：所有 k 使得 <span class="math inline">\(\max(a[k..i]) =
+M_1\)</span></li>
+<li>块 2：所有 k 使得 <span class="math inline">\(\max(a[k..i]) =
+M_2\)</span></li>
+<li>块 3：所有 k 使得 <span class="math inline">\(\max(a[k..i]) =
+M_3\)</span></li>
+<li>……</li>
+</ul>
+<p>其中 <span class="math display">\[
+M_1 &lt; M_2 &lt; M_3 &lt; \dots
+\]</span> 也就是说：
+<strong>随着区间左端向左扩展，最大值只会在若干个“跳点”上升。</strong></p>
+<p>这些“跳点”恰好就是区间最大值发生更新的位置，它们的右端点代表就是：
+<span class="math display">\[
+pos_1,\ pos_2,\ pos_3 \dots
+\]</span> 于是我们可以为每一块定义一个代表元素：</p>
+<ul>
+<li><code>pos</code>：该块的“右端点代表”（也是该块最大值的来源）</li>
+<li><code>val</code>：该块内部所有 k 的</li>
+</ul>
+<p><span class="math display">\[
+\min f[\text{day}-1][k-1]
+\]</span></p>
+<p>用一个单调栈维护所有块的 <code>(pos, val)</code>，并且保证： <span
+class="math display">\[
+a[pos_1] &gt; a[pos_2] &gt; a[pos_3] &gt; \dots
+\]</span> 即栈中 <code>a[pos]</code> 严格递减。</p>
+<hr />
+<h3 id="转移机制">转移机制</h3>
+<p>当右端 i 向右推到一个新工作时，新难度为： <span
+class="math display">\[
+x = a[i]
+\]</span> 我们要更新 <span class="math display">\[
+f[\text{day}][i]
+\]</span> 此时有三类情况：</p>
+<hr />
+<h3 id="情况-1只考虑最后一天只做-ai">情况 1：只考虑最后一天只做
+a[i]</h3>
+<p>这是区间 <span class="math inline">\([i..i]\)</span>，最大值 = a[i]
+前一部分由 <span class="math display">\[
+f[\text{day}-1][i-1]
+\]</span> 提供。</p>
+<p>令： <span class="math display">\[
+mi = f[\text{day}-1][i-1]
+\]</span></p>
+<hr />
+<h3 id="情况-2合并所有最大值小于等于-x-的块">情况
+2：合并所有最大值小于等于 x 的块</h3>
+<p>单调栈顶代表的块若满足 <span class="math display">\[
+a[pos] \le x
+\]</span> 则说明：</p>
+<ul>
+<li>在该块中，所有区间最大值原本是 a[pos]</li>
+<li>但现在加上 a[i] 之后，新的最大值变成 x</li>
+</ul>
+<p>因此，这些块会被完全合并到“最大值 = x”这个新块中。</p>
+<p>对于这些块，</p>
+<ul>
+<li>它们内部的所有 k 都可以延伸到 i，并且</li>
+</ul>
+<p><span class="math display">\[
+\max(a[k..i]) = x
+\]</span></p>
+<p>每个块都提供其代表 <code>val = min f[day-1][k-1]</code>。</p>
+<p>于是我们更新： <span class="math display">\[
+mi = \min(mi,\ \text{block.val})
+\]</span> 并弹出这些块：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while (!st.empty() &amp;&amp; a[st.top().pos] &lt;= x) &#123;</span><br><span class="line">    mi = min(mi, st.top().val);</span><br><span class="line">    st.pop();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>合并完成后，<code>mi</code> 代表的是：</p>
+<blockquote>
+<p>“所有最大值会被提升成 x 的候选 k 的 f[day-1][k-1] 的最小值”。</p>
+</blockquote>
+<hr />
+<h3 id="情况-3栈中仍有块其最大值-x">情况 3：栈中仍有块，其最大值 &gt;
+x</h3>
+<p>如果栈不为空，说明还有块满足 <span class="math display">\[
+a[pos] &gt; x
+\]</span> 也就是说，对于这些块的 k： <span class="math display">\[
+\max(a[k..i]) = a[pos]
+\]</span> 不会变成 x。</p>
+<p>因此，这些 k 对应的最小代价已经在 <span class="math display">\[
+f[\text{day}][pos]
+\]</span> 中计算好了。</p>
+<p>所以我们有另一类候选： <span class="math display">\[
+f[\text{day}][pos]
+\]</span> 最终对两类情况取最优：</p>
+<ul>
+<li><p>“最大值变为 x” 的那部分： <span class="math display">\[
+mi + x
+\]</span></p></li>
+<li><p>“最大值保持为 a[pos]” 的那部分： <span class="math display">\[
+f[\text{day}][pos]
+\]</span></p></li>
+</ul>
+<p>于是更新：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if (!st.empty())</span><br><span class="line">    f[day][i] = min(mi + x, f[day][st.top().first]);</span><br><span class="line">else</span><br><span class="line">    f[day][i] = mi + x;</span><br></pre></td></tr></table></figure>
+<hr />
+<h3 id="情况-4将当前-i-作为新块入栈">情况 4：将当前 i 作为新块入栈</h3>
+<p>新的块：</p>
+<ul>
+<li>右端点代表是 i</li>
+<li>该块所有区间最大值 = x</li>
+<li>该块最小前缀代价为 mi</li>
+</ul>
+<p>故入栈：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">st.push(&#123;i, mi&#125;);</span><br></pre></td></tr></table></figure>
+<p>代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> inf = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">  <span class="function"><span class="type">int</span> <span class="title">minDifficulty</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; jobDifficulty, <span class="type">int</span> d)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n = jobDifficulty.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">if</span> (n &lt; d) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="type">int</span> f[<span class="number">15</span>][<span class="number">305</span>];</span><br><span class="line">    <span class="built_in">memset</span>(f, <span class="number">0x3f</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// day = 1：前缀最大值</span></span><br><span class="line">    <span class="type">int</span> mx = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">      mx = <span class="built_in">max</span>(mx, jobDifficulty[i - <span class="number">1</span>]), f[<span class="number">1</span>][i] = mx;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> day = <span class="number">2</span>; day &lt;= d; ++day) &#123;</span><br><span class="line">      stack&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&gt; st; <span class="comment">// &#123;pos, bestPrev&#125;</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> i = day; i &lt;= n; ++i) &#123;</span><br><span class="line">        <span class="type">int</span> x = jobDifficulty[i - <span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> mi = f[day - <span class="number">1</span>][i - <span class="number">1</span>]; <span class="comment">// 只做 job i 的前缀代价</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 合并所有 job[pos] &lt;= x 的块</span></span><br><span class="line">        <span class="keyword">while</span> (!st.<span class="built_in">empty</span>() &amp;&amp; jobDifficulty[st.<span class="built_in">top</span>().first - <span class="number">1</span>] &lt;= x) &#123;</span><br><span class="line">          mi = <span class="built_in">min</span>(mi, st.<span class="built_in">top</span>().second);</span><br><span class="line">          st.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!st.<span class="built_in">empty</span>())</span><br><span class="line">          f[day][i] = <span class="built_in">min</span>(mi + x, f[day][st.<span class="built_in">top</span>().first]);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">          f[day][i] = mi + x;</span><br><span class="line"></span><br><span class="line">        st.<span class="built_in">push</span>(&#123;i, mi&#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f[d][n];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>蟹蟹看官大人的赏赐呀~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="峰 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="峰 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="wechat_channel">
+    <!-- 这里添加你的二维码图片 -->
+    <img src="/images/wechat_channel.png">
+</div>
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>峰
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://fi3wey.github.io/2025/12/01/1335-%E5%B7%A5%E4%BD%9C%E8%AE%A1%E5%88%92%E7%9A%84%E6%9C%80%E4%BD%8E%E9%9A%BE%E5%BA%A6/" title="1335. 工作计划的最低难度">https://fi3wey.github.io/2025/12/01/1335-工作计划的最低难度/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/" rel="tag"><i class="fa fa-tag"></i> 单调栈</a>
+              <a href="/tags/%E5%88%92%E5%88%86DP/" rel="tag"><i class="fa fa-tag"></i> 划分DP</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/12/01/1745-%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E4%B8%B2-IV/" rel="prev" title="1745. 分割回文串 IV">
+                  <i class="fa fa-chevron-left"></i> 1745. 分割回文串 IV
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/12/02/1478-%E5%AE%89%E6%8E%92%E9%82%AE%E7%AD%92/" rel="next" title="1478. 安排邮筒">
+                  1478. 安排邮筒 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">峰</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">218k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">12:05</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/fi3wey" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.8/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://fi3wey.github.io/2025/12/01/1335-%E5%B7%A5%E4%BD%9C%E8%AE%A1%E5%88%92%E7%9A%84%E6%9C%80%E4%BD%8E%E9%9A%BE%E5%BA%A6/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-theta-olive.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2025/12/01/1335-%E5%B7%A5%E4%BD%9C%E8%AE%A1%E5%88%92%E7%9A%84%E6%9C%80%E4%BD%8E%E9%9A%BE%E5%BA%A6/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+</body>
+</html>
