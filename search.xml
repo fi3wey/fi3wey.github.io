@@ -18301,6 +18301,65 @@ href="https://leetcode.cn/problems/minimize-the-difference-between-target-and-ch
 href="https://leetcode.cn/problems/number-of-dice-rolls-with-target-sum/">1155.
 掷骰子等于目标和的方法数</a></p></li>
 </ul>
+<h1 id="经典线性dp">经典线性DP</h1>
+<h2 id="最长公共子序列-lcs">最长公共子序列 LCS</h2>
+<h3 id="基础">基础</h3>
+<ul>
+<li><p><a href="https://leetcode.cn/problems/edit-distance/">72.
+编辑距离</a></p></li>
+<li><p><a
+href="https://leetcode.cn/problems/longest-common-subsequence/">1143.
+最长公共子序列</a></p>
+<p>额外难点：最优性剪枝</p></li>
+<li><p><a
+href="https://leetcode.cn/problems/max-dot-product-of-two-subsequences/">1458.
+两个子序列的最大点积</a></p></li>
+<li><p><a
+href="https://leetcode.cn/problems/maximum-length-of-repeated-subarray/">718.
+最长重复子数组</a></p></li>
+<li><p><a
+href="https://leetcode.cn/problems/delete-operation-for-two-strings/">583.
+两个字符串的删除操作</a></p></li>
+<li><p><a
+href="https://leetcode.cn/problems/minimum-ascii-delete-sum-for-two-strings/">712.
+两个字符串的最小ASCII删除和</a></p></li>
+<li><p><a href="https://leetcode.cn/problems/uncrossed-lines/">1035.
+不相交的线</a></p>
+<p>额外难点：最优性剪枝</p></li>
+</ul>
+<h3 id="进阶">进阶</h3>
+<ul>
+<li><p><a
+href="https://leetcode.cn/problems/maximum-number-of-subsequences-after-one-inserting/">3628.
+插入一个字母的最大子序列数</a></p>
+<p>额外难点：前后缀分解</p></li>
+<li><p><a
+href="https://leetcode.cn/problems/regular-expression-matching/">10.
+正则表达式匹配</a></p>
+<p>额外难点：LCS的必刷题！初始值、状态设计</p></li>
+<li><p><a href="https://leetcode.cn/problems/wildcard-matching/">44.
+通配符匹配</a></p>
+<p>额外难点：LCS的必刷题！初始值、状态设计</p></li>
+<li><p><a
+href="https://leetcode.cn/problems/maximum-multiplication-score/">3290.
+最高乘法得分</a></p></li>
+<li><p><a href="https://leetcode.cn/problems/interleaving-string/">97.
+交错字符串</a></p></li>
+<li><p><a
+href="https://leetcode.cn/problems/number-of-ways-to-form-a-target-string-given-a-dictionary/">1639.
+通过给定词典构造目标字符串的方案数</a></p></li>
+<li><p><a
+href="https://leetcode.cn/problems/distinct-subsequences/">115.
+不同的子序列</a></p></li>
+<li><p><a
+href="https://leetcode.cn/problems/shortest-common-supersequence/">1092.
+最短公共超序列</a></p>
+<p>额外难点：LCS的必刷题，必刷题！是SCS的模板题</p></li>
+<li><p><a
+href="https://leetcode.cn/problems/find-maximum-removals-from-source-string/">3316.
+从原字符串里进行删除操作的最多次数</a></p>
+<p>额外难点：初始值、状态设计</p></li>
+</ul>
 <h1
 id="划分dp将数组拆分为相邻或相间的连续子数组">划分DP(将数组拆分为相邻或相间的连续子数组)</h1>
 <h2 id="划分可行性">划分可行性</h2>
@@ -18452,7 +18511,7 @@ href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-transact
 href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown/">309.
 买卖股票的最佳时机含冷冻期</a></p></li>
 </ul>
-<h2 id="基础">基础</h2>
+<h2 id="基础-1">基础</h2>
 <ul>
 <li><p><a
 href="https://leetcode.cn/problems/maximum-energy-boost-from-two-drinks/">3259.
@@ -18481,7 +18540,7 @@ href="https://leetcode.cn/problems/number-of-ways-to-select-buildings/">2222.
 选择建筑的方案数</a></p>
 <p>额外难点：状态压缩</p></li>
 </ul>
-<h2 id="进阶">进阶</h2>
+<h2 id="进阶-1">进阶</h2>
 <ul>
 <li><p><a
 href="https://leetcode.cn/problems/minimum-increment-operations-to-make-array-beautiful/">2919.
@@ -22661,6 +22720,2208 @@ class="math display">\[
       <tags>
         <tag>状态机DP</tag>
         <tag>网格图DP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>10. 正则表达式匹配</title>
+    <url>/2025/12/19/10-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>LCS</li>
+<li>初始值、状态转移设计</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<h2 id="一问题概述">一、问题概述</h2>
+<p>给定字符串 <code>s</code> 与模式串 <code>p</code>，判断
+<code>p</code> 是否能够<strong>完全匹配</strong> <code>s</code>。</p>
+<p>模式串仅包含三类字符：</p>
+<ul>
+<li>普通字符（如 <code>a</code>、<code>b</code>）</li>
+<li>通配符 <code>.</code>：可匹配任意单个字符</li>
+<li>修饰符 <code>*</code>：表示其<strong>前一个字符</strong>可以出现
+<strong>0 次或任意多次</strong></li>
+</ul>
+<p>需要注意的是：</p>
+<blockquote>
+<p><code>*</code>
+<strong>不是一个独立字符</strong>，它始终与其前一个字符构成一个整体（如
+<code>a*</code>、<code>.*</code>）。</p>
+</blockquote>
+<hr />
+<h2 id="二动态规划建模">二、动态规划建模</h2>
+<h3 id="状态定义">1. 状态定义</h3>
+<p>定义二维 DP 数组： <span class="math display">\[
+f[i][j] =
+\begin{cases}
+\text{true} &amp; \text{若 } s[0..i-1] \text{ 能匹配 } p[0..j-1] \\
+\text{false} &amp; \text{否则}
+\end{cases}
+\]</span> 其中：</p>
+<ul>
+<li><span class="math inline">\(i \in [0, |s|]\)</span></li>
+<li><span class="math inline">\(j \in [0, |p|]\)</span></li>
+</ul>
+<p>这是<strong>前缀匹配型 DP</strong>，而不是“是否出现子串”。</p>
+<hr />
+<h2
+id="三初始化的关键难点本题最易出错点">三、初始化的关键难点（本题最易出错点）</h2>
+<h3 id="基础状态">1. 基础状态</h3>
+<p><span class="math display">\[
+f[0][0] = \text{true}
+\]</span></p>
+<p>空字符串与空模式串显然匹配。</p>
+<hr />
+<h3 id="空字符串-vs-非空模式串">2. 空字符串 vs 非空模式串</h3>
+<p><strong>这是整道题最容易出错的地方。</strong></p>
+<p>空字符串 <strong>并不能</strong> 匹配任意模式串，例如：</p>
+<ul>
+<li><code>""</code> ❌ <code>"a"</code></li>
+<li><code>""</code> ❌ <code>"abc"</code></li>
+</ul>
+<p>但以下情况是合法的：</p>
+<ul>
+<li><code>""</code> ✅ <code>"a*"</code></li>
+<li><code>""</code> ✅ <code>"a*b*c*"</code></li>
+</ul>
+<p>也就是说：</p>
+<blockquote>
+<p>空字符串并不能匹配任意模式前缀。只有当模式前缀可以完全由若干个
+<code>t*</code> 片段拼接而成（其中 <code>t</code> 为普通字符或
+<code>.</code>）时，空字符串才可能匹配该前缀。例如 <code>""</code>
+可匹配 <code>c*</code>、<code>a*b*c*</code>、<code>.*</code>，但不能匹配
+<code>a</code>、<code>ab</code>、<code>.*a</code>。</p>
+</blockquote>
+<p>因此初始化第 0 行时，必须严格遵循 <code>*</code> 的语义： <span
+class="math display">\[
+f[0][j] =
+\begin{cases}
+f[0][j-2] &amp; \text{若 } p[j-1] = &#39;*&#39; \\
+\text{false} &amp; \text{否则}
+\end{cases}
+\]</span> 对应代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for (int j = 2; j &lt;= n2; ++j)</span><br><span class="line">    if (p[j - 1] == &#x27;*&#x27;)</span><br><span class="line">        f[0][j] = f[0][j - 2];</span><br></pre></td></tr></table></figure>
+<p>绝不能把整行 <code>f[0][j]</code> 初始化为
+<code>true</code>，否则会导致例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">s = &quot;aaa&quot;</span><br><span class="line">p = &quot;aaaa&quot;</span><br></pre></td></tr></table></figure>
+<p>被错误判为 <code>true</code>。</p>
+<hr />
+<h2 id="四状态转移方程设计">四、状态转移方程设计</h2>
+<h3 id="普通字符-点号-.">1. 普通字符 / 点号 <code>.</code></h3>
+<p>当 <code>p[j-1]</code> 是普通字符，或 <code>.</code>：</p>
+<p>若满足 <code>p[j-1] = s[i-1]</code> 或
+<code>p[j-1] = '.'</code>，则： <span class="math display">\[
+f[i][j] = f[i-1][j-1]
+\]</span> 含义：当前字符成功匹配，问题规模缩小为前一位。</p>
+<hr />
+<h3 id="星号-核心难点">2. 星号 <code>*</code>（核心难点）</h3>
+<p>设 <code>p[j-1] == '*'</code>，则其修饰字符为
+<code>p[j-2]</code>。</p>
+<h4 id="情况一x-匹配-0-次">情况一：<code>x*</code> 匹配 0 次</h4>
+<p>直接忽略 <code>x*</code> 这两个字符： <span class="math display">\[
+f[i][j] = f[i][j-2]
+\]</span></p>
+<h4 id="情况二x-匹配-1-次">情况二：<code>x*</code> 匹配 ≥ 1 次</h4>
+<p>前提：<code>x</code> 能匹配 <code>s[i-1]</code>，即
+<code>p[j-2] = s[i-1]</code> 或 <code>p[j-2] = '.'</code>。</p>
+<p>此时： <span class="math display">\[
+f[i][j] = f[i-1][j]
+\]</span> 含义：当前字符被 <code>x*</code> 吸收，模式串仍可继续使用
+<code>*</code>。</p>
+<hr />
+<h3 id="综合转移公式">3. 综合转移公式</h3>
+<p><span class="math display">\[
+f[i][j] =
+\begin{cases}
+f[i-1][j-1] &amp; \text{若字符或 &#39;.&#39; 匹配} \\
+f[i][j-2] \lor f[i-1][j] &amp; \text{若 } p[j-1]=&#39;*&#39; \text{
+且前字符可匹配}
+\end{cases}
+\]</span></p>
+<hr />
+<h2 id="五算法复杂度分析">五、算法复杂度分析</h2>
+<ul>
+<li>时间复杂度：</li>
+</ul>
+<p><span class="math display">\[
+O(|s|\cdot|p|)
+\]</span></p>
+<ul>
+<li>空间复杂度：</li>
+</ul>
+<p><span class="math display">\[
+O(|s|\cdot|p|)
+\]</span></p>
+<p>在本题限制（长度 ≤ 20）下完全可行。</p>
+<hr />
+<h2 id="六完整-ac-代码附录">六、完整 AC 代码（附录）</h2>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">25</span>;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isMatch</span><span class="params">(string s, string p)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n1 = s.<span class="built_in">size</span>(), n2 = p.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">bool</span> f[maxn][maxn];</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 空串匹配空模式</span></span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化：空串 vs 模式前缀</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n2; ++i)</span><br><span class="line">            <span class="keyword">if</span> (p[i - <span class="number">1</span>] == <span class="string">&#x27;*&#x27;</span>)</span><br><span class="line">                f[<span class="number">0</span>][i] = f[<span class="number">0</span>][i - <span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// DP 转移</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (s[i - <span class="number">1</span>] == p[j - <span class="number">1</span>])</span><br><span class="line">                    f[i][j] |= f[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (p[j - <span class="number">1</span>] == <span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">                    f[i][j] |= f[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (p[j - <span class="number">1</span>] == <span class="string">&#x27;*&#x27;</span>) &#123;</span><br><span class="line">                    <span class="comment">// 匹配 0 次</span></span><br><span class="line">                    f[i][j] |= f[i][j - <span class="number">2</span>];</span><br><span class="line">                    <span class="comment">// 匹配 &gt;=1 次</span></span><br><span class="line">                    <span class="keyword">if</span> (p[j - <span class="number">2</span>] == <span class="string">&#x27;.&#x27;</span> || p[j - <span class="number">2</span>] == s[i - <span class="number">1</span>])</span><br><span class="line">                        f[i][j] |= f[i - <span class="number">1</span>][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n1][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>LCS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>1092. 最短公共超序列</title>
+    <url>/2025/12/23/1092-%E6%9C%80%E7%9F%AD%E5%85%AC%E5%85%B1%E8%B6%85%E5%BA%8F%E5%88%97/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>LCS</li>
+<li>SCS</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<h2 id="一问题描述">一、问题描述</h2>
+<p>给定两个字符串 <span class="math display">\[
+\text{str}_1,\ \text{str}_2
+\]</span> 要求构造一个<strong>最短</strong>的字符串 <span
+class="math inline">\(S\)</span>，使得：</p>
+<ul>
+<li><span class="math inline">\(\text{str}_1\)</span> 是 <span
+class="math inline">\(S\)</span> 的子序列</li>
+<li><span class="math inline">\(\text{str}_2\)</span> 是 <span
+class="math inline">\(S\)</span> 的子序列</li>
+</ul>
+<p>该字符串 <span class="math inline">\(S\)</span> 称为
+<strong>最短公共超序列（Shortest Common Supersequence,
+SCS）</strong>。</p>
+<hr />
+<h2 id="二问题的本质长度分析视角">二、问题的本质：长度分析视角</h2>
+<p>设：</p>
+<ul>
+<li><span class="math inline">\(|\text{str}_1| = n_1\)</span></li>
+<li><span class="math inline">\(|\text{str}_2| = n_2\)</span></li>
+<li>最终答案长度为 <span class="math inline">\(|S| =
+\text{len}\)</span></li>
+</ul>
+<h3 id="最坏情况">1. 最坏情况</h3>
+<p>若两个字符串<strong>完全没有任何可共享的子序列</strong>，
+则只能将二者直接拼接： <span class="math display">\[
+\text{len} = n_1 + n_2
+\]</span> 这是显然的上界。</p>
+<hr />
+<h3 id="可共享子序列带来的压缩">2. 可共享子序列带来的“压缩”</h3>
+<p>若两个字符串中存在某些<strong>公共子序列</strong>， 则这些字符在构造
+<span class="math inline">\(S\)</span>
+时<strong>不必重复出现</strong>，可以“合并”为一次。</p>
+<p>设：</p>
+<ul>
+<li>在最终构造的超序列中，被“合并”的公共部分总长度为 <span
+class="math inline">\(k\)</span></li>
+</ul>
+<p>则： <span class="math display">\[
+\text{len} = n_1 + n_2 - k
+\]</span> 因此：</p>
+<blockquote>
+<p><strong>要最小化最终长度 <span
+class="math inline">\(\text{len}\)</span>，等价于最大化可以合并的公共子序列长度
+<span class="math inline">\(k\)</span></strong>。</p>
+</blockquote>
+<hr />
+<h3 id="为什么-k-的最大值就是-lcs">3. 为什么 <span
+class="math inline">\(k\)</span> 的最大值就是 LCS？</h3>
+<p>任何被“合并”的字符集合，都必须满足：</p>
+<ul>
+<li>它是 <span class="math inline">\(\text{str}_1\)</span> 的子序列</li>
+<li>同时也是 <span class="math inline">\(\text{str}_2\)</span>
+的子序列</li>
+</ul>
+<p>因此，所有可被合并的字符，本质上构成了一个<strong>公共子序列</strong>。</p>
+<p>而其中长度最大的，正是： <span class="math display">\[
+k_{\max} = \mathrm{LCS}(\text{str}_1, \text{str}_2)
+\]</span> 由此得到结论： <span class="math display">\[
+\boxed{
+|\mathrm{SCS}| = n_1 + n_2 - \mathrm{LCS}(\text{str}_1, \text{str}_2)
+}
+\]</span></p>
+<blockquote>
+<p><strong>重要澄清</strong>： 这并不意味着“删掉 LCS
+后就不存在其它公共子序列”。 而是：</p>
+<blockquote>
+<p>在任意公共超序列中，最多只能合并 <span
+class="math inline">\(\mathrm{LCS}\)</span> 长度那么多的字符。</p>
+</blockquote>
+</blockquote>
+<hr />
+<h2 id="三算法设计思路">三、算法设计思路</h2>
+<p>问题分为两个阶段：</p>
+<ol type="1">
+<li><strong>计算 LCS 的长度（DP）</strong></li>
+<li><strong>在 LCS 的 DP 表上回溯，构造一个实际的 SCS</strong></li>
+</ol>
+<hr />
+<h2 id="四阶段一lcs-动态规划">四、阶段一：LCS 动态规划</h2>
+<h3 id="状态定义">状态定义</h3>
+<p><span class="math display">\[
+f[i][j] = \text{str}_1[0..i-1] \text{ 与 } \text{str}_2[0..j-1] \text{
+的 LCS 长度}
+\]</span></p>
+<h3 id="状态转移">状态转移</h3>
+<p><span class="math display">\[
+f[i][j] =
+\begin{cases}
+f[i-1][j-1] + 1, &amp; \text{if } \text{str}_1[i-1] = \text{str}_2[j-1]
+\\
+\max(f[i-1][j], f[i][j-1]), &amp; \text{otherwise}
+\end{cases}
+\]</span></p>
+<h3 id="边界条件">边界条件</h3>
+<p><span class="math display">\[
+f[0][*] = f[*][0] = 0
+\]</span></p>
+<hr />
+<h2 id="五阶段二从-lcs-表中恢复最短公共超序列">五、阶段二：从 LCS
+表中恢复最短公共超序列</h2>
+<p>构造字符串本身的关键在于： <strong>沿着 LCS
+的决策路径反向回溯</strong>。</p>
+<p>从 <span class="math inline">\((i, j) = (n_1, n_2)\)</span>
+出发：</p>
+<h3 id="回溯规则">回溯规则</h3>
+<ol type="1">
+<li><p><strong>字符相等</strong> <span class="math display">\[
+\text{str}_1[i-1] = \text{str}_2[j-1]
+\]</span></p>
+<ul>
+<li>该字符属于 LCS，可被共享</li>
+<li>加入答案一次</li>
+<li>同时移动 <span class="math inline">\(i--, j--\)</span></li>
+</ul></li>
+<li><p><strong>字符不等</strong></p>
+<ul>
+<li>若 <span class="math inline">\(f[i-1][j] \ge f[i][j-1]\)</span>
+<ul>
+<li>LCS 决策来自上方</li>
+<li>当前字符只能来自 <span
+class="math inline">\(\text{str}_1\)</span></li>
+</ul></li>
+<li>否则
+<ul>
+<li>当前字符只能来自 <span
+class="math inline">\(\text{str}_2\)</span></li>
+</ul></li>
+</ul></li>
+<li><p><strong>某一字符串已走完</strong></p>
+<ul>
+<li>另一字符串剩余部分只能全部追加</li>
+</ul></li>
+</ol>
+<p>由于是从后向前构造，最终需要反转结果字符串。</p>
+<hr />
+<h2 id="六ac代码">六、AC代码</h2>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e3</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">string <span class="title">shortestCommonSupersequence</span><span class="params">(string str1, string str2)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> f[maxn][maxn];</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> n1 = str1.<span class="built_in">size</span>(), n2 = str2.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// ---------- Phase 1: LCS DP ----------</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (str1[i - <span class="number">1</span>] == str2[j - <span class="number">1</span>]) &#123;</span><br><span class="line">                    <span class="comment">// 当前字符可以作为公共子序列的一部分</span></span><br><span class="line">                    f[i][j] = f[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 取删除其中一个字符后的最优解</span></span><br><span class="line">                    f[i][j] = <span class="built_in">max</span>(f[i - <span class="number">1</span>][j], f[i][j - <span class="number">1</span>]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// ---------- Phase 2: 回溯构造 SCS ----------</span></span><br><span class="line">        string res;</span><br><span class="line">        <span class="type">int</span> i = n1, j = n2;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (i &gt; <span class="number">0</span> &amp;&amp; j &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (str1[i - <span class="number">1</span>] == str2[j - <span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="comment">// 字符相同：属于 LCS，可共享，只加入一次</span></span><br><span class="line">                res += str1[i - <span class="number">1</span>];</span><br><span class="line">                --i;</span><br><span class="line">                --j;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 根据 LCS 的决策方向反推</span></span><br><span class="line">                <span class="keyword">if</span> (f[i - <span class="number">1</span>][j] &gt;= f[i][j - <span class="number">1</span>]) &#123;</span><br><span class="line">                    <span class="comment">// LCS 来自上方，说明此字符来自 str1</span></span><br><span class="line">                    res += str1[i - <span class="number">1</span>];</span><br><span class="line">                    --i;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// LCS 来自左方，说明此字符来自 str2</span></span><br><span class="line">                    res += str2[j - <span class="number">1</span>];</span><br><span class="line">                    --j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 处理剩余字符</span></span><br><span class="line">        <span class="keyword">while</span> (i &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            res += str1[i - <span class="number">1</span>];</span><br><span class="line">            --i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (j &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            res += str2[j - <span class="number">1</span>];</span><br><span class="line">            --j;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 由于是从后向前构造，需要反转</span></span><br><span class="line">        <span class="built_in">reverse</span>(res.<span class="built_in">begin</span>(), res.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>LCS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>115. 不同的子序列</title>
+    <url>/2025/12/23/115-%E4%B8%8D%E5%90%8C%E7%9A%84%E5%AD%90%E5%BA%8F%E5%88%97/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>LCS</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<h2 id="一问题描述">一、问题描述</h2>
+<p>给定两个字符串：</p>
+<ul>
+<li>源字符串：<span class="math inline">\(s\)</span>，长度为 <span
+class="math inline">\(n_1\)</span></li>
+<li>目标字符串：<span class="math inline">\(t\)</span>，长度为 <span
+class="math inline">\(n_2\)</span></li>
+</ul>
+<p>需要统计： <strong>字符串 <span class="math inline">\(s\)</span>
+的不同子序列中，等于 <span class="math inline">\(t\)</span>
+的个数。</strong></p>
+<p>若 <span class="math inline">\(n_1 &lt;
+n_2\)</span>，显然无解，答案为 0。</p>
+<hr />
+<h2 id="二动态规划建模">二、动态规划建模</h2>
+<h3 id="状态定义">1. 状态定义</h3>
+<p>定义二维 DP 数组： <span class="math display">\[
+f[i][j] = \text{用 } s \text{ 的前 } i \text{ 个字符，组成 } t \text{
+的前 } j \text{ 个字符的方案数}
+\]</span> 其中：</p>
+<ul>
+<li><span class="math inline">\(0 \le i \le n_1\)</span></li>
+<li><span class="math inline">\(0 \le j \le n_2\)</span></li>
+</ul>
+<hr />
+<h3 id="初始条件base-case">2. 初始条件（Base Case）</h3>
+<ol type="1">
+<li><strong>空串匹配空串</strong></li>
+</ol>
+<p><span class="math display">\[
+f[0][0] = 1
+\]</span></p>
+<ol type="1">
+<li><strong>任意前缀的 <span class="math inline">\(s\)</span>
+匹配空串</strong></li>
+</ol>
+<p><span class="math display">\[
+f[i][0] = 1 \quad (1 \le i \le n_1)
+\]</span></p>
+<p>解释： 目标串为空时，只存在一种方案——什么都不选。</p>
+<ol type="1">
+<li><strong>空串匹配非空目标串</strong></li>
+</ol>
+<p><span class="math display">\[
+f[0][j] = 0 \quad (j \ge 1)
+\]</span></p>
+<hr />
+<h2 id="三状态转移方程">三、状态转移方程</h2>
+<p>考虑当前字符：</p>
+<ul>
+<li><span class="math inline">\(s[i-1]\)</span></li>
+<li><span class="math inline">\(t[j-1]\)</span></li>
+</ul>
+<h3 id="情况-1字符不相等">情况 1：字符不相等</h3>
+<p>若 <span class="math display">\[
+s[i-1] \neq t[j-1]
+\]</span> 则当前字符无法用于匹配，只能跳过： <span
+class="math display">\[
+f[i][j] = f[i-1][j]
+\]</span></p>
+<hr />
+<h3 id="情况-2字符相等">情况 2：字符相等</h3>
+<p>若 <span class="math display">\[
+s[i-1] = t[j-1]
+\]</span> 此时有两种互斥选择：</p>
+<ol type="1">
+<li><strong>不使用 <span class="math inline">\(s[i-1]\)</span></strong>
+方案数：<span class="math inline">\(f[i-1][j]\)</span></li>
+<li><strong>使用 <span class="math inline">\(s[i-1]\)</span> 匹配 <span
+class="math inline">\(t[j-1]\)</span></strong> 方案数：<span
+class="math inline">\(f[i-1][j-1]\)</span></li>
+</ol>
+<p>因此： <span class="math display">\[
+f[i][j] = f[i-1][j] + f[i-1][j-1]
+\]</span></p>
+<hr />
+<h2
+id="四剪枝优化状态可达性分析关键">四、剪枝优化：状态可达性分析（关键）</h2>
+<h3 id="剪枝动机">1. 剪枝动机</h3>
+<p>虽然 <span class="math inline">\(n_1 \ge n_2\)</span>
+能保证<strong>整体存在解的可能性</strong>， 但在 DP
+表中，<strong>并非所有中间状态 <span
+class="math inline">\((i,j)\)</span> 都能走到终点 <span
+class="math inline">\((n_1,n_2)\)</span></strong>。</p>
+<p>若某个状态从当前位置开始，剩余字符数已经不足以补齐目标串，则该状态对最终答案<strong>必然无贡献</strong>，应当剪枝。</p>
+<hr />
+<h3 id="可达性条件推导">2. 可达性条件推导</h3>
+<p>在状态 <span class="math inline">\((i,j)\)</span>：</p>
+<ul>
+<li>已用掉：<span class="math inline">\(i\)</span> 个字符</li>
+<li>剩余可用：<span class="math inline">\(n_1 - i\)</span></li>
+<li>目标还缺：<span class="math inline">\(n_2 - j\)</span></li>
+</ul>
+<p>要使该状态仍有可能完成目标，必须满足： <span class="math display">\[
+n_1 - i \ge n_2 - j
+\]</span> 等价变形为： <span class="math display">\[
+j \ge i - (n_1 - n_2)
+\]</span></p>
+<hr />
+<h3 id="有效状态范围">3. 有效状态范围</h3>
+<p>综合两条必要条件：</p>
+<ol type="1">
+<li>当前合法：</li>
+</ol>
+<p><span class="math display">\[
+j \le i
+\]</span></p>
+<ol type="1">
+<li>未来可达：</li>
+</ol>
+<p><span class="math display">\[
+j \ge i - (n_1 - n_2)
+\]</span></p>
+<p>因此在第 <span class="math inline">\(i\)</span> 行，<span
+class="math inline">\(j\)</span> 的合法范围为： <span
+class="math display">\[
+\boxed{
+\max(1,\, i - (n_1 - n_2)) \le j \le \min(i,\, n_2)
+}
+\]</span> 该剪枝在极端情况下（如 <span class="math inline">\(s\)</span>
+与 <span class="math inline">\(t\)</span>
+全为同一字符）可以有效避免中间组合数爆炸，防止整数溢出。</p>
+<hr />
+<h2 id="五答案获取">五、答案获取</h2>
+<p>最终答案即为： <span class="math display">\[
+\boxed{f[n_1][n_2]}
+\]</span></p>
+<hr />
+<h2 id="六算法复杂度">六、算法复杂度</h2>
+<ul>
+<li><p>时间复杂度： <span class="math display">\[
+O(n_1 \times n_2) \quad (\text{剪枝后常数显著降低})
+\]</span></p></li>
+<li><p>空间复杂度：</p>
+<ul>
+<li>二维 DP：<span class="math inline">\(O(n_1 \times n_2)\)</span></li>
+<li>滚动数组：<span class="math inline">\(O(n_2)\)</span></li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="七参考实现">七、参考实现</h2>
+<h3 id="二维-dp带可达性剪枝">1. 二维 DP（带可达性剪枝）</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e3</span> + <span class="number">5</span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">numDistinct</span><span class="params">(string s, string t)</span> </span>&#123;</span><br><span class="line">        <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> f[maxn][maxn];</span><br><span class="line">        <span class="type">int</span> n1 = s.<span class="built_in">size</span>(), n2 = t.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span> (n1 &lt; n2)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i)</span><br><span class="line">            f[i][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="built_in">max</span>(<span class="number">1</span>, i - n1 + n2); j &lt;= <span class="built_in">min</span>(n2, i); ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (s[i - <span class="number">1</span>] != t[j - <span class="number">1</span>])</span><br><span class="line">                    f[i][j] = f[i - <span class="number">1</span>][j];</span><br><span class="line">                <span class="keyword">if</span> (s[i - <span class="number">1</span>] == t[j - <span class="number">1</span>])</span><br><span class="line">                    f[i][j] = f[i - <span class="number">1</span>][j - <span class="number">1</span>] + f[i - <span class="number">1</span>][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n1][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr />
+<h3 id="滚动数组优化一维-dp">2. 滚动数组优化（一维 DP）</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e3</span> + <span class="number">5</span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">numDistinct</span><span class="params">(string s, string t)</span> </span>&#123;</span><br><span class="line">        <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> f[maxn];</span><br><span class="line">        <span class="type">int</span> n1 = s.<span class="built_in">size</span>(), n2 = t.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span> (n1 &lt; n2)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line">        f[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            f[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="built_in">min</span>(n2, i); j &gt;= <span class="built_in">max</span>(<span class="number">1</span>, i - n1 + n2); --j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (s[i - <span class="number">1</span>] != t[j - <span class="number">1</span>])</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    f[j] += f[j - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>LCS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>1035. 不相交的线</title>
+    <url>/2025/12/18/1035-%E4%B8%8D%E7%9B%B8%E4%BA%A4%E7%9A%84%E7%BA%BF/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>LCS</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<p>（从枚举匹配位置到标准 LCS 的收敛）</p>
+<hr />
+<h2 id="一问题抽象与建模">一、问题抽象与建模</h2>
+<p>给定两个整数数组： <span class="math display">\[
+\text{nums1} = (a_1, a_2, \dots, a_{n_1}), \quad
+\text{nums2} = (b_1, b_2, \dots, b_{n_2})
+\]</span> 可以在满足<strong>不相交</strong>的前提下，连接若干条线：</p>
+<ul>
+<li><p>每条线连接一个 <span class="math inline">\(a_i\)</span> 与一个
+<span class="math inline">\(b_j\)</span></p></li>
+<li><p>若 <span class="math inline">\((i_1, j_1)\)</span> 与 <span
+class="math inline">\((i_2, j_2)\)</span> 是两条线，则必须满足 <span
+class="math display">\[
+i_1 &lt; i_2 \iff j_1 &lt; j_2
+\]</span></p></li>
+</ul>
+<p>目标是<strong>最大化连线条数</strong>。</p>
+<blockquote>
+<p>该约束与“最长公共子序列（LCS）”的索引单调性完全一致，因此该问题等价于
+LCS。</p>
+</blockquote>
+<hr />
+<h2 id="二状态定义两份代码共用">二、状态定义（两份代码共用）</h2>
+<p>两份代码均采用同一状态定义： <span class="math display">\[
+f[i][j] =
+\text{nums1 前 } i \text{ 个元素与 nums2 前 } j \text{
+个元素能形成的最大不相交连线数}
+\]</span> 其中：</p>
+<ul>
+<li><span class="math inline">\(0 \le i \le n_1\)</span></li>
+<li><span class="math inline">\(0 \le j \le n_2\)</span></li>
+</ul>
+<hr />
+<h2 id="三初始值第一份代码">三、初始值（第一份代码）</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">memset(f, 0, sizeof(f));</span><br></pre></td></tr></table></figure>
+<p>对应数学含义： <span class="math display">\[
+f[0][j] = f[i][0] = 0
+\]</span> 解释：</p>
+<ul>
+<li>任意一侧为空数组时，不可能连线</li>
+<li>这是 LCS / 不相交匹配问题的自然边界条件</li>
+</ul>
+<hr />
+<h2 id="四第一份代码的完整逻辑分析">四、第一份代码的完整逻辑分析</h2>
+<h3 id="第一份代码枚举匹配位置版">第一份代码（枚举匹配位置版）</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">5e2</span> + <span class="number">5</span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxUncrossedLines</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums1, vector&lt;<span class="type">int</span>&gt;&amp; nums2)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n1 = nums1.<span class="built_in">size</span>(), n2 = nums2.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> f[maxn][maxn];</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j) &#123;</span><br><span class="line">                f[i][j] = <span class="built_in">max</span>(f[i - <span class="number">1</span>][j], f[i][j - <span class="number">1</span>]);</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> k = j; k &gt;= <span class="number">1</span>; --k) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (nums1[i - <span class="number">1</span>] == nums2[k - <span class="number">1</span>])</span><br><span class="line">                        f[i][j] = <span class="built_in">max</span>(f[i][j], f[i - <span class="number">1</span>][k - <span class="number">1</span>] + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> k = i; k &gt;= <span class="number">1</span>; --k) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (nums1[k - <span class="number">1</span>] == nums2[j - <span class="number">1</span>])</span><br><span class="line">                        f[i][j] = <span class="built_in">max</span>(f[i][j], f[k - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n1][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr />
+<h3 id="继承项不使用当前元素">4.1 继承项（不使用当前元素）</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">f[i][j] = max(f[i - 1][j], f[i][j - 1]);</span><br></pre></td></tr></table></figure>
+<p>对应数学形式： <span class="math display">\[
+f[i][j] \ge \max\bigl(f[i-1][j],\ f[i][j-1]\bigr)
+\]</span> 含义：</p>
+<ul>
+<li>最优解可能<strong>不使用 <span
+class="math inline">\(a_i\)</span></strong></li>
+<li>或者<strong>不使用 <span
+class="math inline">\(b_j\)</span></strong></li>
+</ul>
+<p>这是 LCS 中必不可少的“跳过元素”转移。</p>
+<hr />
+<h3 id="第一段枚举固定-a_i寻找最后一次匹配位置">4.2 第一段枚举：固定
+<span class="math inline">\(a_i\)</span>，寻找最后一次匹配位置</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for (int k = j; k &gt;= 1; --k) &#123;</span><br><span class="line">    if (nums1[i - 1] == nums2[k - 1])</span><br><span class="line">        f[i][j] = max(f[i][j], f[i - 1][k - 1] + 1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>数学含义： <span class="math display">\[
+\forall k \le j,\quad
+\text{若 } a_i = b_k,\quad
+f[i][j] \ge f[i-1][k-1] + 1
+\]</span> 解释：</p>
+<ul>
+<li>假设<strong>最后一条线</strong>连接 <span class="math inline">\((i,
+k)\)</span></li>
+<li>那么之前的所有线只能来自子问题 <span class="math inline">\((i-1,
+k-1)\)</span></li>
+<li>枚举 <span class="math inline">\(k\)</span> 即“最后一条线在 nums2
+中的位置”</li>
+</ul>
+<hr />
+<h3 id="第二段枚举对称冗余">4.3 第二段枚举（对称冗余）</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for (int k = i; k &gt;= 1; --k) &#123;</span><br><span class="line">    if (nums1[k - 1] == nums2[j - 1])</span><br><span class="line">        f[i][j] = max(f[i][j], f[k - 1][j - 1] + 1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是与 4.2 <strong>完全对称</strong>的逻辑：</p>
+<ul>
+<li>固定 <span class="math inline">\(b_j\)</span></li>
+<li>枚举最后一条线在 nums1 中的位置</li>
+</ul>
+<p>在逻辑覆盖上，与第一段枚举并不增加新的合法方案。</p>
+<hr />
+<h3 id="第一份代码的完整状态转移">4.4 第一份代码的“完整状态转移”</h3>
+<p>综合起来，第一份代码实际上计算的是： <span class="math display">\[
+\boxed{
+f[i][j]
+=
+\max\left(
+\begin{aligned}
+&amp;f[i-1][j],\\
+&amp;f[i][j-1],\\
+&amp;\max_{\substack{k \le j \\ a_i = b_k}} (f[i-1][k-1] + 1),\\
+&amp;\max_{\substack{k \le i \\ a_k = b_j}} (f[k-1][j-1] + 1)
+\end{aligned}
+\right)
+}
+\]</span></p>
+<hr />
+<h2 id="五为何第一份代码是正确的">五、为何第一份代码是正确的？</h2>
+<p>关键原因只有一句话：</p>
+<blockquote>
+<p><strong>不相交约束强制匹配对的索引单调递增</strong></p>
+</blockquote>
+<p>因此：</p>
+<ul>
+<li>若最后一条线是 <span class="math inline">\((i,
+k)\)</span>，其之前的最优解一定来自 <span class="math inline">\((i-1,
+k-1)\)</span></li>
+<li>第一份代码完整枚举了所有可能的“最后一条线”</li>
+<li>同时保留了“不使用当前元素”的继承路径</li>
+</ul>
+<p>因此逻辑是<strong>完备且正确的</strong>。</p>
+<hr />
+<h2
+id="六从第一份代码到第二份代码的化简原理">六、从第一份代码到第二份代码的化简原理</h2>
+<h3 id="核心观察关键一步">6.1 核心观察（关键一步）</h3>
+<p>考虑第一段枚举中的最优项： <span class="math display">\[
+\max_{\substack{k \le j \\ a_i = b_k}} (f[i-1][k-1] + 1)
+\]</span> 当 <span class="math inline">\(a_i = b_j\)</span> 时：</p>
+<ul>
+<li>由于 <span class="math inline">\(f[i-1][j-1] \ge
+f[i-1][k-1]\)</span>（DP 的单调性）</li>
+<li>最大值一定在 <strong><span class="math inline">\(k =
+j\)</span></strong> 处取得</li>
+</ul>
+<p>即： <span class="math display">\[
+\max_{\substack{k \le j \\ a_i = b_k}} (f[i-1][k-1] + 1)
+=
+f[i-1][j-1] + 1
+\quad (\text{当 } a_i = b_j)
+\]</span> 否则（<span class="math inline">\(a_i \ne b_j\)</span>）：</p>
+<ul>
+<li>该项不会优于继承项</li>
+<li>已被 <code>max(f[i-1][j], f[i][j-1])</code> 覆盖</li>
+</ul>
+<hr />
+<h3 id="第二段枚举为何可以删除">6.2 第二段枚举为何可以删除？</h3>
+<ul>
+<li>第二段与第一段在逻辑上是对称的</li>
+<li>在已存在继承项的前提下，不会产生新的最优值</li>
+<li>属于<strong>重复覆盖同一最优解空间</strong></li>
+</ul>
+<hr />
+<h2 id="七第二份代码标准-lcs-形式">七、第二份代码（标准 LCS 形式）</h2>
+<p>经过上述化简，状态转移自然收敛为： <span class="math display">\[
+f[i][j]
+=
+\begin{cases}
+\max(f[i-1][j], f[i][j-1]), &amp; a_i \ne b_j \\
+\max(f[i-1][j], f[i][j-1], f[i-1][j-1] + 1), &amp; a_i = b_j
+\end{cases}
+\]</span> 对应代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">5e2</span> + <span class="number">5</span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxUncrossedLines</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums1, vector&lt;<span class="type">int</span>&gt;&amp; nums2)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n1 = nums1.<span class="built_in">size</span>(), n2 = nums2.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> f[maxn][maxn];</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j) &#123;</span><br><span class="line">                f[i][j] = <span class="built_in">max</span>(f[i - <span class="number">1</span>][j], f[i][j - <span class="number">1</span>]);</span><br><span class="line">                <span class="keyword">if</span> (nums1[i - <span class="number">1</span>] == nums2[j - <span class="number">1</span>])</span><br><span class="line">                    f[i][j] = <span class="built_in">max</span>(f[i][j], f[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n1][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="八总结">八、总结</h2>
+<ul>
+<li>第一份代码： <strong>“枚举最后一条线位置”的完全 DP 描述</strong>
+正确，但时间复杂度高、存在冗余枚举</li>
+<li>第二份代码： <strong>利用单调性与不相交约束后的最简形式</strong>
+即标准 LCS，时间复杂度降为 <span class="math inline">\(O(n_1
+n_2)\)</span></li>
+<li>两者在数学意义上是<strong>严格等价的</strong></li>
+</ul>
+<blockquote>
+<p>第二份代码不是“换思路”，而是第一份代码在不丢失任何最优解的前提下的<strong>极限化简结果</strong>。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>LCS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>1458. 两个子序列的最大点积</title>
+    <url>/2025/12/18/1458-%E4%B8%A4%E4%B8%AA%E5%AD%90%E5%BA%8F%E5%88%97%E7%9A%84%E6%9C%80%E5%A4%A7%E7%82%B9%E7%A7%AF/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>LCS</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<h2 id="一问题回顾与建模视角">一、问题回顾与建模视角</h2>
+<p>给定两个整数数组 <span class="math display">\[
+\text{nums1} = [a_1, a_2, \dots, a_{n_1}], \quad
+\text{nums2} = [b_1, b_2, \dots, b_{n_2}]
+\]</span>
+需要从两个数组中<strong>分别选择一个非空子序列</strong>，使得它们的<strong>点积</strong>最大：
+<span class="math display">\[
+\sum_{k=1}^{m} x_k \cdot y_k
+\]</span> 其中 <span class="math inline">\((x_1,\dots,x_m)\)</span> 是
+<code>nums1</code> 的子序列， <span
+class="math inline">\((y_1,\dots,y_m)\)</span> 是 <code>nums2</code>
+的子序列，并且二者长度相同。</p>
+<hr />
+<h2 id="二状态定义state">二、状态定义（State）</h2>
+<h3 id="状态含义">1. 状态含义</h3>
+<p>定义二维 DP 数组： <span class="math display">\[
+f[i][j]
+\]</span> 表示：</p>
+<blockquote>
+<p><strong>只考虑 <code>nums1</code> 的前 <span
+class="math inline">\(i\)</span> 个元素和 <code>nums2</code> 的前 <span
+class="math inline">\(j\)</span>
+个元素时，所能得到的「非空子序列对」的最大点积。</strong></p>
+</blockquote>
+<p>⚠️ <strong>关键点</strong>：</p>
+<ul>
+<li>子序列 <strong>必须非空</strong></li>
+<li>点积是“已经至少选过一对元素”的结果</li>
+</ul>
+<p>这直接决定了 <strong>初始值不能是
+0</strong>，否则会错误地允许“什么都不选”。</p>
+<hr />
+<h2
+id="三初始值设计initialization">三、初始值设计（Initialization）</h2>
+<h3 id="为什么不能初始化为-0">1. 为什么不能初始化为 0？</h3>
+<p>如果将 <code>f</code> 初始化为 0，那么在所有乘积为负数的情况下，DP
+会倾向于“什么都不选”，返回
+0，这是<strong>非法解</strong>（题目要求非空子序列）。</p>
+<p>因此，必须将 <code>f[i][j]</code>
+初始化为一个<strong>足够小的负数</strong>，表示“当前状态不可达”。</p>
+<h3 id="代码中的做法">2. 代码中的做法</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">memset(f, 0xcf, sizeof(f));</span><br></pre></td></tr></table></figure>
+<p>在补码表示下，<code>0xcf</code> 对应一个极小的负数（近似
+<code>-1e9</code>），安全且高效。</p>
+<hr />
+<h2 id="四状态转移方程transition">四、状态转移方程（Transition）</h2>
+<p>考虑 <code>nums1[i-1]</code> 和 <code>nums2[j-1]</code>
+这两个元素是否被选入子序列。</p>
+<hr />
+<h3 id="情况-1只选当前这一对作为子序列的起点">情况
+1：<strong>只选当前这一对，作为子序列的起点</strong></h3>
+<p><span class="math display">\[
+a_i \cdot b_j
+\]</span></p>
+<p>这是最重要的一项，它保证了<strong>子序列至少包含一个元素对</strong>。</p>
+<hr />
+<h3 id="情况-2在已有子序列的基础上继续选这一对">情况
+2：<strong>在已有子序列的基础上，继续选这一对</strong></h3>
+<p><span class="math display">\[
+f[i-1][j-1] + a_i \cdot b_j
+\]</span></p>
+<p>表示当前元素对接在之前的最优解之后。</p>
+<hr />
+<h3 id="情况-3不选当前元素对">情况
+3：<strong>不选当前元素对</strong></h3>
+<ul>
+<li><p>不选 <code>a_i</code>： <span class="math display">\[
+f[i-1][j]
+\]</span></p></li>
+<li><p>不选 <code>b_j</code>： <span class="math display">\[
+f[i][j-1]
+\]</span></p></li>
+</ul>
+<p>用于“跳过”某一侧的元素。</p>
+<hr />
+<h3 id="统一转移公式">统一转移公式</h3>
+<p><span class="math display">\[
+\boxed{
+\begin{aligned}
+f[i][j] = \max \Big(
+&amp; a_i \cdot b_j, \\
+&amp; f[i-1][j-1], \\
+&amp; f[i-1][j-1] + a_i \cdot b_j, \\
+&amp; f[i-1][j], \\
+&amp; f[i][j-1]
+\Big)
+\end{aligned}
+}
+\]</span></p>
+<p>在代码中，逻辑被拆分为几次 <code>max</code>，但本质完全一致。</p>
+<hr />
+<h2 id="五答案含义answer">五、答案含义（Answer）</h2>
+<p>最终答案为： <span class="math display">\[
+\boxed{f[n_1][n_2]}
+\]</span> 含义是：</p>
+<blockquote>
+<p>在完整考虑两个数组后，能得到的<strong>最大非空子序列点积</strong>。</p>
+</blockquote>
+<p>由于所有非法状态已被初始化为极小值，因此该结果一定对应一个<strong>合法、非空的子序列对</strong>。</p>
+<hr />
+<h2 id="六时间与空间复杂度">六、时间与空间复杂度</h2>
+<ul>
+<li><p><strong>时间复杂度</strong>： <span class="math display">\[
+O(n_1 \times n_2)
+\]</span></p></li>
+<li><p><strong>空间复杂度</strong>： <span class="math display">\[
+O(n_1 \times n_2)
+\]</span></p></li>
+</ul>
+<p>在本题约束（<span class="math inline">\(n \le
+500\)</span>）下完全可接受。</p>
+<hr />
+<h2 id="七ac代码">七、AC代码</h2>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">5e2</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxDotProduct</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums1, vector&lt;<span class="type">int</span>&gt;&amp; nums2)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> f[maxn][maxn];</span><br><span class="line">        <span class="type">int</span> n1 = nums1.<span class="built_in">size</span>(), n2 = nums2.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化为极小值，表示“尚未形成非空子序列”</span></span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0xcf</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 情况 1：仅选择 nums1[i-1] 和 nums2[j-1] 作为起点</span></span><br><span class="line">                f[i][j] = nums1[i - <span class="number">1</span>] * nums2[j - <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 情况 2：在已有子序列后追加这一对</span></span><br><span class="line">                f[i][j] = <span class="built_in">max</span>(</span><br><span class="line">                    f[i][j],</span><br><span class="line">                    <span class="built_in">max</span>(</span><br><span class="line">                        f[i - <span class="number">1</span>][j - <span class="number">1</span>],  <span class="comment">// 什么都不接，保留旧解</span></span><br><span class="line">                        f[i - <span class="number">1</span>][j - <span class="number">1</span>] + nums1[i - <span class="number">1</span>] * nums2[j - <span class="number">1</span>]</span><br><span class="line">                    )</span><br><span class="line">                );</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 情况 3：跳过某一侧元素</span></span><br><span class="line">                f[i][j] = <span class="built_in">max</span>(</span><br><span class="line">                    f[i][j],</span><br><span class="line">                    <span class="built_in">max</span>(f[i - <span class="number">1</span>][j], f[i][j - <span class="number">1</span>])</span><br><span class="line">                );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 最终答案</span></span><br><span class="line">        <span class="keyword">return</span> f[n1][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>LCS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>1143. 最长公共子序列</title>
+    <url>/2025/12/18/1143-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>LCS</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<h2 id="问题定义">1. 问题定义</h2>
+<p>给定两个字符串 <span class="math display">\[
+\text{text}_1,\ \text{text}_2
+\]</span> 求它们的<strong>最长公共子序列</strong>（Longest Common
+Subsequence, LCS）的长度。</p>
+<blockquote>
+<p>子序列不要求连续，但要求保持原有相对顺序。</p>
+</blockquote>
+<hr />
+<h2 id="状态定义">2. 状态定义</h2>
+<p>设 <span class="math display">\[
+f[i][j]
+\]</span> 表示 <strong><code>text1</code> 的前 <span
+class="math inline">\(i\)</span> 个字符</strong> 与
+<strong><code>text2</code> 的前 <span class="math inline">\(j\)</span>
+个字符</strong> 的最长公共子序列长度。</p>
+<p>该定义具有以下性质：</p>
+<ul>
+<li><p>问题规模可被自然拆分为更小的前缀子问题；</p></li>
+<li><p>最终答案为 <span class="math display">\[
+f[n_1][n_2]
+\]</span> 其中 <span class="math inline">\(n_1 =
+|\text{text}_1|\)</span>，<span class="math inline">\(n_2 =
+|\text{text}_2|\)</span>。</p></li>
+</ul>
+<hr />
+<h2 id="初始条件边界">3. 初始条件（边界）</h2>
+<p>当任意一个字符串长度为 0 时，LCS 长度为 0： <span
+class="math display">\[
+\begin{aligned}
+f[0][j] &amp;= 0 \quad (0 \le j \le n_2) \\
+f[i][0] &amp;= 0 \quad (0 \le i \le n_1)
+\end{aligned}
+\]</span> 这对应代码中的整体 <code>memset(f, 0, ...)</code> 初始化。</p>
+<hr />
+<h2 id="状态转移方程">4. 状态转移方程</h2>
+<p>考虑 <code>text1[i-1]</code> 与 <code>text2[j-1]</code>。</p>
+<h3 id="字符相等的情况">4.1 字符相等的情况</h3>
+<p>若 <span class="math display">\[
+\text{text}_1[i-1] = \text{text}_2[j-1]
+\]</span> 则这两个字符<strong>一定可以作为 LCS
+的一个新末尾字符</strong>： <span class="math display">\[
+f[i][j] = f[i-1][j-1] + 1
+\]</span> 这是 LCS 中唯一“强制使用对角状态”的情形。</p>
+<hr />
+<h3 id="字符不相等的情况核心讨论">4.2 字符不相等的情况（核心讨论）</h3>
+<p>若 <span class="math display">\[
+\text{text}_1[i-1] \ne \text{text}_2[j-1]
+\]</span> 此时无法同时使用这两个末尾字符，LCS
+必然来自以下两种选择之一：</p>
+<ol type="1">
+<li><strong>丢弃 <code>text1</code> 的第 <span
+class="math inline">\(i\)</span> 个字符</strong> → 转化为子问题 <span
+class="math inline">\(f[i-1][j]\)</span></li>
+<li><strong>丢弃 <code>text2</code> 的第 <span
+class="math inline">\(j\)</span> 个字符</strong> → 转化为子问题 <span
+class="math inline">\(f[i][j-1]\)</span></li>
+</ol>
+<p>因此有标准转移式： <span class="math display">\[
+f[i][j] = \max \bigl( f[i-1][j],\ f[i][j-1] \bigr)
+\]</span></p>
+<hr />
+<h2 id="为什么可以去掉-fi-1j-1">5. 为什么可以去掉 <span
+class="math inline">\(f[i-1][j-1]\)</span></h2>
+<p>这是本题最容易产生疑惑、但也是理解 LCS DP 的关键点。</p>
+<h3 id="一个重要的单调性事实">5.1 一个重要的单调性事实</h3>
+<p>对于任意 <span class="math inline">\(i, j\)</span>，都有： <span
+class="math display">\[
+\begin{aligned}
+f[i-1][j-1] &amp;\le f[i-1][j] \\
+f[i-1][j-1] &amp;\le f[i][j-1]
+\end{aligned}
+\]</span> <strong>原因：</strong></p>
+<ul>
+<li>从 <code>(i-1, j-1)</code> 扩展到 <code>(i-1, j)</code>，只是给
+<code>text2</code> 多了一个字符；</li>
+<li>从 <code>(i-1, j-1)</code> 扩展到 <code>(i, j-1)</code>，只是给
+<code>text1</code> 多了一个字符；</li>
+<li>LCS 长度不会因为“可选字符变多”而变小。</li>
+</ul>
+<hr />
+<h3 id="数学上的支配关系dominance">5.2
+数学上的支配关系（Dominance）</h3>
+<p>由于上述不等式恒成立： <span class="math display">\[
+\max \bigl( f[i-1][j],\ f[i][j-1] \bigr)
+\;\;\ge\;\;
+f[i-1][j-1]
+\]</span> 因此在字符不相等时： <span class="math display">\[
+\max \bigl( f[i-1][j-1],\ f[i-1][j],\ f[i][j-1] \bigr)
+=
+\max \bigl( f[i-1][j],\ f[i][j-1] \bigr)
+\]</span> 也就是说：</p>
+<blockquote>
+<p><strong><code>f[i-1][j-1]</code>
+在该分支中被完全“支配”，永远不可能成为最优来源。</strong></p>
+</blockquote>
+<hr />
+<h3 id="从决策语义角度理解">5.3 从“决策语义”角度理解</h3>
+<p>当末尾字符不相等时：</p>
+<ul>
+<li>同时丢弃两个字符（<code>f[i-1][j-1]</code>）
+等价于“先丢一个，再丢另一个”</li>
+<li>但 DP 已经在 <code>f[i-1][j]</code> 和 <code>f[i][j-1]</code>
+中完整覆盖了这两种可能</li>
+</ul>
+<p>因此显式写出 <code>f[i-1][j-1]</code>
+<strong>不会带来任何新的最优解路径</strong>。</p>
+<hr />
+<h2 id="最终答案">6. 最终答案</h2>
+<p>完整填表后，最终答案为： <span class="math display">\[
+\boxed{f[n_1][n_2]}
+\]</span> 时间复杂度： <span class="math display">\[
+O(n_1 \cdot n_2)
+\]</span> 空间复杂度：</p>
+<ul>
+<li>普通二维 DP：<span class="math inline">\(O(n_1 \cdot
+n_2)\)</span></li>
+<li>滚动数组优化后：<span class="math inline">\(O(n_2)\)</span></li>
+</ul>
+<hr />
+<h2 id="代码实现与注释">7. 代码实现与注释</h2>
+<h3 id="含冗余状态的二维-dp理论正确但非最简">7.1 含冗余状态的二维
+DP（理论正确，但非最简）</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e3</span> + <span class="number">5</span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">longestCommonSubsequence</span><span class="params">(string text1, string text2)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> f[maxn][maxn];</span><br><span class="line">        <span class="type">int</span> n1 = text1.<span class="built_in">size</span>(), n2 = text2.<span class="built_in">size</span>();</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f)); <span class="comment">// 边界：任一字符串为空时 LCS 为 0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (text1[i - <span class="number">1</span>] == text2[j - <span class="number">1</span>])</span><br><span class="line">                    f[i][j] = f[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="comment">// f[i-1][j-1] 实际被 f[i-1][j] 与 f[i][j-1] 支配</span></span><br><span class="line">                    f[i][j] = <span class="built_in">max</span>(f[i - <span class="number">1</span>][j - <span class="number">1</span>],</span><br><span class="line">                                  <span class="built_in">max</span>(f[i - <span class="number">1</span>][j], f[i][j - <span class="number">1</span>]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n1][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr />
+<h3 id="标准且最简的二维-dp推荐">7.2 标准且最简的二维 DP（推荐）</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e3</span> + <span class="number">5</span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">longestCommonSubsequence</span><span class="params">(string text1, string text2)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> f[maxn][maxn];</span><br><span class="line">        <span class="type">int</span> n1 = text1.<span class="built_in">size</span>(), n2 = text2.<span class="built_in">size</span>();</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (text1[i - <span class="number">1</span>] == text2[j - <span class="number">1</span>])</span><br><span class="line">                    f[i][j] = f[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="comment">// 去掉 f[i-1][j-1]，不影响正确性</span></span><br><span class="line">                    f[i][j] = <span class="built_in">max</span>(f[i - <span class="number">1</span>][j], f[i][j - <span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n1][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr />
+<h3 id="滚动数组优化版空间压缩">7.3 滚动数组优化版（空间压缩）</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e3</span> + <span class="number">5</span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">longestCommonSubsequence</span><span class="params">(string text1, string text2)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> f[<span class="number">2</span>][maxn];</span><br><span class="line">        <span class="type">int</span> n1 = text1.<span class="built_in">size</span>(), n2 = text2.<span class="built_in">size</span>();</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            f[i &amp; <span class="number">1</span>][<span class="number">0</span>] = <span class="number">0</span>; <span class="comment">// 每一行的左边界</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (text1[i - <span class="number">1</span>] == text2[j - <span class="number">1</span>])</span><br><span class="line">                    f[i &amp; <span class="number">1</span>][j] = f[(i - <span class="number">1</span>) &amp; <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    f[i &amp; <span class="number">1</span>][j] = <span class="built_in">max</span>(f[(i - <span class="number">1</span>) &amp; <span class="number">1</span>][j],</span><br><span class="line">                                      f[i &amp; <span class="number">1</span>][j - <span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n1 &amp; <span class="number">1</span>][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="小结">8. 小结</h2>
+<ul>
+<li>LCS 的核心在于<strong>前缀最优子结构</strong>；</li>
+<li>当字符不相等时，<code>f[i-1][j-1]</code> 被 <code>f[i-1][j]</code>
+与 <code>f[i][j-1]</code> <strong>严格支配</strong>；</li>
+<li>去掉该状态既不影响正确性，也使状态转移更清晰、更易推广到滚动数组优化；</li>
+<li>这是 LCS 与编辑距离等 DP 题型在“转移语义”上的一个重要分界点。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>LCS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>1639. 通过给定词典构造目标字符串的方案数</title>
+    <url>/2025/12/22/1639-%E9%80%9A%E8%BF%87%E7%BB%99%E5%AE%9A%E8%AF%8D%E5%85%B8%E6%9E%84%E9%80%A0%E7%9B%AE%E6%A0%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B9%E6%A1%88%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>LCS</li>
+<li>哈希表</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<h2 id="一问题抽象">一、问题抽象</h2>
+<p>给定一个字符串数组
+<code>words</code>，其中每个字符串长度相同，设长度为 <span
+class="math inline">\(m\)</span>。 给定目标字符串
+<code>target</code>，长度为 <span class="math inline">\(n\)</span>。</p>
+<p>构造规则如下：</p>
+<ul>
+<li>从左到右依次构造 <code>target</code>；</li>
+<li>构造第 <span class="math inline">\(i\)</span>
+个字符时，选择某一<strong>列</strong> <span
+class="math inline">\(j\)</span>；</li>
+<li>在该列中，从所有 <code>words</code> 的第 <span
+class="math inline">\(j\)</span> 个字符里任选一个；</li>
+<li><strong>列号必须严格递增</strong>（即不能重复使用或回退列）。</li>
+</ul>
+<p>要求计算构造出整个 <code>target</code> 的方案数，结果对 <span
+class="math inline">\(10^9+7\)</span> 取模。</p>
+<hr />
+<h2 id="二预处理列字符计数">二、预处理：列字符计数</h2>
+<p>由于在同一列中可以从不同单词中选字符，<strong>列中字符的出现次数是方案数的乘数</strong>。</p>
+<p>定义计数数组： <span class="math display">\[
+\text{cnt}[j][c] = \text{第 } j \text{ 列中字母 } c \text{ 的出现次数}
+\]</span> 其中：</p>
+<ul>
+<li><span class="math inline">\(j \in [1, m]\)</span></li>
+<li><span class="math inline">\(c \in
+[&#39;a&#39;,&#39;z&#39;]\)</span></li>
+</ul>
+<p>该数组仅与 <code>words</code> 有关，可一次性预处理。</p>
+<hr />
+<h2 id="三动态规划状态定义二维">三、动态规划状态定义（二维）</h2>
+<h3 id="状态定义">状态定义</h3>
+<p>定义二维 DP 数组： <span class="math display">\[
+f[i][j] = \text{使用前 } j \text{ 列，恰好构造出 } target \text{ 的前 }
+i \text{ 个字符，且第 } i \text{ 个字符使用了第 } j \text{ 列的方案数}
+\]</span> 含义要点：</p>
+<ul>
+<li><span class="math inline">\(i\)</span> 控制已构造的字符数；</li>
+<li><span class="math inline">\(j\)</span> 控制当前字符使用的列；</li>
+<li>“使用了第 <span class="math inline">\(j\)</span>
+列”隐含列号严格递增的约束。</li>
+</ul>
+<hr />
+<h3 id="初始值">初始值</h3>
+<p><span class="math display">\[
+f[0][0] = 1
+\]</span></p>
+<p>解释：</p>
+<ul>
+<li>构造空字符串；</li>
+<li>不使用任何列；</li>
+<li>只有 1 种方式。</li>
+</ul>
+<p>这是整个 DP 的<strong>唯一非零起点</strong>。</p>
+<hr />
+<h2 id="四状态转移方程">四、状态转移方程</h2>
+<h3 id="前缀和优化思想">前缀和优化思想</h3>
+<p>当构造第 <span class="math inline">\(i\)</span> 个字符并使用第 <span
+class="math inline">\(j\)</span> 列时：</p>
+<ul>
+<li>上一个字符必须来自某一列 <span class="math inline">\(k &lt;
+j\)</span>；</li>
+<li>可行的前置状态是所有 <span class="math inline">\(f[i-1][1 \dots
+j-1]\)</span>。</li>
+</ul>
+<p>定义前缀和： <span class="math display">\[
+S_{i-1}(j-1) = \sum_{k=0}^{j-1} f[i-1][k]
+\]</span></p>
+<hr />
+<h3 id="转移方程">转移方程</h3>
+<p>设当前要匹配的字符为 <span
+class="math inline">\(target[i]\)</span>，则有： <span
+class="math display">\[
+f[i][j]
+=
+S_{i-1}(j-1)
+\times
+\text{cnt}[j][target[i]]
+\pmod{10^9+7}
+\]</span> 含义分解：</p>
+<ol type="1">
+<li>从所有合法的前一列方案中转移；</li>
+<li>当前列能提供多少个目标字符，就放大多少倍；</li>
+<li>列号天然保证严格递增。</li>
+</ol>
+<hr />
+<h3 id="前缀和的递推维护">前缀和的递推维护</h3>
+<p>在固定 <span class="math inline">\(i\)</span>
+的情况下，从左到右扫描列： <span class="math display">\[
+S_{i-1}(j) = S_{i-1}(j-1) + f[i-1][j]
+\]</span> 这样每个状态转移为 <span
+class="math inline">\(O(1)\)</span>，整体复杂度为： <span
+class="math display">\[
+O(n \cdot m)
+\]</span></p>
+<hr />
+<h2 id="五答案构成">五、答案构成</h2>
+<p>完整构造出 <code>target</code> 后，第 <span
+class="math inline">\(n\)</span> 个字符可能来自任意一列： <span
+class="math display">\[
+\text{Answer} = \sum_{j=1}^{m} f[n][j] \pmod{10^9+7}
+\]</span></p>
+<hr />
+<h2 id="六空间优化滚动数组">六、空间优化：滚动数组</h2>
+<p>观察转移关系可知：</p>
+<ul>
+<li>第 <span class="math inline">\(i\)</span> 行仅依赖第 <span
+class="math inline">\(i-1\)</span> 行；</li>
+<li>可将 <code>f[i][*]</code> 压缩为 <code>f[i&amp;1][*]</code>。</li>
+</ul>
+<h3 id="关键注意点非常重要">关键注意点（非常重要）</h3>
+<ul>
+<li><strong>每一轮必须清空当前行</strong>；</li>
+<li>否则当某一列 <code>cnt[j][c]=0</code>
+时，旧值会残留并污染结果。</li>
+</ul>
+<hr />
+<h2 id="七ac代码">七、AC代码</h2>
+<hr />
+<h3 id="二维-dp-前缀和原始版">1️⃣ 二维 DP + 前缀和（原始版）</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e3</span> + <span class="number">5</span>, mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">numWays</span><span class="params">(vector&lt;string&gt;&amp; words, string target)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// f[i][j]: 构造 target 前 i 个字符，且第 i 个字符使用第 j 列的方案数</span></span><br><span class="line">        <span class="type">long</span> <span class="type">long</span> f[maxn][maxn];</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// cnt[j][c]: 第 j 列中字母 c 的出现次数</span></span><br><span class="line">        <span class="type">int</span> cnt[maxn][<span class="number">26</span>];</span><br><span class="line">        <span class="built_in">memset</span>(cnt, <span class="number">0</span>, <span class="built_in">sizeof</span>(cnt));</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> m = words[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; ++j) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">0</span>; k &lt; words.<span class="built_in">size</span>(); ++k) &#123;</span><br><span class="line">                cnt[j][words[k][j - <span class="number">1</span>] - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> n = target.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始状态：构造空串</span></span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">            <span class="comment">// s = sum_&#123;k=0..j-1&#125; f[i-1][k]</span></span><br><span class="line">            <span class="type">long</span> <span class="type">long</span> s = f[i - <span class="number">1</span>][<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (cnt[j][target[i - <span class="number">1</span>] - <span class="string">&#x27;a&#x27;</span>]) &#123;</span><br><span class="line">                    f[i][j] = (f[i][j] + s * cnt[j][target[i - <span class="number">1</span>] - <span class="string">&#x27;a&#x27;</span>]) % mod;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 更新前缀和</span></span><br><span class="line">                s = (s + f[i - <span class="number">1</span>][j]) % mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 汇总答案</span></span><br><span class="line">        <span class="type">long</span> <span class="type">long</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; ++j) &#123;</span><br><span class="line">            res = (res + f[n][j]) % mod;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (<span class="type">int</span>)res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr />
+<h3 id="滚动数组优化版空间-om">2️⃣ 滚动数组优化版（空间 O(m)）</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e3</span> + <span class="number">5</span>, mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">numWays</span><span class="params">(vector&lt;string&gt;&amp; words, string target)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// f[cur][j]: 当前 i 行，对应原二维的 f[i][j]</span></span><br><span class="line">        <span class="type">long</span> <span class="type">long</span> f[<span class="number">2</span>][maxn];</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> cnt[maxn][<span class="number">26</span>];</span><br><span class="line">        <span class="built_in">memset</span>(cnt, <span class="number">0</span>, <span class="built_in">sizeof</span>(cnt));</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> m = words[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; ++j) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">0</span>; k &lt; words.<span class="built_in">size</span>(); ++k) &#123;</span><br><span class="line">                cnt[j][words[k][j - <span class="number">1</span>] - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> n = target.<span class="built_in">size</span>();</span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">            <span class="type">int</span> cur = i &amp; <span class="number">1</span>;</span><br><span class="line">            <span class="type">int</span> pre = (i - <span class="number">1</span>) &amp; <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 必须清空当前行（滚动数组的关键）</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= m; ++j) &#123;</span><br><span class="line">                f[cur][j] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="type">long</span> <span class="type">long</span> s = f[pre][<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (cnt[j][target[i - <span class="number">1</span>] - <span class="string">&#x27;a&#x27;</span>]) &#123;</span><br><span class="line">                    f[cur][j] = s * cnt[j][target[i - <span class="number">1</span>] - <span class="string">&#x27;a&#x27;</span>] % mod;</span><br><span class="line">                &#125;</span><br><span class="line">                s = (s + f[pre][j]) % mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">long</span> <span class="type">long</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; ++j) &#123;</span><br><span class="line">            res = (res + f[n &amp; <span class="number">1</span>][j]) % mod;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (<span class="type">int</span>)res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>LCS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>3290. 最高乘法得分</title>
+    <url>/2025/12/19/3290-%E6%9C%80%E9%AB%98%E4%B9%98%E6%B3%95%E5%BE%97%E5%88%86/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>LCS</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<h2 id="一问题概述">一、问题概述</h2>
+<p>给定两个整数数组：</p>
+<ul>
+<li><code>a</code>：长度为 4</li>
+<li><code>b</code>：长度为 <code>n (n ≥ 4)</code></li>
+</ul>
+<p>需要从数组 <code>b</code> 中<strong>按原有顺序选择 4
+个不同的位置</strong> 设选中的下标为： <span class="math display">\[
+0 \le i_1 &lt; i_2 &lt; i_3 &lt; i_4 &lt; n
+\]</span> 目标是最大化以下得分函数： <span class="math display">\[
+a_0 \cdot b_{i_1} + a_1 \cdot b_{i_2} + a_2 \cdot b_{i_3} + a_3 \cdot
+b_{i_4}
+\]</span></p>
+<hr />
+<h2 id="二动态规划建模">二、动态规划建模</h2>
+<h3 id="状态定义">1. 状态定义</h3>
+<p>定义二维 DP 数组： <span class="math display">\[
+f[i][k]
+\]</span> 表示：</p>
+<blockquote>
+<p><strong>只考虑数组 <code>b</code> 的前 <code>i</code> 个元素（下标
+<code>0 \sim i-1</code>），并且已经选择了 <code>k</code>
+个点时，所能得到的最大得分</strong></p>
+</blockquote>
+<p>其中：</p>
+<ul>
+<li><span class="math inline">\(i = 0 \sim n\)</span></li>
+<li><span class="math inline">\(k = 0 \sim 4\)</span></li>
+</ul>
+<hr />
+<h3 id="初始值initialization">2. 初始值（Initialization）</h3>
+<ul>
+<li><p>当没有选任何点时，得分为 0： <span class="math display">\[
+f[0][0] = 0
+\]</span></p></li>
+<li><p>其余不合法状态设为负无穷（表示不可能达到）： <span
+class="math display">\[
+f[0][k] = -\infty \quad (k \ge 1)
+\]</span></p></li>
+</ul>
+<p>在代码中，通常用一个<strong>极小负数</strong>（如
+<code>LLONG_MIN &gt;&gt; 1</code>）来模拟 <span
+class="math inline">\(-\infty\)</span>，以避免溢出。</p>
+<hr />
+<h3 id="状态转移方程transition">3. 状态转移方程（Transition）</h3>
+<p>对于第 <code>i</code> 个元素 <code>b[i-1]</code>，有两种选择：</p>
+<h4 id="情况一不选第-i-个元素">情况一：不选第 <code>i</code> 个元素</h4>
+<p><span class="math display">\[
+f[i][k] = f[i-1][k]
+\]</span></p>
+<h4 id="情况二选第-i-个元素作为第-k-个被选中的点">情况二：选第
+<code>i</code> 个元素作为第 <code>k</code> 个被选中的点</h4>
+<p><span class="math display">\[
+f[i][k] = f[i-1][k-1] + b_{i-1} \cdot a_{k-1}
+\]</span></p>
+<hr />
+<h4 id="综合转移公式">综合转移公式</h4>
+<p><span class="math display">\[
+\boxed{
+f[i][k] = \max \left(
+f[i-1][k],\;
+f[i-1][k-1] + b_{i-1} \cdot a_{k-1}
+\right)
+}
+\quad (1 \le k \le 4)
+\]</span></p>
+<blockquote>
+<p><strong>关键点</strong>： 转移必须全部来自 <strong><code>i-1</code>
+层状态</strong>，否则会导致同一个 <code>b[i-1]</code> 被重复选用。</p>
+</blockquote>
+<hr />
+<h3 id="答案answer">4. 答案（Answer）</h3>
+<p>最终答案即为： <span class="math display">\[
+\boxed{f[n][4]}
+\]</span> 表示在整个数组 <code>b</code> 中选取 4
+个点所能获得的最大得分。</p>
+<hr />
+<h2 id="三二维-dp-实现原始版本">三、二维 DP 实现（原始版本）</h2>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e5</span> + <span class="number">5</span>, neg = INT_MIN &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">maxScore</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; a, vector&lt;<span class="type">int</span>&gt;&amp; b)</span> </span>&#123;</span><br><span class="line">        <span class="type">long</span> <span class="type">long</span> f[maxn][<span class="number">5</span>], n = b.<span class="built_in">size</span>();</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0xcf</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">            f[i][<span class="number">1</span>] = <span class="built_in">max</span>(f[i - <span class="number">1</span>][<span class="number">1</span>], <span class="number">1LL</span> * b[i - <span class="number">1</span>] * a[<span class="number">0</span>]);</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= <span class="number">2</span>)</span><br><span class="line">                f[i][<span class="number">2</span>] = <span class="built_in">max</span>(f[i - <span class="number">1</span>][<span class="number">2</span>], f[i - <span class="number">1</span>][<span class="number">1</span>] + <span class="number">1LL</span> * b[i - <span class="number">1</span>] * a[<span class="number">1</span>]);</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= <span class="number">3</span>)</span><br><span class="line">                f[i][<span class="number">3</span>] = <span class="built_in">max</span>(f[i - <span class="number">1</span>][<span class="number">3</span>], f[i - <span class="number">1</span>][<span class="number">2</span>] + <span class="number">1LL</span> * b[i - <span class="number">1</span>] * a[<span class="number">2</span>]);</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= <span class="number">4</span>)</span><br><span class="line">                f[i][<span class="number">4</span>] = <span class="built_in">max</span>(f[i - <span class="number">1</span>][<span class="number">4</span>], f[i - <span class="number">1</span>][<span class="number">3</span>] + <span class="number">1LL</span> * b[i - <span class="number">1</span>] * a[<span class="number">3</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n][<span class="number">4</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="四空间优化滚动数组一维-dp">四、空间优化：滚动数组（一维
+DP）</h2>
+<p>观察状态转移可知：</p>
+<ul>
+<li>第 <code>i</code> 层状态 <strong>只依赖第 <code>i-1</code>
+层</strong></li>
+<li><code>k</code> 的最大值固定为 4</li>
+</ul>
+<p>因此可以将二维数组压缩为 <strong>4 个变量</strong>，实现
+<strong>O(1)</strong> 额外空间。</p>
+<hr />
+<h3 id="一维状态含义">一维状态含义</h3>
+<ul>
+<li><code>one</code>：已选 1 个点的最大得分</li>
+<li><code>two</code>：已选 2 个点的最大得分</li>
+<li><code>three</code>：已选 3 个点的最大得分</li>
+<li><code>four</code>：已选 4 个点的最大得分</li>
+</ul>
+<p>每轮循环中使用临时变量保存新状态，避免覆盖旧值。</p>
+<hr />
+<h3 id="滚动数组实现代码">滚动数组实现代码</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">long</span> <span class="type">long</span> neg = LLONG_MIN &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">maxScore</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; a, vector&lt;<span class="type">int</span>&gt;&amp; b)</span> </span>&#123;</span><br><span class="line">        <span class="type">long</span> <span class="type">long</span> one = neg, two = neg, three = neg, four = neg, n = b.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">            <span class="type">long</span> <span class="type">long</span> One = neg, Two = neg, Three = neg, Four = neg;</span><br><span class="line">            One = <span class="built_in">max</span>(one, <span class="number">1LL</span> * b[i - <span class="number">1</span>] * a[<span class="number">0</span>]);</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= <span class="number">2</span>)</span><br><span class="line">                Two = <span class="built_in">max</span>(two, one + <span class="number">1LL</span> * b[i - <span class="number">1</span>] * a[<span class="number">1</span>]);</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= <span class="number">3</span>)</span><br><span class="line">                Three = <span class="built_in">max</span>(three, two + <span class="number">1LL</span> * b[i - <span class="number">1</span>] * a[<span class="number">2</span>]);</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= <span class="number">4</span>)</span><br><span class="line">                Four = <span class="built_in">max</span>(four, three + <span class="number">1LL</span> * b[i - <span class="number">1</span>] * a[<span class="number">3</span>]);</span><br><span class="line">            one = One, two = Two, three = Three, four = Four;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> four;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="五复杂度分析">五、复杂度分析</h2>
+<ul>
+<li><p><strong>时间复杂度</strong>： <span class="math display">\[
+O(n \times 4) = O(n)
+\]</span></p></li>
+<li><p><strong>空间复杂度</strong>：</p>
+<ul>
+<li>二维 DP：<span class="math inline">\(O(n \times 4)\)</span></li>
+<li>滚动数组：<span class="math inline">\(\boxed{O(1)}\)</span></li>
+</ul></li>
+</ul>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>LCS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>3316. 从原字符串里进行删除操作的最多次数</title>
+    <url>/2025/12/23/3316-%E4%BB%8E%E5%8E%9F%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E8%BF%9B%E8%A1%8C%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C%E7%9A%84%E6%9C%80%E5%A4%9A%E6%AC%A1%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>LCS</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<h2 id="动态规划算法讲义前缀视角">动态规划算法讲义（前缀视角）</h2>
+<hr />
+<h2 id="一问题抽象">一、问题抽象</h2>
+<p>给定：</p>
+<ul>
+<li>字符串 <code>source</code>，长度为 <span
+class="math inline">\(n\)</span></li>
+<li>字符串 <code>pattern</code>，长度为 <span
+class="math inline">\(m\)</span>，且保证 <code>pattern</code> 是
+<code>source</code> 的子序列</li>
+<li>一个下标集合 <code>targetIndices</code>，表示 <strong>允许删除的
+source 下标（删除不改变索引）</strong></li>
+</ul>
+<p>目标：</p>
+<blockquote>
+<p>在保证 <code>pattern</code> 仍然是删除后字符串子序列的前提下，
+<strong>最大化删除操作的次数</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="二核心建模思想">二、核心建模思想</h2>
+<p>本题的关键不在于“枚举删除方案”，而在于：</p>
+<blockquote>
+<p><strong>在子序列匹配的过程中，动态决定每个字符是： 删除 /
+保留但不匹配 / 用来匹配 pattern</strong></p>
+</blockquote>
+<p>因此，自然采用 <strong>前缀型动态规划（Prefix DP）</strong>。</p>
+<hr />
+<h2 id="三状态定义state-definition">三、状态定义（State
+Definition）</h2>
+<p>定义二维 DP： <span class="math display">\[
+f[i][j] =
+\begin{cases}
+\text{在只考虑 } source[0 \dots i-1] \text{ 的前提下，} \\
+\text{已经使 } pattern[0 \dots j-1] \text{ 成为子序列时，} \\
+\text{最多可以删除的字符个数}
+\end{cases}
+\]</span> 其中：</p>
+<ul>
+<li><span class="math inline">\(0 \le i \le n\)</span></li>
+<li><span class="math inline">\(0 \le j \le m\)</span></li>
+</ul>
+<hr />
+<h2
+id="四初始值initialization最易出错点">四、初始值（Initialization）——<strong>最易出错点</strong></h2>
+<h3 id="不可达状态必须是负无穷">1. 不可达状态必须是「负无穷」</h3>
+<p>由于本题是
+<strong>最大化问题</strong>，所有“不可能到达”的状态必须初始化为一个<strong>极小值</strong>：
+<span class="math display">\[
+\text{NEG} \ll 0 \quad (\text{例如 } -10^9)
+\]</span> 否则在取 <code>max</code> 时，会错误地被选中。</p>
+<hr />
+<h3 id="唯一合法起点">2. 唯一合法起点</h3>
+<p><span class="math display">\[
+f[0][0] = 0
+\]</span></p>
+<p>含义：</p>
+<ul>
+<li>尚未处理任何字符</li>
+<li>尚未匹配任何 pattern</li>
+<li>删除次数为 0</li>
+</ul>
+<hr />
+<h3 id="为什么-fi0-必须显式初始化">3. 为什么
+<strong><code>f[i][0]</code> 必须显式初始化</strong></h3>
+<p>状态 <span class="math inline">\(f[i][0]\)</span> 表示：</p>
+<blockquote>
+<p>在 source 的前 <span class="math inline">\(i\)</span> 个字符中，
+<strong>尚未匹配 pattern 的任何字符</strong>，最多能删多少个。</p>
+</blockquote>
+<p>这是后续所有匹配的“根基状态”。</p>
+<p>如果不正确初始化：</p>
+<ul>
+<li>就无法在匹配 pattern 第一个字符之前， 合法地删除或跳过 source
+的前缀</li>
+<li>会直接导致答案偏小甚至错误</li>
+</ul>
+<p>因此有： <span class="math display">\[
+f[i][0] = \text{前 } i \text{ 个 source 字符中，可删除位置的个数}
+\]</span></p>
+<hr />
+<h2 id="五状态转移方程transition">五、状态转移方程（Transition）</h2>
+<p>考虑第 <span class="math inline">\(i\)</span> 个字符
+<code>source[i-1]</code>，对状态 <span
+class="math inline">\(f[i-1][j]\)</span> 有三种选择：</p>
+<hr />
+<h3 id="不删除不用于匹配跳过">1. 不删除，不用于匹配（跳过）</h3>
+<p><span class="math display">\[
+f[i][j] \gets \max(f[i][j], f[i-1][j])
+\]</span></p>
+<p>含义： 保留当前字符，但不用于匹配 <code>pattern[j]</code>。</p>
+<hr />
+<h3 id="删除当前字符若允许">2. 删除当前字符（若允许）</h3>
+<p>若 <span class="math inline">\(i-1 \in targetIndices\)</span>，则：
+<span class="math display">\[
+f[i][j] \gets \max(f[i][j], f[i-1][j] + 1)
+\]</span></p>
+<hr />
+<h3 id="用于匹配-pattern">3. 用于匹配 pattern</h3>
+<p>若：</p>
+<ul>
+<li><span class="math inline">\(j \ge 1\)</span></li>
+<li><span class="math inline">\(source[i-1] = pattern[j-1]\)</span></li>
+</ul>
+<p>则： <span class="math display">\[
+f[i][j] \gets \max(f[i][j], f[i-1][j-1])
+\]</span></p>
+<hr />
+<h3 id="总转移公式">总转移公式</h3>
+<p><span class="math display">\[
+f[i][j] =
+\max
+\begin{cases}
+f[i-1][j] &amp; \text{（跳过）} \\
+f[i-1][j] + 1 &amp; \text{（删除，若可删）} \\
+f[i-1][j-1] &amp; \text{（匹配，字符相等）}
+\end{cases}
+\]</span></p>
+<hr />
+<h2 id="六答案answer">六、答案（Answer）</h2>
+<p>最终答案即为： <span class="math display">\[
+\boxed{f[n][m]}
+\]</span> 含义：</p>
+<ul>
+<li>已处理完整个 <code>source</code></li>
+<li>已匹配完整个 <code>pattern</code></li>
+<li>在所有合法方案中，删除次数最大</li>
+</ul>
+<hr />
+<h2 id="七二维-dp-代码注释版">七、二维 DP 代码（注释版）</h2>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">3005</span>;</span><br><span class="line">    <span class="comment">// 负无穷，用于表示不可达状态（max DP 必须用极小值）</span></span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> neg = <span class="number">0xcfcfcfcf</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxRemovals</span><span class="params">(string source, string pattern, vector&lt;<span class="type">int</span>&gt;&amp; targetIndices)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n1 = source.<span class="built_in">size</span>(), n2 = pattern.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// f[i][j]: 前 i 个 source，匹配前 j 个 pattern，最大删除次数</span></span><br><span class="line">        <span class="type">int</span> f[maxn][maxn];</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0xcf</span>, <span class="built_in">sizeof</span>(f));  <span class="comment">// 初始化为 neg</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// mp[i] = true 表示 source[i] 允许删除</span></span><br><span class="line">        <span class="type">bool</span> mp[maxn];</span><br><span class="line">        <span class="built_in">memset</span>(mp, <span class="number">0</span>, <span class="built_in">sizeof</span>(mp));</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> x : targetIndices) mp[x] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始状态</span></span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化 f[i][0]：尚未匹配任何 pattern</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>, s = <span class="number">0</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (mp[i - <span class="number">1</span>]) s++;   <span class="comment">// 可删位置累加</span></span><br><span class="line">            f[i][<span class="number">0</span>] = s;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 状态转移</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j) &#123;</span><br><span class="line">                <span class="comment">// 1. 不删、不匹配</span></span><br><span class="line">                f[i][j] = f[i - <span class="number">1</span>][j];</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 2. 删除当前字符</span></span><br><span class="line">                <span class="keyword">if</span> (f[i - <span class="number">1</span>][j] != neg &amp;&amp; mp[i - <span class="number">1</span>])</span><br><span class="line">                    f[i][j] = <span class="built_in">max</span>(f[i][j], f[i - <span class="number">1</span>][j] + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 3. 匹配 pattern[j-1]</span></span><br><span class="line">                <span class="keyword">if</span> (f[i - <span class="number">1</span>][j - <span class="number">1</span>] != neg &amp;&amp;</span><br><span class="line">                    source[i - <span class="number">1</span>] == pattern[j - <span class="number">1</span>])</span><br><span class="line">                    f[i][j] = <span class="built_in">max</span>(f[i][j], f[i - <span class="number">1</span>][j - <span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> f[n1][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="八滚动数组优化版注释版">八、滚动数组优化版（注释版）</h2>
+<p>空间优化： 将 <code>f[i][*]</code> 压缩为一维数组，<strong>j
+必须倒序遍历</strong>，以防覆盖上一行数据。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">3005</span>;</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> neg = <span class="number">0xcfcfcfcf</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxRemovals</span><span class="params">(string source, string pattern, vector&lt;<span class="type">int</span>&gt;&amp; targetIndices)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n1 = source.<span class="built_in">size</span>(), n2 = pattern.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// f[j]: 当前处理到某个 i 时，匹配前 j 个 pattern 的最大删除次数</span></span><br><span class="line">        <span class="type">int</span> f[maxn];</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0xcf</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line"></span><br><span class="line">        <span class="type">bool</span> mp[maxn];</span><br><span class="line">        <span class="built_in">memset</span>(mp, <span class="number">0</span>, <span class="built_in">sizeof</span>(mp));</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> x : targetIndices) mp[x] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        f[<span class="number">0</span>] = <span class="number">0</span>;  <span class="comment">// f[0] 表示尚未匹配任何 pattern</span></span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> s = <span class="number">0</span>; <span class="comment">// 累计 f[i][0] 的值</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            <span class="comment">// j 必须从大到小，防止覆盖 f[j-1]</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = n2; j &gt;= <span class="number">1</span>; --j) &#123;</span><br><span class="line">                <span class="comment">// 删除当前字符</span></span><br><span class="line">                <span class="keyword">if</span> (f[j] != neg &amp;&amp; mp[i - <span class="number">1</span>])</span><br><span class="line">                    f[j]++;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 匹配 pattern[j-1]</span></span><br><span class="line">                <span class="keyword">if</span> (f[j - <span class="number">1</span>] != neg &amp;&amp;</span><br><span class="line">                    source[i - <span class="number">1</span>] == pattern[j - <span class="number">1</span>])</span><br><span class="line">                    f[j] = <span class="built_in">max</span>(f[j], f[j - <span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 更新 f[0]</span></span><br><span class="line">            <span class="keyword">if</span> (mp[i - <span class="number">1</span>]) s++;</span><br><span class="line">            f[<span class="number">0</span>] = s;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> f[n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>LCS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>44. 通配符匹配</title>
+    <url>/2025/12/19/44-%E9%80%9A%E9%85%8D%E7%AC%A6%E5%8C%B9%E9%85%8D/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>LCS</li>
+<li>初始值设置、状态设计</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<h2 id="一问题描述">一、问题描述</h2>
+<p>给定字符串 <code>s</code> 与模式串 <code>p</code>，其中：</p>
+<ul>
+<li><code>?</code> 可以匹配任意 <strong>单个字符</strong></li>
+<li><code>*</code> 可以匹配任意 <strong>长度（包含 0）</strong>
+的字符串</li>
+</ul>
+<p>判断 <code>p</code> 是否可以<strong>完整匹配</strong>
+<code>s</code>。</p>
+<hr />
+<h2 id="二动态规划建模">二、动态规划建模</h2>
+<h3 id="状态定义">1. 状态定义</h3>
+<p>设： <span class="math display">\[
+f[i][j] = \text{模式串 } p \text{ 的前 } j \text{
+个字符，是否能匹配字符串 } s \text{ 的前 } i \text{ 个字符}
+\]</span> 其中：</p>
+<ul>
+<li><span class="math inline">\(0 \le i \le |s|\)</span></li>
+<li><span class="math inline">\(0 \le j \le |p|\)</span></li>
+</ul>
+<p>最终答案为： <span class="math display">\[
+\boxed{f[|s|][|p|]}
+\]</span></p>
+<hr />
+<h3 id="初始条件边界处理最容易出错">2.
+初始条件（边界处理，最容易出错）</h3>
+<h4 id="空串匹配空模式">（1）空串匹配空模式</h4>
+<p><span class="math display">\[
+f[0][0] = \text{true}
+\]</span></p>
+<h4 id="空字符串匹配模式串前缀">（2）空字符串匹配模式串前缀</h4>
+<p>当 <span class="math inline">\(i = 0\)</span>
+时，只有当模式前缀<strong>全部由 <code>\*</code>
+构成</strong>，才能匹配空串： <span class="math display">\[
+f[0][j] =
+\begin{cases}
+f[0][j-1], &amp; p[j-1] = &#39;*&#39; \\
+\text{false}, &amp; \text{otherwise}
+\end{cases}
+\]</span> 该初始化非常关键，遗漏会导致大量边界错误。</p>
+<h4 id="非空字符串匹配空模式">（3）非空字符串匹配空模式</h4>
+<p><span class="math display">\[
+f[i][0] = \text{false}, \quad i \ge 1
+\]</span></p>
+<hr />
+<h2 id="三状态转移方程">三、状态转移方程</h2>
+<p>对于 <span class="math inline">\(i \ge 1, j \ge
+1\)</span>，分三类讨论：</p>
+<hr />
+<h3 id="普通字符或">1️⃣ 普通字符或 <code>?</code></h3>
+<p>当：</p>
+<ul>
+<li><span class="math inline">\(p[j-1] = s[i-1]\)</span>，或</li>
+<li><span class="math inline">\(p[j-1] = &#39;?&#39;\)</span></li>
+</ul>
+<p>则二者各消耗一个字符： <span class="math display">\[
+f[i][j] = f[i-1][j-1]
+\]</span></p>
+<hr />
+<h3 id="星号">2️⃣ 星号 <code>*</code></h3>
+<p><code>*</code> 可以匹配
+<strong>空串或非空串</strong>，因此有两种转移来源：</p>
+<ul>
+<li><p>匹配 <strong>0 个字符</strong>： <span class="math display">\[
+f[i][j] \leftarrow f[i][j-1]
+\]</span></p></li>
+<li><p>匹配 <strong>至少 1 个字符</strong>： <span
+class="math display">\[
+f[i][j] \leftarrow f[i-1][j]
+\]</span></p></li>
+</ul>
+<p>综合得： <span class="math display">\[
+f[i][j] = f[i-1][j] \lor f[i][j-1]
+\]</span></p>
+<hr />
+<h3 id="其余情况">3️⃣ 其余情况</h3>
+<p>无法匹配： <span class="math display">\[
+f[i][j] = \text{false}
+\]</span></p>
+<hr />
+<h2 id="四空间优化滚动数组">四、空间优化（滚动数组）</h2>
+<p>观察转移方程可知：</p>
+<ul>
+<li>当前行 <code>f[i][*]</code>只依赖：
+<ul>
+<li>上一行 <code>f[i-1][*]</code></li>
+<li>当前行左侧 <code>f[i][j-1]</code></li>
+</ul></li>
+</ul>
+<p>因此可将二维数组压缩为 <strong>两行滚动数组</strong>： <span
+class="math display">\[
+f[2][|p| + 1]
+\]</span> <strong>关键注意点</strong>：</p>
+<blockquote>
+<p>每一轮 <span class="math inline">\(i\)</span>
+开始时，必须显式清空当前行，否则会错误继承两轮前的残留状态。</p>
+</blockquote>
+<hr />
+<h2 id="五时间与空间复杂度">五、时间与空间复杂度</h2>
+<ul>
+<li><p>时间复杂度： <span class="math display">\[
+O(|s| \cdot |p|)
+\]</span></p></li>
+<li><p>空间复杂度（滚动数组）： <span class="math display">\[
+O(|p|)
+\]</span></p></li>
+</ul>
+<hr />
+<h2 id="六参考实现ac-代码">六、参考实现（AC 代码）</h2>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">2000</span> + <span class="number">5</span>;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isMatch</span><span class="params">(string s, string p)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n1 = s.<span class="built_in">size</span>(), n2 = p.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">bool</span> f[<span class="number">2</span>][maxn];</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 空串匹配空模式</span></span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 空串匹配模式前缀</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j)</span><br><span class="line">            f[<span class="number">0</span>][j] = f[<span class="number">0</span>][j - <span class="number">1</span>] &amp; (p[j - <span class="number">1</span>] == <span class="string">&#x27;*&#x27;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            f[i &amp; <span class="number">1</span>][<span class="number">0</span>] = <span class="number">0</span>; <span class="comment">// 非空串无法匹配空模式</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j) &#123;</span><br><span class="line">                f[i &amp; <span class="number">1</span>][j] = <span class="number">0</span>; <span class="comment">// 清当前格子</span></span><br><span class="line">                <span class="keyword">if</span> (s[i - <span class="number">1</span>] == p[j - <span class="number">1</span>])</span><br><span class="line">                    f[i &amp; <span class="number">1</span>][j] = f[(i - <span class="number">1</span>) &amp; <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (p[j - <span class="number">1</span>] == <span class="string">&#x27;?&#x27;</span>)</span><br><span class="line">                    f[i &amp; <span class="number">1</span>][j] = f[(i - <span class="number">1</span>) &amp; <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (p[j - <span class="number">1</span>] == <span class="string">&#x27;*&#x27;</span>)</span><br><span class="line">                    f[i &amp; <span class="number">1</span>][j] = f[(i - <span class="number">1</span>) &amp; <span class="number">1</span>][j] | f[i &amp; <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n1 &amp; <span class="number">1</span>][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>LCS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>583. 两个字符串的删除操作</title>
+    <url>/2025/12/18/583-%E4%B8%A4%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>LCS</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<h2 id="问题概述">1. 问题概述</h2>
+<p>给定两个字符串 <code>word1</code> 与
+<code>word2</code>，每次操作允许<strong>删除任意一个字符串中的一个字符</strong>。目标是用最少操作次数，使两个字符串变得完全相同。</p>
+<p>该问题本质是一个典型二维动态规划：只允许删除，因此状态设计会落在“把前缀变成相同”这一类。</p>
+<hr />
+<h2 id="状态定义dp-含义">2. 状态定义（DP 含义）</h2>
+<p>设： <span class="math display">\[
+f[i][j]
+\]</span> 表示：将 <code>word1</code> 的前 <span
+class="math inline">\(i\)</span> 个字符（<code>word1[0..i-1]</code>）与
+<code>word2</code> 的前 <span class="math inline">\(j\)</span>
+个字符（<code>word2[0..j-1]</code>）通过<strong>仅删除</strong>操作变为相同字符串所需的<strong>最少删除次数</strong>。</p>
+<hr />
+<h2 id="初始值设计边界条件">3. 初始值设计（边界条件）</h2>
+<h3 id="空串与空串">3.1 空串与空串</h3>
+<p><span class="math display">\[
+f[0][0] = 0
+\]</span></p>
+<p>空串和空串已经相同，不需要删除。</p>
+<h3 id="word2-为空串">3.2 <code>word2</code> 为空串</h3>
+<p><span class="math display">\[
+f[i][0] = i \quad (1 \le i \le n_1)
+\]</span></p>
+<p>要让 <code>word1</code> 的前 <span class="math inline">\(i\)</span>
+个字符与空串相同，只能把这 <span class="math inline">\(i\)</span>
+个字符全部删掉。</p>
+<h3 id="word1-为空串">3.3 <code>word1</code> 为空串</h3>
+<p><span class="math display">\[
+f[0][j] = j \quad (1 \le j \le n_2)
+\]</span></p>
+<p>同理，要让空串与 <code>word2</code> 前 <span
+class="math inline">\(j\)</span> 个字符相同，只能删除 <code>word2</code>
+的这 <span class="math inline">\(j\)</span> 个字符。</p>
+<p>这些初始化直接对应代码中的两条边界赋值循环。</p>
+<hr />
+<h2 id="状态转移方程核心">4. 状态转移方程（核心）</h2>
+<p>考虑 <span class="math inline">\(f[i][j]\)</span>，观察
+<code>word1[i-1]</code> 与
+<code>word2[j-1]</code>（即两个前缀的最后一个字符）。</p>
+<h3 id="末尾字符相同">4.1 末尾字符相同</h3>
+<p>如果： <span class="math display">\[
+word1[i-1] = word2[j-1]
+\]</span> 那么这两个字符可以都保留，不需要额外删除，问题缩小为更短前缀：
+<span class="math display">\[
+f[i][j] = f[i-1][j-1]
+\]</span></p>
+<h3 id="末尾字符不同">4.2 末尾字符不同</h3>
+<p>如果： <span class="math display">\[
+word1[i-1] \ne word2[j-1]
+\]</span> 由于只能删除，想让两前缀相同，最后一步只能二选一：</p>
+<ul>
+<li>删除 <code>word1</code> 的最后一个字符：代价 <span
+class="math inline">\(f[i-1][j] + 1\)</span></li>
+<li>删除 <code>word2</code> 的最后一个字符：代价 <span
+class="math inline">\(f[i][j-1] + 1\)</span></li>
+</ul>
+<p>取更小者： <span class="math display">\[
+f[i][j] = \min\bigl(f[i-1][j],\, f[i][j-1]\bigr) + 1
+\]</span></p>
+<hr />
+<h2 id="答案与输出">5. 答案与输出</h2>
+<p>目标是让完整字符串相同，因此答案为： <span class="math display">\[
+f[n_1][n_2]
+\]</span> 其中 <span class="math inline">\(n_1 = |word1|\)</span>，<span
+class="math inline">\(n_2 = |word2|\)</span>。</p>
+<hr />
+<h2 id="复杂度分析">6. 复杂度分析</h2>
+<ul>
+<li>时间复杂度：<span class="math inline">\(\mathcal{O}(n_1 \cdot
+n_2)\)</span>，每个状态计算 <span
+class="math inline">\(O(1)\)</span></li>
+<li>空间复杂度：<span class="math inline">\(\mathcal{O}(n_1 \cdot
+n_2)\)</span>，存储整张 DP 表</li>
+</ul>
+<hr />
+<h2 id="ac代码">7. AC代码</h2>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">5e2</span> + <span class="number">5</span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minDistance</span><span class="params">(string word1, string word2)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> f[maxn][maxn];</span><br><span class="line">        <span class="type">int</span> n1 = word1.<span class="built_in">size</span>(), n2 = word2.<span class="built_in">size</span>();</span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i)</span><br><span class="line">            f[i][<span class="number">0</span>] = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n2; ++i)</span><br><span class="line">            f[<span class="number">0</span>][i] = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (word1[i - <span class="number">1</span>] == word2[j - <span class="number">1</span>])</span><br><span class="line">                    f[i][j] = f[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    f[i][j] = <span class="built_in">min</span>(f[i - <span class="number">1</span>][j], f[i][j - <span class="number">1</span>]) + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n1][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>LCS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>712. 两个字符串的最小ASCII删除和</title>
+    <url>/2025/12/18/712-%E4%B8%A4%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%9C%80%E5%B0%8FASCII%E5%88%A0%E9%99%A4%E5%92%8C/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>LCS</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<h2 id="一问题概述">一、问题概述</h2>
+<p>给定两个字符串 <span class="math inline">\(s_1\)</span> 与 <span
+class="math inline">\(s_2\)</span>，允许对任意一个字符串执行<strong>删除字符</strong>操作。
+每次删除字符的代价等于该字符的 <strong>ASCII 值</strong>。</p>
+<p>目标是：</p>
+<blockquote>
+<p>通过若干次删除操作，使两个字符串最终相同，并使 <strong>删除字符的
+ASCII 值之和最小</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="二动态规划建模">二、动态规划建模</h2>
+<h4 id="状态定义">1. 状态定义</h4>
+<p>设二维数组： <span class="math display">\[
+f[i][j]
+\]</span> 表示：</p>
+<blockquote>
+<p>将字符串 <span class="math display">\[
+s_1[0 \dots i-1] \quad \text{和} \quad s_2[0 \dots j-1]
+\]</span> 通过删除操作变成<strong>完全相同字符串</strong>所需要付出的
+<strong>最小 ASCII 删除和</strong>。</p>
+</blockquote>
+<p>最终答案即为： <span class="math display">\[
+f[n_1][n_2]
+\]</span> 其中 <span class="math inline">\(n_1 = |s_1|\)</span>，<span
+class="math inline">\(n_2 = |s_2|\)</span>。</p>
+<hr />
+<h2 id="三初始值边界条件">三、初始值（边界条件）</h2>
+<h4 id="两个字符串都为空">1. 两个字符串都为空</h4>
+<p><span class="math display">\[
+f[0][0] = 0
+\]</span></p>
+<p>无需删除任何字符，代价为 0。</p>
+<hr />
+<h4 id="其中一个字符串为空">2. 其中一个字符串为空</h4>
+<ul>
+<li>当 <span class="math inline">\(s_2\)</span> 为空，只能删除 <span
+class="math inline">\(s_1\)</span> 的前 <span
+class="math inline">\(i\)</span> 个字符：</li>
+</ul>
+<p><span class="math display">\[
+f[i][0] = \sum_{k=0}^{i-1} \text{ASCII}(s_1[k])
+\]</span></p>
+<p>代码实现为前缀递推：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">f[i][0] = f[i - 1][0] + s1[i - 1];</span><br></pre></td></tr></table></figure>
+<hr />
+<ul>
+<li>当 <span class="math inline">\(s_1\)</span> 为空，只能删除 <span
+class="math inline">\(s_2\)</span> 的前 <span
+class="math inline">\(j\)</span> 个字符：</li>
+</ul>
+<p><span class="math display">\[
+f[0][j] = \sum_{k=0}^{j-1} \text{ASCII}(s_2[k])
+\]</span></p>
+<p>对应代码为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">f[0][j] = f[0][j - 1] + s2[j - 1];</span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="四状态转移方程">四、状态转移方程</h2>
+<p>对于一般位置 <span class="math inline">\((i,
+j)\)</span>，考虑当前字符：</p>
+<ul>
+<li><span class="math inline">\(s_1[i-1]\)</span></li>
+<li><span class="math inline">\(s_2[j-1]\)</span></li>
+</ul>
+<hr />
+<h4 id="情况-1当前字符相同">情况 1：当前字符相同</h4>
+<p>若： <span class="math display">\[
+s_1[i-1] = s_2[j-1]
+\]</span> 则无需删除该字符，直接继承之前的最优状态： <span
+class="math display">\[
+f[i][j] = f[i-1][j-1]
+\]</span></p>
+<hr />
+<h4 id="情况-2当前字符不同">情况 2：当前字符不同</h4>
+<p>若： <span class="math display">\[
+s_1[i-1] \neq s_2[j-1]
+\]</span> 则必须删除其中一个字符，取两种方案的最小值：</p>
+<ol type="1">
+<li>删除 <span class="math inline">\(s_1[i-1]\)</span></li>
+</ol>
+<p><span class="math display">\[
+f[i-1][j] + \text{ASCII}(s_1[i-1])
+\]</span></p>
+<ol type="1">
+<li>删除 <span class="math inline">\(s_2[j-1]\)</span></li>
+</ol>
+<p><span class="math display">\[
+f[i][j-1] + \text{ASCII}(s_2[j-1])
+\]</span></p>
+<p>因此状态转移为： <span class="math display">\[
+f[i][j] = \min
+\begin{cases}
+f[i-1][j] + \text{ASCII}(s_1[i-1]) \\
+f[i][j-1] + \text{ASCII}(s_2[j-1])
+\end{cases}
+\]</span></p>
+<hr />
+<h2 id="五答案的含义">五、答案的含义</h2>
+<p><span class="math display">\[
+\boxed{f[n_1][n_2]}
+\]</span></p>
+<p>表示将完整字符串 <span class="math inline">\(s_1\)</span> 与 <span
+class="math inline">\(s_2\)</span>
+通过删除操作变为相同字符串时，所需支付的 <strong>最小 ASCII
+删除和</strong>。</p>
+<hr />
+<h2 id="六完整代码含注释">六、完整代码（含注释）</h2>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e3</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minimumDeleteSum</span><span class="params">(string s1, string s2)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n1 = s1.<span class="built_in">size</span>(), n2 = s2.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> f[maxn][maxn];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始状态：两个空串</span></span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// s2 为空，只能删除 s1</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i)</span><br><span class="line">            f[i][<span class="number">0</span>] = f[i - <span class="number">1</span>][<span class="number">0</span>] + s1[i - <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// s1 为空，只能删除 s2</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j)</span><br><span class="line">            f[<span class="number">0</span>][j] = f[<span class="number">0</span>][j - <span class="number">1</span>] + s2[j - <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 状态转移</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (s1[i - <span class="number">1</span>] == s2[j - <span class="number">1</span>]) &#123;</span><br><span class="line">                    <span class="comment">// 当前字符相同，不需要删除</span></span><br><span class="line">                    f[i][j] = f[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 删除 s1[i-1] 或 s2[j-1]</span></span><br><span class="line">                    f[i][j] = <span class="built_in">min</span>(</span><br><span class="line">                        f[i - <span class="number">1</span>][j] + s1[i - <span class="number">1</span>],</span><br><span class="line">                        f[i][j - <span class="number">1</span>] + s2[j - <span class="number">1</span>]</span><br><span class="line">                    );</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 最终答案</span></span><br><span class="line">        <span class="keyword">return</span> f[n1][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr />
+<h2 id="七小结">七、小结</h2>
+<ul>
+<li><p>本题是 <strong>经典 LCS 思想的“代价版本”</strong></p></li>
+<li><p>核心在于：</p>
+<ul>
+<li><strong>状态语义要严格限定为“前缀”</strong></li>
+<li><strong>边界必须使用前缀累加，而非未初始化值</strong></li>
+</ul></li>
+<li><p>时间复杂度： <span class="math display">\[
+O(n_1 \times n_2)
+\]</span></p></li>
+<li><p>空间复杂度： <span class="math display">\[
+O(n_1 \times n_2)
+\]</span></p></li>
+</ul>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>LCS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>718. 最长重复子数组</title>
+    <url>/2025/12/18/718-%E6%9C%80%E9%95%BF%E9%87%8D%E5%A4%8D%E5%AD%90%E6%95%B0%E7%BB%84/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>LCS</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<h2 id="一问题概述">一、问题概述</h2>
+<p>给定两个整数数组 <span class="math display">\[
+\text{nums}_1 = [a_1, a_2, \dots, a_{n_1}], \quad
+\text{nums}_2 = [b_1, b_2, \dots, b_{n_2}]
+\]</span> 要求找出 <strong>同时出现在两个数组中的最长连续子数组</strong>
+的长度。</p>
+<blockquote>
+<p>注意关键词是
+<strong>连续（subarray）</strong>，而不是子序列（subsequence）。</p>
+</blockquote>
+<hr />
+<h2 id="二动态规划建模思想">二、动态规划建模思想</h2>
+<h3 id="与-lcs-的本质区别">2.1 与 LCS 的本质区别</h3>
+<ul>
+<li><strong>最长公共子序列（LCS）</strong>：允许跳过元素</li>
+<li><strong>最长重复子数组</strong>：必须连续，一旦断开，长度直接归零</li>
+</ul>
+<p>因此，本题的 DP 状态
+<strong>不允许继承横向或纵向的最大值</strong>，只能从
+<strong>左上角对角线</strong> 转移。</p>
+<hr />
+<h2 id="三状态定义state-definition">三、状态定义（State
+Definition）</h2>
+<p>定义二维 DP 数组： <span class="math display">\[
+f[i][j]
+\]</span> 表示：</p>
+<blockquote>
+<p><strong>以</strong> <span class="math display">\[
+\text{nums}_1[i-1] \quad \text{和} \quad \text{nums}_2[j-1]
+\]</span> <strong>作为结尾元素的最长公共连续子数组长度</strong></p>
+</blockquote>
+<p>换言之，<code>f[i][j]</code> 描述的是：
+<strong>“必须以这两个位置结尾”的最长长度</strong>。</p>
+<hr />
+<h2
+id="四初始值设计initialization">四、初始值设计（Initialization）</h2>
+<h3 id="边界状态">4.1 边界状态</h3>
+<p>当任意一个数组长度为 0 时，不存在公共子数组： <span
+class="math display">\[
+f[0][j] = 0,\quad f[i][0] = 0
+\]</span></p>
+<h3 id="实现方式说明">4.2 实现方式说明</h3>
+<p>在代码中通过：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">memset(f, 0, sizeof(f));</span><br></pre></td></tr></table></figure>
+<p>直接将整个 DP 数组初始化为 0，从而隐式完成所有边界条件。</p>
+<hr />
+<h2 id="五状态转移方程transition">五、状态转移方程（Transition）</h2>
+<h3 id="元素不相等">5.1 元素不相等</h3>
+<p>若： <span class="math display">\[
+\text{nums}_1[i-1] \ne \text{nums}_2[j-1]
+\]</span> 则连续性被破坏： <span class="math display">\[
+f[i][j] = 0
+\]</span></p>
+<hr />
+<h3 id="元素相等核心转移">5.2 元素相等（核心转移）</h3>
+<p>若： <span class="math display">\[
+\text{nums}_1[i-1] = \text{nums}_2[j-1]
+\]</span> 则可以在前一个连续匹配的基础上延长： <span
+class="math display">\[
+\boxed{
+f[i][j] = f[i-1][j-1] + 1
+}
+\]</span> 这是本题 <strong>唯一有效的状态转移路径</strong>。</p>
+<hr />
+<h2 id="六答案的获取方式answer">六、答案的获取方式（Answer）</h2>
+<p>最长重复子数组 <strong>不一定以数组末尾结束</strong>，因此答案为：
+<span class="math display">\[
+\text{ans} = \max_{1 \le i \le n_1,\; 1 \le j \le n_2} f[i][j]
+\]</span> 实现中需在 DP 过程中维护一个全局最大值。</p>
+<hr />
+<h2 id="七二维-dp-完整逻辑总结">七、二维 DP 完整逻辑总结</h2>
+<ul>
+<li>初始化所有状态为 0</li>
+<li>双重循环枚举 <code>(i, j)</code></li>
+<li>仅在元素相等时进行对角线转移</li>
+<li>实时更新全局最大值</li>
+</ul>
+<p><strong>时间复杂度：</strong> <span class="math display">\[
+O(n_1 \times n_2)
+\]</span> <strong>空间复杂度：</strong> <span class="math display">\[
+O(n_1 \times n_2)
+\]</span></p>
+<hr />
+<h2 id="八滚动数组优化空间压缩">八、滚动数组优化（空间压缩）</h2>
+<h3 id="优化依据">8.1 优化依据</h3>
+<p>状态转移只依赖： <span class="math display">\[
+f[i][j] \leftarrow f[i-1][j-1]
+\]</span> 因此可以将二维数组压缩为一维。</p>
+<hr />
+<h3 id="一维状态定义">8.2 一维状态定义</h3>
+<p>令： <span class="math display">\[
+f[j] = \text{当前处理到 } i \text{ 时的 } f[i][j]
+\]</span></p>
+<hr />
+<h3 id="反向遍历的必要性">8.3 反向遍历的必要性</h3>
+<p>为保证 <code>f[j-1]</code> 仍表示上一行的 <code>f[i-1][j-1]</code>，
+<code>j</code> 必须 <strong>从大到小遍历</strong>。</p>
+<hr />
+<h3 id="一维状态转移">8.4 一维状态转移</h3>
+<p><span class="math display">\[
+f[j] =
+\begin{cases}
+f[j-1] + 1, &amp; \text{nums}_1[i-1] = \text{nums}_2[j-1] \\
+0, &amp; \text{otherwise}
+\end{cases}
+\]</span></p>
+<hr />
+<h2 id="九复杂度对比">九、复杂度对比</h2>
+<table>
+<thead>
+<tr class="header">
+<th>实现方式</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>二维 DP</td>
+<td><span class="math inline">\(O(n_1 n_2)\)</span></td>
+<td><span class="math inline">\(O(n_1 n_2)\)</span></td>
+</tr>
+<tr class="even">
+<td>滚动数组</td>
+<td><span class="math inline">\(O(n_1 n_2)\)</span></td>
+<td><span class="math inline">\(O(n_2)\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="十ac代码">十、AC代码</h2>
+<h3 id="二维-dp-版本">10.1 二维 DP 版本</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e3</span> + <span class="number">5</span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">findLength</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums1, vector&lt;<span class="type">int</span>&gt;&amp; nums2)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> f[maxn][maxn];</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line">        <span class="type">int</span> n1 = nums1.<span class="built_in">size</span>(), n2 = nums2.<span class="built_in">size</span>(), res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums1[i - <span class="number">1</span>] != nums2[j - <span class="number">1</span>])</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                f[i][j] = <span class="number">1</span> + f[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                res = <span class="built_in">max</span>(res, f[i][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr />
+<h3 id="滚动数组一维-dp版本">10.2 滚动数组（一维 DP）版本</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">1e3</span> + <span class="number">5</span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">findLength</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums1, vector&lt;<span class="type">int</span>&gt;&amp; nums2)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> f[maxn];</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line">        <span class="type">int</span> n1 = nums1.<span class="built_in">size</span>(), n2 = nums2.<span class="built_in">size</span>(), res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = n2; j &gt;= <span class="number">1</span>; --j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums1[i - <span class="number">1</span>] != nums2[j - <span class="number">1</span>])</span><br><span class="line">                    f[j] = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    f[j] = <span class="number">1</span> + f[j - <span class="number">1</span>];</span><br><span class="line">                    res = <span class="built_in">max</span>(res, f[j]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>LCS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>72. 编辑距离</title>
+    <url>/2025/12/18/72-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>LCS</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<h2 id="问题定义">1. 问题定义</h2>
+<p>给定两个字符串 <span
+class="math inline">\(A=\texttt{word1}\)</span>、<span
+class="math inline">\(B=\texttt{word2}\)</span>。允许三种操作，每次操作代价为
+1：</p>
+<ol type="1">
+<li>插入一个字符（Insert）</li>
+<li>删除一个字符（Delete）</li>
+<li>替换一个字符（Replace）</li>
+</ol>
+<p>目标：求将 <span class="math inline">\(A\)</span> 转换为 <span
+class="math inline">\(B\)</span> 的最小操作次数，即编辑距离（Levenshtein
+distance）。</p>
+<hr />
+<h2 id="状态设计二维前缀-dp">2. 状态设计（二维前缀 DP）</h2>
+<p>设 <span class="math inline">\(n_1 = |A|\)</span>，<span
+class="math inline">\(n_2 = |B|\)</span>。</p>
+<p>定义状态： <span class="math display">\[
+f[i][j] = \text{将 } A[0..i-1] \text{ 转换成 } B[0..j-1] \text{
+的最小操作数}
+\]</span> 其中 <span class="math inline">\(i \in [0,n_1]\)</span>，<span
+class="math inline">\(j \in [0,n_2]\)</span>。
+该定义的关键点在于：<strong>状态描述的是两个前缀已经完全对齐后的最优代价</strong>（完成态），而不是某个“中间字符串”的真实形态。</p>
+<hr />
+<h2 id="初始值边界条件">3. 初始值（边界条件）</h2>
+<h3 id="空串到空串">3.1 空串到空串</h3>
+<p><span class="math display">\[
+f[0][0] = 0
+\]</span></p>
+<h3 id="将非空前缀变为空串只能删除">3.2
+将非空前缀变为空串：只能删除</h3>
+<p><span class="math display">\[
+f[i][0] = i \quad (1 \le i \le n_1)
+\]</span></p>
+<p>因为把 <span class="math inline">\(A[0..i-1]\)</span>
+变成空串只能删除全部 <span class="math inline">\(i\)</span> 个字符。</p>
+<h3 id="将空串变为非空前缀只能插入">3.3
+将空串变为非空前缀：只能插入</h3>
+<p><span class="math display">\[
+f[0][j] = j \quad (1 \le j \le n_2)
+\]</span></p>
+<p>因为从空串得到 <span class="math inline">\(B[0..j-1]\)</span>
+只能插入 <span class="math inline">\(j\)</span> 个字符。</p>
+<hr />
+<h2 id="状态转移方程核心">4. 状态转移方程（核心）</h2>
+<p>考虑 <span class="math inline">\(f[i][j]\)</span>（<span
+class="math inline">\(i\ge 1, j\ge
+1\)</span>），只需要关注最后一位字符：</p>
+<ul>
+<li><span class="math inline">\(A[i-1]\)</span> —— 当前 <span
+class="math inline">\(A\)</span> 前缀的最后字符</li>
+<li><span class="math inline">\(B[j-1]\)</span> —— 当前 <span
+class="math inline">\(B\)</span> 前缀的最后字符</li>
+</ul>
+<h3 id="若最后字符相等">4.1 若最后字符相等</h3>
+<p>若 <span class="math inline">\(A[i-1] =
+B[j-1]\)</span>，最后一位无需操作： <span class="math display">\[
+f[i][j] = f[i-1][j-1]
+\]</span></p>
+<h3 id="若最后字符不相等">4.2 若最后字符不相等</h3>
+<p>若 <span class="math inline">\(A[i-1] \ne
+B[j-1]\)</span>，最后一步必须执行一次操作（+1），且只有三种选择：</p>
+<ol type="1">
+<li><p><strong>删除</strong> <span
+class="math inline">\(A[i-1]\)</span>： 将 <span
+class="math inline">\(A[0..i-2]\)</span> 变为 <span
+class="math inline">\(B[0..j-1]\)</span> <span class="math display">\[
+f[i][j] \leftarrow f[i-1][j] + 1
+\]</span></p></li>
+<li><p><strong>插入</strong> <span
+class="math inline">\(B[j-1]\)</span>： 将 <span
+class="math inline">\(A[0..i-1]\)</span> 变为 <span
+class="math inline">\(B[0..j-2]\)</span>，再插入一个字符使末位对齐 <span
+class="math display">\[
+f[i][j] \leftarrow f[i][j-1] + 1
+\]</span></p></li>
+<li><p><strong>替换</strong> <span class="math inline">\(A[i-1]\to
+B[j-1]\)</span>： 将 <span class="math inline">\(A[0..i-2]\)</span> 变为
+<span class="math inline">\(B[0..j-2]\)</span>，再替换末位 <span
+class="math display">\[
+f[i][j] \leftarrow f[i-1][j-1] + 1
+\]</span></p></li>
+</ol>
+<p>综合取最小值： <span class="math display">\[
+f[i][j] = 1 + \min\bigl(f[i-1][j],\ f[i][j-1],\ f[i-1][j-1]\bigr)
+\quad \text{当 } A[i-1]\ne B[j-1]
+\]</span></p>
+<hr />
+<h2 id="最终答案位置">5. 最终答案位置</h2>
+<p>完整字符串对应的前缀是 <span
+class="math inline">\(A[0..n_1-1]\)</span>、<span
+class="math inline">\(B[0..n_2-1]\)</span>，因此答案为： <span
+class="math display">\[
+\boxed{f[n_1][n_2]}
+\]</span></p>
+<hr />
+<h2 id="为什么插入在-dp-里只能用从后面插来建模">6. 为什么“插入”在 DP
+里只能用“从后面插”来建模？</h2>
+<p>这一点的关键在于：<strong>状态 <span
+class="math inline">\(f[i][j]\)</span>
+的语义是“两个前缀完全对齐后的最优代价”</strong>。因此每一次转移都必须满足一个不变式：</p>
+<blockquote>
+<p>从某个前缀对齐态转移到另一个前缀对齐态时， 下标 <span
+class="math inline">\(i, j\)</span>
+的变化必须精确对应“处理了哪些前缀字符”。</p>
+</blockquote>
+<h3 id="插入为什么对应-fij-1-1">6.1 “插入”为什么对应 <span
+class="math inline">\(f[i][j-1] + 1\)</span>？</h3>
+<p>若把最后一步设为“插入”，其含义是： 为了得到目标前缀 <span
+class="math inline">\(B[0..j-1]\)</span>，最后一个字符 <span
+class="math inline">\(B[j-1]\)</span> 是<strong>新增</strong>出来的。
+则插入之前，目标应当还只有 <span
+class="math inline">\(B[0..j-2]\)</span>，源仍为 <span
+class="math inline">\(A[0..i-1]\)</span>： <span class="math display">\[
+A[0..i-1] \to B[0..j-2] \quad \text{然后插入 } B[j-1]
+\]</span> 因此插入的前驱状态必然是 <span
+class="math inline">\(f[i][j-1]\)</span>。</p>
+<h3 id="为什么不能把前面插入当成独立转移">6.2
+为什么不能把“前面插入”当成独立转移？</h3>
+<p>若试图把操作解释为“在前面插入一个字符”，那么会导致<strong>源串前缀的字符整体右移</strong>：
+原来第 <span class="math inline">\(k\)</span>
+个字符的相对位置被改变，进而出现“已经对齐的前缀被打乱”的现象。</p>
+<p>在 <span class="math inline">\(f[i][j]\)</span> 的语义下，前缀 <span
+class="math inline">\(A[0..i-1]\)</span>
+被视为一个固定集合（并以其原始顺序为准）。
+“前插”会在过程层面改变对齐关系，从而产生一种难以用 <span
+class="math inline">\((i,j)\)</span> 表示的“中间态”： 它既不是 <span
+class="math inline">\(A\)</span> 的前 <span
+class="math inline">\(i\)</span> 个字符，也不是前 <span
+class="math inline">\(i+1\)</span> 个字符的对齐完成态。</p>
+<p>换言之：</p>
+<ul>
+<li>DP
+转移要求：<strong>前驱状态必须仍然是一个合法的前缀状态</strong></li>
+<li>“前面插入”会破坏“前缀对齐已完成”的不变式，无法映射为单一的 <span
+class="math inline">\(f[\cdot][\cdot]\)</span> 状态</li>
+</ul>
+<p>因此，在该前缀 DP
+建模下，“插入”只能以“补齐目标前缀的最后一个字符”的形式出现，也即： <span
+class="math display">\[
+f[i][j] \leftarrow f[i][j-1] + 1
+\]</span>
+这并非对真实操作位置的限制，而是对<strong>状态建模一致性</strong>的限制：只有“末尾补齐”才能保持
+dp 下标语义不被破坏。</p>
+<hr />
+<h2 id="复杂度">7. 复杂度</h2>
+<ul>
+<li>二维 DP：时间 <span class="math inline">\(O(n_1 n_2)\)</span>，空间
+<span class="math inline">\(O(n_1 n_2)\)</span></li>
+<li>滚动数组：时间 <span class="math inline">\(O(n_1 n_2)\)</span>，空间
+<span class="math inline">\(O(n_2)\)</span></li>
+</ul>
+<hr />
+<h1 id="参考代码与注释">8. 参考代码与注释</h1>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">5e2</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minDistance</span><span class="params">(string word1, string word2)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// f[i][j]：word1 的前 i 个字符 -&gt; word2 的前 j 个字符 的最小编辑距离</span></span><br><span class="line">        <span class="type">int</span> f[maxn][maxn];</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> n1 = word1.<span class="built_in">size</span>(), n2 = word2.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 边界：空串 -&gt; 空串</span></span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 边界：word1 前 i 个 -&gt; 空串，只能删除 i 次</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i)</span><br><span class="line">            f[i][<span class="number">0</span>] = i;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 边界：空串 -&gt; word2 前 j 个，只能插入 j 次</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j)</span><br><span class="line">            f[<span class="number">0</span>][j] = j;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 填表：按 i 从小到大、j 从小到大，确保转移依赖已计算</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 若当前末位字符相同，不需要操作，继承左上角</span></span><br><span class="line">                <span class="keyword">if</span> (word1[i - <span class="number">1</span>] == word2[j - <span class="number">1</span>]) &#123;</span><br><span class="line">                    f[i][j] = f[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 否则三选一（+1）：</span></span><br><span class="line">                    <span class="comment">// 1) 替换：f[i-1][j-1] + 1</span></span><br><span class="line">                    <span class="comment">// 2) 删除：f[i-1][j]   + 1</span></span><br><span class="line">                    <span class="comment">// 3) 插入：f[i][j-1]   + 1</span></span><br><span class="line">                    f[i][j] = <span class="built_in">min</span>(f[i - <span class="number">1</span>][j - <span class="number">1</span>],</span><br><span class="line">                                  <span class="built_in">min</span>(f[i - <span class="number">1</span>][j], f[i][j - <span class="number">1</span>])) + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 答案：完整前缀到完整前缀</span></span><br><span class="line">        <span class="keyword">return</span> f[n1][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>滚动数组：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">5e2</span> + <span class="number">5</span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minDistance</span><span class="params">(string word1, string word2)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> f[<span class="number">2</span>][maxn], n1 = word1.<span class="built_in">size</span>(), n2 = word2.<span class="built_in">size</span>();</span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n2; ++i)</span><br><span class="line">            f[<span class="number">0</span>][i] = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            f[i &amp; <span class="number">1</span>][<span class="number">0</span>] = i;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (word1[i - <span class="number">1</span>] == word2[j - <span class="number">1</span>])</span><br><span class="line">                    f[i &amp; <span class="number">1</span>][j] = f[i - <span class="number">1</span> &amp; <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    f[i &amp; <span class="number">1</span>][j] = <span class="built_in">min</span>(f[i - <span class="number">1</span> &amp; <span class="number">1</span>][j - <span class="number">1</span>],</span><br><span class="line">                                      <span class="built_in">min</span>(f[i - <span class="number">1</span> &amp; <span class="number">1</span>][j], f[i &amp; <span class="number">1</span>][j - <span class="number">1</span>])) +</span><br><span class="line">                                  <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n1 &amp; <span class="number">1</span>][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>LCS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>97. 交错字符串</title>
+    <url>/2025/12/22/97-%E4%BA%A4%E9%94%99%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <content><![CDATA[<h1 id="考点">考点</h1>
+<ul>
+<li>LCS</li>
+<li>滚动数组</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<h2 id="一问题回顾">一、问题回顾</h2>
+<p>给定三个字符串：</p>
+<ul>
+<li><span class="math inline">\(s_1\)</span></li>
+<li><span class="math inline">\(s_2\)</span></li>
+<li><span class="math inline">\(s_3\)</span></li>
+</ul>
+<p>要求判断： 是否可以通过<strong>保持字符相对顺序不变</strong>，将
+<span class="math inline">\(s_1\)</span> 与 <span
+class="math inline">\(s_2\)</span> 的字符交错排列，恰好构成 <span
+class="math inline">\(s_3\)</span>。</p>
+<hr />
+<h2
+id="二核心观察与剪枝本题最大坑点">二、核心观察与剪枝（本题最大坑点）</h2>
+<h3 id="长度剪枝必要条件">2.1 长度剪枝（<strong>必要条件</strong>）</h3>
+<p>交错的本质是：</p>
+<ul>
+<li>从 <span class="math inline">\(s_1\)</span> 中取 <span
+class="math inline">\(n_1\)</span> 个字符</li>
+<li>从 <span class="math inline">\(s_2\)</span> 中取 <span
+class="math inline">\(n_2\)</span> 个字符</li>
+</ul>
+<p>因此最终字符串长度必须满足： <span class="math display">\[
+|s_3| = |s_1| + |s_2|
+\]</span>
+若不满足该条件，则<strong>不可能构成交错字符串</strong>，可以立即返回
+<code>false</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if (n1 + n2 != n3)</span><br><span class="line">    return false;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这一剪枝不仅是优化，更是<strong>防止状态语义错误和越界访问的安全保障</strong>。</p>
+</blockquote>
+<hr />
+<h3 id="初始状态的严格语义最容易出错的地方">2.2
+初始状态的严格语义（最容易出错的地方）</h3>
+<p>定义状态前，必须先明确<strong>状态语义</strong>。</p>
+<hr />
+<h2 id="三状态定义">三、状态定义</h2>
+<p>设： <span class="math display">\[
+f[i][j]
+\]</span> 表示：</p>
+<blockquote>
+<p>使用 <span class="math inline">\(s_1\)</span> 的前 <span
+class="math inline">\(i\)</span> 个字符 和 <span
+class="math inline">\(s_2\)</span> 的前 <span
+class="math inline">\(j\)</span> 个字符 是否可以构成 <span
+class="math inline">\(s_3\)</span> 的前 <span
+class="math inline">\(i+j\)</span> 个字符</p>
+</blockquote>
+<hr />
+<h3 id="初始状态f00">3.1 初始状态：<span
+class="math inline">\(f[0][0]\)</span></h3>
+<ul>
+<li><span class="math inline">\(s_1\)</span> 取空前缀</li>
+<li><span class="math inline">\(s_2\)</span> 取空前缀</li>
+<li>构成 <span class="math inline">\(s_3\)</span> 的空前缀</li>
+</ul>
+<p>这是一个<strong>永远成立的事实</strong>： <span
+class="math display">\[
+f[0][0] = \text{true}
+\]</span></p>
+<blockquote>
+<p>❗ 该值与字符串是否为空 <strong>无关</strong> ❗ 不应写任何条件判断
+❗ 一旦写复杂条件，DP 语义立即被破坏</p>
+</blockquote>
+<hr />
+<h3 id="第一列初始化只使用-s_1">3.2 第一列初始化（只使用 <span
+class="math inline">\(s_1\)</span>）</h3>
+<p>当 <span class="math inline">\(j = 0\)</span> 时，只能从 <span
+class="math inline">\(s_1\)</span> 中取字符： <span
+class="math display">\[
+f[i][0] = f[i-1][0] \land (s_1[i-1] = s_3[i-1])
+\]</span> 含义是：</p>
+<blockquote>
+<p>前 <span class="math inline">\(i-1\)</span> 个字符已经能匹配，
+且当前字符也相等，才能继续成立。</p>
+</blockquote>
+<hr />
+<h3 id="第一行初始化只使用-s_2">3.3 第一行初始化（只使用 <span
+class="math inline">\(s_2\)</span>）</h3>
+<p>同理，当 <span class="math inline">\(i = 0\)</span> 时： <span
+class="math display">\[
+f[0][j] = f[0][j-1] \land (s_2[j-1] = s_3[j-1])
+\]</span></p>
+<hr />
+<h2 id="四状态转移方程">四、状态转移方程</h2>
+<p>当 <span class="math inline">\(i \ge 1\)</span> 且 <span
+class="math inline">\(j \ge 1\)</span> 时：</p>
+<p>令： <span class="math display">\[
+k = i + j - 1
+\]</span> 则 <span class="math inline">\(s_3[k]\)</span>
+必须来自以下两种情况之一：</p>
+<hr />
+<h3 id="情况-1最后一个字符来自-s_1">情况 1：最后一个字符来自 <span
+class="math inline">\(s_1\)</span></h3>
+<p><span class="math display">\[
+s_1[i-1] = s_3[k] \quad \land \quad f[i-1][j] = \text{true}
+\]</span></p>
+<hr />
+<h3 id="情况-2最后一个字符来自-s_2">情况 2：最后一个字符来自 <span
+class="math inline">\(s_2\)</span></h3>
+<p><span class="math display">\[
+s_2[j-1] = s_3[k] \quad \land \quad f[i][j-1] = \text{true}
+\]</span></p>
+<hr />
+<h3 id="综合转移公式">综合转移公式</h3>
+<p><span class="math display">\[
+f[i][j] =
+\big( f[i-1][j] \land s_1[i-1]=s_3[k] \big)
+\;\lor\;
+\big( f[i][j-1] \land s_2[j-1]=s_3[k] \big)
+\]</span></p>
+<hr />
+<h2 id="五最终答案">五、最终答案</h2>
+<p><span class="math display">\[
+\boxed{f[n_1][n_2]}
+\]</span></p>
+<p>表示是否可以使用完整的 <span class="math inline">\(s_1\)</span> 与
+<span class="math inline">\(s_2\)</span> 构成完整的 <span
+class="math inline">\(s_3\)</span>。</p>
+<hr />
+<h2 id="六时间与空间复杂度">六、时间与空间复杂度</h2>
+<ul>
+<li><p>时间复杂度： <span class="math display">\[
+O(n_1 \times n_2)
+\]</span></p></li>
+<li><p>空间复杂度： <span class="math display">\[
+O(n_1 \times n_2)
+\]</span></p></li>
+</ul>
+<p>（可进一步优化为一维 DP，但非本题重点）</p>
+<hr />
+<h2 id="七参考实现ac-代码">七、参考实现（AC 代码）</h2>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">105</span>;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isInterleave</span><span class="params">(string s1, string s2, string s3)</span> </span>&#123;</span><br><span class="line">        <span class="type">bool</span> f[maxn][maxn];</span><br><span class="line">        <span class="type">int</span> n1 = s1.<span class="built_in">size</span>(), n2 = s2.<span class="built_in">size</span>(), n3 = s3.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span> (n1 + n2 != n3)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1 &amp;&amp; i &lt;= n3; ++i)</span><br><span class="line">            f[i][<span class="number">0</span>] = f[i - <span class="number">1</span>][<span class="number">0</span>] &amp;&amp; (s1[i - <span class="number">1</span>] == s3[i - <span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n2 &amp;&amp; i &lt;= n3; ++i)</span><br><span class="line">            f[<span class="number">0</span>][i] = f[<span class="number">0</span>][i - <span class="number">1</span>] &amp;&amp; (s2[i - <span class="number">1</span>] == s3[i - <span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j) &#123;</span><br><span class="line">                <span class="type">int</span> k = i + j - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span> (s1[i - <span class="number">1</span>] == s3[k])</span><br><span class="line">                    f[i][j] |= f[i - <span class="number">1</span>][j];</span><br><span class="line">                <span class="keyword">if</span> (s2[j - <span class="number">1</span>] == s3[k])</span><br><span class="line">                    f[i][j] |= f[i][j - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n1][n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>滚动数组版：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> maxn = <span class="number">105</span>;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isInterleave</span><span class="params">(string s1, string s2, string s3)</span> </span>&#123;</span><br><span class="line">        <span class="type">bool</span> f[maxn];</span><br><span class="line">        <span class="type">int</span> n1 = s1.<span class="built_in">size</span>(), n2 = s2.<span class="built_in">size</span>(), n3 = s3.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span> (n1 + n2 != n3)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="built_in">sizeof</span>(f));</span><br><span class="line">        f[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n2 &amp;&amp; i &lt;= n3; ++i)</span><br><span class="line">            f[i] = f[i - <span class="number">1</span>] &amp;&amp; (s2[i - <span class="number">1</span>] == s3[i - <span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n1; ++i) &#123;</span><br><span class="line">            f[<span class="number">0</span>] &amp;= (s1[i - <span class="number">1</span>] == s3[i - <span class="number">1</span>]);</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n2; ++j) &#123;</span><br><span class="line">                <span class="type">int</span> k = i + j - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span> (s1[i - <span class="number">1</span>] != s3[k])</span><br><span class="line">                    f[j] = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span> (s2[j - <span class="number">1</span>] == s3[k])</span><br><span class="line">                    f[j] |= f[j - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[n2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>力扣</category>
+      </categories>
+      <tags>
+        <tag>LCS</tag>
       </tags>
   </entry>
 </search>
