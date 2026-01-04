@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="duqHy3dcEjYWGMlIrrgCOyJ2KVh-pkq2tdoA6cKaSV4">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"fi3wey.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="考点  最大子数组和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1191. K 次串联后最大子数组之和">
+<meta property="og:url" content="https://fi3wey.github.io/2026/01/02/1191-K-%E6%AC%A1%E4%B8%B2%E8%81%94%E5%90%8E%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E4%B9%8B%E5%92%8C/index.html">
+<meta property="og:site_name" content="峰狂算法">
+<meta property="og:description" content="考点  最大子数组和">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-01-02T14:17:37.000Z">
+<meta property="article:modified_time" content="2026-01-02T14:30:47.472Z">
+<meta property="article:author" content="峰">
+<meta property="article:tag" content="线性DP">
+<meta property="article:tag" content="最大子数组和">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://fi3wey.github.io/2026/01/02/1191-K-%E6%AC%A1%E4%B8%B2%E8%81%94%E5%90%8E%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E4%B9%8B%E5%92%8C/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://fi3wey.github.io/2026/01/02/1191-K-%E6%AC%A1%E4%B8%B2%E8%81%94%E5%90%8E%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E4%B9%8B%E5%92%8C/","path":"2026/01/02/1191-K-次串联后最大子数组之和/","title":"1191. K 次串联后最大子数组之和"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>1191. K 次串联后最大子数组之和 | 峰狂算法</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="waline-theta-olive.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="峰狂算法" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">峰狂算法</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">105</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">546</span></a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%80%83%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">考点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0%E6%8A%BD%E8%B1%A1%E5%BB%BA%E6%A8%A1"><span class="nav-number">2.1.</span> <span class="nav-text">一、问题描述（抽象建模）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E6%A0%B8%E5%BF%83%E8%A7%82%E5%AF%9F%E9%97%AE%E9%A2%98%E9%99%8D%E7%BB%B4"><span class="nav-number">2.2.</span> <span class="nav-text">二、核心观察（问题降维）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%BF%85%E9%A1%BB%E8%AE%A1%E7%AE%97%E7%9A%84%E5%9B%9B%E4%B8%AA%E9%87%8F%E9%97%AE%E9%A2%98%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="nav-number">2.3.</span> <span class="nav-text">三、必须计算的四个量（问题的本质）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%80%BB%E5%92%8C"><span class="nav-number">2.3.1.</span> <span class="nav-text">1. 数组总和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E6%95%B0%E7%BB%84%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C"><span class="nav-number">2.3.2.</span> <span class="nav-text">2. 单数组最大子数组和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%89%8D%E7%BC%80%E5%92%8C"><span class="nav-number">2.3.3.</span> <span class="nav-text">3. 最大前缀和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%90%8E%E7%BC%80%E5%92%8C"><span class="nav-number">2.3.4.</span> <span class="nav-text">4. 最大后缀和</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E5%85%B3%E9%94%AE%E5%88%86%E7%B1%BB%E8%AE%A8%E8%AE%BA%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="nav-number">2.4.</span> <span class="nav-text">四、关键分类讨论（设计思路）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%85%E5%86%B5%E4%B8%80k-1"><span class="nav-number">2.4.1.</span> <span class="nav-text">情况一：\(k &#x3D;
+1\)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%85%E5%86%B5%E4%BA%8Ck-ge-2"><span class="nav-number">2.4.2.</span> <span class="nav-text">情况二：\(k \ge
+2\)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E5%BD%A2-a%E5%AE%8C%E5%85%A8%E4%BD%8D%E4%BA%8E%E6%9F%90%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84%E5%86%85%E9%83%A8"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">情形
+A：完全位于某一个数组内部</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%83%85%E5%BD%A2-b%E8%B7%A8%E8%B6%8A%E6%95%B0%E7%BB%84%E6%8B%BC%E6%8E%A5%E8%BE%B9%E7%95%8C"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">情形 B：跨越数组拼接边界</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E8%B7%A8%E8%BE%B9%E7%95%8C%E6%96%B9%E6%A1%88%E7%9A%84%E9%80%9A%E5%BC%8F"><span class="nav-number">2.5.</span> <span class="nav-text">五、跨边界方案的通式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E5%85%B3%E9%94%AE%E6%95%B0%E5%AD%A6%E8%A7%A3%E9%87%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%85%E5%BD%93-s0-%E6%89%8D%E6%8A%8A%E4%B8%AD%E9%97%B4%E6%95%B4%E5%9D%97%E5%85%A8%E9%83%A8%E7%BA%B3%E5%85%A5"><span class="nav-number">2.6.</span> <span class="nav-text">六、关键数学解释：为什么仅当
+\(S&gt;0\) 才“把中间整块全部纳入”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E6%9C%80%E7%BB%88%E7%BB%93%E8%AE%BA%E7%BB%9F%E4%B8%80%E5%85%AC%E5%BC%8F"><span class="nav-number">2.7.</span> <span class="nav-text">七、最终结论（统一公式）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8B%A5-s-le-0"><span class="nav-number">2.7.1.</span> <span class="nav-text">若 \(S \le 0\)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8B%A5-s-0"><span class="nav-number">2.7.2.</span> <span class="nav-text">若 \(S &gt; 0\)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E6%97%B6%E9%97%B4%E4%B8%8E%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">2.8.</span> <span class="nav-text">八、时间与空间复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9Dac%E4%BB%A3%E7%A0%81"><span class="nav-number">2.9.</span> <span class="nav-text">九、AC代码</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="峰"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">峰</p>
+  <div class="site-description" itemprop="description">让算法之旅更加疯狂而奇妙</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">546</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">105</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/fi3wey" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fi3wey" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fi3wey@gmail.com" title="E-Mail → mailto:fi3wey@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://fi3wey.github.io/2026/01/02/1191-K-%E6%AC%A1%E4%B8%B2%E8%81%94%E5%90%8E%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E4%B9%8B%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="峰">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="峰狂算法">
+      <meta itemprop="description" content="让算法之旅更加疯狂而奇妙">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="1191. K 次串联后最大子数组之和 | 峰狂算法">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          1191. K 次串联后最大子数组之和
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-01-02 22:17:37 / 修改时间：22:30:47" itemprop="dateCreated datePublished" datetime="2026-01-02T22:17:37+08:00">2026-01-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%8A%9B%E6%89%A3/" itemprop="url" rel="index"><span itemprop="name">力扣</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2026/01/02/1191-K-%E6%AC%A1%E4%B8%B2%E8%81%94%E5%90%8E%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E4%B9%8B%E5%92%8C/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2026/01/02/1191-K-%E6%AC%A1%E4%B8%B2%E8%81%94%E5%90%8E%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E4%B9%8B%E5%92%8C/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="考点">考点</h1>
+<ul>
+<li>最大子数组和</li>
+</ul>
+<span id="more"></span>
+<h1 id="思路">思路</h1>
+<hr />
+<h2 id="一问题描述抽象建模">一、问题描述（抽象建模）</h2>
+<p>给定一个长度为 <span class="math inline">\(n\)</span> 的整数数组
+<span class="math display">\[
+\texttt{arr} = [a_0, a_1, \dots, a_{n-1}]
+\]</span> 将其按顺序拼接 <span class="math inline">\(k\)</span>
+次，得到新数组： <span class="math display">\[
+\texttt{arr}^{(k)} = \underbrace{\texttt{arr} \Vert \texttt{arr} \Vert
+\cdots \Vert \texttt{arr}}_{k\ \text{次}}
+\]</span> 要求在 <span class="math inline">\(\texttt{arr}^{(k)}\)</span>
+中，求<strong>最大子数组和</strong>。
+允许选择<strong>空子数组</strong>，因此答案不小于 <span
+class="math inline">\(0\)</span>。</p>
+<hr />
+<h2 id="二核心观察问题降维">二、核心观察（问题降维）</h2>
+<p>直接在长度为 <span class="math inline">\(kn\)</span>
+的数组上求最大子数组和是不可行的。
+关键在于：<strong>最优子数组的结构是高度受限的</strong>。</p>
+<p>任意一个跨越数组拼接边界的子数组，其形式必然是：</p>
+<ul>
+<li>某一份数组的<strong>后缀</strong></li>
+<li>加上若干个<strong>完整数组</strong></li>
+<li>再加上一份数组的<strong>前缀</strong></li>
+</ul>
+<p>因此，整个问题可以被压缩为对原数组的若干“统计量”的组合。</p>
+<hr />
+<h2
+id="三必须计算的四个量问题的本质">三、必须计算的四个量（问题的本质）</h2>
+<p>对原数组 <code>arr</code>，一次线性扫描即可得到以下四个量：</p>
+<h3 id="数组总和">1. 数组总和</h3>
+<p><span class="math display">\[
+S = \sum_{i=0}^{n-1} a_i
+\]</span></p>
+<hr />
+<h3 id="单数组最大子数组和">2. 单数组最大子数组和</h3>
+<p>记为： <span class="math display">\[
+M_1 = \max_{\text{subarray} \subseteq \texttt{arr}} \sum \text{subarray}
+\]</span> 使用 <strong>Kadane 算法</strong>，并在最后与 <span
+class="math inline">\(0\)</span> 取最大值（允许空子数组）。</p>
+<hr />
+<h3 id="最大前缀和">3. 最大前缀和</h3>
+<p><span class="math display">\[
+P = \max_{0 \le i &lt; n} \sum_{j=0}^{i} a_j
+\]</span></p>
+<hr />
+<h3 id="最大后缀和">4. 最大后缀和</h3>
+<p><span class="math display">\[
+Q = \max_{0 \le i &lt; n} \sum_{j=i}^{n-1} a_j
+\]</span></p>
+<hr />
+<h2 id="四关键分类讨论设计思路">四、关键分类讨论（设计思路）</h2>
+<h3 id="情况一k-1">情况一：<span class="math inline">\(k =
+1\)</span></h3>
+<p>不涉及拼接，答案显然为： <span class="math display">\[
+\max(0, M_1)
+\]</span></p>
+<hr />
+<h3 id="情况二k-ge-2">情况二：<span class="math inline">\(k \ge
+2\)</span></h3>
+<p>最大子数组只有两种可能来源：</p>
+<hr />
+<h4 id="情形-a完全位于某一个数组内部">情形
+A：完全位于某一个数组内部</h4>
+<p>最大值为： <span class="math display">\[
+M_1
+\]</span></p>
+<hr />
+<h4 id="情形-b跨越数组拼接边界">情形 B：跨越数组拼接边界</h4>
+<p>此时子数组结构为： <span class="math display">\[
+\text{后缀} + \text{若干完整数组} + \text{前缀}
+\]</span> 其最大值为： <span class="math display">\[
+Q + (k-2)\cdot S + P
+\]</span> 但注意：<strong>是否值得取中间的完整数组，取决于 <span
+class="math inline">\(S\)</span> 的符号</strong>。</p>
+<hr />
+<h2 id="五跨边界方案的通式">五、跨边界方案的通式</h2>
+<p>当 <span class="math inline">\(k \ge 2\)</span>
+时，最大子数组要么：</p>
+<ol type="1">
+<li>完全落在某一个块内，取到 <span
+class="math inline">\(M_1\)</span>；</li>
+<li>跨越边界。</li>
+</ol>
+<p>下面集中讨论跨边界情况。</p>
+<p>设某个候选子数组覆盖了从第 <span class="math inline">\(L\)</span>
+块到第 <span class="math inline">\(R\)</span> 块（<span
+class="math inline">\(0 \le L \le R \le k-1\)</span>）。 若 <span
+class="math inline">\(L=R\)</span>，那就回到单块内部，最大不超过 <span
+class="math inline">\(M_1\)</span>。 若 $L，该子数组的和可以写成： <span
+class="math display">\[
+\text{Sum} = \underbrace{\text{Suffix}(\texttt{arr})}_{\le Q}
++ \underbrace{(R-L-1)\cdot S}_{\text{中间整块}}
++ \underbrace{\text{Prefix}(\texttt{arr})}_{\le P}
+\]</span> 因此跨边界子数组的最大可能值为： <span class="math display">\[
+Q + t\cdot S + P
+\]</span> 其中 <span class="math display">\[
+t = R-L-1
+\]</span> 表示中间<strong>被完整覆盖的整块数量</strong>，并且满足：
+<span class="math display">\[
+0 \le t \le k-2
+\]</span> 问题转化为：在固定 <span class="math inline">\(P,Q,S\)</span>
+的前提下，如何选择 <span class="math inline">\(t\)</span> 才能使 <span
+class="math display">\[
+Q + t\cdot S + P
+\]</span> 最大。</p>
+<hr />
+<h2
+id="六关键数学解释为什么仅当-s0-才把中间整块全部纳入">六、关键数学解释：为什么仅当
+<span class="math inline">\(S&gt;0\)</span> 才“把中间整块全部纳入”</h2>
+<p>对于跨边界形式 <span class="math display">\[
+F(t)=Q + P + t\cdot S,\quad t \in [0, k-2]
+\]</span> 最优的 <span class="math inline">\(t\)</span> 取值满足：</p>
+<ul>
+<li>若 <span class="math inline">\(S&gt;0\)</span>，则 <span
+class="math inline">\(t=k-2\)</span>（纳入尽可能多的整块）；</li>
+<li>若 <span class="math inline">\(S\le 0\)</span>，则 <span
+class="math inline">\(t=0\)</span>（不纳入任何中间整块）。</li>
+</ul>
+<p>中间每多纳入一个完整数组，子数组和会额外增加 <span
+class="math inline">\(S\)</span>。</p>
+<ul>
+<li><span
+class="math inline">\(S&gt;0\)</span>：每加入一份完整数组都赚正收益，越多越好；</li>
+<li><span class="math inline">\(S\le
+0\)</span>：每加入一份完整数组不赚甚至亏，最优不会多加入。</li>
+</ul>
+<hr />
+<h2 id="七最终结论统一公式">七、最终结论（统一公式）</h2>
+<h3 id="若-s-le-0">若 <span class="math inline">\(S \le 0\)</span></h3>
+<p>中间完整数组只会降低总和，因此最多跨越一次边界： <span
+class="math display">\[
+\text{Ans} = \max\left(M_1,\; P + Q\right)
+\]</span></p>
+<hr />
+<h3 id="若-s-0">若 <span class="math inline">\(S &gt; 0\)</span></h3>
+<p>中间完整数组全部纳入是有利的： <span class="math display">\[
+\text{Ans} = \max\left(M_1,\; P + Q + (k-2)\cdot S\right)
+\]</span></p>
+<hr />
+<h2 id="八时间与空间复杂度">八、时间与空间复杂度</h2>
+<ul>
+<li><p><strong>时间复杂度</strong>： <span class="math display">\[
+O(n)
+\]</span></p></li>
+<li><p><strong>空间复杂度</strong>： <span class="math display">\[
+O(1)
+\]</span></p></li>
+</ul>
+<hr />
+<h2 id="九ac代码">九、AC代码</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">    <span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">kConcatenationMaxSum</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; arr, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = arr.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1. 数组总和 S</span></span><br><span class="line">        ll sum = arr[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 最大前缀和 P</span></span><br><span class="line">        ll maxPrefix = arr[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. 单数组最大子数组和 M1（Kadane）</span></span><br><span class="line">        ll cur = arr[<span class="number">0</span>];</span><br><span class="line">        ll maxSub = arr[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            sum += arr[i];</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 前缀和更新</span></span><br><span class="line">            maxPrefix = <span class="built_in">max</span>(maxPrefix, sum);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Kadane</span></span><br><span class="line">            cur = <span class="built_in">max</span>((ll)arr[i], cur + arr[i]);</span><br><span class="line">            maxSub = <span class="built_in">max</span>(maxSub, cur);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4. 最大后缀和 Q</span></span><br><span class="line">        ll maxSuffix = arr[n - <span class="number">1</span>];</span><br><span class="line">        ll suffixSum = arr[n - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = n - <span class="number">2</span>; i &gt;= <span class="number">0</span>; --i) &#123;</span><br><span class="line">            suffixSum += arr[i];</span><br><span class="line">            maxSuffix = <span class="built_in">max</span>(maxSuffix, suffixSum);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 允许空子数组</span></span><br><span class="line">        maxSub = <span class="built_in">max</span>(<span class="number">0LL</span>, maxSub);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// k == 1 的特殊情况</span></span><br><span class="line">        <span class="keyword">if</span> (k == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> (<span class="type">int</span>)(maxSub % mod);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// k &gt;= 2</span></span><br><span class="line">        ll ans;</span><br><span class="line">        <span class="keyword">if</span> (sum &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 最多跨一次边界</span></span><br><span class="line">            ans = <span class="built_in">max</span>(maxSub, maxPrefix + maxSuffix);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 中间完整数组全部纳入</span></span><br><span class="line">            ans = <span class="built_in">max</span>(maxSub, maxPrefix + maxSuffix + (ll)(k - <span class="number">2</span>) * sum);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> (<span class="type">int</span>)(ans % mod);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>蟹蟹看官大人的赏赐呀~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="峰 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="峰 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="wechat_channel">
+    <!-- 这里添加你的二维码图片 -->
+    <img src="/images/wechat_channel.png">
+</div>
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>峰
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://fi3wey.github.io/2026/01/02/1191-K-%E6%AC%A1%E4%B8%B2%E8%81%94%E5%90%8E%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E4%B9%8B%E5%92%8C/" title="1191. K 次串联后最大子数组之和">https://fi3wey.github.io/2026/01/02/1191-K-次串联后最大子数组之和/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%BA%BF%E6%80%A7DP/" rel="tag"><i class="fa fa-tag"></i> 线性DP</a>
+              <a href="/tags/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C/" rel="tag"><i class="fa fa-tag"></i> 最大子数组和</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/01/02/918-%E7%8E%AF%E5%BD%A2%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/" rel="prev" title="918. 环形子数组的最大和">
+                  <i class="fa fa-chevron-left"></i> 918. 环形子数组的最大和
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/01/02/1749-%E4%BB%BB%E6%84%8F%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C%E7%9A%84%E7%BB%9D%E5%AF%B9%E5%80%BC%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/" rel="next" title="1749. 任意子数组和的绝对值的最大值">
+                  1749. 任意子数组和的绝对值的最大值 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">峰</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">298k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">16:34</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/fi3wey" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.8/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://fi3wey.github.io/2026/01/02/1191-K-%E6%AC%A1%E4%B8%B2%E8%81%94%E5%90%8E%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E4%B9%8B%E5%92%8C/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-theta-olive.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2026/01/02/1191-K-%E6%AC%A1%E4%B8%B2%E8%81%94%E5%90%8E%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E4%B9%8B%E5%92%8C/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+</body>
+</html>
