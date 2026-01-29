@@ -28,7 +28,7 @@
 <meta property="og:description" content="入门DP 爬楼梯  2266. 统计打字方案数 2466. 统计构造好字符串的方案数 377. 组合总和 Ⅳ 额外难点：必刷题！DP计算排列而非组合的设计思路 3693. 爬楼梯 II 746. 使用最小花费爬楼梯 70. 爬楼梯  打家劫舍  198. 打家劫舍 213. 打家劫舍 II 额外难点：环形DP处理 2320. 统计放置房子的方式数">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-12-04T16:40:59.000Z">
-<meta property="article:modified_time" content="2026-01-04T13:57:11.939Z">
+<meta property="article:modified_time" content="2026-01-29T06:49:48.194Z">
 <meta property="article:author" content="峰">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
@@ -90,7 +90,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">105</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">546</span></a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">110</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">599</span></a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -141,7 +141,8 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%A5%E9%97%A8dp"><span class="nav-number">1.</span> <span class="nav-text">入门DP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%88%AC%E6%A5%BC%E6%A2%AF"><span class="nav-number">1.1.</span> <span class="nav-text">爬楼梯</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D"><span class="nav-number">1.2.</span> <span class="nav-text">打家劫舍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C%E6%9C%80%E5%A4%A7%E5%AD%90%E6%AE%B5%E5%92%8C"><span class="nav-number">1.3.</span> <span class="nav-text">最大子数组和（最大子段和）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E5%8C%85%E9%80%89%E8%BF%98%E6%98%AF%E4%B8%8D%E9%80%89"><span class="nav-number">2.</span> <span class="nav-text">背包(选还是不选)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E5%8C%85%E5%8F%AA%E8%83%BD%E9%80%89%E4%B8%80%E6%AC%A1"><span class="nav-number">2.1.</span> <span class="nav-text">01背包(只能选一次)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85%E9%80%89%E6%97%A0%E6%95%B0%E6%AC%A1"><span class="nav-number">2.2.</span> <span class="nav-text">完全背包（选无数次）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85%E5%8F%AF%E4%BB%A5%E9%80%89%E5%A4%9A%E6%AC%A1"><span class="nav-number">2.3.</span> <span class="nav-text">多重背包(可以选多次)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E8%83%8C%E5%8C%85%E6%AF%8F%E4%B8%AA%E7%BB%84%E9%80%89%E4%B8%80%E4%B8%AA%E6%88%96%E8%80%85%E4%B8%8D%E9%80%89"><span class="nav-number">2.4.</span> <span class="nav-text">分组背包(每个组选一个或者不选)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8%E7%BA%BF%E6%80%A7dp"><span class="nav-number">3.</span> <span class="nav-text">经典线性DP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97-lcs"><span class="nav-number">3.1.</span> <span class="nav-text">最长公共子序列 LCS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80"><span class="nav-number">3.1.1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6"><span class="nav-number">3.1.2.</span> <span class="nav-text">进阶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97lis"><span class="nav-number">3.2.</span> <span class="nav-text">最长递增子序列LIS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">进阶</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%92%E5%88%86dp%E5%B0%86%E6%95%B0%E7%BB%84%E6%8B%86%E5%88%86%E4%B8%BA%E7%9B%B8%E9%82%BB%E6%88%96%E7%9B%B8%E9%97%B4%E7%9A%84%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84"><span class="nav-number">4.</span> <span class="nav-text">划分DP(将数组拆分为相邻或相间的连续子数组)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%92%E5%88%86%E5%8F%AF%E8%A1%8C%E6%80%A7"><span class="nav-number">4.1.</span> <span class="nav-text">划分可行性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B2%A1%E6%9C%89%E4%B8%AA%E6%95%B0%E9%99%90%E5%88%B6"><span class="nav-number">4.2.</span> <span class="nav-text">没有个数限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E4%B8%AA%E6%95%B0%E9%99%90%E5%88%B6"><span class="nav-number">4.3.</span> <span class="nav-text">有个数限制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E6%9C%BAdp"><span class="nav-number">5.</span> <span class="nav-text">状态机DP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8"><span class="nav-number">5.1.</span> <span class="nav-text">买卖股票</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80-2"><span class="nav-number">5.2.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6-2"><span class="nav-number">5.3.</span> <span class="nav-text">进阶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E6%95%B0dp"><span class="nav-number">6.</span> <span class="nav-text">计数DP</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%A5%E9%97%A8dp"><span class="nav-number">1.</span> <span class="nav-text">入门DP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%88%AC%E6%A5%BC%E6%A2%AF"><span class="nav-number">1.1.</span> <span class="nav-text">爬楼梯</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D"><span class="nav-number">1.2.</span> <span class="nav-text">打家劫舍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C%E6%9C%80%E5%A4%A7%E5%AD%90%E6%AE%B5%E5%92%8C"><span class="nav-number">1.3.</span> <span class="nav-text">最大子数组和（最大子段和）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E5%8C%85%E9%80%89%E8%BF%98%E6%98%AF%E4%B8%8D%E9%80%89"><span class="nav-number">2.</span> <span class="nav-text">背包(选还是不选)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E5%8C%85%E5%8F%AA%E8%83%BD%E9%80%89%E4%B8%80%E6%AC%A1"><span class="nav-number">2.1.</span> <span class="nav-text">01背包(只能选一次)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85%E9%80%89%E6%97%A0%E6%95%B0%E6%AC%A1"><span class="nav-number">2.2.</span> <span class="nav-text">完全背包（选无数次）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85%E5%8F%AF%E4%BB%A5%E9%80%89%E5%A4%9A%E6%AC%A1"><span class="nav-number">2.3.</span> <span class="nav-text">多重背包(可以选多次)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E8%83%8C%E5%8C%85%E6%AF%8F%E4%B8%AA%E7%BB%84%E9%80%89%E4%B8%80%E4%B8%AA%E6%88%96%E8%80%85%E4%B8%8D%E9%80%89"><span class="nav-number">2.4.</span> <span class="nav-text">分组背包(每个组选一个或者不选)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8%E7%BA%BF%E6%80%A7dp"><span class="nav-number">3.</span> <span class="nav-text">经典线性DP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97-lcs"><span class="nav-number">3.1.</span> <span class="nav-text">最长公共子序列 LCS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80"><span class="nav-number">3.1.1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6"><span class="nav-number">3.1.2.</span> <span class="nav-text">进阶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97lis"><span class="nav-number">3.2.</span> <span class="nav-text">最长递增子序列LIS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">进阶</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%92%E5%88%86dp%E5%B0%86%E6%95%B0%E7%BB%84%E6%8B%86%E5%88%86%E4%B8%BA%E7%9B%B8%E9%82%BB%E6%88%96%E7%9B%B8%E9%97%B4%E7%9A%84%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84"><span class="nav-number">4.</span> <span class="nav-text">划分DP(将数组拆分为相邻或相间的连续子数组)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%92%E5%88%86%E5%8F%AF%E8%A1%8C%E6%80%A7"><span class="nav-number">4.1.</span> <span class="nav-text">划分可行性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B2%A1%E6%9C%89%E4%B8%AA%E6%95%B0%E9%99%90%E5%88%B6"><span class="nav-number">4.2.</span> <span class="nav-text">没有个数限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E4%B8%AA%E6%95%B0%E9%99%90%E5%88%B6"><span class="nav-number">4.3.</span> <span class="nav-text">有个数限制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E6%9C%BAdp"><span class="nav-number">5.</span> <span class="nav-text">状态机DP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8"><span class="nav-number">5.1.</span> <span class="nav-text">买卖股票</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80-2"><span class="nav-number">5.2.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6-2"><span class="nav-number">5.3.</span> <span class="nav-text">进阶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%BA%BF%E6%80%A7dp"><span class="nav-number">6.</span> <span class="nav-text">其他线性DP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E7%BB%B4dp"><span class="nav-number">6.1.</span> <span class="nav-text">一维DP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E7%9B%B8%E4%BA%A4%E5%8C%BA%E9%97%B4"><span class="nav-number">6.2.</span> <span class="nav-text">不相交区间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%90%E6%95%B0%E7%BB%84dp"><span class="nav-number">6.3.</span> <span class="nav-text">子数组DP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E6%B3%95%E5%AD%90%E5%BA%8F%E5%88%97-dpfx%E4%BB%A5%E5%85%83%E7%B4%A0%E5%80%BCx%E7%BB%93%E5%B0%BE%E7%9A%84%E5%90%88%E6%B3%95%E5%AD%90%E5%BA%8F%E5%88%97%E8%80%8C%E9%9D%9E%E4%B8%8B%E6%A0%87%E5%A6%82%E6%9E%9Cx%E4%B8%8D%E6%98%AF%E6%95%B4%E6%95%B0%E6%88%96%E8%80%85%E5%80%BC%E5%9F%9F%E8%8C%83%E5%9B%B4%E5%BE%88%E5%A4%A7%E5%8F%AF%E4%BB%A5%E7%94%A8%E5%93%88%E5%B8%8C%E8%A1%A8%E4%BB%A3%E6%9B%BF%E6%95%B0%E7%BB%84"><span class="nav-number">6.4.</span> <span class="nav-text">合法子序列
+DP(f[x]以元素值x结尾的合法子序列，而非下标；如果x不是整数，或者值域范围很大，可以用哈希表代替数组)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%90%E7%9F%A9%E5%BD%A2-dp"><span class="nav-number">6.5.</span> <span class="nav-text">子矩形 DP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8C%BA%E9%97%B4dp"><span class="nav-number">7.</span> <span class="nav-text">区间DP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E5%BA%8F%E5%88%97"><span class="nav-number">7.1.</span> <span class="nav-text">最长回文子序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BA%E9%97%B4-dp"><span class="nav-number">7.2.</span> <span class="nav-text">区间 DP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E6%95%B0dp"><span class="nav-number">8.</span> <span class="nav-text">计数DP</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -156,18 +157,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">546</span>
+          <span class="site-state-item-count">599</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">105</span>
+        <span class="site-state-item-count">110</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -241,7 +242,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-01-04 21:57:11" itemprop="dateModified" datetime="2026-01-04T21:57:11+08:00">2026-01-04</time>
+      <time title="修改时间：2026-01-29 14:49:48" itemprop="dateModified" datetime="2026-01-29T14:49:48+08:00">2026-01-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -281,14 +282,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.6k</span>
+      <span>3.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>9 分钟</span>
+      <span>13 分钟</span>
     </span>
 </div>
 
@@ -828,6 +829,247 @@ target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-swaps-
 target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-number-of-special-subsequences/">1955.
 统计特殊子序列的数目</a></p></li>
 </ul>
+<h1 id="其他线性dp">其他线性DP</h1>
+<h2 id="一维dp">一维DP</h2>
+<ul>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/solving-questions-with-brainpower/">2140.
+解决智力问题</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/largest-divisible-subset/">368.
+最大整除子集</a></p>
+<p>额外难点：必刷题！<strong>整除的链式传递性质</strong></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-unequal-adjacent-groups-subsequence-ii/">2901.
+最长相邻不相等子序列 II</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/taking-maximum-energy-from-the-mystic-dungeon/">3147.
+从魔法师身上吸取的最大能量</a></p>
+<p>额外难点：结尾选择</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-number-of-coins-for-fruits/">2944.
+购买水果需要的最少金币数</a></p>
+<p>额外难点：<strong>必刷题！逆序考虑状态转移方程！</strong></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/2-keys-keyboard/">650.
+两个键的键盘</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-cost-for-tickets/">983.
+最低票价</a></p>
+<p>额外难点：<strong>必刷必刷题！向前覆盖问题的逆序、正序设计，以及双指针单调性优化</strong></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/the-number-of-beautiful-subsets/">2597.
+美丽子集的数目</a></p>
+<p>额外难点：<strong>必刷题！同余分组+排列组合+打家劫舍！</strong></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-valid-parentheses/">32.
+最长有效括号</a></p>
+<p>额外难点：栈的括号匹配问题用DP解</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-number-of-refueling-stops/">871.
+最低加油次数</a></p>
+<p>额外难点：问题抽象的建模转换</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/apply-operations-to-make-two-strings-equal/">2896.
+执行操作使两个字符串相等</a></p>
+<p>额外难点：<strong>必刷题！从一个字符串转换为另一个字符串的新思路！</strong></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-time-to-remove-all-cars-containing-illegal-goods/">2167.
+移除所有载有违禁货物车厢所需的最少时间</a></p>
+<p>额外难点：前后缀分解+状态机DP的好题</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-time-to-finish-the-race/">2188.
+完成比赛的最少时间</a></p>
+<p>额外难点：用贪心进行初始化打表</p></li>
+</ul>
+<h2 id="不相交区间">不相交区间</h2>
+<ul>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximize-the-profit-as-the-salesman/">2830.
+销售利润最大化</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-earnings-from-taxi/">2008.
+出租车的最大盈利</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-best-non-overlapping-events/">2054.
+两个最好的不重叠活动</a></p>
+<p>额外难点：时间戳</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-profit-in-job-scheduling/">1235.
+规划兼职工作</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-number-of-events-that-can-be-attended-ii/">1751.
+最多可以参加的会议数目 II</a></p></li>
+</ul>
+<h2 id="子数组dp">子数组DP</h2>
+<ul>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/unique-substrings-in-wraparound-string/">467.
+环绕字符串中唯一的子字符串</a></p>
+<p>额外难点：无穷循环DP的处理</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/total-appeal-of-a-string/">2262.
+字符串的总引力</a></p>
+<p>额外难点：子数组之间的状态转移</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-x-value-of-array-i/">3524.
+求出数组的 X 值 I</a></p>
+<p>额外难点：子数组之间的状态转移、乘法取模</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-unique-characters-of-all-substrings-of-a-given-string/">828.
+统计子串中的唯一字符</a></p>
+<p>额外难点：子数组之间的状态转移、乘法取模</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-subarray/">53.
+最大子数组和</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-product-subarray/">152.
+乘积最大子数组</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-non-decreasing-subarray-after-replacing-at-most-one-element/">3738.
+替换至多一个元素后最长非递减子数组</a></p>
+<p>额外难点：发掘前后缀分解的规律</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-subarray-sum-with-one-deletion/">1186.
+删除一次得到子数组最大和</a></p>
+<p>额外难点：发掘前后缀分解的规律</p></li>
+</ul>
+<h2
+id="合法子序列-dpfx以元素值x结尾的合法子序列而非下标如果x不是整数或者值域范围很大可以用哈希表代替数组">合法子序列
+DP(f[x]以元素值x结尾的合法子序列，而非下标；如果x不是整数，或者值域范围很大，可以用哈希表代替数组)</h2>
+<ul>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-unequal-adjacent-groups-subsequence-ii/">2901.
+最长相邻不相等子序列 II</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/sorting-three-groups/">2826.
+将三个组排序</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-different-palindromic-subsequences/">730.
+统计不同回文子序列</a></p>
+<p>额外难点：<strong>必刷题！回文子序列的经典题！</strong></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-square-streak-in-an-array/">2501.
+数组中最长的方波</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-arithmetic-subsequence-of-given-difference/">1218.
+最长定差子序列</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-arithmetic-subsequence/">1027.
+最长等差数列</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-ideal-subsequence/">2370.
+最长理想子序列</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/length-of-longest-fibonacci-subsequence/">873.
+最长的斐波那契子序列的长度</a></p>
+<p>额外难点：<strong>必刷题！按值DP的易错点！</strong></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/number-of-stable-subsequences/">3686.
+稳定子序列的数量</a></p>
+<p>额外难点：状态机DP的视角处理子序列</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-maximum-length-of-valid-subsequence-ii/">3202.
+找出有效子序列的最大长度 II</a></p>
+<p>额外难点：<strong>必刷题！必刷题！按值DP的经典题！</strong></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-string-chain/">1048.
+最长字符串链</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/arithmetic-slices-ii-subsequence/">446.
+等差数列划分 II - 子序列</a></p>
+<p>额外难点：状态的设计</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/distinct-subsequences-ii/">940.
+不同的子序列 II</a></p>
+<p>额外难点：<strong>必刷题！必刷题！序列去重的经典题！</strong></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/sum-of-good-subsequences/">3351.
+好子序列的元素之和</a></p>
+<p>额外难点：计算状态的贡献</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximize-consecutive-elements-in-an-array-after-modification/">3041.
+修改数组后最大化数组中的连续元素数目</a></p></li>
+</ul>
+<h2 id="子矩形-dp">子矩形 DP</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximal-square/">221.
+最大正方形</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-square-submatrices-with-all-ones/">1277.
+统计全为 1 的正方形子矩阵</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-difference-score-in-a-grid/">3148.
+矩阵中的最大得分</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-fertile-pyramids-in-a-land/">2088.
+统计农场中肥沃金字塔的数目</a></li>
+</ul>
+<h1 id="区间dp">区间DP</h1>
+<h2 id="最长回文子序列">最长回文子序列</h2>
+<ul>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-palindromic-subsequence/">516.
+最长回文子序列</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-different-palindromic-subsequences/">730.
+统计不同回文子序列</a></p>
+<p>额外难点：<strong>必刷题！回文子序列的经典题！</strong></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-insertion-steps-to-make-a-string-palindrome/">1312.
+让字符串成为回文串的最少插入次数</a></p>
+<p>额外难点：转换为回文子序列</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-palindromic-subsequence-after-at-most-k-operations/">3472.
+至多 K 次操作后的最长回文子序列</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximize-palindrome-length-from-subsequences/">1771.
+由子序列构造的最长回文串的长度</a></p></li>
+</ul>
+<h2 id="区间-dp">区间 DP</h2>
+<ul>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/unique-binary-search-trees/">96.
+不同的二叉搜索树</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/guess-number-higher-or-lower-ii/">375.
+猜数字大小 II</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/palindromic-substrings/">647.
+回文子串</a></p>
+<p>额外难点：<strong>必刷题！三种方法求回文串</strong></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-palindromic-substring/">5.
+最长回文子串</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/strange-printer/">664.
+奇怪的打印机</a></p>
+<p>额外难点：<strong>必刷题！区间DP模板题</strong></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/burst-balloons/">312.
+戳气球</a></p>
+<p>额外难点：<strong>必刷题！消消乐上下文无关的模板题</strong></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-boxes/">546.
+移除盒子</a></p>
+<p>额外难点：<strong>必刷题！消消乐上下文有关的模板题</strong></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/scramble-string/">87.
+扰乱字符串</a></p>
+<p>额外难点：两个字符串时的区间DP</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-number-of-operations-with-the-same-score-ii/">3040.
+相同分数的最大操作数目 II</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-score-from-performing-multiplication-operations/">1770.
+执行乘法运算的最大分数</a></p>
+<p>额外难点：自行构造区间DP的状态设计</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-cost-to-cut-a-stick/">1547.
+切棍子的最小成本</a></p>
+<p>额外难点：自行构造区间DP的状态设计</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-score-triangulation-of-polygon/">1039.
+多边形三角剖分的最低得分</a></p>
+<p>额外难点：自行构造区间DP的状态设计</p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-cost-tree-from-leaf-values/">1130.
+叶值的最小代价生成树</a></p></li>
+</ul>
 <h1 id="计数dp">计数DP</h1>
 <ul>
 <li><p><a
@@ -927,14 +1169,14 @@ target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/desc
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">298k</span>
+    <span title="站点总字数">366k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">16:34</span>
+    <span title="站点阅读时长">20:21</span>
   </span>
 </div>
 <div class="busuanzi-count">
